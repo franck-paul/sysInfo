@@ -1,2 +1,5 @@
 msgid "System Information"
 msgstr "Informations système"
+
+msgid "System info"
+msgstr "Infos système"

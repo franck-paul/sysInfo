@@ -10,6 +10,28 @@
 #
 # -- END LICENSE BLOCK ------------------------------------
 
+function checkCacheFile($file,$pf,$c,$pc)
+{
+	$pf = $c = $pc = '';
+	$tpl = $core->tpl->getPath();
+	foreach ($tpl as $p) {
+		if (file_exists($p.'/'.$file)) {
+			$pf = $p.'/';
+			break;
+		}
+	}
+	if ($pf != '') {
+		$c = md5($pf).'.php';
+		$pc = sprintf('%s/%s/%s/%s/',
+			path::real(DC_TPL_CACHE),'cbtpl',
+			substr($c,0,2),
+			substr($c,2,2)
+		);
+		return true;
+	}
+	return false;
+}
+
 if (!empty($_POST))
 {
 	try
