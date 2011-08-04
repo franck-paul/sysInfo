@@ -50,7 +50,7 @@ if (!empty($_POST))
 echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('System Information').'</h2>';
 
 if (!empty($_GET['chk'])) {
-	echo '<p class="message">'.__('All is going well.').'</p>';
+	echo '<p class="message">'.__('to infinity and beyond.').'</p>';
 }
 
 echo
@@ -152,7 +152,7 @@ switch ($checklist) {
 			'<tr>'.
 			'<th scope="col">'.__('Template path').'</th>'.
 			'<th scope="col">'.__('Template file').'</th>'.
-			'<th scope="col">'.__('Cache path').'</th>'.
+			'<th scope="col">'.__('Cache subpath').'</th>'.
 			'<th scope="col">'.__('Cache file').'</th>'.
 			'</tr>'.
 			'</thead>';

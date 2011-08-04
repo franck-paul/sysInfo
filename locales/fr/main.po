@@ -3,3 +3,36 @@ msgstr "Informations système"
 
 msgid "System info"
 msgstr "Infos système"
+
+msgid "Compiled templates"
+msgstr "Fichiers template compilés"
+
+msgid "PHP info"
+msgstr "PHP info"
+
+msgid "to infinity and beyond."
+msgstr "Vers l'infini et au délà."
+
+msgid "Select a checklist:"
+msgstr "Sélectionnez une checklist :"
+
+msgid "Check"
+msgstr "Contrôler"
+
+msgid "List of compiled templates in cache"
+msgstr "Liste des fichiers template compilés dans le cache"
+
+msgid "Template path"
+msgstr "Répertoire des templates"
+
+msgid "Template file"
+msgstr "Fichier template"
+
+msgid "Cache subpath"
+msgstr "Sous-répertoire du cache"
+
+msgid "Cache file"
+msgstr "Fichier cache"
+
+msgid "Live long and prosper."
+msgstr "Longue vie et prospérité."
