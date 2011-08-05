@@ -165,9 +165,11 @@ switch ($checklist) {
 		foreach ($paths as $path) {
 			$sub_path = path::real($path,false);
 			if (substr($sub_path,0,strlen($document_root)) == $document_root) {
-				$sub_path = substr($sub_path,strlen($document_root)+1);
+				$sub_path = substr($sub_path,strlen($document_root));
+				if (substr($sub_path,0,1) == '/') $sub_path = substr($sub_path,1);
 			} elseif (substr($sub_path,0,strlen(DC_ROOT)) == DC_ROOT) {
-				$sub_path = substr($sub_path,strlen(DC_ROOT)+1);
+				$sub_path = substr($sub_path,strlen(DC_ROOT));
+				if (substr($sub_path,0,1) == '/') $sub_path = substr($sub_path,1);
 			}
 			$path_displayed = false;
 			$files = files::scandir($path);
