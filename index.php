@@ -12,7 +12,8 @@
 
 $checklists = array(
 	__('Compiled templates') => 'compil-tpl',
-	__('PHP info') => 'php-info'
+	__('PHP info') => 'php-info',
+	__('URL handlers') => 'url-handler'
 );
 
 $checklist = '';
@@ -23,10 +24,15 @@ if (!empty($_POST))
 		$checklist = isset($_POST['checklist']) ? $_POST['checklist'] : '';
 		switch ($checklist) {
 
+			case 'url-handler':
+				break;
+
 			case 'php-info':
 				break;
 
 			case 'compil-tpl':
+				// Cope with cache file deletion
+				// ...
 				break;
 				
 			default:
@@ -67,6 +73,38 @@ echo
 // Display required information
 echo '<fieldset>';
 switch ($checklist) {
+	
+	case 'url-handler':
+		// Récupération des types d'URL enregistrées
+		$urls = $core->url->getTypes();
+
+		// Tables des URLs non gérées par le menu
+		//$excluded = array('rsd','xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed');
+		$excluded = array();
+
+		echo '<table id="urls"><caption>'.__('List of known URLs').'</caption>';
+		echo '<thead><tr><th scope="col">'.__('Type').'</th>'.
+			'<th scope="col">'.__('base URL').'</th>'.
+			'<th scope="col">'.__('Regular expression').'</th></tr></thead>';
+		echo '<tbody>';
+		echo '<tr>'.
+		     '<td scope="row">'.'home'.'</td>'.
+		     '<td>'.''.'</td>'.
+		     '<td>'.'^$'.'</td>'.
+		     '</tr>';
+		foreach ($urls as $type => $param) {
+		     if (!in_array($type,$excluded))
+		     {
+		               echo '<tr>'.
+		               '<td scope="row">'.$type.'</td>'.
+		               '<td>'.$param['url'].'</td>'.
+		               '<td>'.$param['representation'].'</td>'.
+		               '</tr>';
+		     }
+		}
+		echo '</tbody>';
+		echo '</table>';
+		break;
 	
 	case 'php-info':
 		ob_start();
@@ -188,8 +226,8 @@ switch ($checklist) {
 								echo '<tr>'.
 									'<td>'.($path_displayed ? '' : $sub_path).'</td>'.
 									'<td scope="row">'.$file.'</td>'.
-									'<td>'.$cache_subpath.'</td>'.
-									'<td>'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_file.'</td>'.
+									'<td>'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_subpath.'</td>'.
+									'<td>'.$cache_file.'</td>'.
 									'</tr>';
 								$path_displayed = true;
 							}

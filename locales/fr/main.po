@@ -36,3 +36,18 @@ msgstr "Fichier cache"
 
 msgid "Live long and prosper."
 msgstr "Longue vie et prospérité."
+
+msgid "List of known URLs"
+msgstr "Liste des URLs reconnues"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "base URL"
+msgstr "base d'URL"
+
+msgid "Regular expression"
+msgstr "Expression régulière"
+
+msgid "URL handlers"
+msgstr "Gestionnaires d'URL"
