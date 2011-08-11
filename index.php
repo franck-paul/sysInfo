@@ -213,7 +213,7 @@ switch ($checklist) {
 			$files = files::scandir($path);
 			if (is_array($files)) {
 				foreach ($files as $file) {
-					if (preg_match('/^(.*)\.html$/',$file,$matches)) {
+					if (preg_match('/^(.*)\.(html|xml)$/',$file,$matches)) {
 						if (isset($matches[1])) {
 							if (!in_array($file,$stack)) {
 								$stack[] = $file;
