@@ -51,3 +51,9 @@ msgstr "Expression régulière"
 
 msgid "URL handlers"
 msgstr "Gestionnaires d'URL"
+
+msgid "Behaviours"
+msgstr "Behaviours"
+
+msgid "Behaviours list"
+msgstr "Liste des behaviours"

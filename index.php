@@ -13,7 +13,8 @@
 $checklists = array(
 	__('Compiled templates') => 'compil-tpl',
 	__('PHP info') => 'php-info',
-	__('URL handlers') => 'url-handler'
+	__('URL handlers') => 'url-handler',
+	__('Behaviours') => 'behaviours'
 );
 
 $checklist = '';
@@ -23,6 +24,9 @@ if (!empty($_POST))
 	{
 		$checklist = isset($_POST['checklist']) ? $_POST['checklist'] : '';
 		switch ($checklist) {
+			
+			case 'behaviours':
+				break;
 
 			case 'url-handler':
 				break;
@@ -73,6 +77,33 @@ echo
 // Display required information
 echo '<fieldset>';
 switch ($checklist) {
+	
+	case 'behaviours':
+		// Affichage de la liste des behaviours inscrits
+		echo '<p>'.__('Behaviours list').'</p>';
+		echo '<ul>';
+		$bl = $core->getBehaviors('');
+		foreach ($bl as $b => $f) {
+			echo '<li>'.$b.' : ';
+			if (is_array($f)) {
+				echo '<ul>';
+				foreach ($f as $fi) {
+					echo '<li>';
+					if (is_array($fi)) {
+						echo $fi[0].'::'.$fi[1].'()';
+					} else {
+						echo $fi.'()';
+					}
+					echo '</li>';
+				}
+				echo '</ul>';
+			} else {
+				echo $f.'()';
+			}
+			echo '</li>';
+		}
+		echo '</ul>';
+		break;
 	
 	case 'url-handler':
 		// Récupération des types d'URL enregistrées
