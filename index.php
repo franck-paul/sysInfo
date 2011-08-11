@@ -183,6 +183,15 @@ switch ($checklist) {
 		if (substr($blog_url,0,strlen($blog_host)) == $blog_host) {
 			$blog_url = substr($blog_url,strlen($blog_host));
 		}
+
+		$paths = $core->tpl->getPath();
+		/*
+		echo '<p>'.__('List of template paths').'</p>'.'<ul>';
+		foreach ($paths as $path) {
+			echo '<li>'.$path.'<li>';
+		}
+		echo '</ul>';
+		*/
 		
 		echo '<table id="chk-table-result">';
 		echo '<caption>'.__('List of compiled templates in cache').' '.$cache_path.'/cbtpl'.'</caption>';
@@ -199,7 +208,6 @@ switch ($checklist) {
 		// Template stack
 		$stack = array();
 		// Loop on template paths
-		$paths = $core->tpl->getPath();
 		foreach ($paths as $path) {
 			$sub_path = path::real($path,false);
 			if (substr($sub_path,0,strlen($document_root)) == $document_root) {
@@ -210,14 +218,16 @@ switch ($checklist) {
 				if (substr($sub_path,0,1) == '/') $sub_path = substr($sub_path,1);
 			}
 			$path_displayed = false;
+			// Don't know exactly why but need to cope with inc/public/default-templates !
+			$md5_path = (!strstr($path,'inc/public/default-templates') ? $path : path::real($path));
 			$files = files::scandir($path);
 			if (is_array($files)) {
 				foreach ($files as $file) {
-					if (preg_match('/^(.*)\.(html|xml)$/',$file,$matches)) {
+					if (preg_match('/^(.*)\.(html|xml|xsl)$/',$file,$matches)) {
 						if (isset($matches[1])) {
 							if (!in_array($file,$stack)) {
 								$stack[] = $file;
-								$cache_file = md5($path.'/'.$file).'.php';
+								$cache_file = md5($md5_path.'/'.$file).'.php';
 								$cache_subpath = sprintf('%s/%s',substr($cache_file,0,2),substr($cache_file,2,2));
 								$cache_fullpath = path::real(DC_TPL_CACHE).'/cbtpl/'.$cache_subpath;
 								$file_check = $cache_fullpath.'/'.$cache_file;
