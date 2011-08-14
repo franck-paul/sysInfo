@@ -11,10 +11,49 @@
 # -- END LICENSE BLOCK ------------------------------------
 
 $checklists = array(
-	__('Compiled templates') => 'compil-tpl',
-	__('PHP info') => 'php-info',
-	__('URL handlers') => 'url-handler',
-	__('Behaviours') => 'behaviours'
+	__('Compiled templates') => 'templates',
+	__('URL handlers') => 'urlhandlers',
+	__('Behaviours') => 'behaviours',
+	__('DC Constants') => 'constants',
+	__('PHP info') => 'phpinfo'
+);
+
+$undefined = '<!-- undefined -->';
+$constants = array(
+	'DC_ADMIN_MAILFROM' => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
+	'DC_ADMIN_SSL' => defined('DC_ADMIN_SSL') ? DC_ADMIN_SSL : $undefined,
+	'DC_ADMIN_URL' => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
+	'DC_AUTH_PAGE' => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
+	'DC_AUTH_SESS_ID' => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
+	'DC_AUTH_SESS_UID' => defined('DC_AUTH_SESS_UID') ? DC_AUTH_SESS_UID : $undefined,
+	'DC_BACKUP_PATH' => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
+	'DC_BLOG_ID' => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
+	'DC_CONTEXT_ADMIN' => defined('DC_CONTEXT_ADMIN') ? DC_CONTEXT_ADMIN : $undefined,
+/* (add a / at the beginning of this line to uncomment the following lines)
+	'DC_DBDRIVER' => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
+	'DC_DBHOST' => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
+	'DC_DBNAME' => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
+	'DC_DBPASSWORD' => defined('DC_DBPASSWORD') ? DC_DBPASSWORD : $undefined,
+	'DC_DBPREFIX' => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
+	'DC_DBUSER' => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
+//*/
+	'DC_DEBUG' => defined('DC_DEBUG') ? DC_DEBUG : $undefined,
+	'DC_DIGESTS' => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
+	'DC_FORCE_SCHEME' => defined('DC_FORCE_SCHEME') ? DC_FORCE_SCHEME : $undefined,
+	'DC_L10N_ROOT' => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
+	'DC_L10N_UPDATE_URL' => defined('DC_L10N_UPDATE_URL') ? DC_L10N_UPDATE_URL : $undefined,
+	'DC_MASTER_KEY' => defined('DC_MASTER_KEY') ? '*********' /* DC_MASTER_KEY */ : $undefined,
+	'DC_MAX_UPLOAD_SIZE' => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
+	'DC_PLUGINS_ROOT' => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
+	'DC_RC_PATH' => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
+	'DC_ROOT' => defined('DC_ROOT') ? DC_ROOT : $undefined,
+	'DC_SESSION_NAME' => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
+	'DC_TPL_CACHE' => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
+	'DC_UPDATE_URL' => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
+	'DC_UPDATE_VERSION' => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
+	'DC_VENDOR_NAME' => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
+	'DC_VERSION' => defined('DC_VERSION') ? DC_VERSION : $undefined,
+	'DC_XMLRPC_URL' => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined
 );
 
 $checklist = '';
@@ -25,18 +64,21 @@ if (!empty($_POST))
 		$checklist = isset($_POST['checklist']) ? $_POST['checklist'] : '';
 		switch ($checklist) {
 			
-			case 'behaviours':
-				break;
-
-			case 'url-handler':
-				break;
-
-			case 'php-info':
-				break;
-
-			case 'compil-tpl':
+			case 'templates':
 				// Cope with cache file deletion
 				// ...
+				break;
+				
+			case 'urlhandlers':
+				break;
+				
+			case 'behaviours':
+				break;
+				
+			case 'constants':
+				break;
+				
+			case 'phpinfo':
 				break;
 				
 			default:
@@ -78,9 +120,22 @@ echo
 echo '<fieldset>';
 switch ($checklist) {
 	
+	case 'constants':
+		// Affichage des constantes remarquables de Dotclear
+		echo '<h3>'.__('Dotclear constants').'</h3>';
+		echo '<dl>';
+		foreach ($constants as $c => $v) {
+			echo '<dt>'.'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></dt>';
+			if ($v != $undefined) {
+				echo '<dd>'.$v.'</dd>';
+			}
+		}
+		echo '</dl>';
+		break;
+
 	case 'behaviours':
 		// Affichage de la liste des behaviours inscrits
-		echo '<p>'.__('Behaviours list').'</p>';
+		echo '<h3>'.__('Behaviours list').'</h3>';
 		echo '<ul>';
 		$bl = $core->getBehaviors('');
 		foreach ($bl as $b => $f) {
@@ -88,13 +143,13 @@ switch ($checklist) {
 			if (is_array($f)) {
 				echo '<ul>';
 				foreach ($f as $fi) {
-					echo '<li>';
+					echo '<li><code>';
 					if (is_array($fi)) {
 						echo $fi[0].'::'.$fi[1].'()';
 					} else {
 						echo $fi.'()';
 					}
-					echo '</li>';
+					echo '</code></li>';
 				}
 				echo '</ul>';
 			} else {
@@ -105,7 +160,7 @@ switch ($checklist) {
 		echo '</ul>';
 		break;
 	
-	case 'url-handler':
+	case 'urlhandlers':
 		// Récupération des types d'URL enregistrées
 		$urls = $core->url->getTypes();
 
@@ -129,7 +184,7 @@ switch ($checklist) {
 		               echo '<tr>'.
 		               '<td scope="row">'.$type.'</td>'.
 		               '<td>'.$param['url'].'</td>'.
-		               '<td>'.$param['representation'].'</td>'.
+		               '<td><code>'.$param['representation'].'</code></td>'.
 		               '</tr>';
 		     }
 		}
@@ -137,7 +192,7 @@ switch ($checklist) {
 		echo '</table>';
 		break;
 	
-	case 'php-info':
+	case 'phpinfo':
 		ob_start();
 		phpinfo(INFO_GENERAL + INFO_CONFIGURATION + INFO_MODULES + INFO_ENVIRONMENT + INFO_VARIABLES);
 		$phpinfo = array('phpinfo' => array());
@@ -168,7 +223,7 @@ switch ($checklist) {
 		}
 		break;
 
-	case 'compil-tpl':
+	case 'templates':
 		// Emulate public prepend
 		$core->tpl = new dcTemplate(DC_TPL_CACHE,'$core->tpl',$core);
 		$core->themes = new dcThemes($core);

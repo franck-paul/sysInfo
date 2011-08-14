@@ -57,3 +57,9 @@ msgstr "Behaviours"
 
 msgid "Behaviours list"
 msgstr "Liste des behaviours"
+
+msgid "DC Constants"
+msgstr "Constantes DC"
+
+msgid "Dotclear constants"
+msgstr "Constantes Dotclear"
