@@ -56,38 +56,28 @@ $constants = array(
 	'DC_XMLRPC_URL' => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined
 );
 
-$checklist = '';
-if (!empty($_POST))
-{
-	try
-	{
-		$checklist = isset($_POST['checklist']) ? $_POST['checklist'] : '';
-		switch ($checklist) {
-			
-			case 'templates':
-				// Cope with cache file deletion
-				// ...
-				break;
-				
-			case 'urlhandlers':
-				break;
-				
-			case 'behaviours':
-				break;
-				
-			case 'constants':
-				break;
-				
-			case 'phpinfo':
-				break;
-				
-			default:
-				break;
+$checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
+
+if (!empty($_POST['deltplaction'])) {
+	// Cope with cache file deletion
+	try {
+		if (empty($_POST['tpl'])) {
+			throw new Exception(__('No cache file selected'));
 		}
-	}
-	catch (Exception $e)
-	{
+		$root_cache = path::real(DC_TPL_CACHE).'/cbtpl/';
+		foreach ($_POST['tpl'] as $k => $v)
+		{
+			$cache_file = $root_cache.sprintf('%s/%s',substr($v,0,2),substr($v,2,2)).'/'.$v;
+			if (file_exists($cache_file)) {
+				unlink($cache_file);
+			}
+		}
+	} catch (Exception $e) {
+		$checklist = 'templates';
 		$core->error->add($e->getMessage());
+	}
+	if (!$core->error->flag()) {
+		http::redirect($p_url.'&deltpl=1');
 	}
 }
 
@@ -101,8 +91,9 @@ if (!empty($_POST))
 <?php
 echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('System Information').'</h2>';
 
-if (!empty($_GET['chk'])) {
-	echo '<p class="message">'.__('to infinity and beyond.').'</p>';
+if (!empty($_GET['deltpl'])) {
+	echo '<p class="message">'.__('Selected cache files have been deleted.').'</p>';
+	$checklist = 'templates';
 }
 
 echo
@@ -271,6 +262,10 @@ switch ($checklist) {
 		}
 
 		$paths = $core->tpl->getPath();
+
+		echo
+		'<form action="'.$p_url.'" method="post">';
+
 		/*
 		echo '<p>'.__('List of template paths').'</p>'.'<ul>';
 		foreach ($paths as $path) {
@@ -323,7 +318,9 @@ switch ($checklist) {
 									'<td>'.($path_displayed ? '' : $sub_path).'</td>'.
 									'<td scope="row">'.$file.'</td>'.
 									'<td>'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_subpath.'</td>'.
-									'<td>'.$cache_file.'</td>'.
+									'<td>'.'<label class="classic">'.
+										form::checkbox(array('tpl[]'),$cache_file,false,'','',!($file_exists)).' '.
+										$cache_file.'</label></td>'.
 									'</tr>';
 								$path_displayed = true;
 							}
@@ -333,10 +330,18 @@ switch ($checklist) {
 			}
 		}
 		echo '</tbody></table>';
+		echo
+		'<p>'.$core->formNonce().'<input type="submit" class="delete" name="deltplaction" value="'.__('Delete selected cache files').'" '.
+			'onclick="return window.confirm(\''.html::escapeJS(__('Are you sure you want to remove selected cache files?')).'\');"/></p>'.
+		'</form>';
 		break;
 
 	default:
-		echo '<p class="form-note">'.__('Live long and prosper.').'</p>';
+		if (rand(0,1)) {
+			echo '<p class="form-note">'.__('Live long and prosper.').'</p>';
+		} else {
+			echo '<p class="form-note">'.__('To infinity and beyond.').'</p>';
+		}
 		break;
 }
 echo '</fieldset>';

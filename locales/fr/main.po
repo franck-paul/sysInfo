@@ -10,7 +10,7 @@ msgstr "Fichiers template compilés"
 msgid "PHP info"
 msgstr "PHP info"
 
-msgid "to infinity and beyond."
+msgid "To infinity and beyond."
 msgstr "Vers l'infini et au délà."
 
 msgid "Select a checklist:"
@@ -63,3 +63,15 @@ msgstr "Constantes DC"
 
 msgid "Dotclear constants"
 msgstr "Constantes Dotclear"
+
+msgid "No cache file selected"
+msgstr "Aucun fichier cache sélectionné"
+
+msgid "Selected cache files have been deleted."
+msgstr "Les fichiers cache sélectionnés ont été supprimés."
+
+msgid "Delete selected cache files"
+msgstr "Supprimer les fichiers cache sélectionnés"
+
+msgid "Are you sure you want to remove selected cache files?"
+msgstr "Êtes-vous sûr de vouloir supprimer les fichiers cache sélectionnés ?"
