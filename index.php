@@ -53,7 +53,8 @@ $constants = array(
 	'DC_UPDATE_VERSION' => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
 	'DC_VENDOR_NAME' => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
 	'DC_VERSION' => defined('DC_VERSION') ? DC_VERSION : $undefined,
-	'DC_XMLRPC_URL' => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined
+	'DC_XMLRPC_URL' => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
+	'CLEARBRICKS_VERSION'=> defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined
 );
 
 $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
