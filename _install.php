@@ -12,14 +12,17 @@
 
 if (!defined('DC_CONTEXT_ADMIN')){return;}
 
-$new_version = $core->plugins->moduleInfo('sysinfo','version');
-$old_version = $core->getVersion('sysinfo');
+$new_version = $core->plugins->moduleInfo('sysInfo','version');
+$old_version = $core->getVersion('sysInfo');
 
 if (version_compare($old_version,$new_version,'>=')) return;
 
 try
 {
-	$core->setVersion('sysinfo',$new_version);
+	$core->blog->settings->addNamespace('sysinfo');
+	$core->blog->settings->sysinfo->put('http_cache',true,'boolean','HTTP cache',false,true);
+
+	$core->setVersion('sysInfo',$new_version);
 	
 	return true;
 }

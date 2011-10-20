@@ -15,6 +15,6 @@ $this->registerModule(
 	/* Name */			"sysInfo",
 	/* Description*/		"System Information",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.5.1'
+	/* Version */			'0.6'
 );
 ?>
