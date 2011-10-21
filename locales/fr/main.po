@@ -58,6 +58,9 @@ msgstr "Behaviours"
 msgid "Behaviours list"
 msgstr "Liste des behaviours"
 
+msgid "Public behaviours list"
+msgstr "Liste des behaviours publics"
+
 msgid "DC Constants"
 msgstr "Constantes DC"
 

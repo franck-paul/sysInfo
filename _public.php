@@ -62,30 +62,34 @@ class tplSysInfo
 	
 	public static function SysInfoBehaviours($attr)
 	{
-		$code =
-			'echo \'<h3>'.__('Behaviours list').'</h3><ul>\';'."\n".
-			'$bl = $core->getBehaviours();'."\n".
-			'foreach ($bl as $b => $f) {'."\n".
-			'	echo \'<li>\'.$b.\' : \';'."\n".
-			'	if (is_array($f)) {'."\n".
-			'		echo \'<ul>\';'."\n".
-			'		foreach ($f as $fi) {'."\n".
-			'			echo \'<li><code>\';'."\n".
-			'			if (is_array($fi)) {'."\n".
-			'				echo $fi[0].\'::\'.$fi[1].\'()\';'."\n".
-			'			} else {'."\n".
-			'				echo $fi.\'()\';'."\n".
-			'			}'."\n".
-			'			echo \'</code></li>\';'."\n".
-			'		}'."\n".
-			'		echo \'</ul>\';'."\n".
-			'	} else {'."\n".
-			'		echo $f.\'()\';'."\n".
-			'	}'."\n".
-			'	echo \'</li>\';'."\n".
-			'}'."\n".
-			'echo \'</ul>\';'."\n";
-		return '<?php '.$code.' ?>';
+		global $core;
+		
+		$code = '<h3>'.'<?php echo __(\'Public behaviours list\'); ?>'.'</h3>'."\n";
+		$code .= '<ul>'."\n";
+		
+		$bl = $core->getBehaviors('');
+		foreach ($bl as $b => $f) {
+			$code .= '<li>'.$b.' : ';
+			if (is_array($f)) {
+				$code .= "\n".'<ul>';
+				foreach ($f as $fi) {
+					$code .= '<li><code>';
+					if (is_array($fi)) {
+						$code .= $fi[0].'::'.$fi[1].'()';
+					} else {
+						$code .= $fi.'()';
+					}
+					$code .= '</code></li>';
+				}
+				$code .= '</ul>'."\n";
+			} else {
+				$code .= $f.'()';
+			}
+			$code .= '</li>'."\n";
+		}
+		$code .= '</ul>'."\n";
+
+		return $code;
 	}
 }
 ?>
