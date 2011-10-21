@@ -150,7 +150,7 @@ switch ($checklist) {
 			echo '</li>';
 		}
 		echo '</ul>';
-		echo '<p>'.'<a href="'.$core->blog->url.$core->url->getBase('sysinfo').'/'.'behaviours'.'">'.__('Display public behaviours').'</a>'.'</p>';
+		echo '<p>'.'<a id="sysinfo-preview" onclick="window.open(this.href);return false;" href="'.$core->blog->url.$core->url->getBase('sysinfo').'/'.'behaviours'.'">'.__('Display public behaviours').' ('.__('new window').')'.'</a>'.'</p>';
 		break;
 	
 	case 'urlhandlers':
