@@ -246,6 +246,15 @@ switch ($checklist) {
 			$main_plugins_root[0].'/../inc/public/default-templates',
 			$core->tpl->getPath());
 		
+		// Looking for default-templates in each plugin's dir
+		$plugins = $core->plugins->getModules();
+		foreach ($plugins as $k => $v) {
+			$plugin_root = $core->plugins->moduleInfo($k,'root');
+			if ($plugin_root) {
+				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates');
+			}
+		}
+		
 		// Get installation info
 		$document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 		$cache_path = path::real(DC_TPL_CACHE);
@@ -301,8 +310,8 @@ switch ($checklist) {
 				if (substr($sub_path,0,1) == '/') $sub_path = substr($sub_path,1);
 			}
 			$path_displayed = false;
-			// Don't know exactly why but need to cope with inc/public/default-templates !
-			$md5_path = (!strstr($path,'inc/public/default-templates') ? $path : path::real($path));
+			// Don't know exactly why but need to cope with */default-templates !
+			$md5_path = (!strstr($path,'/default-templates') ? $path : path::real($path));
 			$files = files::scandir($path);
 			if (is_array($files)) {
 				foreach ($files as $file) {
