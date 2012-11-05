@@ -12,8 +12,8 @@
 if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
-	/* Name */			"sysInfo",
-	/* Description*/		"System Information",
+	/* Name */				__("sysInfo"),
+	/* Description*/		__("System Information"),
 	/* Author */			"Franck Paul",
 	/* Version */			'0.7'
 );
