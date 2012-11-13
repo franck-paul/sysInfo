@@ -93,7 +93,7 @@ if (!empty($_POST['deltplaction'])) {
 echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('System Information').'</h2>';
 
 if (!empty($_GET['deltpl'])) {
-	echo '<p class="message">'.__('Selected cache files have been deleted.').'</p>';
+	dcPage::message(__('Selected cache files have been deleted.'));
 	$checklist = 'templates';
 }
 
