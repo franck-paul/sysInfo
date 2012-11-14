@@ -101,8 +101,8 @@ echo
 '<form action="'.$p_url.'" method="post">';
 
 echo
-'<p class="field"><label for="checklist">'.__('Select a checklist:').' '.
-form::combo('checklist',$checklists,$checklist).'</label>'.'</p>';
+'<p class="field"><label for="checklist">'.__('Select a checklist:').'</label> '.
+form::combo('checklist',$checklists,$checklist).'</p>';
 
 echo
 '<p>'.$core->formNonce().'<input type="submit" value="'.__('Check').'" /></p>'.
@@ -329,9 +329,9 @@ switch ($checklist) {
 									'<td>'.($path_displayed ? '' : $sub_path).'</td>'.
 									'<td scope="row">'.$file.'</td>'.
 									'<td>'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_subpath.'</td>'.
-									'<td>'.'<label class="classic">'.
+									'<td>'.
 										form::checkbox(array('tpl[]'),$cache_file,false,'','',!($file_exists)).' '.
-										$cache_file.'</label></td>'.
+										'<label class="classic">'.$cache_file.'</label></td>'.
 									'</tr>';
 								$path_displayed = true;
 							}
