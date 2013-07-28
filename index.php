@@ -90,7 +90,7 @@ if (!empty($_POST['deltplaction'])) {
 
 <body>
 <?php
-echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('System Information').'</h2>';
+echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; <span class="page-title">'.__('System Information').'</span></h2>';
 
 if (!empty($_GET['deltpl'])) {
 	dcPage::message(__('Selected cache files have been deleted.'));
