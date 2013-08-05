@@ -10,6 +10,6 @@
 #
 # -- END LICENSE BLOCK -----------------------------------------
 
-$core->url->register('sysinfo','sysinfo','^sysinfo(?:/(.+))?$',array('urlSysInfo','sysInfo'));
+$GLOBALS['core']->url->register('sysinfo','sysinfo','^sysinfo(?:/(.+))?$',array('urlSysInfo','sysInfo'));
 
 ?>
