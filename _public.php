@@ -24,11 +24,11 @@ class extSysInfo
 			return __('System Information');
 		}
 	}
-	
+
 	public static function urlHandlerBeforeGetData($ctx)
 	{
 		global $core;
-		
+
 		$core->blog->settings->addNamespace('sysinfo');
 		$ctx->http_cache = (boolean) $core->blog->settings->sysinfo->http_cache;
 	}
@@ -39,13 +39,13 @@ class urlSysInfo extends dcUrlHandlers
 	public static function sysInfo($args)
 	{
 		global $core, $_ctx;
-		
+
 		if ($args == 'behaviours') {
 
 			$core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__).'/default-templates');
 			self::serveDocument('behaviours.html');
 			exit;
-			
+
 		} else {
 			self::p404();
 			exit;
@@ -59,14 +59,14 @@ class tplSysInfo
 	{
 		return '<?php echo \''.__('System Information').'\'; ?>';
 	}
-	
+
 	public static function SysInfoBehaviours($attr)
 	{
 		global $core;
-		
+
 		$code = '<h3>'.'<?php echo __(\'Public behaviours list\'); ?>'.'</h3>'."\n";
 		$code .= '<ul>'."\n";
-		
+
 		$bl = $core->getBehaviors('');
 		foreach ($bl as $b => $f) {
 			$code .= '<li>'.$b.' : ';

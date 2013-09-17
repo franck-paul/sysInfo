@@ -90,10 +90,15 @@ if (!empty($_POST['deltplaction'])) {
 
 <body>
 <?php
-echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; <span class="page-title">'.__('System Information').'</span></h2>';
+echo
+dcPage::breadcrumb(
+	array(
+		__('System') => '',
+		'<span class="page-title">'.__('System Information').'</span>' => ''
+	));
 
 if (!empty($_GET['deltpl'])) {
-	dcPage::message(__('Selected cache files have been deleted.'));
+	dcPage::success(__('Selected cache files have been deleted.'));
 	$checklist = 'templates';
 }
 
@@ -109,9 +114,9 @@ echo
 '</form>';
 
 // Display required information
-echo '<fieldset>';
+echo '<div class="fieldset">';
 switch ($checklist) {
-	
+
 	case 'constants':
 		// Affichage des constantes remarquables de Dotclear
 		echo '<h3>'.__('Dotclear constants').'</h3>';
@@ -152,7 +157,7 @@ switch ($checklist) {
 		echo '</ul>';
 		echo '<p>'.'<a id="sysinfo-preview" onclick="window.open(this.href);return false;" href="'.$core->blog->url.$core->url->getBase('sysinfo').'/'.'behaviours'.'">'.__('Display public behaviours').' ('.__('new window').')'.'</a>'.'</p>';
 		break;
-	
+
 	case 'urlhandlers':
 		// Récupération des types d'URL enregistrées
 		$urls = $core->url->getTypes();
@@ -184,7 +189,7 @@ switch ($checklist) {
 		echo '</tbody>';
 		echo '</table>';
 		break;
-	
+
 	case 'phpinfo':
 		ob_start();
 		phpinfo(INFO_GENERAL + INFO_CONFIGURATION + INFO_MODULES + INFO_ENVIRONMENT + INFO_VARIABLES);
@@ -245,7 +250,7 @@ switch ($checklist) {
 			$__theme_tpl_path,
 			$main_plugins_root[0].'/../inc/public/default-templates',
 			$core->tpl->getPath());
-		
+
 		// Looking for default-templates in each plugin's dir
 		$plugins = $core->plugins->getModules();
 		foreach ($plugins as $k => $v) {
@@ -254,7 +259,7 @@ switch ($checklist) {
 				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates');
 			}
 		}
-		
+
 		// Get installation info
 		$document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 		$cache_path = path::real(DC_TPL_CACHE);
@@ -284,7 +289,7 @@ switch ($checklist) {
 		}
 		echo '</ul>';
 		*/
-		
+
 		echo '<table id="chk-table-result">';
 		echo '<caption>'.__('List of compiled templates in cache').' '.$cache_path.'/cbtpl'.'</caption>';
 		echo '<thead>'.
@@ -355,7 +360,7 @@ switch ($checklist) {
 		}
 		break;
 }
-echo '</fieldset>';
+echo '</div>';
 
 ?>
 </body>

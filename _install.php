@@ -23,7 +23,7 @@ try
 	$core->blog->settings->sysinfo->put('http_cache',true,'boolean','HTTP cache',false,true);
 
 	$core->setVersion('sysInfo',$new_version);
-	
+
 	return true;
 }
 catch (Exception $e)
