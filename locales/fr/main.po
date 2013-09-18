@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-05 17:31+0100\n"
+"POT-Creation-Date: 2013-09-18 17:13+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -14,9 +14,6 @@ msgstr ""
 
 msgid "System info"
 msgstr "Infos système"
-
-msgid "sysInfo"
-msgstr "sysInfo"
 
 msgid "System Information"
 msgstr "Informations système"
@@ -92,6 +89,9 @@ msgstr "Longue vie et prospérité."
 
 msgid "To infinity and beyond."
 msgstr "Vers l'infini et au delà."
+
+#~ msgid "sysInfo"
+#~ msgstr "sysInfo"
 
 #~ msgid "Type"
 #~ msgstr "Type"
