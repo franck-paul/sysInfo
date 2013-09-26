@@ -12,6 +12,4 @@
 
 if (!defined('DC_RC_PATH')) { return; }
 
-$GLOBALS['core']->url->register('sysinfo','sysinfo','^sysinfo(?:/(.+))?$',array('urlSysInfo','sysInfo'));
-
-?>
+$core->url->register('sysinfo','sysinfo','^sysinfo(?:/(.+))?$',array('urlSysInfo','sysInfo'));

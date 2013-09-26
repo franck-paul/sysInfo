@@ -27,4 +27,3 @@ function sysInfoDashboardFavs($core,$favs)
 		'index.php?pf=sysInfo/icon.png','index.php?pf=sysInfo/icon-big.png',
 		null,null,null));
 }
-?>

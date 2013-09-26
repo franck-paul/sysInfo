@@ -94,4 +94,3 @@ class tplSysInfo
 		return $code;
 	}
 }
-?>
