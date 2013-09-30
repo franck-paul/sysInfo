@@ -97,7 +97,7 @@ echo
 dcPage::breadcrumb(
 	array(
 		__('System') => '',
-		'<span class="page-title">'.__('System Information').'</span>' => ''
+		__('System Information') => ''
 	));
 
 if (!empty($_GET['deltpl'])) {
