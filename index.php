@@ -81,7 +81,8 @@ if (!empty($_POST['deltplaction'])) {
 		$core->error->add($e->getMessage());
 	}
 	if (!$core->error->flag()) {
-		http::redirect($p_url.'&deltpl=1');
+		dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
+		http::redirect($p_url.'&tpl=1');
 	}
 }
 
@@ -99,9 +100,9 @@ dcPage::breadcrumb(
 		__('System') => '',
 		__('System Information') => ''
 	));
+echo dcPage::notices();
 
-if (!empty($_GET['deltpl'])) {
-	dcPage::success(__('Selected cache files have been deleted.'));
+if (!empty($_GET['tpl'])) {
 	$checklist = 'templates';
 }
 
