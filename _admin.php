@@ -19,11 +19,19 @@ $_menu['System']->addItem(__('System info'),'plugin.php?p=sysInfo','index.php?pf
 		preg_match('/plugin.php\?p=sysInfo(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->isSuperAdmin());
 
-$core->addBehavior('adminDashboardFavs','sysInfoDashboardFavs');
+/* Register favorite */
+$core->addBehavior('adminDashboardFavorites',array('sysInfoAdmin','adminDashboardFavorites'));
 
-function sysInfoDashboardFavs($core,$favs)
+class sysInfoAdmin
 {
-	$favs['sysInfo'] = new ArrayObject(array('sysInfo','System info','plugin.php?p=sysInfo',
-		'index.php?pf=sysInfo/icon.png','index.php?pf=sysInfo/icon-big.png',
-		null,null,null));
+	public static function adminDashboardFavorites($core,$favs)
+	{
+		$favs->register('sysInfo', array(
+			'title' => __('System Information'),
+			'url' => 'plugin.php?p=sysInfo',
+			'small-icon' => 'index.php?pf=sysInfo/icon.png',
+			'large-icon' => 'index.php?pf=sysInfo/icon-big.png',
+			'permissions' => $core->auth->isSuperAdmin()
+		));
+	}
 }
