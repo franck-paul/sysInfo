@@ -236,6 +236,7 @@ switch ($checklist) {
 		if (!$core->themes->moduleExists($__theme)) {
 			$__theme = $core->blog->settings->system->theme = 'default';
 		}
+		$tplset = $core->themes->moduleInfo($__theme,'tplset');
 		$__parent_theme = $core->themes->moduleInfo($__theme,'parent');
 		if ($__parent_theme) {
 			if (!$core->themes->moduleExists($__parent_theme)) {
@@ -248,11 +249,17 @@ switch ($checklist) {
 		);
 		if ($__parent_theme) {
 			$__theme_tpl_path[] = $core->blog->themes_path.'/'.$__parent_theme.'/tpl';
+			if (empty($tplset)) {
+				$tplset = $core->themes->moduleInfo($__parent_theme,'tplset');
+			}
+		}
+		if (empty($tplset)) {
+			$tplset = DC_DEFAULT_TPLSET;
 		}
 		$main_plugins_root = explode(':',DC_PLUGINS_ROOT);
 		$core->tpl->setPath(
 			$__theme_tpl_path,
-			$main_plugins_root[0].'/../inc/public/default-templates',
+			$main_plugins_root[0].'/../inc/public/default-templates/'.$tplset,
 			$core->tpl->getPath());
 
 		// Looking for default-templates in each plugin's dir
@@ -260,7 +267,7 @@ switch ($checklist) {
 		foreach ($plugins as $k => $v) {
 			$plugin_root = $core->plugins->moduleInfo($k,'root');
 			if ($plugin_root) {
-				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates');
+				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates/'.$tplset);
 			}
 		}
 
@@ -320,7 +327,7 @@ switch ($checklist) {
 			}
 			$path_displayed = false;
 			// Don't know exactly why but need to cope with */default-templates !
-			$md5_path = (!strstr($path,'/default-templates') ? $path : path::real($path));
+			$md5_path = (!strstr($path,'/default-templates/'.$tplset) ? $path : path::real($path));
 			$files = files::scandir($path);
 			if (is_array($files)) {
 				foreach ($files as $file) {
