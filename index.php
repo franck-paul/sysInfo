@@ -268,6 +268,8 @@ switch ($checklist) {
 			$plugin_root = $core->plugins->moduleInfo($k,'root');
 			if ($plugin_root) {
 				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates/'.$tplset);
+				// To be exhaustive add also direct directory (without templateset)
+				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates');
 			}
 		}
 
