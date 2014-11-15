@@ -17,6 +17,7 @@ $checklists = array(
 	__('URL handlers') => 'urlhandlers',
 	__('Behaviours') => 'behaviours',
 	__('DC Constants') => 'constants',
+	__('Admin URLs') => 'adminurls',
 	__('PHP info') => 'phpinfo'
 );
 
@@ -189,6 +190,26 @@ switch ($checklist) {
 		               '<td><code>'.$param['representation'].'</code></td>'.
 		               '</tr>';
 		     }
+		}
+		echo '</tbody>';
+		echo '</table>';
+		break;
+
+	case 'adminurls':
+		// Récupération de la liste des URLs d'admin enregistrées
+		$urls = $core->adminurl->dumpUrls();
+
+		echo '<table id="urls"><caption>'.__('Admin registered URLs').'</caption>';
+		echo '<thead><tr><th scope="col">'.__('Name').'</th>'.
+			'<th scope="col">'.__('URL').'</th>'.
+			'<th scope="col">'.__('Query string').'</th></tr></thead>';
+		echo '<tbody>';
+		foreach ($urls as $name => $url) {
+			echo '<tr>'.
+			'<td scope="row">'.$name.'</td>'.
+			'<td><code>'.$url['url'].'</code></td>'.
+			'<td><code>'.http_build_query($url['qs']).'</code></td>'.
+			'</tr>';
 		}
 		echo '</tbody>';
 		echo '</table>';
