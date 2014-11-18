@@ -41,6 +41,8 @@ $constants = array(
 	'DC_DBUSER' => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
 //*/
 	'DC_DEBUG' => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
+	'DC_DEFAULT_JQUERY' => defined('DE_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
+	'DC_DEFAULT_TPLSET' => defined('DE_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
 	'DC_DEV' => defined('DC_DEV') ? (DC_DEV ? 'true' : 'false') : $undefined,
 	'DC_DIGESTS' => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
 	'DC_FORCE_SCHEME_443' => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
