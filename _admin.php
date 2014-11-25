@@ -15,8 +15,13 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('sysInfo').__('System Information');
 
-$_menu['System']->addItem(__('System info'),'plugin.php?p=sysInfo','index.php?pf=sysInfo/icon.png',
-		preg_match('/plugin.php\?p=sysInfo(&.*)?$/',$_SERVER['REQUEST_URI']),
+// Register admin URL base of plugin
+$core->adminurl->registercopy('admin.plugin.sysinfo','admin.plugin',array('p' => 'sysInfo'));
+
+$_menu['System']->addItem(__('System info'),
+		$core->adminurl->get('admin.plugin.sysinfo'),
+		$core->adminurl->get('load.plugin.file',array('pf' => 'sysInfo/icon.png')),
+		preg_match('/'.preg_quote($core->adminurl->get('admin.plugin.sysinfo')).'(&.*)/',$_SERVER['REQUEST_URI']),
 		$core->auth->isSuperAdmin());
 
 /* Register favorite */
@@ -28,9 +33,9 @@ class sysInfoAdmin
 	{
 		$favs->register('sysInfo', array(
 			'title' => __('System Information'),
-			'url' => 'plugin.php?p=sysInfo',
-			'small-icon' => 'index.php?pf=sysInfo/icon.png',
-			'large-icon' => 'index.php?pf=sysInfo/icon-big.png',
+			'url' => $core->adminurl->get('admin.plugin.sysinfo'),
+			'small-icon' => $core->adminurl->get('load.plugin.file',array('pf' => 'sysInfo/icon.png')),
+			'large-icon' => $core->adminurl->get('load.plugin.file',array('pf' => 'sysInfo/icon-big.png')),
 			'permissions' => $core->auth->isSuperAdmin()
 		));
 	}
