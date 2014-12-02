@@ -54,6 +54,7 @@ $constants = array(
 	'DC_RC_PATH' => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
 	'DC_ROOT' => defined('DC_ROOT') ? DC_ROOT : $undefined,
 	'DC_SESSION_NAME' => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
+	'DC_SHOW_HIDDEN_DIRS' => defined('DC_SHOW_HIDDEN_DIRS') ? DC_SHOW_HIDDEN_DIRS : $undefined,
 	'DC_TPL_CACHE' => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
 	'DC_UPDATE_URL' => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
 	'DC_UPDATE_VERSION' => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
