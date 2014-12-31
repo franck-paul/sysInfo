@@ -18,6 +18,8 @@ $checklists = array(
 	__('Behaviours') => 'behaviours',
 	__('DC Constants') => 'constants',
 	__('Admin URLs') => 'adminurls',
+	__('Editors and Syntaxes') => 'formaters',
+	__('Plugins') => 'plugins',
 	__('PHP info') => 'phpinfo'
 );
 
@@ -124,6 +126,38 @@ echo
 // Display required information
 echo '<div class="fieldset">';
 switch ($checklist) {
+
+	case 'plugins':
+		// Affichage de la liste des éditeurs et des syntaxes par éditeur
+		$plugins = $core->plugins->getModules();
+		echo '<h3>'.__('Plugins (in loading order)').'</h3>';
+		echo '<dl>';
+		foreach ($plugins as $id => $m) {
+			echo '<dt>'.$id.'</dt>';
+			if (is_array($m)) {
+				foreach ($m as $p => $v) {
+					echo '<dd>'.$p.' : '.$v.'</dd>';
+				}
+			}
+		}
+		echo '</dl>';
+		break;
+
+	case 'formaters':
+		// Affichage de la liste des éditeurs et des syntaxes par éditeur
+		$formaters = $core->getFormaters();
+		echo '<h3>'.__('Editors and their supported syntaxes').'</h3>';
+		echo '<dl>';
+		foreach ($formaters as $e => $s) {
+			echo '<dt>'.$e.'</dt>';
+			if (is_array($s)) {
+				foreach ($s as $f) {
+					echo '<dd>'.$f.'</dd>';
+				}
+			}
+		}
+		echo '</dl>';
+		break;
 
 	case 'constants':
 		// Affichage des constantes remarquables de Dotclear
