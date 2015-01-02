@@ -72,9 +72,16 @@ class tplSysInfo
 		global $core;
 
 		$code = '<h3>'.'<?php echo __(\'Public behaviours list\'); ?>'.'</h3>'."\n";
-		$code .= '<ul>'."\n";
+		$code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
 
-		$bl = $core->getBehaviors('');
+		return $code;
+	}
+
+	public static function publicBehavioursList()
+	{
+		$code = '<ul>'."\n";
+
+		$bl = $GLOBALS['core']->getBehaviors('');
 		foreach ($bl as $b => $f) {
 			$code .= '<li>'.$b.' : ';
 			if (is_array($f)) {
