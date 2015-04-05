@@ -136,7 +136,23 @@ switch ($checklist) {
 			echo '<dt>'.$id.'</dt>';
 			if (is_array($m)) {
 				foreach ($m as $p => $v) {
-					echo '<dd>'.$p.' : '.$v.'</dd>';
+					if (is_array($v)) {
+						echo '<dd>'.$p.' : ';
+						$first = false;
+						foreach ($v as $q => $w) {
+							if ($first) {
+								echo '<ul>';
+								$first = true;
+							}
+							echo '<li>'.$q.' : '.$w.'</li>';
+						}
+						if (!$first) {
+							echo '</ul>';
+						}
+						echo '</dd>';
+					} else {
+						echo '<dd>'.$p.' : '.$v.'</dd>';
+					}
 				}
 			}
 		}
