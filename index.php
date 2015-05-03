@@ -128,7 +128,7 @@ echo '<div class="fieldset">';
 switch ($checklist) {
 
 	case 'plugins':
-		// Affichage de la liste des éditeurs et des syntaxes par éditeur
+		// Affichage de la liste des plugins (et de leurs propriétés)
 		$plugins = $core->plugins->getModules();
 		echo '<h3>'.__('Plugins (in loading order)').'</h3>';
 		echo '<dl>';
