@@ -89,7 +89,11 @@ class tplSysInfo
 				foreach ($f as $fi) {
 					$code .= '<li><code>';
 					if (is_array($fi)) {
-						$code .= $fi[0].'::'.$fi[1].'()';
+						if (is_object($fi[0])) {
+							echo get_class($fi[0]).'->'.$fi[1].'()';
+						} else {
+							echo $fi[0].'::'.$fi[1].'()';
+						}
 					} else {
 						$code .= $fi.'()';
 					}
