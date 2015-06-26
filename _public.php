@@ -90,9 +90,9 @@ class tplSysInfo
 					$code .= '<li><code>';
 					if (is_array($fi)) {
 						if (is_object($fi[0])) {
-							echo get_class($fi[0]).'->'.$fi[1].'()';
+							$code .= get_class($fi[0]).'-&gt;'.$fi[1].'()';
 						} else {
-							echo $fi[0].'::'.$fi[1].'()';
+							$code .= $fi[0].'::'.$fi[1].'()';
 						}
 					} else {
 						$code .= $fi.'()';
