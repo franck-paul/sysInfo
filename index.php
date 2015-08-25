@@ -20,6 +20,7 @@ $checklists = array(
 	__('Admin URLs') => 'adminurls',
 	__('Editors and Syntaxes') => 'formaters',
 	__('Plugins') => 'plugins',
+	__('REST methods') => 'rest',
 	__('PHP info') => 'phpinfo'
 );
 
@@ -126,6 +127,26 @@ echo
 // Display required information
 echo '<div class="fieldset">';
 switch ($checklist) {
+
+	case 'rest':
+		$methods = $core->rest->functions;
+		echo '<h3>'.__('REST methods').'</h3>';
+		echo '<ul>';
+		foreach ($methods as $method => $callback) {
+			echo '<li><strong>'.$method.'</strong> : ';
+			if (is_array($callback)) {
+				if (count($callback) > 1) {
+					echo $callback[0].'::'.$callback[1];
+				} else {
+					echo $callback[0];
+				}
+			} else {
+				echo $callback;
+			}
+			echo '</li>';
+		}
+		echo '</ul>';
+		break;
 
 	case 'plugins':
 		// Affichage de la liste des plugins (et de leurs propriétés)
