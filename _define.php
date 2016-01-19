@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */			"sysInfo",
 	/* Description*/		"System Information",
 	/* Author */			"Franck Paul",
-	/* Version */			'1.3',
+	/* Version */			'1.4',
 	array(
 		/* Type */			'type' =>			'plugin',
 		/* Priority */		'priority' =>		99999999999
