@@ -26,48 +26,49 @@ $checklists = array(
 
 $undefined = '<!-- undefined -->';
 $constants = array(
-	'DC_ADMIN_MAILFROM' => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
-	'DC_ADMIN_SSL' => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
-	'DC_ADMIN_URL' => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
+	'DC_ADMIN_MAILFROM'      => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
+	'DC_ADMIN_SSL'           => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
+	'DC_ADMIN_URL'           => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
 	'DC_ALLOW_MULTI_MODULES' => defined('DC_ALLOW_MULTI_MODULES') ? (DC_ALLOW_MULTI_MODULES ? 'true' : 'false') : $undefined,
-	'DC_AUTH_PAGE' => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
-	'DC_AUTH_SESS_ID' => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
-	'DC_AUTH_SESS_UID' => defined('DC_AUTH_SESS_UID') ? DC_AUTH_SESS_UID : $undefined,
-	'DC_BACKUP_PATH' => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
-	'DC_BLOG_ID' => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
-	'DC_CONTEXT_ADMIN' => defined('DC_CONTEXT_ADMIN') ? DC_CONTEXT_ADMIN : $undefined,
+	'DC_AUTH_PAGE'           => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
+	'DC_AUTH_SESS_ID'        => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
+	'DC_AUTH_SESS_UID'       => defined('DC_AUTH_SESS_UID') ? DC_AUTH_SESS_UID : $undefined,
+	'DC_BACKUP_PATH'         => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
+	'DC_BLOG_ID'             => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
+	'DC_CONTEXT_ADMIN'       => defined('DC_CONTEXT_ADMIN') ? DC_CONTEXT_ADMIN : $undefined,
+	'DC_CRYPT_ALGO'          => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
 /* (add a / at the beginning of this line to uncomment the following lines)
-	'DC_DBDRIVER' => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
-	'DC_DBHOST' => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
-	'DC_DBNAME' => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
-	'DC_DBPASSWORD' => defined('DC_DBPASSWORD') ? DC_DBPASSWORD : $undefined,
-	'DC_DBPREFIX' => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
-	'DC_DBUSER' => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
+	'DC_DBDRIVER'            => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
+	'DC_DBHOST'              => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
+	'DC_DBNAME'              => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
+	'DC_DBPASSWORD'          => defined('DC_DBPASSWORD') ? DC_DBPASSWORD : $undefined,
+	'DC_DBPREFIX'            => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
+	'DC_DBUSER'              => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
 //*/
-	'DC_DEBUG' => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
-	'DC_DEFAULT_JQUERY' => defined('DE_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
-	'DC_DEFAULT_TPLSET' => defined('DE_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
-	'DC_DEV' => defined('DC_DEV') ? (DC_DEV ? 'true' : 'false') : $undefined,
-	'DC_DIGESTS' => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
-	'DC_FORCE_SCHEME_443' => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
-	'DC_L10N_ROOT' => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
-	'DC_L10N_UPDATE_URL' => defined('DC_L10N_UPDATE_URL') ? DC_L10N_UPDATE_URL : $undefined,
-	'DC_MASTER_KEY' => defined('DC_MASTER_KEY') ? '*********' /* DC_MASTER_KEY */ : $undefined,
-	'DC_MAX_UPLOAD_SIZE' => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
-	'DC_NOT_UPDATE' => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
-	'DC_PLUGINS_ROOT' => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
-	'DC_RC_PATH' => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
-	'DC_ROOT' => defined('DC_ROOT') ? DC_ROOT : $undefined,
-	'DC_SESSION_NAME' => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
-	'DC_SESSION_TTL' => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
-	'DC_SHOW_HIDDEN_DIRS' => defined('DC_SHOW_HIDDEN_DIRS') ? DC_SHOW_HIDDEN_DIRS : $undefined,
-	'DC_TPL_CACHE' => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
-	'DC_UPDATE_URL' => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
-	'DC_UPDATE_VERSION' => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
-	'DC_VENDOR_NAME' => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
-	'DC_VERSION' => defined('DC_VERSION') ? DC_VERSION : $undefined,
-	'DC_XMLRPC_URL' => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
-	'CLEARBRICKS_VERSION'=> defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined
+	'DC_DEBUG'               => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
+	'DC_DEFAULT_JQUERY'      => defined('DE_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
+	'DC_DEFAULT_TPLSET'      => defined('DE_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
+	'DC_DEV'                 => defined('DC_DEV') ? (DC_DEV ? 'true' : 'false') : $undefined,
+	'DC_DIGESTS'             => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
+	'DC_FORCE_SCHEME_443'    => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
+	'DC_L10N_ROOT'           => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
+	'DC_L10N_UPDATE_URL'     => defined('DC_L10N_UPDATE_URL') ? DC_L10N_UPDATE_URL : $undefined,
+	'DC_MASTER_KEY'          => defined('DC_MASTER_KEY') ? '*********' /* DC_MASTER_KEY */ : $undefined,
+	'DC_MAX_UPLOAD_SIZE'     => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
+	'DC_NOT_UPDATE'          => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
+	'DC_PLUGINS_ROOT'        => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
+	'DC_RC_PATH'             => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
+	'DC_ROOT'                => defined('DC_ROOT') ? DC_ROOT : $undefined,
+	'DC_SESSION_NAME'        => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
+	'DC_SESSION_TTL'         => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
+	'DC_SHOW_HIDDEN_DIRS'    => defined('DC_SHOW_HIDDEN_DIRS') ? DC_SHOW_HIDDEN_DIRS : $undefined,
+	'DC_TPL_CACHE'           => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
+	'DC_UPDATE_URL'          => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
+	'DC_UPDATE_VERSION'      => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
+	'DC_VENDOR_NAME'         => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
+	'DC_VERSION'             => defined('DC_VERSION') ? DC_VERSION : $undefined,
+	'DC_XMLRPC_URL'          => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
+	'CLEARBRICKS_VERSION'    => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined
 );
 
 $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
@@ -155,32 +156,10 @@ switch ($checklist) {
 		// Affichage de la liste des plugins (et de leurs propriétés)
 		$plugins = $core->plugins->getModules();
 		echo '<h3>'.__('Plugins (in loading order)').'</h3>';
-		echo '<dl>';
 		foreach ($plugins as $id => $m) {
-			echo '<dt>'.$id.'</dt>';
-			if (is_array($m)) {
-				foreach ($m as $p => $v) {
-					if (is_array($v)) {
-						echo '<dd>'.$p.' : ';
-						$first = false;
-						foreach ($v as $q => $w) {
-							if ($first) {
-								echo '<ul>';
-								$first = true;
-							}
-							echo '<li>'.$q.' : '.$w.'</li>';
-						}
-						if (!$first) {
-							echo '</ul>';
-						}
-						echo '</dd>';
-					} else {
-						echo '<dd>'.$p.' : '.$v.'</dd>';
-					}
-				}
-			}
+			echo '<h4>'.$id.'</h4>';
+			echo '<pre style="white-space: pre;">'.print_r($m,true).'</pre>';
 		}
-		echo '</dl>';
 		break;
 
 	case 'formaters':
