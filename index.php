@@ -65,6 +65,7 @@ $constants = array(
 	'DC_TPL_CACHE'           => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
 	'DC_UPDATE_URL'          => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
 	'DC_UPDATE_VERSION'      => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
+	'DC_VAR'                 => defined('DC_VAR') ? DC_VAR : $undefined,
 	'DC_VENDOR_NAME'         => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
 	'DC_VERSION'             => defined('DC_VERSION') ? DC_VERSION : $undefined,
 	'DC_XMLRPC_URL'          => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
