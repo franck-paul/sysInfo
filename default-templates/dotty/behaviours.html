@@ -1,0 +1,13 @@
+{{tpl:extends parent="__layout.html"}}
+
+<tpl:Block name="body-tag"><body class="dc-sysinfo"></tpl:Block>
+
+<tpl:Block name="main-content">
+	<header id="sysinfo-info">
+		<h2>{{tpl:SysInfoPageTitle}}</h2>
+	</header>
+
+	<article class="sysinfo-inner">
+		{{tpl:SysInfoBehaviours}}
+	</article>
+</tpl:Block>
