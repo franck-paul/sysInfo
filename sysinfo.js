@@ -7,7 +7,7 @@ $(function() {
 			xd_check: dotclear.nonce,
 			file: template_file
 		};
-		$.ajaxSetup({async: false,timeout: 3000,cache: false});
+		$.ajaxSetup({ async: false, timeout: 3000, cache: false });
 		$.get('services.php', params, function(data) {
 			if ($('rsp[status=failed]', data).length > 0) {
 				// For debugging purpose only:
@@ -34,10 +34,10 @@ $(function() {
 				var src =
 					'<div class="tpl_compiled_view">' +
 					'<h1>' +
-						template_file +
+					template_file +
 					'</h1>' +
 					'<textarea id="tpl_compiled_source">' +
-						window.atob(content) +
+					window.atob(content) +
 					'</textarea>' +
 					'</div>';
 				$.magnificPopup.open({
@@ -61,13 +61,28 @@ $(function() {
 								if (dotclear.colorsyntax_theme !== '') {
 									options.theme = dotclear.colorsyntax_theme;
 								}
-								var editor = CodeMirror.fromTextArea(document.getElementById('tpl_compiled_source'),options);
+								var editor = CodeMirror.fromTextArea(document.getElementById('tpl_compiled_source'), options);
 							}
 						}
 					}
 				});
 			}
 		}
+	});
+
+	// Autosubmit on checklist change
+	$('#checklist').change(function() {
+		this.form.submit();
+	});
+
+	// Checkboxes helpers
+	$('.checkboxes-helpers').each(function() {
+		dotclear.checkboxesHelpers(this, undefined, '#tplform td input[type=checkbox]:enabled', '#tplform #deltplaction');
+	});
+	$('#tplform td input[type=checkbox]').enableShiftClick();
+	dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
+	$('form input[type=submit][name=deltplaction]').click(function() {
+		return window.confirm(dotclear.msg.confirm_del_tpl);
 	});
 
 });

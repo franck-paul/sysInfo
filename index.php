@@ -23,6 +23,9 @@ $checklists = array(
 	__('REST methods') => 'rest',
 	__('PHP info') => 'phpinfo'
 );
+if ($core->plugins->moduleExists('staticCache')) {
+	$checklists[__('Static cache')] = 'sc';
+}
 
 $undefined = '<!-- undefined -->';
 $constants = array(
@@ -37,14 +40,12 @@ $constants = array(
 	'DC_BLOG_ID'             => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
 	'DC_CONTEXT_ADMIN'       => defined('DC_CONTEXT_ADMIN') ? DC_CONTEXT_ADMIN : $undefined,
 	'DC_CRYPT_ALGO'          => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
-/* (add a / at the beginning of this line to uncomment the following lines)
 	'DC_DBDRIVER'            => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
 	'DC_DBHOST'              => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
 	'DC_DBNAME'              => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
-	'DC_DBPASSWORD'          => defined('DC_DBPASSWORD') ? DC_DBPASSWORD : $undefined,
+	'DC_DBPASSWORD'          => defined('DC_DBPASSWORD') ? '*********' /* DC_DBPASSWORD */ : $undefined,
 	'DC_DBPREFIX'            => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
 	'DC_DBUSER'              => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
-//*/
 	'DC_DEBUG'               => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
 	'DC_DEFAULT_JQUERY'      => defined('DE_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
 	'DC_DEFAULT_TPLSET'      => defined('DE_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
@@ -71,6 +72,14 @@ $constants = array(
 	'DC_XMLRPC_URL'          => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
 	'CLEARBRICKS_VERSION'    => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined
 );
+
+if ($core->plugins->moduleExists('staticCache')) {
+	$constants['DC_SC_CACHE_ENABLE'] = defined('DC_SC_CACHE_ENABLE') ? DC_SC_CACHE_ENABLE : $undefined;
+	$constants['DC_SC_CACHE_DIR'] = defined('DC_SC_CACHE_DIR') ? DC_SC_CACHE_DIR : $undefined;
+	$constants['DC_SC_CACHE_BLOGS_ON'] = defined('DC_SC_CACHE_BLOGS_ON') ? DC_SC_CACHE_BLOGS_ON : $undefined;
+	$constants['DC_SC_CACHE_BLOGS_OFF'] = defined('DC_SC_CACHE_BLOGS_OFF') ? DC_SC_CACHE_BLOGS_OFF : $undefined;
+	$constants['DC_SC_EXCLUDED_URL'] = defined('DC_SC_EXCLUDED_URL') ? DC_SC_EXCLUDED_URL : $undefined;
+}
 
 $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
 
@@ -113,6 +122,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 		'<script type="text/javascript">'.
 		dcPage::jsVar('dotclear.colorsyntax',$user_ui_colorsyntax).
 		dcPage::jsVar('dotclear.colorsyntax_theme',$user_ui_colorsyntax_theme).
+		dcPage::jsVar('dotclear.msg.confirm_del_tpl',__('Are you sure you want to remove selected cache files?')).
 		'</script>'.
 		dcPage::jsModal().
 		dcPage::jsLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.js')),$core->getVersion('sysInfo'));
@@ -142,20 +152,17 @@ echo
 
 echo
 '<p class="field"><label for="checklist">'.__('Select a checklist:').'</label> '.
-form::combo('checklist',$checklists,$checklist).'</p>';
-
-echo
-'<p>'.$core->formNonce().'<input type="submit" value="'.__('Check').'" /></p>'.
+form::combo('checklist',$checklists,$checklist).' '.
+$core->formNonce().'<input type="submit" value="'.__('Check').'" /></p>'.
 '</form>';
 
 // Display required information
-echo '<div class="fieldset">';
 switch ($checklist) {
 
 	case 'rest':
 		$methods = $core->rest->functions;
 		echo '<h3>'.__('REST methods').'</h3>';
-		echo '<ul>';
+		echo '<ul class="sysinfo">';
 		foreach ($methods as $method => $callback) {
 			echo '<li><strong>'.$method.'</strong> : ';
 			if (is_array($callback)) {
@@ -178,7 +185,7 @@ switch ($checklist) {
 		echo '<h3>'.__('Plugins (in loading order)').'</h3>';
 		foreach ($plugins as $id => $m) {
 			echo '<h4>'.$id.'</h4>';
-			echo '<pre style="white-space: pre;">'.print_r($m,true).'</pre>';
+			echo '<pre style="white-space: pre;" class="sysinfo">'.print_r($m,true).'</pre>';
 		}
 		break;
 
@@ -186,7 +193,7 @@ switch ($checklist) {
 		// Affichage de la liste des éditeurs et des syntaxes par éditeur
 		$formaters = $core->getFormaters();
 		echo '<h3>'.__('Editors and their supported syntaxes').'</h3>';
-		echo '<dl>';
+		echo '<dl class="sysinfo">';
 		foreach ($formaters as $e => $s) {
 			echo '<dt>'.$e.'</dt>';
 			if (is_array($s)) {
@@ -201,7 +208,7 @@ switch ($checklist) {
 	case 'constants':
 		// Affichage des constantes remarquables de Dotclear
 		echo '<h3>'.__('Dotclear constants').'</h3>';
-		echo '<dl>';
+		echo '<dl class="sysinfo">';
 		foreach ($constants as $c => $v) {
 			echo '<dt>'.'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></dt>';
 			if ($v != $undefined) {
@@ -214,7 +221,7 @@ switch ($checklist) {
 	case 'behaviours':
 		// Affichage de la liste des behaviours inscrits
 		echo '<h3>'.__('Behaviours list').'</h3>';
-		echo '<ul>';
+		echo '<ul class="sysinfo">';
 		$bl = $core->getBehaviors('');
 		foreach ($bl as $b => $f) {
 			echo '<li>'.$b.' : ';
@@ -251,7 +258,7 @@ switch ($checklist) {
 		//$excluded = array('rsd','xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed');
 		$excluded = array();
 
-		echo '<table id="urls"><caption>'.__('List of known URLs').'</caption>';
+		echo '<table id="urls" class="sysinfo"><caption>'.__('List of known URLs').'</caption>';
 		echo '<thead><tr><th scope="col">'.__('Type').'</th>'.
 			'<th scope="col">'.__('base URL').'</th>'.
 			'<th scope="col">'.__('Regular expression').'</th></tr></thead>';
@@ -279,7 +286,7 @@ switch ($checklist) {
 		// Récupération de la liste des URLs d'admin enregistrées
 		$urls = $core->adminurl->dumpUrls();
 
-		echo '<table id="urls"><caption>'.__('Admin registered URLs').'</caption>';
+		echo '<table id="urls" class="sysinfo"><caption>'.__('Admin registered URLs').'</caption>';
 		echo '<thead><tr><th scope="col">'.__('Name').'</th>'.
 			'<th scope="col">'.__('URL').'</th>'.
 			'<th scope="col">'.__('Query string').'</th></tr></thead>';
@@ -312,7 +319,7 @@ switch ($checklist) {
 			}
 		}
 		foreach($phpinfo as $name => $section) {
-			echo "<h3>$name</h3>\n<table>\n";
+			echo "<h3>$name</h3>\n<table class=\"sysinfo\">\n";
 			foreach($section as $key => $val) {
 				if(is_array($val)) {
 					echo "<tr><td>$key</td><td>$val[0]</td><td>$val[1]</td></tr>\n";
@@ -394,7 +401,7 @@ switch ($checklist) {
 		$paths = $core->tpl->getPath();
 
 		echo
-		'<form action="'.$p_url.'" method="post">';
+		'<form action="'.$p_url.'" method="post" id="tplform">';
 
 		/*
 		echo '<p>'.__('List of template paths').'</p>'.'<ul>';
@@ -404,14 +411,14 @@ switch ($checklist) {
 		echo '</ul>';
 		*/
 
-		echo '<table id="chk-table-result">';
+		echo '<table id="chk-table-result" class="sysinfo">';
 		echo '<caption>'.__('List of compiled templates in cache').' '.$cache_path.'/cbtpl'.'</caption>';
 		echo '<thead>'.
 			'<tr>'.
 			'<th scope="col">'.__('Template path').'</th>'.
-			'<th scope="col">'.__('Template file').'</th>'.
-			'<th scope="col">'.__('Cache subpath').'</th>'.
-			'<th scope="col">'.__('Cache file').'</th>'.
+			'<th scope="col" class="nowrap">'.__('Template file').'</th>'.
+			'<th scope="col" class="nowrap">'.__('Cache subpath').'</th>'.
+			'<th scope="col" class="nowrap">'.__('Cache file').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
@@ -446,9 +453,9 @@ switch ($checklist) {
 								$file_url = http::getHost().$cache_path.'/cbtpl/'.$cache_subpath.'/'.$cache_file;
 								echo '<tr>'.
 									'<td>'.($path_displayed ? '' : $sub_path).'</td>'.
-									'<td scope="row">'.$file.'</td>'.
-									'<td>'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_subpath.'</td>'.
-									'<td>'.
+									'<td scope="row" class="nowrap">'.$file.'</td>'.
+									'<td class="nowrap">'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_subpath.'</td>'.
+									'<td class="nowrap">'.
 										form::checkbox(array('tpl[]'),$cache_file,false,
 											($file_exists) ? 'tpl_compiled' : '','',!($file_exists)).' '.
 										'<label class="classic">'.
@@ -466,8 +473,10 @@ switch ($checklist) {
 		}
 		echo '</tbody></table>';
 		echo
-		'<p>'.$core->formNonce().'<input type="submit" class="delete" name="deltplaction" value="'.__('Delete selected cache files').'" '.
-			'onclick="return window.confirm(\''.html::escapeJS(__('Are you sure you want to remove selected cache files?')).'\');"/></p>'.
+		'<div class="two-cols">'.
+		'<p class="col checkboxes-helpers"></p>'.
+		'<p class="col right">'.$core->formNonce().'<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="'.__('Delete selected cache files').'" /></p>'.
+		'</div>'.
 		'</form>';
 		break;
 
@@ -479,7 +488,6 @@ switch ($checklist) {
 		}
 		break;
 }
-echo '</div>';
 
 ?>
 </body>

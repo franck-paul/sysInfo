@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 11:27+0200\n"
+"POT-Creation-Date: 2017-02-08 15:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -45,17 +45,23 @@ msgstr "Méthodes REST"
 msgid "PHP info"
 msgstr "PHP info"
 
+msgid "Static cache"
+msgstr "Cache statique"
+
 msgid "No cache file selected"
 msgstr "Aucun fichier cache sélectionné"
 
 msgid "Selected cache files have been deleted."
 msgstr "Les fichiers cache sélectionnés ont été supprimés."
 
+msgid "Are you sure you want to remove selected cache files?"
+msgstr "Êtes-vous sûr de vouloir supprimer les fichiers cache sélectionnés ?"
+
 msgid "Select a checklist:"
-msgstr "Sélectionnez une checklist :"
+msgstr "Sélectionnez une liste :"
 
 msgid "Check"
-msgstr "Contrôler"
+msgstr "Obtenir"
 
 msgid "Plugins (in loading order)"
 msgstr "Plugins (dans l'ordre de chargement)"
@@ -104,9 +110,6 @@ msgstr "Fichier cache"
 
 msgid "Delete selected cache files"
 msgstr "Supprimer les fichiers cache sélectionnés"
-
-msgid "Are you sure you want to remove selected cache files?"
-msgstr "Êtes-vous sûr de vouloir supprimer les fichiers cache sélectionnés ?"
 
 msgid "Live long and prosper."
 msgstr "Longue vie et prospérité."

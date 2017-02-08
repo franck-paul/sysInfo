@@ -1,3 +1,8 @@
+/* Standard */
+.sysinfo tr:hover {
+	background-color: #f3f3f3;
+}
+
 /* Compiled templates */
 .tpl_compiled_view {
 	width: auto;
