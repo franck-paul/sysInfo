@@ -1,4 +1,19 @@
 /* Compiled templates */
+.tpl_compiled_view {
+	width: auto;
+	background: #fff;
+}
+.tpl_compiled_view h1 {
+	font-weight: bold;
+	width: initial;
+	text-indent: 1em;
+}
+.tpl_compiled_view textarea {
+	resize: none;
+	width: calc(100% - 2em);
+	height: 90vh;
+	margin: 1em;
+}
 .tpl_compiled_view .CodeMirror {
 	height: 90vh;
 	font: 1em Monaco,"Courier New",Courier,monospace;
