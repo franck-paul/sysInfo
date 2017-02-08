@@ -13,3 +13,9 @@
 if (!defined('DC_RC_PATH')) { return; }
 
 $core->url->register('sysinfo','sysinfo','^sysinfo(?:/(.+))?$',array('urlSysInfo','sysInfo'));
+
+if (!defined('DC_CONTEXT_ADMIN')) { return false; }
+
+// Admin mode only
+
+$__autoload['sysInfoRest'] = dirname(__FILE__).'/_services.php';

@@ -37,3 +37,6 @@ class sysInfoAdmin
 		));
 	}
 }
+
+// Register REST methods
+$core->rest->addFunction('getCompiledTemplate',array('sysInfoRest','getCompiledTemplate'));

@@ -1,0 +1,5 @@
+/* Compiled templates */
+.tpl_compiled_view .CodeMirror {
+	height: 90vh;
+	font: 1em Monaco,"Courier New",Courier,monospace;
+}

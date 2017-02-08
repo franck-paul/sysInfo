@@ -98,10 +98,29 @@ if (!empty($_POST['deltplaction'])) {
 	}
 }
 
+# Get interface setting
+$core->auth->user_prefs->addWorkspace('interface');
+$user_ui_colorsyntax = $core->auth->user_prefs->interface->colorsyntax;
+$user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme;
+
 ?>
 <html>
 <head>
 	<title><?php echo __('System Information'); ?></title>
+<?php
+	echo
+		dcPage::cssLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.css')),'screen',$core->getVersion('sysInfo')).
+		'<script type="text/javascript">'.
+		dcPage::jsVar('dotclear.colorsyntax',$user_ui_colorsyntax).
+		dcPage::jsVar('dotclear.colorsyntax_theme',$user_ui_colorsyntax_theme).
+		'</script>'.
+		dcPage::jsModal().
+		dcPage::jsLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.js')),$core->getVersion('sysInfo'));
+	if ($user_ui_colorsyntax) {
+		echo
+			dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
+	}
+?>
 </head>
 
 <body>
@@ -430,8 +449,13 @@ switch ($checklist) {
 									'<td scope="row">'.$file.'</td>'.
 									'<td>'.'<img src="images/'.($file_exists ? 'check-on.png' : 'check-off.png').'" /> '.$cache_subpath.'</td>'.
 									'<td>'.
-										form::checkbox(array('tpl[]'),$cache_file,false,'','',!($file_exists)).' '.
-										'<label class="classic">'.$cache_file.'</label></td>'.
+										form::checkbox(array('tpl[]'),$cache_file,false,
+											($file_exists) ? 'tpl_compiled' : '','',!($file_exists)).' '.
+										'<label class="classic">'.
+										($file_exists ? '<a class="tpl_compiled" href="'.'#'.'">' : '').
+											$cache_file.
+										($file_exists ? '</a>' : '').
+										'</label></td>'.
 									'</tr>';
 								$path_displayed = true;
 							}
