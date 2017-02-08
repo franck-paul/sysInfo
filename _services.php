@@ -32,7 +32,7 @@ class sysInfoRest
 		}
 
 		$rsp->ret = $ret;
-		$rsp->msg = base64_encode($content);
+		$rsp->msg = base64_encode(html::escapeHTML($content));
 
 		return $rsp;
 	}

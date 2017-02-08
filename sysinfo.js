@@ -61,7 +61,8 @@ $(function() {
 								if (dotclear.colorsyntax_theme !== '') {
 									options.theme = dotclear.colorsyntax_theme;
 								}
-								var editor = CodeMirror.fromTextArea(document.getElementById('tpl_compiled_source'), options);
+								var textarea = document.getElementById('tpl_compiled_source');
+								var editor = CodeMirror.fromTextArea(textarea, options);
 							}
 						}
 					}
