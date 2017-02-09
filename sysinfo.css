@@ -3,6 +3,11 @@
 	background-color: #f3f3f3;
 }
 
+pre.sysinfo {
+	white-space: pre;
+	margin: 0;
+}
+
 /* Compiled templates */
 .tpl_compiled_view {
 	width: auto;

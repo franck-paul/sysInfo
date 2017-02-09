@@ -14,6 +14,7 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 $checklists = array(
 	__('Compiled templates') => 'templates',
+	__('Template paths') => 'tplpaths',
 	__('URL handlers') => 'urlhandlers',
 	__('Behaviours') => 'behaviours',
 	__('DC Constants') => 'constants',
@@ -80,6 +81,59 @@ if ($core->plugins->moduleExists('staticCache')) {
 	$constants['DC_SC_CACHE_BLOGS_OFF'] = defined('DC_SC_CACHE_BLOGS_OFF') ? DC_SC_CACHE_BLOGS_OFF : $undefined;
 	$constants['DC_SC_EXCLUDED_URL'] = defined('DC_SC_EXCLUDED_URL') ? DC_SC_EXCLUDED_URL : $undefined;
 }
+
+$publicPrepend = function() {
+	// Emulate public prepend
+	global $core;
+
+	$core->tpl = new dcTemplate(DC_TPL_CACHE,'$core->tpl',$core);
+	$core->themes = new dcThemes($core);
+	$core->themes->loadModules($core->blog->themes_path);
+	if (!isset($__theme)) {
+		$__theme = $core->blog->settings->system->theme;
+	}
+	if (!$core->themes->moduleExists($__theme)) {
+		$__theme = $core->blog->settings->system->theme = 'default';
+	}
+	$tplset = $core->themes->moduleInfo($__theme,'tplset');
+	$__parent_theme = $core->themes->moduleInfo($__theme,'parent');
+	if ($__parent_theme) {
+		if (!$core->themes->moduleExists($__parent_theme)) {
+			$__theme = $core->blog->settings->system->theme = 'default';
+			$__parent_theme = null;
+		}
+	}
+	$__theme_tpl_path = array(
+		$core->blog->themes_path.'/'.$__theme.'/tpl'
+	);
+	if ($__parent_theme) {
+		$__theme_tpl_path[] = $core->blog->themes_path.'/'.$__parent_theme.'/tpl';
+		if (empty($tplset)) {
+			$tplset = $core->themes->moduleInfo($__parent_theme,'tplset');
+		}
+	}
+	if (empty($tplset)) {
+		$tplset = DC_DEFAULT_TPLSET;
+	}
+	$main_plugins_root = explode(':',DC_PLUGINS_ROOT);
+	$core->tpl->setPath(
+		$__theme_tpl_path,
+		$main_plugins_root[0].'/../inc/public/default-templates/'.$tplset,
+		$core->tpl->getPath());
+
+	// Looking for default-templates in each plugin's dir
+	$plugins = $core->plugins->getModules();
+	foreach ($plugins as $k => $v) {
+		$plugin_root = $core->plugins->moduleInfo($k,'root');
+		if ($plugin_root) {
+			$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates/'.$tplset);
+			// To be exhaustive add also direct directory (without templateset)
+			$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates');
+		}
+	}
+
+	return $tplset;
+};
 
 $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
 
@@ -161,10 +215,18 @@ switch ($checklist) {
 
 	case 'rest':
 		$methods = $core->rest->functions;
-		echo '<h3>'.__('REST methods').'</h3>';
-		echo '<ul class="sysinfo">';
+
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('REST methods').'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col" class="nowrap">'.__('Method').'</th>'.
+			'<th scope="col">'.__('Callback').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
 		foreach ($methods as $method => $callback) {
-			echo '<li><strong>'.$method.'</strong> : ';
+			echo '<tr><td>'.$method.'</td><td><code>';
 			if (is_array($callback)) {
 				if (count($callback) > 1) {
 					echo $callback[0].'::'.$callback[1];
@@ -174,79 +236,120 @@ switch ($checklist) {
 			} else {
 				echo $callback;
 			}
-			echo '</li>';
+			echo '()</code></td></tr>';
 		}
-		echo '</ul>';
+		echo '</tbody></table>';
 		break;
 
 	case 'plugins':
 		// Affichage de la liste des plugins (et de leurs propriétés)
 		$plugins = $core->plugins->getModules();
-		echo '<h3>'.__('Plugins (in loading order)').'</h3>';
+
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('Plugins (in loading order)').'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col" class="nowrap">'.__('Plugin id').'</th>'.
+			'<th scope="col">'.__('Properties').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
 		foreach ($plugins as $id => $m) {
-			echo '<h4>'.$id.'</h4>';
-			echo '<pre style="white-space: pre;" class="sysinfo">'.print_r($m,true).'</pre>';
+			echo '<tr><td>'.$id.'</td><td>';
+			echo '<pre class="sysinfo">'.print_r($m,true).'</pre></td></tr>';
 		}
+		echo '</tbody></table>';
 		break;
 
 	case 'formaters':
 		// Affichage de la liste des éditeurs et des syntaxes par éditeur
 		$formaters = $core->getFormaters();
-		echo '<h3>'.__('Editors and their supported syntaxes').'</h3>';
-		echo '<dl class="sysinfo">';
+
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('Editors and their supported syntaxes').'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col" class="nowrap">'.__('Editor').'</th>'.
+			'<th scope="col">'.__('Syntax').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
 		foreach ($formaters as $e => $s) {
-			echo '<dt>'.$e.'</dt>';
+			echo '<tr><td>'.$e.'</td>';
+			$newline = false;
 			if (is_array($s)) {
 				foreach ($s as $f) {
-					echo '<dd>'.$f.'</dd>';
+					echo ($newline ? '</tr><tr><td></td>' : '').'<td>';
+					echo $f;
+					echo '</td>';
+					$newline = true;
 				}
 			}
+			echo '</tr>';
 		}
-		echo '</dl>';
+		echo '</tbody></table>';
 		break;
 
 	case 'constants':
 		// Affichage des constantes remarquables de Dotclear
-		echo '<h3>'.__('Dotclear constants').'</h3>';
-		echo '<dl class="sysinfo">';
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('Dotclear constants').'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col" class="nowrap">'.__('Constant').'</th>'.
+			'<th scope="col">'.__('Value').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
 		foreach ($constants as $c => $v) {
-			echo '<dt>'.'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></dt>';
+			echo '<tr><td>'.
+				'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></td><td>';
 			if ($v != $undefined) {
-				echo '<dd>'.$v.'</dd>';
+				echo $v;
 			}
+			echo '</td></tr>';
 		}
-		echo '</dl>';
+		echo '</tbody></table>';
 		break;
 
 	case 'behaviours':
 		// Affichage de la liste des behaviours inscrits
-		echo '<h3>'.__('Behaviours list').'</h3>';
-		echo '<ul class="sysinfo">';
 		$bl = $core->getBehaviors('');
+
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('Behaviours list').'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col" class="nowrap">'.__('Behavior').'</th>'.
+			'<th scope="col">'.__('Callback').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
 		foreach ($bl as $b => $f) {
-			echo '<li>'.$b.' : ';
+			echo '<tr><td>'.$b.'</td>';
+			$newline = false;
 			if (is_array($f)) {
-				echo '<ul>';
 				foreach ($f as $fi) {
-					echo '<li><code>';
+					echo ($newline ? '</tr><tr><td></td>' : '').'<td><code>';
 					if (is_array($fi)) {
 						if (is_object($fi[0])) {
-							echo get_class($fi[0]).'-&gt;'.$fi[1].'()';
+							echo get_class($fi[0]).'-&gt;'.$fi[1];
 						} else {
-							echo $fi[0].'::'.$fi[1].'()';
+							echo $fi[0].'::'.$fi[1];
 						}
 					} else {
 						echo $fi.'()';
 					}
-					echo '</code></li>';
+					echo '()</code></td>';
+					$newline = true;
 				}
-				echo '</ul>';
 			} else {
-				echo $f.'()';
+				echo '<td><code>'.$f.'()</code></td>';
 			}
-			echo '</li>';
+			echo '</tr>';
 		}
-		echo '</ul>';
+		echo '</tbody></table>';
+
 		echo '<p>'.'<a id="sysinfo-preview" onclick="window.open(this.href);return false;" href="'.$core->blog->url.$core->url->getBase('sysinfo').'/'.'behaviours'.'">'.__('Display public behaviours').' ('.__('new window').')'.'</a>'.'</p>';
 		break;
 
@@ -266,7 +369,7 @@ switch ($checklist) {
 		echo '<tr>'.
 		     '<td scope="row">'.'home'.'</td>'.
 		     '<td>'.''.'</td>'.
-		     '<td>'.'^$'.'</td>'.
+		     '<td><code>'.'^$'.'</code></td>'.
 		     '</tr>';
 		foreach ($urls as $type => $param) {
 		     if (!in_array($type,$excluded))
@@ -334,52 +437,7 @@ switch ($checklist) {
 		break;
 
 	case 'templates':
-		// Emulate public prepend
-		$core->tpl = new dcTemplate(DC_TPL_CACHE,'$core->tpl',$core);
-		$core->themes = new dcThemes($core);
-		$core->themes->loadModules($core->blog->themes_path);
-		if (!isset($__theme)) {
-			$__theme = $core->blog->settings->system->theme;
-		}
-		if (!$core->themes->moduleExists($__theme)) {
-			$__theme = $core->blog->settings->system->theme = 'default';
-		}
-		$tplset = $core->themes->moduleInfo($__theme,'tplset');
-		$__parent_theme = $core->themes->moduleInfo($__theme,'parent');
-		if ($__parent_theme) {
-			if (!$core->themes->moduleExists($__parent_theme)) {
-				$__theme = $core->blog->settings->system->theme = 'default';
-				$__parent_theme = null;
-			}
-		}
-		$__theme_tpl_path = array(
-			$core->blog->themes_path.'/'.$__theme.'/tpl'
-		);
-		if ($__parent_theme) {
-			$__theme_tpl_path[] = $core->blog->themes_path.'/'.$__parent_theme.'/tpl';
-			if (empty($tplset)) {
-				$tplset = $core->themes->moduleInfo($__parent_theme,'tplset');
-			}
-		}
-		if (empty($tplset)) {
-			$tplset = DC_DEFAULT_TPLSET;
-		}
-		$main_plugins_root = explode(':',DC_PLUGINS_ROOT);
-		$core->tpl->setPath(
-			$__theme_tpl_path,
-			$main_plugins_root[0].'/../inc/public/default-templates/'.$tplset,
-			$core->tpl->getPath());
-
-		// Looking for default-templates in each plugin's dir
-		$plugins = $core->plugins->getModules();
-		foreach ($plugins as $k => $v) {
-			$plugin_root = $core->plugins->moduleInfo($k,'root');
-			if ($plugin_root) {
-				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates/'.$tplset);
-				// To be exhaustive add also direct directory (without templateset)
-				$core->tpl->setPath($core->tpl->getPath(),$plugin_root.'/default-templates');
-			}
-		}
+		$tplset= $publicPrepend();
 
 		// Get installation info
 		$document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
@@ -402,14 +460,6 @@ switch ($checklist) {
 
 		echo
 		'<form action="'.$p_url.'" method="post" id="tplform">';
-
-		/*
-		echo '<p>'.__('List of template paths').'</p>'.'<ul>';
-		foreach ($paths as $path) {
-			echo '<li>'.$path.'<li>';
-		}
-		echo '</ul>';
-		*/
 
 		echo '<table id="chk-table-result" class="sysinfo">';
 		echo '<caption>'.__('List of compiled templates in cache').' '.$cache_path.'/cbtpl'.'</caption>';
@@ -478,6 +528,33 @@ switch ($checklist) {
 		'<p class="col right">'.$core->formNonce().'<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="'.__('Delete selected cache files').'" /></p>'.
 		'</div>'.
 		'</form>';
+		break;
+
+	case 'tplpaths':
+		$tplset = $publicPrepend();
+		$paths = $core->tpl->getPath();
+		$document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
+
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('List of template paths').'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col">'.__('Path').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
+		foreach ($paths as $path) {
+			$sub_path = path::real($path,false);
+			if (substr($sub_path,0,strlen($document_root)) == $document_root) {
+				$sub_path = substr($sub_path,strlen($document_root));
+				if (substr($sub_path,0,1) == '/') $sub_path = substr($sub_path,1);
+			} elseif (substr($sub_path,0,strlen(DC_ROOT)) == DC_ROOT) {
+				$sub_path = substr($sub_path,strlen(DC_ROOT));
+				if (substr($sub_path,0,1) == '/') $sub_path = substr($sub_path,1);
+			}
+			echo '<tr><td>'.$sub_path.'</td><tr>';
+		}
+		echo '</tbody></table>';
 		break;
 
 	default:

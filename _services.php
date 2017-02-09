@@ -32,6 +32,8 @@ class sysInfoRest
 		}
 
 		$rsp->ret = $ret;
+		// Escape file content (in order to avoid further parsing error)
+		// Base 64 encoding to preserve line breaks
 		$rsp->msg = base64_encode(html::escapeHTML($content));
 
 		return $rsp;
