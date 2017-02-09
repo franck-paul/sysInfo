@@ -1,12 +1,21 @@
 $(function() {
 
-	function loadTemplateFile(template_file) {
+	function loadServerFile(filename, type) {
 		var content = null;
 		var params = {
-			f: 'getCompiledTemplate',
 			xd_check: dotclear.nonce,
-			file: template_file
+			file: filename
 		};
+		switch (type) {
+			case 'tpl':
+				params.f = 'getCompiledTemplate';
+				break;
+			case 'sc':
+				params.f = 'getStaticCacheFile';
+				break;
+			default:
+				return null;
+		}
 		$.ajaxSetup({ async: false, timeout: 3000, cache: false });
 		$.get('services.php', params, function(data) {
 			if ($('rsp[status=failed]', data).length > 0) {
@@ -23,27 +32,43 @@ $(function() {
 		return content;
 	}
 
-	function loadStaticCacheFile(cache_file) {
-		var content = null;
-		var params = {
-			f: 'getStaticCacheFile',
-			xd_check: dotclear.nonce,
-			file: cache_file
-		};
-		$.ajaxSetup({ async: false, timeout: 3000, cache: false });
-		$.get('services.php', params, function(data) {
-			if ($('rsp[status=failed]', data).length > 0) {
-				// For debugging purpose only:
-				// console.log($('rsp',data).attr('message'));
-				console.log('Dotclear REST server error');
-			} else {
-				// ret -> status (true/false)
-				// msg -> file content
-				var ret = Number($('rsp>sysinfo', data).attr('ret'));
-				content = $('rsp>sysinfo', data).attr('msg');
+	function viewSource(prefix, filename, content) {
+		var src =
+			'<div class="' + prefix + '_view">' +
+			'<h1>' +
+			filename +
+			'</h1>' +
+			'<textarea id="' + prefix + '_source">' +
+			$.parseJSON(window.atob(content)) +
+			'</textarea>' +
+			'</div>';
+		$.magnificPopup.open({
+			items: {
+				src: src,
+				type: 'inline'
+			},
+			callbacks: {
+				open: function() {
+					if (dotclear.colorsyntax) {
+						// Popup opened, format textarea with codemirror
+						var options = {
+							mode: 'text/html', // 'application/x-httpd-php',
+							tabMode: 'indent',
+							lineWrapping: "true",
+							lineNumbers: "true",
+							matchBrackets: "true",
+							autoCloseBrackets: "true",
+							readOnly: "true"
+						};
+						if (dotclear.colorsyntax_theme !== '') {
+							options.theme = dotclear.colorsyntax_theme;
+						}
+						var textarea = document.getElementById(prefix + '_source');
+						var editor = CodeMirror.fromTextArea(textarea, options);
+					}
+				}
 			}
 		});
-		return content;
 	}
 
 	// Compiled template preview
@@ -52,44 +77,9 @@ $(function() {
 		var template_file = $(e.target).text();
 		// Open template file content in a modal iframe
 		if (template_file !== undefined) {
-			var content = loadTemplateFile(template_file);
+			var content = loadServerFile(template_file, 'tpl');
 			if (content !== undefined && content !== null) {
-				var src =
-					'<div class="tpl_compiled_view">' +
-					'<h1>' +
-					template_file +
-					'</h1>' +
-					'<textarea id="tpl_compiled_source">' +
-					window.atob(content) +
-					'</textarea>' +
-					'</div>';
-				$.magnificPopup.open({
-					items: {
-						src: src,
-						type: 'inline'
-					},
-					callbacks: {
-						open: function() {
-							if (dotclear.colorsyntax) {
-								// Popup opened, format textarea with codemirror
-								var options = {
-									mode: 'text/html', // 'application/x-httpd-php',
-									tabMode: 'indent',
-									lineWrapping: "true",
-									lineNumbers: "true",
-									matchBrackets: "true",
-									autoCloseBrackets: "true",
-									readOnly: "true"
-								};
-								if (dotclear.colorsyntax_theme !== '') {
-									options.theme = dotclear.colorsyntax_theme;
-								}
-								var textarea = document.getElementById('tpl_compiled_source');
-								var editor = CodeMirror.fromTextArea(textarea, options);
-							}
-						}
-					}
-				});
+				viewSource('tpl_compiled', template_file, content);
 			}
 		}
 	});
@@ -100,44 +90,9 @@ $(function() {
 		var cache_file = $(e.target).attr('data-file');
 		// Open static cache file content in a modal iframe
 		if (cache_file !== undefined) {
-			var content = loadStaticCacheFile(cache_file);
+			var content = loadServerFile(cache_file, 'sc');
 			if (content !== undefined && content !== null) {
-				var src =
-					'<div class="sc_compiled_view">' +
-					'<h1>' +
-					cache_file +
-					'</h1>' +
-					'<textarea id="sc_compiled_source">' +
-					window.atob(content) +
-					'</textarea>' +
-					'</div>';
-				$.magnificPopup.open({
-					items: {
-						src: src,
-						type: 'inline'
-					},
-					callbacks: {
-						open: function() {
-							if (dotclear.colorsyntax) {
-								// Popup opened, format textarea with codemirror
-								var options = {
-									mode: 'text/html', // 'application/x-httpd-php',
-									tabMode: 'indent',
-									lineWrapping: "true",
-									lineNumbers: "true",
-									matchBrackets: "true",
-									autoCloseBrackets: "true",
-									readOnly: "true"
-								};
-								if (dotclear.colorsyntax_theme !== '') {
-									options.theme = dotclear.colorsyntax_theme;
-								}
-								var textarea = document.getElementById('sc_compiled_source');
-								var editor = CodeMirror.fromTextArea(textarea, options);
-							}
-						}
-					}
-				});
+				viewSource('sc_compiled', $(e.target).text(), content);
 			}
 		}
 	});

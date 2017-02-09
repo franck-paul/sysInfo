@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-09 13:54+0100\n"
+"POT-Creation-Date: 2017-02-09 14:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Cache file"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:562 ../hg-plugins/sysInfo/index.php:661
+#: ../hg-plugins/sysInfo/index.php:562 ../hg-plugins/sysInfo/index.php:664
 msgid "Delete selected cache files"
 msgstr ""
 
@@ -206,10 +206,22 @@ msgstr ""
 msgid "last update:"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:669
+#: ../hg-plugins/sysInfo/index.php:672
 msgid "Live long and prosper."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:670
+#: ../hg-plugins/sysInfo/index.php:673
 msgid "To infinity and beyond."
+msgstr ""
+
+#: ../hg-plugins/sysInfo/index.php:674
+msgid "So long, and thanks for all the fish."
+msgstr ""
+
+#: ../hg-plugins/sysInfo/index.php:675
+msgid "Find a needle in a haystack."
+msgstr ""
+
+#: ../hg-plugins/sysInfo/index.php:676
+msgid "A clever person solves a problem. A wise person avoids it."
 msgstr ""

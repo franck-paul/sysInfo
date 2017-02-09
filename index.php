@@ -670,7 +670,10 @@ switch ($checklist) {
 	default:
 		$quotes = array(
 			__('Live long and prosper.'),
-			__('To infinity and beyond.')
+			__('To infinity and beyond.'),
+			__('So long, and thanks for all the fish.'),
+			__('Find a needle in a haystack.'),
+			__('A clever person solves a problem. A wise person avoids it.')
 			);
 		$q = rand(0,count($quotes) - 1);
 		echo '<blockquote class="sysinfo"><p>'.$quotes[$q].'</p></blockquote>';

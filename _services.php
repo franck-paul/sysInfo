@@ -33,8 +33,9 @@ class sysInfoRest
 
 		$rsp->ret = $ret;
 		// Escape file content (in order to avoid further parsing error)
+		// JSON encode to preserve UTF-8 encoding
 		// Base 64 encoding to preserve line breaks
-		$rsp->msg = base64_encode(html::escapeHTML($content));
+		$rsp->msg = base64_encode(json_encode(html::escapeHTML($content)));
 
 		return $rsp;
 	}
@@ -55,8 +56,9 @@ class sysInfoRest
 
 		$rsp->ret = $ret;
 		// Escape file content (in order to avoid further parsing error)
+		// JSON encode to preserve UTF-8 encoding
 		// Base 64 encoding to preserve line breaks
-		$rsp->msg = base64_encode(html::escapeHTML($content));
+		$rsp->msg = base64_encode(json_encode(html::escapeHTML($content)));
 
 		return $rsp;
 	}
