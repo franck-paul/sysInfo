@@ -69,8 +69,8 @@ $constants = array(
 	'DC_RC_PATH'             => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
 	'DC_ROOT'                => defined('DC_ROOT') ? DC_ROOT : $undefined,
 	'DC_SESSION_NAME'        => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
-	'DC_SESSION_TTL'         => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
-	'DC_SHOW_HIDDEN_DIRS'    => defined('DC_SHOW_HIDDEN_DIRS') ? DC_SHOW_HIDDEN_DIRS : $undefined,
+	'DC_SESSION_TTL'         => defined('DC_SESSION_TTL') ? (is_null(DC_SESSION_TTL) ? 'null' : DC_SESSION_TTL) : $undefined,
+	'DC_SHOW_HIDDEN_DIRS'    => defined('DC_SHOW_HIDDEN_DIRS') ? (DC_SHOW_HIDDEN_DIRS ? 'true' : 'false') : $undefined,
 	'DC_TPL_CACHE'           => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
 	'DC_UPDATE_URL'          => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
 	'DC_UPDATE_VERSION'      => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
@@ -82,7 +82,7 @@ $constants = array(
 );
 
 if ($core->plugins->moduleExists('staticCache')) {
-	$constants['DC_SC_CACHE_ENABLE'] = defined('DC_SC_CACHE_ENABLE') ? DC_SC_CACHE_ENABLE : $undefined;
+	$constants['DC_SC_CACHE_ENABLE'] = defined('DC_SC_CACHE_ENABLE') ? (DC_SC_CACHE_ENABLE ? 'true' : 'false') : $undefined;
 	$constants['DC_SC_CACHE_DIR'] = defined('DC_SC_CACHE_DIR') ? DC_SC_CACHE_DIR : $undefined;
 	$constants['DC_SC_CACHE_BLOGS_ON'] = defined('DC_SC_CACHE_BLOGS_ON') ? DC_SC_CACHE_BLOGS_ON : $undefined;
 	$constants['DC_SC_CACHE_BLOGS_OFF'] = defined('DC_SC_CACHE_BLOGS_OFF') ? DC_SC_CACHE_BLOGS_OFF : $undefined;
@@ -260,7 +260,7 @@ switch ($checklist) {
 			'</thead>';
 		echo '<tbody>';
 		foreach ($methods as $method => $callback) {
-			echo '<tr><td>'.$method.'</td><td><code>';
+			echo '<tr><td class="nowrap">'.$method.'</td><td><code>';
 			if (is_array($callback)) {
 				if (count($callback) > 1) {
 					echo $callback[0].'::'.$callback[1];
@@ -289,7 +289,7 @@ switch ($checklist) {
 			'</thead>';
 		echo '<tbody>';
 		foreach ($plugins as $id => $m) {
-			echo '<tr><td>'.$id.'</td><td>';
+			echo '<tr><td class="nowrap">'.$id.'</td><td>';
 			echo '<pre class="sysinfo">'.print_r($m,true).'</pre></td></tr>';
 		}
 		echo '</tbody></table>';
@@ -309,7 +309,7 @@ switch ($checklist) {
 			'</thead>';
 		echo '<tbody>';
 		foreach ($formaters as $e => $s) {
-			echo '<tr><td>'.$e.'</td>';
+			echo '<tr><td class="nowrap">'.$e.'</td>';
 			$newline = false;
 			if (is_array($s)) {
 				foreach ($s as $f) {
@@ -336,7 +336,7 @@ switch ($checklist) {
 			'</thead>';
 		echo '<tbody>';
 		foreach ($constants as $c => $v) {
-			echo '<tr><td>'.
+			echo '<tr><td class="nowrap">'.
 				'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></td><td>';
 			if ($v != $undefined) {
 				echo $v;
@@ -360,7 +360,7 @@ switch ($checklist) {
 			'</thead>';
 		echo '<tbody>';
 		foreach ($bl as $b => $f) {
-			echo '<tr><td>'.$b.'</td>';
+			echo '<tr><td class="nowrap">'.$b.'</td>';
 			$newline = false;
 			if (is_array($f)) {
 				foreach ($f as $fi) {
