@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-09 12:10+0100\n"
+"POT-Creation-Date: 2017-02-09 13:54+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -57,8 +57,11 @@ msgstr "Aucun fichier cache sélectionné"
 msgid "Selected cache files have been deleted."
 msgstr "Les fichiers cache sélectionnés ont été supprimés."
 
-msgid "Are you sure you want to remove selected cache files?"
-msgstr "Êtes-vous sûr de vouloir supprimer les fichiers cache sélectionnés ?"
+msgid "Are you sure you want to remove selected template cache files?"
+msgstr "Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés du cache des template ?"
+
+msgid "Are you sure you want to remove selected static cache files?"
+msgstr "Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés du cache statique ?"
 
 msgid "Select a checklist:"
 msgstr "Sélectionnez une liste :"
@@ -143,6 +146,12 @@ msgstr "Répertoires de template"
 
 msgid "Path"
 msgstr "Chemin"
+
+msgid "List of static cache files in"
+msgstr "Liste des fichiers du cache statique dans"
+
+msgid "last update:"
+msgstr "dernière mise à jour :"
 
 msgid "Live long and prosper."
 msgstr "Longue vie et prospérité."

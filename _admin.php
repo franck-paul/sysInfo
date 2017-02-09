@@ -40,3 +40,4 @@ class sysInfoAdmin
 
 // Register REST methods
 $core->rest->addFunction('getCompiledTemplate',array('sysInfoRest','getCompiledTemplate'));
+$core->rest->addFunction('getStaticCacheFile',array('sysInfoRest','getStaticCacheFile'));

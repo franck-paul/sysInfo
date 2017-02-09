@@ -38,4 +38,26 @@ class sysInfoRest
 
 		return $rsp;
 	}
+
+	public static function getStaticCacheFile($core,$get) {
+		// Return compiled static cache file content
+		$file = !empty($get['file']) ? $get['file'] : '';
+		$rsp = new xmlTag('sysinfo');
+		$ret = false;
+		$content = '';
+
+		if ($file != '') {
+			if (file_exists($file) && is_readable($file)) {
+				$content = file_get_contents($file);
+				$ret = true;
+			}
+		}
+
+		$rsp->ret = $ret;
+		// Escape file content (in order to avoid further parsing error)
+		// Base 64 encoding to preserve line breaks
+		$rsp->msg = base64_encode(html::escapeHTML($content));
+
+		return $rsp;
+	}
 }

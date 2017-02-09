@@ -24,8 +24,15 @@ $checklists = array(
 	__('REST methods') => 'rest',
 	__('PHP info') => 'phpinfo'
 );
+
 if ($core->plugins->moduleExists('staticCache')) {
-	$checklists[__('Static cache')] = 'sc';
+	if (defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE) {
+		if (defined('DC_SC_CACHE_DIR')) {
+			if (dcStaticCacheControl::cacheCurrentBlog()) {
+				$checklists[__('Static cache')] = 'sc';
+			}
+		}
+	}
 }
 
 $undefined = '<!-- undefined -->';
@@ -161,6 +168,28 @@ if (!empty($_POST['deltplaction'])) {
 	}
 }
 
+if (!empty($_POST['delscaction'])) {
+	// Cope with static cache file deletion
+	try {
+		if (empty($_POST['sc'])) {
+			throw new Exception(__('No cache file selected'));
+		}
+		foreach ($_POST['sc'] as $k => $cache_file)
+		{
+			if (file_exists($cache_file)) {
+				unlink($cache_file);
+			}
+		}
+	} catch (Exception $e) {
+		$checklist = 'sc';
+		$core->error->add($e->getMessage());
+	}
+	if (!$core->error->flag()) {
+		dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
+		http::redirect($p_url.'&sc=1');
+	}
+}
+
 # Get interface setting
 $core->auth->user_prefs->addWorkspace('interface');
 $user_ui_colorsyntax = $core->auth->user_prefs->interface->colorsyntax;
@@ -176,7 +205,8 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 		'<script type="text/javascript">'.
 		dcPage::jsVar('dotclear.colorsyntax',$user_ui_colorsyntax).
 		dcPage::jsVar('dotclear.colorsyntax_theme',$user_ui_colorsyntax_theme).
-		dcPage::jsVar('dotclear.msg.confirm_del_tpl',__('Are you sure you want to remove selected cache files?')).
+		dcPage::jsVar('dotclear.msg.confirm_del_tpl',__('Are you sure you want to remove selected template cache files?')).
+		dcPage::jsVar('dotclear.msg.confirm_del_sc',__('Are you sure you want to remove selected static cache files?')).
 		'</script>'.
 		dcPage::jsModal().
 		dcPage::jsLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.js')),$core->getVersion('sysInfo'));
@@ -199,6 +229,10 @@ echo dcPage::notices();
 
 if (!empty($_GET['tpl'])) {
 	$checklist = 'templates';
+}
+
+if (!empty($_GET['sc'])) {
+	$checklist = 'sc';
 }
 
 echo
@@ -557,12 +591,89 @@ switch ($checklist) {
 		echo '</tbody></table>';
 		break;
 
-	default:
-		if (rand(0,1)) {
-			echo '<p class="form-note">'.__('Live long and prosper.').'</p>';
-		} else {
-			echo '<p class="form-note">'.__('To infinity and beyond.').'</p>';
+	case 'sc':
+		$blog_host = $core->blog->host;
+		if (substr($blog_host,-1) != '/') {
+			$blog_host .= '/';
 		}
+		$blog_url = $core->blog->url;
+		if (substr($blog_url,0,strlen($blog_host)) == $blog_host) {
+			$blog_url = substr($blog_url,strlen($blog_host));
+		}
+
+		$cache_dir = path::real(DC_SC_CACHE_DIR,false);
+		$cache_key = md5(http::getHostFromURL($blog_host));
+		$cache = new dcStaticCache(DC_SC_CACHE_DIR,$cache_key);
+
+		if (!is_dir($cache_dir)) {
+			break;
+		}
+		if (!is_readable($cache_dir)) {
+			break;
+		}
+		$k = str_split($cache_key,2);
+		$cache_root = $cache_dir;
+		$cache_dir = sprintf('%s/%s/%s/%s/%s',$cache_dir,$k[0],$k[1],$k[2],$cache_key);
+
+		echo
+		'<form action="'.$p_url.'" method="post" id="scform">';
+
+		echo '<table id="chk-table-result" class="sysinfo">';
+		echo '<caption>'.__('List of static cache files in').' '.substr($cache_dir,strlen($cache_root)).
+			', '.__('last update:').' '.date('Y-m-d H:i:s',$cache->getMtime()).'</caption>';
+		echo '<thead>'.
+			'<tr>'.
+			'<th scope="col" class="nowrap">'.__('Cache subpath').'</th>'.
+			'<th scope="col" class="nowrap">'.__('Cache file').'</th>'.
+			'</tr>'.
+			'</thead>';
+		echo '<tbody>';
+
+		$dirs = array($cache_dir);
+		do {
+			$dir = array_shift($dirs);
+			$files = files::scandir($dir);
+			if (is_array($files)) {
+				foreach ($files as $file) {
+					if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+						$cache_fullpath = $dir.'/'.$file;
+						if (is_file($cache_fullpath)) {
+							$k = str_split($file,2);
+							$cache_subpath = sprintf('%s/%s/%s',$k[0],$k[1],$k[2]);
+							echo '<tr>'.
+							'<td class="nowrap">'.$cache_subpath.'</td>'.
+							'<td class="nowrap">'.
+								form::checkbox(array('sc[]'),$cache_fullpath,false).' '.
+								'<label class="classic">'.
+									'<a class="sc_compiled" href="#" data-file="'.$cache_fullpath.'">'.$file.'</a>'.
+								'</label>'.
+							'</td>'.
+							'</tr>';
+						} else {
+							$dirs[] = $dir.'/'.$file;
+						}
+					}
+				}
+			}
+		} while (count($dirs));
+
+		echo '</tbody></table>';
+		echo
+		'<div class="two-cols">'.
+		'<p class="col checkboxes-helpers"></p>'.
+		'<p class="col right">'.$core->formNonce().'<input type="submit" class="delete" id="delscaction" name="delscaction" value="'.__('Delete selected cache files').'" /></p>'.
+		'</div>'.
+		'</form>';
+
+		break;
+
+	default:
+		$quotes = array(
+			__('Live long and prosper.'),
+			__('To infinity and beyond.')
+			);
+		$q = rand(0,count($quotes) - 1);
+		echo '<blockquote class="sysinfo"><p>'.$quotes[$q].'</p></blockquote>';
 		break;
 }
 
