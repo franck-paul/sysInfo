@@ -255,12 +255,12 @@ switch ($checklist) {
 		echo '<thead>'.
 			'<tr>'.
 			'<th scope="col" class="nowrap">'.__('Method').'</th>'.
-			'<th scope="col">'.__('Callback').'</th>'.
+			'<th scope="col" class="maximal">'.__('Callback').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
 		foreach ($methods as $method => $callback) {
-			echo '<tr><td class="nowrap">'.$method.'</td><td><code>';
+			echo '<tr><td class="nowrap">'.$method.'</td><td class="maximal"><code>';
 			if (is_array($callback)) {
 				if (count($callback) > 1) {
 					echo $callback[0].'::'.$callback[1];
@@ -284,12 +284,12 @@ switch ($checklist) {
 		echo '<thead>'.
 			'<tr>'.
 			'<th scope="col" class="nowrap">'.__('Plugin id').'</th>'.
-			'<th scope="col">'.__('Properties').'</th>'.
+			'<th scope="col" class="maximal">'.__('Properties').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
 		foreach ($plugins as $id => $m) {
-			echo '<tr><td class="nowrap">'.$id.'</td><td>';
+			echo '<tr><td class="nowrap">'.$id.'</td><td class="maximal">';
 			echo '<pre class="sysinfo">'.print_r($m,true).'</pre></td></tr>';
 		}
 		echo '</tbody></table>';
@@ -304,7 +304,7 @@ switch ($checklist) {
 		echo '<thead>'.
 			'<tr>'.
 			'<th scope="col" class="nowrap">'.__('Editor').'</th>'.
-			'<th scope="col">'.__('Syntax').'</th>'.
+			'<th scope="col" class="maximal">'.__('Syntax').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
@@ -313,7 +313,7 @@ switch ($checklist) {
 			$newline = false;
 			if (is_array($s)) {
 				foreach ($s as $f) {
-					echo ($newline ? '</tr><tr><td></td>' : '').'<td>';
+					echo ($newline ? '</tr><tr><td></td>' : '').'<td class="maximal">';
 					echo $f;
 					echo '</td>';
 					$newline = true;
@@ -331,13 +331,14 @@ switch ($checklist) {
 		echo '<thead>'.
 			'<tr>'.
 			'<th scope="col" class="nowrap">'.__('Constant').'</th>'.
-			'<th scope="col">'.__('Value').'</th>'.
+			'<th scope="col" class="maximal">'.__('Value').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
 		foreach ($constants as $c => $v) {
 			echo '<tr><td class="nowrap">'.
-				'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></td><td>';
+				'<img src="images/'.($v != $undefined ? 'check-on.png' : 'check-off.png').'" /> <code>'.$c.'</code></td>'.
+				'<td class="maximal">';
 			if ($v != $undefined) {
 				echo $v;
 			}
@@ -355,7 +356,7 @@ switch ($checklist) {
 		echo '<thead>'.
 			'<tr>'.
 			'<th scope="col" class="nowrap">'.__('Behavior').'</th>'.
-			'<th scope="col">'.__('Callback').'</th>'.
+			'<th scope="col" class="maximal">'.__('Callback').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
@@ -364,7 +365,7 @@ switch ($checklist) {
 			$newline = false;
 			if (is_array($f)) {
 				foreach ($f as $fi) {
-					echo ($newline ? '</tr><tr><td></td>' : '').'<td><code>';
+					echo ($newline ? '</tr><tr><td></td>' : '').'<td class="maximal"><code>';
 					if (is_array($fi)) {
 						if (is_object($fi[0])) {
 							echo get_class($fi[0]).'-&gt;'.$fi[1];
@@ -398,12 +399,12 @@ switch ($checklist) {
 		echo '<table id="urls" class="sysinfo"><caption>'.__('List of known URLs').'</caption>';
 		echo '<thead><tr><th scope="col">'.__('Type').'</th>'.
 			'<th scope="col">'.__('base URL').'</th>'.
-			'<th scope="col">'.__('Regular expression').'</th></tr></thead>';
+			'<th scope="col" class="maximal">'.__('Regular expression').'</th></tr></thead>';
 		echo '<tbody>';
 		echo '<tr>'.
 		     '<td scope="row">'.'home'.'</td>'.
 		     '<td>'.''.'</td>'.
-		     '<td><code>'.'^$'.'</code></td>'.
+		     '<td class="maximal"><code>'.'^$'.'</code></td>'.
 		     '</tr>';
 		foreach ($urls as $type => $param) {
 		     if (!in_array($type,$excluded))
@@ -411,7 +412,7 @@ switch ($checklist) {
 		               echo '<tr>'.
 		               '<td scope="row">'.$type.'</td>'.
 		               '<td>'.$param['url'].'</td>'.
-		               '<td><code>'.$param['representation'].'</code></td>'.
+		               '<td class="maximal"><code>'.$param['representation'].'</code></td>'.
 		               '</tr>';
 		     }
 		}
@@ -426,13 +427,13 @@ switch ($checklist) {
 		echo '<table id="urls" class="sysinfo"><caption>'.__('Admin registered URLs').'</caption>';
 		echo '<thead><tr><th scope="col">'.__('Name').'</th>'.
 			'<th scope="col">'.__('URL').'</th>'.
-			'<th scope="col">'.__('Query string').'</th></tr></thead>';
+			'<th scope="col" class="maximal">'.__('Query string').'</th></tr></thead>';
 		echo '<tbody>';
 		foreach ($urls as $name => $url) {
 			echo '<tr>'.
 			'<td scope="row">'.$name.'</td>'.
 			'<td><code>'.$url['url'].'</code></td>'.
-			'<td><code>'.http_build_query($url['qs']).'</code></td>'.
+			'<td class="maximal"><code>'.http_build_query($url['qs']).'</code></td>'.
 			'</tr>';
 		}
 		echo '</tbody>';
