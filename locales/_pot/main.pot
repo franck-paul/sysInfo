@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-10 14:03+0100\n"
+"POT-Creation-Date: 2017-02-10 19:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,10 @@ msgstr ""
 
 #: ../hg-plugins/sysInfo/_admin.php:18
 msgid "System info"
+msgstr ""
+
+#: ../hg-plugins/sysInfo/_services.php:74 ../hg-plugins/sysInfo/index.php:649
+msgid "…"
 msgstr ""
 
 #: ../hg-plugins/sysInfo/index.php:16
@@ -98,7 +102,7 @@ msgstr ""
 msgid "Method"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:258 ../hg-plugins/sysInfo/index.php:358
+#: ../hg-plugins/sysInfo/index.php:258 ../hg-plugins/sysInfo/index.php:359
 msgid "Callback"
 msgstr ""
 
@@ -134,102 +138,98 @@ msgstr ""
 msgid "Constant"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:354
+#: ../hg-plugins/sysInfo/index.php:355
 msgid "Behaviours list"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:357
+#: ../hg-plugins/sysInfo/index.php:358
 msgid "Behavior"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:387
+#: ../hg-plugins/sysInfo/index.php:388
 msgid "Display public behaviours"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:398
+#: ../hg-plugins/sysInfo/index.php:399
 msgid "List of known URLs"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:400
+#: ../hg-plugins/sysInfo/index.php:401
 msgid "base URL"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:401
+#: ../hg-plugins/sysInfo/index.php:402
 msgid "Regular expression"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:426
+#: ../hg-plugins/sysInfo/index.php:427
 msgid "Admin registered URLs"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:429
+#: ../hg-plugins/sysInfo/index.php:430
 msgid "Query string"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:499
+#: ../hg-plugins/sysInfo/index.php:500
 msgid "List of compiled templates in cache"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:502
+#: ../hg-plugins/sysInfo/index.php:503
 msgid "Template path"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:503
+#: ../hg-plugins/sysInfo/index.php:504
 msgid "Template file"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:504 ../hg-plugins/sysInfo/index.php:632
+#: ../hg-plugins/sysInfo/index.php:505 ../hg-plugins/sysInfo/index.php:633
 msgid "Cache subpath"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:505 ../hg-plugins/sysInfo/index.php:633
+#: ../hg-plugins/sysInfo/index.php:506 ../hg-plugins/sysInfo/index.php:634
 msgid "Cache file"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:562 ../hg-plugins/sysInfo/index.php:661
+#: ../hg-plugins/sysInfo/index.php:563 ../hg-plugins/sysInfo/index.php:662
 msgid "Delete selected cache files"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:573
+#: ../hg-plugins/sysInfo/index.php:574
 msgid "List of template paths"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:576
+#: ../hg-plugins/sysInfo/index.php:577
 msgid "Path"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:601
+#: ../hg-plugins/sysInfo/index.php:602
 msgid " → "
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:602
-msgid "…"
-msgstr ""
-
-#: ../hg-plugins/sysInfo/index.php:628
+#: ../hg-plugins/sysInfo/index.php:629
 msgid "List of static cache files in"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:629
+#: ../hg-plugins/sysInfo/index.php:630
 msgid "last update:"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:669
+#: ../hg-plugins/sysInfo/index.php:670
 msgid "Live long and prosper."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:670
+#: ../hg-plugins/sysInfo/index.php:671
 msgid "To infinity and beyond."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:671
+#: ../hg-plugins/sysInfo/index.php:672
 msgid "So long, and thanks for all the fish."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:672
+#: ../hg-plugins/sysInfo/index.php:673
 msgid "Find a needle in a haystack."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:673
+#: ../hg-plugins/sysInfo/index.php:674
 msgid "A clever person solves a problem. A wise person avoids it."
 msgstr ""

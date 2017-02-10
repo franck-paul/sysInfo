@@ -1,13 +1,12 @@
 $(function() {
 
-	var dotclearAjax = function(method, argument, value) {
+	var dotclearAjax = function(method, data, fn) {
 		var content = null;
 		var params = {
-			xd_check: dotclear.nonce
+			xd_check: dotclear.nonce,
+			f: method
 		};
-		params['f'] = method;
-		params[argument] = value;
-		$.ajaxSetup({ async: false, timeout: 3000, cache: false });
+		$.extend(params, data);
 		$.get('services.php', params, function(data) {
 			if ($('rsp[status=failed]', data).length > 0) {
 				// For debugging purpose only:
@@ -15,36 +14,37 @@ $(function() {
 				console.log('Dotclear REST server error');
 			} else {
 				// ret -> status (true/false)
-				// msg -> filename
+				// msg -> REST method return value
 				var ret = Number($('rsp>sysinfo', data).attr('ret'));
 				content = $('rsp>sysinfo', data).attr('msg');
+				if (ret && fn !== undefined && $.isFunction(fn)) {
+					// Call callback function with returned value
+					fn(content);
+				}
 			}
 		});
-		return content;
 	}
 
-	var getStaticCacheFilename = function(url) {
-		return dotclearAjax('getStaticCacheName', 'url', url);
+	var getStaticCacheFilename = function(url, fn) {
+		dotclearAjax('getStaticCacheName', { url: url }, fn);
 	}
 
-	var loadStaticCacheDirs = function(dir) {
-		return dotclearAjax('getStaticCacheDir', 'root', dir);
+	var loadStaticCacheDirs = function(dir, fn) {
+		dotclearAjax('getStaticCacheDir', { root: dir }, fn);
 	}
 
-	var loadStaticCacheList = function(dir) {
-		return dotclearAjax('getStaticCacheList', 'root', dir);
+	var loadStaticCacheList = function(dir, fn) {
+		dotclearAjax('getStaticCacheList', { root: dir }, fn);
 	}
 
-	var loadServerFile = function(filename, type) {
+	var loadServerFile = function(filename, type, fn) {
 		switch (type) {
 			case 'tpl':
-				return dotclearAjax('getCompiledTemplate', 'file', filename);
+				dotclearAjax('getCompiledTemplate', { file: filename }, fn);
 				break;
 			case 'sc':
-				return dotclearAjax('getStaticCacheFile', 'file', filename);
+				dotclearAjax('getStaticCacheFile', { file: filename }, fn);
 				break;
-			default:
-				return null;
 		}
 	}
 
@@ -89,10 +89,9 @@ $(function() {
 		var template_file = $(e.target).text();
 		// Open template file content in a modal iframe
 		if (template_file !== undefined) {
-			var content = loadServerFile(template_file, 'tpl');
-			if (content !== undefined && content !== null) {
+			loadServerFile(template_file, 'tpl', function(content) {
 				viewSource('tpl_compiled', template_file, content);
-			}
+			});
 		}
 	});
 
@@ -100,8 +99,7 @@ $(function() {
 	$('a.sc_dir').click(function(e) {
 		e.preventDefault();
 		var main_dir = $(e.target).text();
-		var dirs = loadStaticCacheDirs(main_dir);
-		if (dirs !== undefined && dirs !== null) {
+		loadStaticCacheDirs(main_dir, function(dirs) {
 			// Insert list and remove previous raw
 			var r = $(e.target).parent().parent();
 			r.after(dirs).remove();
@@ -109,8 +107,7 @@ $(function() {
 			$('a.sc_subdir').click(function(f) {
 				f.preventDefault();
 				var sub_dir = $(f.target).text();
-				var list = loadStaticCacheList(main_dir + '/' + sub_dir);
-				if (list !== undefined && list !== null) {
+				loadStaticCacheList(main_dir + '/' + sub_dir, function(list) {
 					// Insert list and remove previous raw
 					var s = $(f.target).parent().parent();
 					s.after(list).remove();
@@ -120,15 +117,14 @@ $(function() {
 						var cache_file = $(g.target).attr('data-file');
 						// Open static cache file content in a modal iframe
 						if (cache_file !== undefined) {
-							var content = loadServerFile(cache_file, 'sc');
-							if (content !== undefined && content !== null) {
+							loadServerFile(cache_file, 'sc', function(content) {
 								viewSource('sc_compiled', $(g.target).text(), content);
-							}
+							});
 						}
 					});
-				}
+				});
 			});
-		}
+		});
 	});
 
 	// Autosubmit on checklist change
@@ -139,12 +135,14 @@ $(function() {
 	// Static cache calculator
 	$('#getscaction').click(function(e) {
 		e.preventDefault();
-		var res = '';
+		$('#sccalc_res').text('');
 		var url = $('#sccalc_url').val();
 		if (url !== undefined && url !== '') {
-			res = getStaticCacheFilename(url);
+			getStaticCacheFilename(url, function(res) {
+				var text = String.fromCharCode(160) + res.slice(0,2) + ' / ' + res.slice(2,4) + ' / ' + res.slice(4,6) + ' / ' + res;
+				$('#sccalc_res').text(text);
+			});
 		}
-		$('#sccalc_res').text(res);
 	})
 
 	// Checkboxes helpers

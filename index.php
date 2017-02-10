@@ -600,7 +600,7 @@ switch ($checklist) {
 		'<label for="sccalc_url" class="classic">'.__('URL:').'</label>'.' '.
 		form::field('sccalc_url',50,255,html::escapeHTML($core->blog->url)).' '.
 		'<input type="button" id="getscaction" name="getscaction" value="'.__(' → ').'" />'.
-		' <span id="sccalc_res">'.__('…').'</span>'.
+		' <code><span id="sccalc_res"></span></code>'.
 		'</p>';
 
 		// List of existing cache files
