@@ -40,6 +40,136 @@ class sysInfoRest
 		return $rsp;
 	}
 
+	public static function getStaticCacheDir($core,$get) {
+		// Return list of folders in a given cache folder
+		$root = !empty($get['root']) ? $get['root'] : '';
+		$rsp = new xmlTag('sysinfo');
+		$ret = false;
+		$content = '';
+
+		if ($root != '') {
+			$blog_host = $core->blog->host;
+			if (substr($blog_host,-1) != '/') {
+				$blog_host .= '/';
+			}
+			$cache_dir = path::real(DC_SC_CACHE_DIR,false);
+			$cache_key = md5(http::getHostFromURL($blog_host));
+
+			$k = str_split($cache_key,2);
+			$cache_dir = sprintf('%s/%s/%s/%s/%s',$cache_dir,$k[0],$k[1],$k[2],$cache_key);
+
+			if (is_dir($cache_dir) && is_readable($cache_dir)) {
+				$files = files::scandir($cache_dir.'/'.$root);
+				if (is_array($files)) {
+					foreach ($files as $file) {
+						if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+							$cache_fullpath = $cache_dir.'/'.$root.'/'.$file;
+							if (is_dir($cache_fullpath)) {
+								$content .=
+									'<tr>'.
+									'<td class="nowrap">'.$root.'</td>'.	// 1st level
+									'<td class="nowrap">'.
+										'<a class="sc_subdir" href="#">'.$file.'</a>'.
+									'</td>'.								// 2nd level
+									'<td class="nowrap">'.__('…').'</td>'.				// 3rd level
+									'<td class="nowrap maximal"></td>'.				// cache file
+									'</tr>'."\n";
+							}
+						}
+					}
+				}
+				$ret = true;
+			}
+		}
+
+		$rsp->ret = $ret;
+		$rsp->msg = $content;
+
+		return $rsp;
+	}
+
+	public static function getStaticCacheList($core,$get) {
+		// Return list of folders and files in a given folder
+		$root = !empty($get['root']) ? $get['root'] : '';
+		$rsp = new xmlTag('sysinfo');
+		$ret = false;
+		$content = '';
+
+		if ($root != '') {
+			$blog_host = $core->blog->host;
+			if (substr($blog_host,-1) != '/') {
+				$blog_host .= '/';
+			}
+			$cache_dir = path::real(DC_SC_CACHE_DIR,false);
+			$cache_key = md5(http::getHostFromURL($blog_host));
+
+			if (is_dir($cache_dir) && is_readable($cache_dir)) {
+				$k = str_split($cache_key,2);
+				$cache_dir = sprintf('%s/%s/%s/%s/%s',$cache_dir,$k[0],$k[1],$k[2],$cache_key);
+
+				$dirs = array($cache_dir.'/'.$root);
+				do {
+					$dir = array_shift($dirs);
+					$files = files::scandir($dir);
+					if (is_array($files)) {
+						foreach ($files as $file) {
+							if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+								$cache_fullpath = $dir.'/'.$file;
+								if (is_file($cache_fullpath)) {
+									$k = str_split($file,2);
+									$content .=
+										'<tr>'.
+										'<td class="nowrap">'.$k[0].'</td>'.	// 1st level
+										'<td class="nowrap">'.$k[1].'</td>'.	// 2nd level
+										'<td class="nowrap">'.$k[2].'</td>'.	// 3rd level
+										'<td class="nowrap maximal">'.
+											form::checkbox(array('sc[]'),$cache_fullpath,false).' '.
+											'<label class="classic">'.
+												'<a class="sc_compiled" href="#" data-file="'.$cache_fullpath.'">'.$file.'</a>'.
+											'</label>'.
+										'</td>'.								// cache file
+										'</tr>'."\n";
+								} else {
+									$dirs[] = $dir.'/'.$file;
+								}
+							}
+						}
+					}
+				} while (count($dirs));
+				$ret = true;
+			}
+		}
+
+		$rsp->ret = $ret;
+		$rsp->msg = $content;
+
+		return $rsp;
+	}
+
+	public static function getStaticCacheName($core,$get) {
+		// Return static cache filename from a given URL
+		$url = !empty($get['url']) ? $get['url'] : '';
+		$rsp = new xmlTag('sysinfo');
+		$ret = false;
+		$content = '';
+
+		// Extract REQUEST_URI from URL if possible
+		$blog_host = $core->blog->host;
+		if (substr($url,0,strlen($blog_host)) == $blog_host) {
+			$url = substr($url,strlen($blog_host));
+		}
+
+		if ($url != '') {
+			$content = md5($url);
+			$ret = true;
+		}
+
+		$rsp->ret = $ret;
+		$rsp->msg = $content;
+
+		return $rsp;
+	}
+
 	public static function getStaticCacheFile($core,$get) {
 		// Return compiled static cache file content
 		$file = !empty($get['file']) ? $get['file'] : '';

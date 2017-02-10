@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-09 14:58+0100\n"
+"POT-Creation-Date: 2017-02-10 14:03+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -70,7 +70,7 @@ msgid "Check"
 msgstr "Obtenir"
 
 msgid "Method"
-msgstr ""
+msgstr "Méthode"
 
 msgid "Callback"
 msgstr "Fonction de rappel"
@@ -146,6 +146,12 @@ msgstr "Répertoires de template"
 
 msgid "Path"
 msgstr "Chemin"
+
+msgid " → "
+msgstr ""
+
+msgid "…"
+msgstr ""
 
 msgid "List of static cache files in"
 msgstr "Liste des fichiers du cache statique dans"

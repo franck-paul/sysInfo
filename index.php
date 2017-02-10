@@ -592,15 +592,21 @@ switch ($checklist) {
 		break;
 
 	case 'sc':
+
+		// Add a static cache URL convertor
+		echo
+		'<p class="fieldset">'.
+		'<label for="sccalc_url" class="classic">'.__('URL:').'</label>'.' '.
+		form::field('sccalc_url',50,255,html::escapeHTML($core->blog->url)).' '.
+		'<input type="button" id="getscaction" name="getscaction" value="'.__(' → ').'" />'.
+		' <span id="sccalc_res">'.__('…').'</span>'.
+		'</p>';
+
+		// List of existing cache files
 		$blog_host = $core->blog->host;
 		if (substr($blog_host,-1) != '/') {
 			$blog_host .= '/';
 		}
-		$blog_url = $core->blog->url;
-		if (substr($blog_url,0,strlen($blog_host)) == $blog_host) {
-			$blog_url = substr($blog_url,strlen($blog_host));
-		}
-
 		$cache_dir = path::real(DC_SC_CACHE_DIR,false);
 		$cache_key = md5(http::getHostFromURL($blog_host));
 		$cache = new dcStaticCache(DC_SC_CACHE_DIR,$cache_key);
@@ -623,39 +629,30 @@ switch ($checklist) {
 			', '.__('last update:').' '.date('Y-m-d H:i:s',$cache->getMtime()).'</caption>';
 		echo '<thead>'.
 			'<tr>'.
-			'<th scope="col" class="nowrap">'.__('Cache subpath').'</th>'.
-			'<th scope="col" class="nowrap">'.__('Cache file').'</th>'.
+			'<th scope="col" class="nowrap" colspan="3">'.__('Cache subpath').'</th>'.
+			'<th scope="col" class="nowrap maximal">'.__('Cache file').'</th>'.
 			'</tr>'.
 			'</thead>';
 		echo '<tbody>';
 
-		$dirs = array($cache_dir);
-		do {
-			$dir = array_shift($dirs);
-			$files = files::scandir($dir);
-			if (is_array($files)) {
-				foreach ($files as $file) {
-					if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-						$cache_fullpath = $dir.'/'.$file;
-						if (is_file($cache_fullpath)) {
-							$k = str_split($file,2);
-							$cache_subpath = sprintf('%s/%s/%s',$k[0],$k[1],$k[2]);
-							echo '<tr>'.
-							'<td class="nowrap">'.$cache_subpath.'</td>'.
-							'<td class="nowrap">'.
-								form::checkbox(array('sc[]'),$cache_fullpath,false).' '.
-								'<label class="classic">'.
-									'<a class="sc_compiled" href="#" data-file="'.$cache_fullpath.'">'.$file.'</a>'.
-								'</label>'.
-							'</td>'.
-							'</tr>';
-						} else {
-							$dirs[] = $dir.'/'.$file;
-						}
+		$files = files::scandir($cache_dir);
+		if (is_array($files)) {
+			foreach ($files as $file) {
+				if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+					$cache_fullpath = $cache_dir.'/'.$file;
+					if (is_dir($cache_fullpath)) {
+						echo '<tr>'.
+						'<td class="nowrap">'.
+							'<a class="sc_dir" href="#">'.$file.'</a>'.
+						'</td>'.						// 1st level
+						'<td class="nowrap">'.__('…').'</td>'.		// 2nd level (loaded via getStaticCacheDir REST)
+						'<td class="nowrap"></td>'.		// 3rd level (loaded via getStaticCacheList REST)
+						'<td class="nowrap maximal"></td>'.		// cache file (loaded via getStaticCacheList REST too)
+						'</tr>'."\n";
 					}
 				}
 			}
-		} while (count($dirs));
+		}
 
 		echo '</tbody></table>';
 		echo
