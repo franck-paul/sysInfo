@@ -51,7 +51,7 @@ $constants = array(
 	'DC_DBDRIVER'            => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
 	'DC_DBHOST'              => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
 	'DC_DBNAME'              => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
-	'DC_DBPASSWORD'          => defined('DC_DBPASSWORD') ? '*********' /* DC_DBPASSWORD */ : $undefined,
+	'DC_DBPASSWORD'          => defined('DC_DBPASSWORD') ? '********* '.__('(see inc/config.php)') /* DC_DBPASSWORD */ : $undefined,
 	'DC_DBPREFIX'            => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
 	'DC_DBUSER'              => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
 	'DC_DEBUG'               => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
@@ -62,7 +62,7 @@ $constants = array(
 	'DC_FORCE_SCHEME_443'    => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
 	'DC_L10N_ROOT'           => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
 	'DC_L10N_UPDATE_URL'     => defined('DC_L10N_UPDATE_URL') ? DC_L10N_UPDATE_URL : $undefined,
-	'DC_MASTER_KEY'          => defined('DC_MASTER_KEY') ? '*********' /* DC_MASTER_KEY */ : $undefined,
+	'DC_MASTER_KEY'          => defined('DC_MASTER_KEY') ? '********* '.__('(see inc/config.php)') /* DC_MASTER_KEY */ : $undefined,
 	'DC_MAX_UPLOAD_SIZE'     => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
 	'DC_NOT_UPDATE'          => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
 	'DC_PLUGINS_ROOT'        => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
@@ -385,7 +385,7 @@ switch ($checklist) {
 		}
 		echo '</tbody></table>';
 
-		echo '<p>'.'<a id="sysinfo-preview" onclick="window.open(this.href);return false;" href="'.$core->blog->url.$core->url->getBase('sysinfo').'/'.'behaviours'.'">'.__('Display public behaviours').' ('.__('new window').')'.'</a>'.'</p>';
+		echo '<p><a id="sysinfo-preview" href="'.$core->blog->url.$core->url->getBase('sysinfo').'/behaviours'.'">'.__('Display public behaviours').'</a></p>';
 		break;
 
 	case 'urlhandlers':
@@ -425,13 +425,13 @@ switch ($checklist) {
 		$urls = $core->adminurl->dumpUrls();
 
 		echo '<table id="urls" class="sysinfo"><caption>'.__('Admin registered URLs').'</caption>';
-		echo '<thead><tr><th scope="col">'.__('Name').'</th>'.
+		echo '<thead><tr><th scope="col" class="nowrap">'.__('Name').'</th>'.
 			'<th scope="col">'.__('URL').'</th>'.
 			'<th scope="col" class="maximal">'.__('Query string').'</th></tr></thead>';
 		echo '<tbody>';
 		foreach ($urls as $name => $url) {
 			echo '<tr>'.
-			'<td scope="row">'.$name.'</td>'.
+			'<td scope="row" class="nowrap">'.$name.'</td>'.
 			'<td><code>'.$url['url'].'</code></td>'.
 			'<td class="maximal"><code>'.http_build_query($url['qs']).'</code></td>'.
 			'</tr>';

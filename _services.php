@@ -136,6 +136,17 @@ class sysInfoRest
 						}
 					}
 				} while (count($dirs));
+				if ($content == '') {
+					// No more dirs and files → send an empty raw
+					$k = explode('/',$root);
+					$content .=
+						'<tr>'.
+						'<td class="nowrap">'.$k[0].'</td>'.			// 1st level
+						'<td class="nowrap">'.$k[1].'</td>'.			// 2nd level
+						'<td class="nowrap">'.__('(empty)').'</td>'.	// 3rd level (empty)
+						'<td class="nowrap maximal"></td>'.				// cache file (empty)
+						'</tr>'."\n";
+				}
 				$ret = true;
 			}
 		}

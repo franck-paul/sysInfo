@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-10 19:13+0100\n"
+"POT-Creation-Date: 2017-02-18 09:38+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -23,6 +23,9 @@ msgstr "Infos système"
 
 msgid "…"
 msgstr ""
+
+msgid "(empty)"
+msgstr "(vide)"
 
 msgid "Compiled templates"
 msgstr "Fichiers template compilés"
@@ -53,6 +56,9 @@ msgstr "PHP info"
 
 msgid "Static cache"
 msgstr "Cache statique"
+
+msgid "(see inc/config.php)"
+msgstr "(voir fichier inc/config.php)"
 
 msgid "No cache file selected"
 msgstr "Aucun fichier cache sélectionné"

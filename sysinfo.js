@@ -1,13 +1,18 @@
 $(function() {
 
-	var dotclearAjax = function(method, data, fn) {
+	var dotclearAjax = function(method, args, fn) {
 		var content = null;
 		var params = {
 			xd_check: dotclear.nonce,
 			f: method
 		};
-		$.extend(params, data);
-		$.get('services.php', params, function(data) {
+		$.extend(params, args);
+		var promise = $.ajax({
+  			url: 'services.php',
+			data: params,
+			dataType: 'xml'
+		});
+		promise.done(function(data) {
 			if ($('rsp[status=failed]', data).length > 0) {
 				// For debugging purpose only:
 				// console.log($('rsp',data).attr('message'));
@@ -111,6 +116,7 @@ $(function() {
 					// Insert list and remove previous raw
 					var s = $(f.target).parent().parent();
 					s.after(list).remove();
+					dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
 					// Static cache file preview
 					$('a.sc_compiled').click(function(g) {
 						g.preventDefault();
