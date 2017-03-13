@@ -385,7 +385,7 @@ switch ($checklist) {
 		}
 		echo '</tbody></table>';
 
-		echo '<p><a id="sysinfo-preview" href="'.$core->blog->url.$core->url->getBase('sysinfo').'/behaviours'.'">'.__('Display public behaviours').'</a></p>';
+		echo '<p><a id="sysinfo-preview" href="'.$core->blog->url.$core->url->getURLFor('sysinfo').'/behaviours'.'">'.__('Display public behaviours').'</a></p>';
 		break;
 
 	case 'urlhandlers':
@@ -594,16 +594,6 @@ switch ($checklist) {
 
 	case 'sc':
 
-		// Add a static cache URL convertor
-		echo
-		'<p class="fieldset">'.
-		'<label for="sccalc_url" class="classic">'.__('URL:').'</label>'.' '.
-		form::field('sccalc_url',50,255,html::escapeHTML($core->blog->url)).' '.
-		'<input type="button" id="getscaction" name="getscaction" value="'.__(' → ').'" />'.
-		' <code><span id="sccalc_res"></span></code>'.
-		'</p>';
-
-		// List of existing cache files
 		$blog_host = $core->blog->host;
 		if (substr($blog_host,-1) != '/') {
 			$blog_host .= '/';
@@ -622,6 +612,16 @@ switch ($checklist) {
 		$cache_root = $cache_dir;
 		$cache_dir = sprintf('%s/%s/%s/%s/%s',$cache_dir,$k[0],$k[1],$k[2],$cache_key);
 
+		// Add a static cache URL convertor
+		echo
+		'<p class="fieldset">'.
+		'<label for="sccalc_url" class="classic">'.__('URL:').'</label>'.' '.
+		form::field('sccalc_url',50,255,html::escapeHTML($core->blog->url)).' '.
+		'<input type="button" id="getscaction" name="getscaction" value="'.__(' → ').'" />'.
+		' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="'.$cache_dir.'"></a>'.
+		'</p>';
+
+		// List of existing cache files
 		echo
 		'<form action="'.$p_url.'" method="post" id="scform">';
 
