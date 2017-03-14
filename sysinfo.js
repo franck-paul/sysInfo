@@ -1,12 +1,13 @@
 $(function() {
 
-	var dotclearAjax = function(method, args, fn) {
+	var dotclearAjax = function(method, args, fn, msg) {
 		var content = null;
 		var params = {
 			xd_check: dotclear.nonce,
 			f: method
 		};
 		$.extend(params, args);
+		msg = msg || '';
 		var promise = $.ajax({
   			url: 'services.php',
 			data: params,
@@ -26,29 +27,32 @@ $(function() {
 					// Call callback function with returned value
 					fn(content);
 				}
+				if (!ret && msg !== '') {
+					alert(msg);
+				}
 			}
 		});
 	}
 
 	var getStaticCacheFilename = function(url, fn) {
-		dotclearAjax('getStaticCacheName', { url: url }, fn);
+		dotclearAjax('getStaticCacheName', { url: url }, fn, '');
 	}
 
 	var loadStaticCacheDirs = function(dir, fn) {
-		dotclearAjax('getStaticCacheDir', { root: dir }, fn);
+		dotclearAjax('getStaticCacheDir', { root: dir }, fn, '');
 	}
 
 	var loadStaticCacheList = function(dir, fn) {
-		dotclearAjax('getStaticCacheList', { root: dir }, fn);
+		dotclearAjax('getStaticCacheList', { root: dir }, fn, '');
 	}
 
 	var loadServerFile = function(filename, type, fn) {
 		switch (type) {
 			case 'tpl':
-				dotclearAjax('getCompiledTemplate', { file: filename }, fn);
+				dotclearAjax('getCompiledTemplate', { file: filename }, fn, dotclear.msg.tpl_not_found);
 				break;
 			case 'sc':
-				dotclearAjax('getStaticCacheFile', { file: filename }, fn);
+				dotclearAjax('getStaticCacheFile', { file: filename }, fn, dotclear.msg.sc_not_found);
 				break;
 		}
 	}
@@ -142,6 +146,7 @@ $(function() {
 	$('#getscaction').click(function(e) {
 		e.preventDefault();
 		$('#sccalc_res').text('');
+		$('#sccalc_preview').text('').unbind('click');
 		var url = $('#sccalc_url').val();
 		if (url !== undefined && url !== '') {
 			getStaticCacheFilename(url, function(res) {

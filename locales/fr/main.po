@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 09:38+0100\n"
+"POT-Creation-Date: 2017-03-14 10:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -71,6 +71,12 @@ msgstr "Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés du cach
 
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr "Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés du cache statique ?"
+
+msgid "Compiled template file not found or unreadable"
+msgstr "Fichier template compilé non trouvé ou non lisible"
+
+msgid "Static cache file not found or unreadable"
+msgstr "Fichier cache statique non trouvé ou non lisible"
 
 msgid "Select a checklist:"
 msgstr "Sélectionnez une liste :"

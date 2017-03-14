@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 09:38+0100\n"
+"POT-Creation-Date: 2017-03-14 10:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../hg-plugins/sysInfo/_admin.php:16 ../hg-plugins/sysInfo/_admin.php:32
 #: ../hg-plugins/sysInfo/_public.php:26 ../hg-plugins/sysInfo/_public.php:67
-#: ../hg-plugins/sysInfo/index.php:201 ../hg-plugins/sysInfo/index.php:226
+#: ../hg-plugins/sysInfo/index.php:201 ../hg-plugins/sysInfo/index.php:228
 msgid "System Information"
 msgstr ""
 
@@ -30,7 +30,7 @@ msgstr ""
 msgid "System info"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/_services.php:74 ../hg-plugins/sysInfo/index.php:649
+#: ../hg-plugins/sysInfo/_services.php:74 ../hg-plugins/sysInfo/index.php:651
 msgid "…"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Editors and Syntaxes"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:24 ../hg-plugins/sysInfo/index.php:254
+#: ../hg-plugins/sysInfo/index.php:24 ../hg-plugins/sysInfo/index.php:256
 msgid "REST methods"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgid "Static cache"
 msgstr ""
 
 #: ../hg-plugins/sysInfo/index.php:54 ../hg-plugins/sysInfo/index.php:65
-msgid "(see config.php)"
+msgid "(see inc/config.php)"
 msgstr ""
 
 #: ../hg-plugins/sysInfo/index.php:151 ../hg-plugins/sysInfo/index.php:175
@@ -98,146 +98,154 @@ msgstr ""
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:242
-msgid "Select a checklist:"
+#: ../hg-plugins/sysInfo/index.php:210
+msgid "Compiled template file not found or unreadable"
+msgstr ""
+
+#: ../hg-plugins/sysInfo/index.php:211
+msgid "Static cache file not found or unreadable"
 msgstr ""
 
 #: ../hg-plugins/sysInfo/index.php:244
+msgid "Select a checklist:"
+msgstr ""
+
+#: ../hg-plugins/sysInfo/index.php:246
 msgid "Check"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:257
+#: ../hg-plugins/sysInfo/index.php:259
 msgid "Method"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:258 ../hg-plugins/sysInfo/index.php:359
+#: ../hg-plugins/sysInfo/index.php:260 ../hg-plugins/sysInfo/index.php:361
 msgid "Callback"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:283
+#: ../hg-plugins/sysInfo/index.php:285
 msgid "Plugins (in loading order)"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:286
+#: ../hg-plugins/sysInfo/index.php:288
 msgid "Plugin id"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:287
+#: ../hg-plugins/sysInfo/index.php:289
 msgid "Properties"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:303
+#: ../hg-plugins/sysInfo/index.php:305
 msgid "Editors and their supported syntaxes"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:306
+#: ../hg-plugins/sysInfo/index.php:308
 msgid "Editor"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:307
+#: ../hg-plugins/sysInfo/index.php:309
 msgid "Syntax"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:330
+#: ../hg-plugins/sysInfo/index.php:332
 msgid "Dotclear constants"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:333
+#: ../hg-plugins/sysInfo/index.php:335
 msgid "Constant"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:355
+#: ../hg-plugins/sysInfo/index.php:357
 msgid "Behaviours list"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:358
+#: ../hg-plugins/sysInfo/index.php:360
 msgid "Behavior"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:388
+#: ../hg-plugins/sysInfo/index.php:390
 msgid "Display public behaviours"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:399
+#: ../hg-plugins/sysInfo/index.php:401
 msgid "List of known URLs"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:401
+#: ../hg-plugins/sysInfo/index.php:403
 msgid "base URL"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:402
+#: ../hg-plugins/sysInfo/index.php:404
 msgid "Regular expression"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:427
+#: ../hg-plugins/sysInfo/index.php:429
 msgid "Admin registered URLs"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:430
+#: ../hg-plugins/sysInfo/index.php:432
 msgid "Query string"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:500
+#: ../hg-plugins/sysInfo/index.php:502
 msgid "List of compiled templates in cache"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:503
+#: ../hg-plugins/sysInfo/index.php:505
 msgid "Template path"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:504
+#: ../hg-plugins/sysInfo/index.php:506
 msgid "Template file"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:505 ../hg-plugins/sysInfo/index.php:633
+#: ../hg-plugins/sysInfo/index.php:507 ../hg-plugins/sysInfo/index.php:635
 msgid "Cache subpath"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:506 ../hg-plugins/sysInfo/index.php:634
+#: ../hg-plugins/sysInfo/index.php:508 ../hg-plugins/sysInfo/index.php:636
 msgid "Cache file"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:563 ../hg-plugins/sysInfo/index.php:662
+#: ../hg-plugins/sysInfo/index.php:565 ../hg-plugins/sysInfo/index.php:664
 msgid "Delete selected cache files"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:574
+#: ../hg-plugins/sysInfo/index.php:576
 msgid "List of template paths"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:577
+#: ../hg-plugins/sysInfo/index.php:579
 msgid "Path"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:602
+#: ../hg-plugins/sysInfo/index.php:622
 msgid " → "
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:629
+#: ../hg-plugins/sysInfo/index.php:631
 msgid "List of static cache files in"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:630
+#: ../hg-plugins/sysInfo/index.php:632
 msgid "last update:"
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:670
+#: ../hg-plugins/sysInfo/index.php:672
 msgid "Live long and prosper."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:671
+#: ../hg-plugins/sysInfo/index.php:673
 msgid "To infinity and beyond."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:672
+#: ../hg-plugins/sysInfo/index.php:674
 msgid "So long, and thanks for all the fish."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:673
+#: ../hg-plugins/sysInfo/index.php:675
 msgid "Find a needle in a haystack."
 msgstr ""
 
-#: ../hg-plugins/sysInfo/index.php:674
+#: ../hg-plugins/sysInfo/index.php:676
 msgid "A clever person solves a problem. A wise person avoids it."
 msgstr ""

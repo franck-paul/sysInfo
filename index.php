@@ -207,6 +207,8 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 		dcPage::jsVar('dotclear.colorsyntax_theme',$user_ui_colorsyntax_theme).
 		dcPage::jsVar('dotclear.msg.confirm_del_tpl',__('Are you sure you want to remove selected template cache files?')).
 		dcPage::jsVar('dotclear.msg.confirm_del_sc',__('Are you sure you want to remove selected static cache files?')).
+		dcPage::jsVar('dotclear.msg.tpl_not_found',__('Compiled template file not found or unreadable')).
+		dcPage::jsVar('dotclear.msg.sc_not_found',__('Static cache file not found or unreadable')).
 		'</script>'.
 		dcPage::jsModal().
 		dcPage::jsLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.js')),$core->getVersion('sysInfo'));
