@@ -152,7 +152,7 @@ $(function() {
 			getStaticCacheFilename(url, function(res) {
 				var text = String.fromCharCode(160) + res.slice(0,2) + ' / ' + res.slice(2,4) + ' / ' + res.slice(4,6) + ' / ';
 				$('#sccalc_res').text(text);
-				$('#sccalc_preview').text(res);
+				$('#sccalc_preview').text(res).focus();
 				$('#sccalc_preview').click(function(f) {
 					f.preventDefault();
 					var cache_file = res.slice(0,2) + '/' + res.slice(2,4) + '/' + res.slice(4,6) + '/' + res;
