@@ -16,10 +16,12 @@ $this->registerModule(
 	/* Name */			"sysInfo",
 	/* Description*/		"System Information",
 	/* Author */			"Franck Paul",
-	/* Version */			'1.8',
+	/* Version */			'1.8.1',
 	array(
 		/* Dependencies */	'requires' =>		array(array('core','2.10')),
 		/* Type */			'type' =>			'plugin',
-		/* Priority */		'priority' =>		99999999999
+		/* Priority */		'priority' =>		99999999999,
+		/* Details */		'details' =>		'https://open-time.net/docs/plugins/sysInfo'
+
 	)
 );
