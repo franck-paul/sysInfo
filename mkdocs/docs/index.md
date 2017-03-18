@@ -1,7 +1,7 @@
 # Typographic replacement plugin for Dotclear 2
 
 !!! tip "Current release"
-    [1.8 - 2017-03-17](https://open-time.net/post/2017/03/17/Plugin-sysInfo-18-pour-Dotclear) (Dotclear 2.10+)
+    [1.8.1 - 2017-03-18][ot-dl] (Dotclear 2.10+)
 
 ![](img/icon-big.png)
 
@@ -15,7 +15,7 @@ This plugin give some information about your Dotclear installation. It may be us
 The plugin may be downloaded and installed from following sources:
 
  * [DotAddict](http://plugins.dotaddict.org/dc2/details/sysInfo)
- * [Open-Time](https://open-time.net/post/2017/03/17/Plugin-sysInfo-18-pour-Dotclear)
+ * [Open-Time][ot-dl]
 
 Or directly from the administration plugins page of Dotclear
 
@@ -42,3 +42,5 @@ And it provides also a setting to [deactivate the HTTP cache](user-guide/http-ca
 [^1]: The list is provided as soon as you click on "Check" button or when you select another item.
 
 [^2]: This item is only available if the static cache plugin is installed and enabled.
+
+[ot-dl]: https://open-time.net/post/2017/03/18/Plugin-sysInfo-181-pour-Dotclear
