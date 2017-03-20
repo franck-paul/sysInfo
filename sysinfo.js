@@ -1,3 +1,5 @@
+"use strict";
+
 $(function() {
 
 	var dotclearAjax = function(method, args, fn, msg) {
@@ -58,6 +60,7 @@ $(function() {
 	}
 
 	var viewSource = function(prefix, filename, content) {
+		var cm_editor;	// Codemirror instance
 		var src =
 			'<div class="' + prefix + '_view">' +
 			'<h1>' + filename + '</h1>' +
@@ -85,7 +88,13 @@ $(function() {
 							options.theme = dotclear.colorsyntax_theme;
 						}
 						var textarea = document.getElementById(prefix + '_source');
-						var editor = CodeMirror.fromTextArea(textarea, options);
+						cm_editor = CodeMirror.fromTextArea(textarea, options);
+					}
+				},
+				close: function() {
+					if (cm_editor !== undefined && cm_editor !== null) {
+						// Remove Codemirror instance
+						cm_editor.toTextArea();
 					}
 				}
 			}
@@ -110,6 +119,7 @@ $(function() {
 		var main_dir = $(e.target).text();
 		loadStaticCacheDirs(main_dir, function(dirs) {
 			// Insert list and remove previous raw
+			$('a.sc_subdir').unbind('click');
 			var r = $(e.target).parent().parent();
 			r.after(dirs).remove();
 			// Static cache subdir expand (load 3rd level subdirs and cache file list via Ajax)
@@ -118,6 +128,7 @@ $(function() {
 				var sub_dir = $(f.target).text();
 				loadStaticCacheList(main_dir + '/' + sub_dir, function(list) {
 					// Insert list and remove previous raw
+					$('a.sc_compiled').unbind('click');
 					var s = $(f.target).parent().parent();
 					s.after(list).remove();
 					dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
