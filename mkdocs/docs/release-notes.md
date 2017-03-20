@@ -1,3 +1,7 @@
+[1.8.2 - 2017-03-20](https://open-time.net/post/2017/03/20/Plugin-sysInfo-182-pour-Dotclear)
+================
+ * Bugfix: bind/unbind event accordingly to DOM changes
+
 [1.8.1 - 2017-03-18](https://open-time.net/post/2017/03/18/Plugin-sysInfo-181-pour-Dotclear)
 ================
  * Add link to online doc (mkdocs sources removed from archive)
