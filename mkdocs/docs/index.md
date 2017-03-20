@@ -1,7 +1,7 @@
 # Typographic replacement plugin for Dotclear 2
 
 !!! tip "Current release"
-    [1.8.2 - 2017-03-20][ot-dl] (Dotclear 2.10+)
+    [1.8.3 - 2017-03-20][ot-dl] (Dotclear 2.10+)
 
 ![](img/icon-big.png)
 
@@ -43,4 +43,4 @@ And it provides also a setting to [deactivate the HTTP cache](user-guide/http-ca
 
 [^2]: This item is only available if the static cache plugin is installed and enabled.
 
-[ot-dl]: https://open-time.net/post/2017/03/20/Plugin-sysInfo-182-pour-Dotclear
+[ot-dl]: https://open-time.net/post/2017/03/20/Plugin-sysInfo-183-pour-Dotclear

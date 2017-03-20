@@ -119,7 +119,6 @@ $(function() {
 		var main_dir = $(e.target).text();
 		loadStaticCacheDirs(main_dir, function(dirs) {
 			// Insert list and remove previous raw
-			$('a.sc_subdir').unbind('click');
 			var r = $(e.target).parent().parent();
 			r.after(dirs).remove();
 			// Static cache subdir expand (load 3rd level subdirs and cache file list via Ajax)
