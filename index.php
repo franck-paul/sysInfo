@@ -64,6 +64,7 @@ $constants = array(
 	'DC_L10N_UPDATE_URL'     => defined('DC_L10N_UPDATE_URL') ? DC_L10N_UPDATE_URL : $undefined,
 	'DC_MASTER_KEY'          => defined('DC_MASTER_KEY') ? '********* '.__('(see inc/config.php)') /* DC_MASTER_KEY */ : $undefined,
 	'DC_MAX_UPLOAD_SIZE'     => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
+	'DC_NEXT_REQUIRED_PHP'	 => defined('DC_NEXT_REQUIRED_PHP') ? DC_NEXT_REQUIRED_PHP : $undefined,
 	'DC_NOT_UPDATE'          => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
 	'DC_PLUGINS_ROOT'        => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
 	'DC_RC_PATH'             => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
