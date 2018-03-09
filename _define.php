@@ -1,27 +1,28 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-# This file is part of sysInfo, a plugin for Dotclear 2.
-#
-# Copyright (c) Franck Paul and contributors
-# carnet.franck.paul@gmail.com
-#
-# Licensed under the GPL version 2.0 license.
-# A copy of this license is available in LICENSE file or at
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-# -- END LICENSE BLOCK ------------------------------------
+/**
+ * @brief sysInfo, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugins
+ *
+ * @author Franck Paul
+ *
+ * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 
-if (!defined('DC_RC_PATH')) { return; }
+if (!defined('DC_RC_PATH')) {return;}
 
 $this->registerModule(
-	/* Name */			"sysInfo",
-	/* Description*/		"System Information",
-	/* Author */			"Franck Paul",
-	/* Version */			'1.8.3',
-	array(
-		/* Dependencies */	'requires' =>		array(array('core','2.10')),
-		/* Type */			'type' =>			'plugin',
-		/* Priority */		'priority' =>		99999999999,
-		/* Details */		'details' =>		'https://open-time.net/docs/plugins/sysInfo'
+    "sysInfo",            // Name
+    "System Information", // Description
+    "Franck Paul",        // Author
+    '1.8.3',              // Version
+    array(
+        'requires' => array(array('core', '2.10')),                 // Dependencies
+        'type'     => 'plugin',                                     // Type
+        'priority' => 99999999999,                                  // Priority
+        'details'  => 'https://open-time.net/docs/plugins/sysInfo' // Details
 
-	)
+    )
 );

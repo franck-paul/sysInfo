@@ -1,78 +1,62 @@
 /* Standard */
 
 .sysinfo tr:hover {
-	background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
-
 pre.sysinfo {
-	white-space: pre;
-	margin: 0;
+  white-space: pre;
+  margin: 0;
 }
-
 blockquote.sysinfo {
-	font-family: serif;
-	color: #636363;
-	font-style: italic;
-	font-size: 1.125em;
-	line-height: 1.33;
-	quotes: '\201C' '\201D';
-	margin-top: 1.7777778em;
+  font-family: serif;
+  color: #636363;
+  font-style: italic;
+  font-size: 1.125em;
+  line-height: 1.33;
+  quotes: '\201C' '\201D';
+  margin-top: 1.7777778em;
 }
-
-blockquote.sysinfo:before,
-blockquote.sysinfo:after {
-	margin-top: 0;
-	font-size: 3em;
-	display: block;
-	line-height: .25;
-	color: #dcdcdc;
-	margin-bottom: 0;
+blockquote.sysinfo:before, blockquote.sysinfo:after {
+  margin-top: 0;
+  font-size: 3em;
+  display: block;
+  line-height: .25;
+  color: #dcdcdc;
+  margin-bottom: 0;
 }
-
 blockquote.sysinfo:before {
-	content: open-quote;
-	float: left;
-	margin-right: .25em;
+  content: open-quote;
+  float: left;
+  margin-right: .25em;
 }
-
 blockquote.sysinfo:after {
-	content: close-quote;
-	text-align: right;
+  content: close-quote;
+  text-align: right;
 }
-
-
 /* Source preview (compiled template, static cache) */
 
-.tpl_compiled_view,
-.sc_compiled_view {
-	width: auto;
-	background: #fff;
+.tpl_compiled_view, .sc_compiled_view {
+  width: auto;
+  background: #fff;
 }
-
-.tpl_compiled_view h1,
-.sc_compiled_view h1 {
-	font-weight: bold;
-	width: initial;
-	text-indent: 1em;
-	background: #fff;
+.tpl_compiled_view h1, .sc_compiled_view h1 {
+  font-weight: bold;
+  width: initial;
+  text-indent: 1em;
+  background: #fff;
 }
-
-.tpl_compiled_view textarea,
-.sc_compiled_view textarea {
-	resize: none;
-	width: calc(100% - 2em);
-	height: 90vh;
-	margin: 1em;
+.tpl_compiled_view textarea, .sc_compiled_view textarea {
+  resize: none;
+  width: calc(100% - 2em);
+  height: 90vh;
+  margin: 1em;
 }
-
-.tpl_compiled_view .CodeMirror,
-.sc_compiled_view .CodeMirror {
-	height: 90vh;
-	font: 1em Monaco, "Courier New", Courier, monospace;
+.tpl_compiled_view .CodeMirror, .sc_compiled_view .CodeMirror {
+  height: 90vh;
+  font: 1em Monaco, "Courier New", Courier, monospace;
 }
-
 /* Static cache calculator */
 
 #sccalc_res {
-	font-weight: bold;
+  font-weight: bold;
 }
