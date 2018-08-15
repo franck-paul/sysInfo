@@ -1,6 +1,7 @@
 /* Standard */
 
-.sysinfo tr:hover {
+.sysinfo tbody tr:hover {
+  color: #8a2be2;
   background-color: #f3f3f3;
 }
 pre.sysinfo {

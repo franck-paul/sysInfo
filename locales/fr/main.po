@@ -67,10 +67,10 @@ msgid "Selected cache files have been deleted."
 msgstr "Les fichiers cache sélectionnés ont été supprimés."
 
 msgid "Are you sure you want to remove selected template cache files?"
-msgstr "Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés du cache des template ?"
+msgstr "Êtes-vous sûr·e de vouloir supprimer les fichiers sélectionnés du cache des template ?"
 
 msgid "Are you sure you want to remove selected static cache files?"
-msgstr "Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés du cache statique ?"
+msgstr "Êtes-vous sûr·e de vouloir supprimer les fichiers sélectionnés du cache statique ?"
 
 msgid "Compiled template file not found or unreadable"
 msgstr "Fichier template compilé non trouvé ou non lisible"
