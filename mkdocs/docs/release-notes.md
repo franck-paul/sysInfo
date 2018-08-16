@@ -1,3 +1,7 @@
+[1.8.4 - 2018-08-16](https://open-time.net/post/2018/08/16/Plugin-sysInfo-184-pour-Dotclear)
+================
+ * Various adjustments for Dotclear 2.14 release
+
 [1.8.3 - 2017-03-20](https://open-time.net/post/2017/03/20/Plugin-sysInfo-183-pour-Dotclear)
 ================
  * Bugfix: bind/unbind event accordingly to DOM changes, don't do more than necessary!
