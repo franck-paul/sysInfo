@@ -23,25 +23,25 @@ $_menu['System']->addItem(__('System info'),
     $core->auth->isSuperAdmin());
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', array('sysInfoAdmin', 'adminDashboardFavorites'));
+$core->addBehavior('adminDashboardFavorites', ['sysInfoAdmin', 'adminDashboardFavorites']);
 
 class sysInfoAdmin
 {
     public static function adminDashboardFavorites($core, $favs)
     {
-        $favs->register('sysInfo', array(
+        $favs->register('sysInfo', [
             'title'       => __('System Information'),
             'url'         => $core->adminurl->get('admin.plugin.sysInfo'),
             'small-icon'  => urldecode(dcPage::getPF('sysInfo/icon.png')),
             'large-icon'  => urldecode(dcPage::getPF('sysInfo/icon-big.png')),
             'permissions' => $core->auth->isSuperAdmin()
-        ));
+        ]);
     }
 }
 
 // Register REST methods
-$core->rest->addFunction('getCompiledTemplate', array('sysInfoRest', 'getCompiledTemplate'));
-$core->rest->addFunction('getStaticCacheFile', array('sysInfoRest', 'getStaticCacheFile'));
-$core->rest->addFunction('getStaticCacheDir', array('sysInfoRest', 'getStaticCacheDir'));
-$core->rest->addFunction('getStaticCacheList', array('sysInfoRest', 'getStaticCacheList'));
-$core->rest->addFunction('getStaticCacheName', array('sysInfoRest', 'getStaticCacheName'));
+$core->rest->addFunction('getCompiledTemplate', ['sysInfoRest', 'getCompiledTemplate']);
+$core->rest->addFunction('getStaticCacheFile', ['sysInfoRest', 'getStaticCacheFile']);
+$core->rest->addFunction('getStaticCacheDir', ['sysInfoRest', 'getStaticCacheDir']);
+$core->rest->addFunction('getStaticCacheList', ['sysInfoRest', 'getStaticCacheList']);
+$core->rest->addFunction('getStaticCacheName', ['sysInfoRest', 'getStaticCacheName']);

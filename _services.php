@@ -111,7 +111,7 @@ class sysInfoRest
                 $k         = str_split($cache_key, 2);
                 $cache_dir = sprintf('%s/%s/%s/%s/%s', $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
-                $dirs = array($cache_dir . '/' . $root);
+                $dirs = [$cache_dir . '/' . $root];
                 do {
                     $dir   = array_shift($dirs);
                     $files = files::scandir($dir);
@@ -127,7 +127,7 @@ class sysInfoRest
                                     '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
                                     '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
                                     '<td class="nowrap maximal">' .
-                                    form::checkbox(array('sc[]'), $cache_fullpath, false) . ' ' .
+                                    form::checkbox(['sc[]'], $cache_fullpath, false) . ' ' .
                                     '<label class="classic">' .
                                     '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
                                     '</label>' .

@@ -13,7 +13,7 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', array('urlSysInfo', 'sysInfo'));
+$core->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', ['urlSysInfo', 'sysInfo']);
 
 if (!defined('DC_CONTEXT_ADMIN')) {return false;}
 

@@ -13,11 +13,11 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->addBehavior('publicBreadcrumb', array('extSysInfo', 'publicBreadcrumb'));
-$core->addBehavior('urlHandlerBeforeGetData', array('extSysInfo', 'urlHandlerBeforeGetData'));
+$core->addBehavior('publicBreadcrumb', ['extSysInfo', 'publicBreadcrumb']);
+$core->addBehavior('urlHandlerBeforeGetData', ['extSysInfo', 'urlHandlerBeforeGetData']);
 
-$core->tpl->addValue('SysInfoPageTitle', array('tplSysInfo', 'SysInfoPageTitle'));
-$core->tpl->addValue('SysInfoBehaviours', array('tplSysInfo', 'SysInfoBehaviours'));
+$core->tpl->addValue('SysInfoPageTitle', ['tplSysInfo', 'SysInfoPageTitle']);
+$core->tpl->addValue('SysInfoBehaviours', ['tplSysInfo', 'SysInfoBehaviours']);
 
 class extSysInfo
 {

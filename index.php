@@ -13,7 +13,7 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
-$checklists = array(
+$checklists = [
     __('Compiled templates')   => 'templates',
     __('Template paths')       => 'tplpaths',
     __('URL handlers')         => 'urlhandlers',
@@ -24,7 +24,7 @@ $checklists = array(
     __('Plugins')              => 'plugins',
     __('REST methods')         => 'rest',
     __('PHP info')             => 'phpinfo'
-);
+];
 
 if ($core->plugins->moduleExists('staticCache')) {
     if (defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE) {
@@ -37,7 +37,7 @@ if ($core->plugins->moduleExists('staticCache')) {
 }
 
 $undefined = '<!-- undefined -->';
-$constants = array(
+$constants = [
     'DC_ADMIN_MAILFROM'      => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
     'DC_ADMIN_SSL'           => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
     'DC_ADMIN_URL'           => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
@@ -81,7 +81,7 @@ $constants = array(
     'DC_VERSION'             => defined('DC_VERSION') ? DC_VERSION : $undefined,
     'DC_XMLRPC_URL'          => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
     'CLEARBRICKS_VERSION'    => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined
-);
+];
 
 if ($core->plugins->moduleExists('staticCache')) {
     $constants['DC_SC_CACHE_ENABLE']    = defined('DC_SC_CACHE_ENABLE') ? (DC_SC_CACHE_ENABLE ? 'true' : 'false') : $undefined;
@@ -112,9 +112,9 @@ $publicPrepend = function () {
             $__parent_theme = null;
         }
     }
-    $__theme_tpl_path = array(
+    $__theme_tpl_path = [
         $core->blog->themes_path . '/' . $__theme . '/tpl'
-    );
+    ];
     if ($__parent_theme) {
         $__theme_tpl_path[] = $core->blog->themes_path . '/' . $__parent_theme . '/tpl';
         if (empty($tplset)) {
@@ -223,10 +223,10 @@ if ($user_ui_colorsyntax) {
 <?php
 echo
 dcPage::breadcrumb(
-    array(
+    [
         __('System')             => '',
         __('System Information') => ''
-    ));
+    ]);
 echo dcPage::notices();
 
 if (!empty($_GET['tpl'])) {
@@ -395,8 +395,8 @@ switch ($checklist) {
         $urls = $core->url->getTypes();
 
         // Tables des URLs non gérées par le menu
-        //$excluded = array('rsd','xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed');
-        $excluded = array();
+        //$excluded = ['rsd','xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
+        $excluded = [];
 
         echo '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . '</caption>';
         echo '<thead><tr><th scope="col">' . __('Type') . '</th>' .
@@ -444,13 +444,13 @@ switch ($checklist) {
     case 'phpinfo':
         ob_start();
         phpinfo(INFO_GENERAL + INFO_CONFIGURATION + INFO_MODULES + INFO_ENVIRONMENT + INFO_VARIABLES);
-        $phpinfo = array('phpinfo' => array());
+        $phpinfo = ['phpinfo' => []];
         if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 if (strlen($match[1])) {
-                    $phpinfo[$match[1]] = array();
+                    $phpinfo[$match[1]] = [];
                 } elseif (isset($match[3])) {
-                    @$phpinfo[end(array_keys($phpinfo))][$match[2]] = isset($match[4]) ? array($match[3], $match[4]) : $match[3];
+                    @$phpinfo[end(array_keys($phpinfo))][$match[2]] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
                 } else {
                     @$phpinfo[end(array_keys($phpinfo))][] = $match[2];
                 }
@@ -509,7 +509,7 @@ switch ($checklist) {
         echo '<tbody>';
 
         // Template stack
-        $stack = array();
+        $stack = [];
         // Loop on template paths
         foreach ($paths as $path) {
             $sub_path = path::real($path, false);
@@ -547,7 +547,7 @@ switch ($checklist) {
                                 '<td scope="row" class="nowrap">' . $file . '</td>' .
                                 '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                                 '<td class="nowrap">' .
-                                form::checkbox(array('tpl[]'), $cache_file, false,
+                                form::checkbox(['tpl[]'], $cache_file, false,
                                     ($file_exists) ? 'tpl_compiled' : '', '', !($file_exists)) . ' ' .
                                     '<label class="classic">' .
                                     ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
@@ -678,13 +678,13 @@ switch ($checklist) {
         break;
 
     default:
-        $quotes = array(
+        $quotes = [
             __('Live long and prosper.'),
             __('To infinity and beyond.'),
             __('So long, and thanks for all the fish.'),
             __('Find a needle in a haystack.'),
             __('A clever person solves a problem. A wise person avoids it.')
-        );
+        ];
         $q = rand(0, count($quotes) - 1);
         echo '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>';
         break;
