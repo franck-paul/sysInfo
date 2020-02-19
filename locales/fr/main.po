@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 10:36+0100\n"
+"POT-Creation-Date: 2020-02-19 13:43+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -29,6 +29,12 @@ msgstr "(vide)"
 
 msgid "Compiled templates"
 msgstr "Fichiers template compilés"
+
+msgid "Plugins repository"
+msgstr "Dépôt des plugins"
+
+msgid "Themes repository"
+msgstr "Dépôt des thèmes"
 
 msgid "Template paths"
 msgstr "Répertoires de template"
@@ -170,6 +176,30 @@ msgstr "Liste des fichiers du cache statique dans"
 
 msgid "last update:"
 msgstr "dernière mise à jour :"
+
+msgid " from: "
+msgstr " depuis : "
+
+msgid "Repository plugins list"
+msgstr "Liste des plugins du dépôt"
+
+msgid "cache"
+msgstr "le cache"
+
+msgid "Plugin ID"
+msgstr "Identifiant du plugin"
+
+msgid "Plugin information"
+msgstr "Informations du plugin"
+
+msgid "Repository themes list"
+msgstr "Liste des thèmes du dépôt"
+
+msgid "Theme ID"
+msgstr "Identifiant du thème"
+
+msgid "Theme information"
+msgstr "Informations du thème"
 
 msgid "Live long and prosper."
 msgstr "Longue vie et prospérité."

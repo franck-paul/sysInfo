@@ -15,6 +15,8 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
 $checklists = [
     __('Compiled templates')   => 'templates',
+    __('Plugins repository')   => 'dcrepo-plugins',
+    __('Themes repository')    => 'dcrepo-themes',
     __('Template paths')       => 'tplpaths',
     __('URL handlers')         => 'urlhandlers',
     __('Behaviours')           => 'behaviours',
@@ -684,6 +686,90 @@ switch ($checklist) {
             '</div>' .
             '</form>';
 
+        break;
+
+    case 'dcrepo-plugins':
+        // Get installation info
+        $cache_path = path::real(DC_TPL_CACHE);
+        $in_cache   = false;
+
+        // Get XML cache file for plugins
+        $xml_url  = $core->blog->settings->system->store_plugin_url;
+        $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
+            $cache_path,
+            'dcrepo',
+            substr(md5($xml_url), 0, 2),
+            substr(md5($xml_url), 2, 2),
+            md5($xml_url)
+        );
+        if (file_exists($ser_file)) {
+            $in_cache = true;
+        }
+        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE);
+        $raw_datas = $parser->getModules();
+
+        echo '<table id="chk-table-result" class="sysinfo">';
+        echo '<caption>' . __('Repository plugins list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</caption>';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th scope="col">' . __('Plugin ID') . '</th>';
+        echo '<th scope="col">' . __('Plugin information') . '</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+        foreach ($raw_datas as $id => $infos) {
+            echo '<tr><td>' . $id . '</td>';
+            echo '<td><ul>';
+            foreach ($infos as $key => $value) {
+                echo '<li>' . $key . ' = ' . $value . '</li>';
+            }
+            echo '</ul></td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+        break;
+
+    case 'dcrepo-themes':
+        // Get installation info
+        $cache_path = path::real(DC_TPL_CACHE);
+        $in_cache   = false;
+
+        // Get XML cache file for plugins
+        $xml_url  = $core->blog->settings->system->store_theme_url;
+        $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
+            $cache_path,
+            'dcrepo',
+            substr(md5($xml_url), 0, 2),
+            substr(md5($xml_url), 2, 2),
+            md5($xml_url)
+        );
+        if (file_exists($ser_file)) {
+            $in_cache = true;
+        }
+        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE);
+        $raw_datas = $parser->getModules();
+
+        echo '<table id="chk-table-result" class="sysinfo">';
+        echo '<caption>' . __('Repository themes list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</caption>';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th scope="col">' . __('Theme ID') . '</th>';
+        echo '<th scope="col">' . __('Theme information') . '</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+        foreach ($raw_datas as $id => $infos) {
+            echo '<tr><td>' . $id . '</td>';
+            echo '<td><ul>';
+            foreach ($infos as $key => $value) {
+                echo '<li>' . $key . ' = ' . $value . '</li>';
+            }
+            echo '</ul></td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
         break;
 
     default:
