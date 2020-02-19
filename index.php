@@ -717,11 +717,13 @@ switch ($checklist) {
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
+        $url_fmt = '<a href="%1$s">%1$s</a>';
         foreach ($raw_datas as $id => $infos) {
             echo '<tr><td>' . $id . '</td>';
             echo '<td><ul>';
             foreach ($infos as $key => $value) {
-                echo '<li>' . $key . ' = ' . $value . '</li>';
+                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) ? sprintf($url_fmt, $value) : $value);
+                echo '<li>' . $key . ' = ' . $val . '</li>';
             }
             echo '</ul></td>';
             echo '</tr>';
@@ -759,11 +761,13 @@ switch ($checklist) {
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
+        $url_fmt = '<a href="%1$s">%1$s</a>';
         foreach ($raw_datas as $id => $infos) {
             echo '<tr><td>' . $id . '</td>';
             echo '<td><ul>';
             foreach ($infos as $key => $value) {
-                echo '<li>' . $key . ' = ' . $value . '</li>';
+                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) ? sprintf($url_fmt, $value) : $value);
+                echo '<li>' . $key . ' = ' . $val . '</li>';
             }
             echo '</ul></td>';
             echo '</tr>';

@@ -14,7 +14,7 @@ This plugin give some information about your Dotclear installation. It may be us
 
 The plugin may be downloaded and installed from following sources:
 
- * [DotAddict](http://plugins.dotaddict.org/dc2/details/sysInfo)
+ * [DotAddict](https://plugins.dotaddict.org/dc2/details/sysInfo)
  * [Open-Time][ot-dl]
 
 Or directly from the administration plugins page of Dotclear
