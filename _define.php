@@ -17,12 +17,12 @@ $this->registerModule(
     "sysInfo",            // Name
     "System Information", // Description
     "Franck Paul",        // Author
-    '1.9.1',              // Version
+    '1.9.2',              // Version
     [
         'requires' => [['core', '2.13']],                           // Dependencies
         'type'     => 'plugin',                                     // Type
         'priority' => 99999999999,                                  // Priority
-        'details'  => 'https://open-time.net/docs/plugins/sysInfo' // Details
-
+        'details'  => 'https://open-time.net/docs/plugins/sysInfo', // Details URL
+        'support'  => 'https://github.com/franck-paul/sysInfo'     // Support URL
     ]
 );

@@ -34,6 +34,27 @@ blockquote.sysinfo:after {
   content: close-quote;
   text-align: right;
 }
+#content details {
+  padding: .25em;
+  padding-left: .5em;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+#content details:hover, details[open] {
+  background-color: #f3f3f3;
+}
+#content details:first-of-type {
+  border-top: 1px solid #ccc;
+}
+#content summary:hover {
+  color: #8a2be2;
+}
+#expand-all {
+  background-color: #f3f3f3;
+  font-weight: bold;
+}
+
 /* Source preview (compiled template, static cache) */
 
 .tpl_compiled_view, .sc_compiled_view {

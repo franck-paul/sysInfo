@@ -207,4 +207,19 @@ $(function() {
     return window.confirm(dotclear.msg.confirm_del_sc);
   });
 
+  // Expand/Contract all (details)
+  $('#expand-all').click(function(e) {
+    e.preventDefault();
+    if ($(this).attr('open')) {
+      // Close all
+      $('#content details').each(function() {
+        $(this).attr('open', false);
+      });
+    } else {
+      // Open all
+      $('#content details').each(function() {
+        $(this).attr('open', true);
+      });
+    }
+  });
 });

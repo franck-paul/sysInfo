@@ -707,29 +707,21 @@ switch ($checklist) {
         }
         $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE);
         $raw_datas = $parser->getModules();
+        dcUtils::lexicalKeySort($raw_datas);
 
-        echo '<table id="chk-table-result" class="sysinfo">';
-        echo '<caption>' . __('Repository plugins list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</caption>';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th scope="col">' . __('Plugin ID') . '</th>';
-        echo '<th scope="col">' . __('Plugin information') . '</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
+        echo '<h3>' . __('Repository plugins list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
+        echo '<details id="expand-all"><summary>' . __('Plugin ID') . '</summary></details>';
         $url_fmt = '<a href="%1$s">%1$s</a>';
         foreach ($raw_datas as $id => $infos) {
-            echo '<tr><td>' . $id . '</td>';
-            echo '<td><ul>';
+            echo '<details><summary>' . $id . '</summary>';
+            echo '<ul>';
             foreach ($infos as $key => $value) {
                 $val = (in_array($key, ['file', 'details', 'support', 'sshot']) ? sprintf($url_fmt, $value) : $value);
                 echo '<li>' . $key . ' = ' . $val . '</li>';
             }
-            echo '</ul></td>';
-            echo '</tr>';
+            echo '</ul>';
+            echo '</details>';
         }
-        echo '</tbody>';
-        echo '</table>';
         break;
 
     case 'dcrepo-themes':
@@ -737,7 +729,7 @@ switch ($checklist) {
         $cache_path = path::real(DC_TPL_CACHE);
         $in_cache   = false;
 
-        // Get XML cache file for plugins
+        // Get XML cache file for themes
         $xml_url  = $core->blog->settings->system->store_theme_url;
         $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
             $cache_path,
@@ -751,29 +743,21 @@ switch ($checklist) {
         }
         $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE);
         $raw_datas = $parser->getModules();
+        dcUtils::lexicalKeySort($raw_datas);
 
-        echo '<table id="chk-table-result" class="sysinfo">';
-        echo '<caption>' . __('Repository themes list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</caption>';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th scope="col">' . __('Theme ID') . '</th>';
-        echo '<th scope="col">' . __('Theme information') . '</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
+        echo '<h3>' . __('Repository themes list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
+        echo '<details id="expand-all"><summary>' . __('Theme ID') . '</summary></details>';
         $url_fmt = '<a href="%1$s">%1$s</a>';
         foreach ($raw_datas as $id => $infos) {
-            echo '<tr><td>' . $id . '</td>';
-            echo '<td><ul>';
+            echo '<details><summary>' . $id . '</summary>';
+            echo '<ul>';
             foreach ($infos as $key => $value) {
                 $val = (in_array($key, ['file', 'details', 'support', 'sshot']) ? sprintf($url_fmt, $value) : $value);
                 echo '<li>' . $key . ' = ' . $val . '</li>';
             }
-            echo '</ul></td>';
-            echo '</tr>';
+            echo '</ul>';
+            echo '</details>';
         }
-        echo '</tbody>';
-        echo '</table>';
         break;
 
     default:
