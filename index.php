@@ -716,7 +716,7 @@ switch ($checklist) {
             echo '<details><summary>' . $id . '</summary>';
             echo '<ul>';
             foreach ($infos as $key => $value) {
-                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) ? sprintf($url_fmt, $value) : $value);
+                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
                 echo '<li>' . $key . ' = ' . $val . '</li>';
             }
             echo '</ul>';
@@ -752,7 +752,7 @@ switch ($checklist) {
             echo '<details><summary>' . $id . '</summary>';
             echo '<ul>';
             foreach ($infos as $key => $value) {
-                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) ? sprintf($url_fmt, $value) : $value);
+                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
                 echo '<li>' . $key . ' = ' . $val . '</li>';
             }
             echo '</ul>';
