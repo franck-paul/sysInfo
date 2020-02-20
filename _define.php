@@ -17,7 +17,7 @@ $this->registerModule(
     "sysInfo",            // Name
     "System Information", // Description
     "Franck Paul",        // Author
-    '1.9.2',              // Version
+    '1.9.3',              // Version
     [
         'requires' => [['core', '2.13']],                           // Dependencies
         'type'     => 'plugin',                                     // Type
