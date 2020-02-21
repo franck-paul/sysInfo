@@ -1,7 +1,7 @@
-# Typographic replacement plugin for Dotclear 2
+# System information plugin for Dotclear 2
 
 !!! tip "Current release"
-    [1.8.4 - 2018-08-16][ot-dl] (Dotclear 2.10+)
+    [1.9.2 - 2020-02-20][ot-dl] (Dotclear 2.14+)
 
 ![](img/icon-big.png)
 
@@ -16,6 +16,7 @@ The plugin may be downloaded and installed from following sources:
 
  * [DotAddict](https://plugins.dotaddict.org/dc2/details/sysInfo)
  * [Open-Time][ot-dl]
+ * [Github](https://github.com/franck-paul/sysInfo/releases)
 
 Or directly from the administration plugins page of Dotclear
 
@@ -26,6 +27,8 @@ The plugin is directly accessible from the **System settings** menu, as soon as 
 ![List selection](img/sysinfo-lists.jpg)
 
  * [Compiled template files](user-guide/tpl-files)
+ * [Repository plugins list](user-guide/repo-plugins)
+ * [Repository themes list](user-guide/repo-themes)
  * [Template paths](user-guide/tpl-paths)
  * [URL handlers](user-guide/url-handlers)
  * [Administrative and public behaviors](user-guide/behaviors)
@@ -43,4 +46,4 @@ And it provides also a setting to [deactivate the HTTP cache](user-guide/http-ca
 
 [^2]: This item is only available if the static cache plugin is installed and enabled.
 
-[ot-dl]: https://open-time.net/post/2018/08/16/Plugin-sysInfo-184-pour-Dotclear
+[ot-dl]: https://open-time.net/post/2020/02/20/Plugin-sysInfo-193-pour-Dotclear

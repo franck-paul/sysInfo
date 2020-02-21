@@ -12,6 +12,8 @@ pages:
 - 'Introduction': 'index.md'
 - User Guide:
     - 'Template files': 'user-guide/tpl-files.md'
+    - 'Repository plugins': 'user-guide/repo-plugins.md'
+    - 'Repository themes': 'user-guide/repo-themes.md'
     - 'Template paths': 'user-guide/tpl-paths.md'
     - 'URL handlers': 'user-guide/url-handlers.md'
     - 'Behaviors': 'user-guide/behaviors.md'

@@ -1,3 +1,15 @@
+[1.9.2, 1.9.3](https://open-time.net/post/2020/02/20/Plugin-sysInfo-193-pour-Dotclear)
+================
+* Cope with dark mode in administration
+* Switch from table to list (with expandable details)
+
+!!! warning
+    Minimum Dotclear version: 2.14
+
+[1.9, 1.9.1](https://open-time.net/post/2020/02/19/Plugin-sysInfo-1.8.4-pour-Dotclear)
+================
+* Add plugins/themes repo list content (from cache if existing either from server)
+
 [1.8.4 - 2018-08-16](https://open-time.net/post/2018/08/16/Plugin-sysInfo-184-pour-Dotclear)
 ================
  * Various adjustments for Dotclear 2.14 release
