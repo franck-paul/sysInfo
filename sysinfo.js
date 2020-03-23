@@ -113,7 +113,7 @@ $(function() {
   };
 
   // Compiled template preview
-  $('a.tpl_compiled').click(function(e) {
+  $('a.tpl_compiled').on('click', function(e) {
     e.preventDefault();
     var template_file = $(e.target).text();
     // Open template file content in a modal iframe
@@ -125,7 +125,7 @@ $(function() {
   });
 
   // Static cache dir expand (load 2nd level subdirs via Ajax)
-  $('a.sc_dir').click(function(e) {
+  $('a.sc_dir').on('click', function(e) {
     e.preventDefault();
     var main_dir = $(e.target).text();
     loadStaticCacheDirs(main_dir, function(dirs) {
@@ -133,17 +133,17 @@ $(function() {
       var r = $(e.target).parent().parent();
       r.after(dirs).remove();
       // Static cache subdir expand (load 3rd level subdirs and cache file list via Ajax)
-      $('a.sc_subdir').click(function(f) {
+      $('a.sc_subdir').on('click', function(f) {
         f.preventDefault();
         var sub_dir = $(f.target).text();
         loadStaticCacheList(main_dir + '/' + sub_dir, function(list) {
           // Insert list and remove previous raw
-          $('a.sc_compiled').unbind('click');
+          $('a.sc_compiled').off('click');
           var s = $(f.target).parent().parent();
           s.after(list).remove();
           dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
           // Static cache file preview
-          $('a.sc_compiled').click(function(g) {
+          $('a.sc_compiled').on('click', function(g) {
             g.preventDefault();
             var cache_file = $(g.target).attr('data-file');
             // Open static cache file content in a modal iframe
@@ -159,22 +159,22 @@ $(function() {
   });
 
   // Autosubmit on checklist change
-  $('#checklist').change(function() {
+  $('#checklist').on('change', function() {
     this.form.submit();
   });
 
   // Static cache calculator
-  $('#getscaction').click(function(e) {
+  $('#getscaction').on('click', function(e) {
     e.preventDefault();
     $('#sccalc_res').text('');
-    $('#sccalc_preview').text('').unbind('click');
+    $('#sccalc_preview').text('').off('click');
     var url = $('#sccalc_url').val();
     if (url !== undefined && url !== '') {
       getStaticCacheFilename(url, function(res) {
         var text = String.fromCharCode(160) + res.slice(0, 2) + ' / ' + res.slice(2, 4) + ' / ' + res.slice(4, 6) + ' / ';
         $('#sccalc_res').text(text);
-        $('#sccalc_preview').text(res).focus();
-        $('#sccalc_preview').click(function(f) {
+        $('#sccalc_preview').text(res).trigger('focus');
+        $('#sccalc_preview').on('click', function(f) {
           f.preventDefault();
           var cache_file = res.slice(0, 2) + '/' + res.slice(2, 4) + '/' + res.slice(4, 6) + '/' + res;
           loadServerFile($(f.target).attr('data-dir') + '/' + cache_file, 'sc', function(content) {
@@ -193,7 +193,7 @@ $(function() {
   });
   $('#tplform td input[type=checkbox]').enableShiftClick();
   dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
-  $('form input[type=submit][name=deltplaction]').click(function() {
+  $('form input[type=submit][name=deltplaction]').on('click', function() {
     return window.confirm(dotclear.msg.confirm_del_tpl);
   });
 
@@ -203,12 +203,12 @@ $(function() {
   });
   $('#scform td input[type=checkbox]').enableShiftClick();
   dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-  $('form input[type=submit][name=delscaction]').click(function() {
+  $('form input[type=submit][name=delscaction]').on('click', function() {
     return window.confirm(dotclear.msg.confirm_del_sc);
   });
 
   // Expand/Contract all (details)
-  $('#expand-all').click(function(e) {
+  $('#expand-all').on('click', function(e) {
     e.preventDefault();
     if ($(this).attr('open')) {
       // Close all

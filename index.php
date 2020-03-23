@@ -213,7 +213,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 <?php
 echo
 dcPage::cssLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.css')), 'screen', $core->getVersion('sysInfo')) .
-'<script type="text/javascript">' .
+'<script>' .
 dcPage::jsVar('dotclear.colorsyntax', $user_ui_colorsyntax) .
 dcPage::jsVar('dotclear.colorsyntax_theme', $user_ui_colorsyntax_theme) .
 dcPage::jsVar('dotclear.msg.confirm_del_tpl', __('Are you sure you want to remove selected template cache files?')) .
