@@ -1,7 +1,9 @@
-/*global $, dotclear, CodeMirror */
+/*global $, dotclear, CodeMirror, mergeDeep, getData */
 'use strict';
 
 $(function() {
+
+  mergeDeep(dotclear, getData('sysinfo'));
 
   var dotclearAjax = function(method, args, fn, msg) {
     var content = null;
