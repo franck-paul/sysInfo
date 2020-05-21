@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-19 13:43+0100\n"
+"POT-Creation-Date: 2020-05-21 17:40+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -20,6 +20,18 @@ msgstr "sysInfo"
 
 msgid "System info"
 msgstr "Infos système"
+
+msgid "Public behaviours list"
+msgstr "Liste des behaviours publiques"
+
+msgid "Template tags list"
+msgstr "Liste des balises template"
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Values"
+msgstr "Valeurs"
 
 msgid "…"
 msgstr ""
@@ -54,6 +66,9 @@ msgstr "URLs d'administration"
 msgid "Editors and Syntaxes"
 msgstr "Éditeurs et syntaxes"
 
+msgid "Plugins"
+msgstr "Plugins"
+
 msgid "REST methods"
 msgstr "Méthodes REST"
 
@@ -83,6 +98,9 @@ msgstr "Fichier template compilé non trouvé ou non lisible"
 
 msgid "Static cache file not found or unreadable"
 msgstr "Fichier cache statique non trouvé ou non lisible"
+
+msgid "System"
+msgstr "Infos système"
 
 msgid "Select a checklist:"
 msgstr "Sélectionnez une liste :"
@@ -132,6 +150,9 @@ msgstr "Liste des behaviours publics"
 msgid "List of known URLs"
 msgstr "Liste des URLs reconnues"
 
+msgid "Type"
+msgstr "Type"
+
 msgid "base URL"
 msgstr "base d'URL"
 
@@ -140,6 +161,12 @@ msgstr "Expression régulière"
 
 msgid "Admin registered URLs"
 msgstr "URLs d'administration enregistrées"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Query string"
 msgstr "Chaîne de requête"
@@ -168,6 +195,12 @@ msgstr "Répertoires de template"
 msgid "Path"
 msgstr "Chemin"
 
+msgid "Display template tags"
+msgstr "Liste des balises template"
+
+msgid "URL:"
+msgstr "URL :"
+
 msgid " → "
 msgstr ""
 
@@ -189,17 +222,11 @@ msgstr "le cache"
 msgid "Plugin ID"
 msgstr "Identifiant du plugin"
 
-msgid "Plugin information"
-msgstr "Informations du plugin"
-
 msgid "Repository themes list"
 msgstr "Liste des thèmes du dépôt"
 
 msgid "Theme ID"
 msgstr "Identifiant du thème"
-
-msgid "Theme information"
-msgstr "Informations du thème"
 
 msgid "Live long and prosper."
 msgstr "Longue vie et prospérité."

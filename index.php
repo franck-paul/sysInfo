@@ -615,6 +615,8 @@ switch ($checklist) {
             echo '<tr><td>' . $sub_path . '</td><tr>';
         }
         echo '</tbody></table>';
+
+        echo '<p><a id="sysinfo-preview" href="' . $core->blog->url . $core->url->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
         break;
 
     case 'sc':

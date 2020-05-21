@@ -18,6 +18,7 @@ $core->addBehavior('urlHandlerBeforeGetData', ['extSysInfo', 'urlHandlerBeforeGe
 
 $core->tpl->addValue('SysInfoPageTitle', ['tplSysInfo', 'SysInfoPageTitle']);
 $core->tpl->addValue('SysInfoBehaviours', ['tplSysInfo', 'SysInfoBehaviours']);
+$core->tpl->addValue('SysInfoTemplatetags', ['tplSysInfo', 'SysInfoTemplatetags']);
 
 class extSysInfo
 {
@@ -54,6 +55,17 @@ class urlSysInfo extends dcUrlHandlers
             self::serveDocument('behaviours.html');
             exit;
 
+        } elseif ($args == 'templatetags') {
+
+            $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
+            if (!empty($tplset) && is_dir(dirname(__FILE__) . '/default-templates/' . $tplset)) {
+                $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . $tplset);
+            } else {
+                $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . DC_DEFAULT_TPLSET);
+            }
+            self::serveDocument('templatetags.html');
+            exit;
+
         } else {
             self::p404();
             exit;
@@ -72,7 +84,7 @@ class tplSysInfo
     {
         global $core;
 
-        $code = '<h3>' . '<?php echo __(\'Public behaviours list\'); ?>' . '</h3>' . "\n";
+        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'); ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
 
         return $code;
@@ -106,6 +118,43 @@ class tplSysInfo
             }
             $code .= '</li>' . "\n";
         }
+        $code .= '</ul>' . "\n";
+
+        return $code;
+    }
+
+    public static function SysInfoTemplatetags($attr)
+    {
+        global $core;
+
+        $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'); ?>' . '</h3>' . "\n";
+        $code .= '<?php echo tplSysInfo::publicTemplatetagsList(); ?>';
+
+        return $code;
+    }
+
+    public static function publicTemplatetagsList()
+    {
+        $code = '<ul>' . "\n";
+
+        $tplblocks = array_values($GLOBALS['core']->tpl->getBlockslist());
+        $tplvalues = array_values($GLOBALS['core']->tpl->getValueslist());
+
+        sort($tplblocks, SORT_STRING);
+        sort($tplvalues, SORT_STRING);
+
+        $code .= '<li>' . __('Blocks') . '<ul>' . "\n";
+        foreach ($tplblocks as $elt) {
+            $code .= '<li>' . $elt . '</li>' . "\n";
+        }
+        $code .= '</ul></li>' . "\n";
+
+        $code .= '<li>' . __('Values') . '<ul>' . "\n";
+        foreach ($tplvalues as $elt) {
+            $code .= '<li>' . $elt . '</li>' . "\n";
+        }
+        $code .= '</ul></li>' . "\n";
+
         $code .= '</ul>' . "\n";
 
         return $code;
