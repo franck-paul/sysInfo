@@ -84,7 +84,7 @@ class tplSysInfo
     {
         global $core;
 
-        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'); ?>' . '</h3>' . "\n";
+        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
 
         return $code;
