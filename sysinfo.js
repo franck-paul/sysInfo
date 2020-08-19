@@ -28,7 +28,7 @@ $(function() {
         // msg -> REST method return value
         var ret = Number($('rsp>sysinfo', data).attr('ret'));
         content = $('rsp>sysinfo', data).attr('msg');
-        if (ret && fn !== undefined && $.isFunction(fn)) {
+        if (ret && fn !== undefined && typeof fn === 'function') {
           // Call callback function with returned value
           fn(content);
         }

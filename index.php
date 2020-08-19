@@ -765,6 +765,7 @@ switch ($checklist) {
         break;
 
     default:
+        // Display PHP version and DB version
         $quotes = [
             __('Live long and prosper.'),
             __('To infinity and beyond.'),
@@ -774,6 +775,13 @@ switch ($checklist) {
         ];
         $q = rand(0, count($quotes) - 1);
         echo '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>';
+
+        echo '<details open><summary>' . __('System info') . '</summary>';
+        echo '<ul>';
+        echo '<li>' . __('PHP Version: ') . '<strong>' . phpversion() . '</strong></li>';
+        echo '<li>' . __('DB driver: ') . '<strong>' . $core->con->driver() . '</strong> ' . __('version') . ' <strong>' . $core->con->version() . '</strong></li>';
+        echo '</ul>';
+        echo '</details>';
         break;
 }
 

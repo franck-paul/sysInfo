@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 17:40+0200\n"
+"POT-Creation-Date: 2020-08-19 16:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,4 +245,13 @@ msgid "Find a needle in a haystack."
 msgstr ""
 
 msgid "A clever person solves a problem. A wise person avoids it."
+msgstr ""
+
+msgid "PHP Version: "
+msgstr ""
+
+msgid "DB driver: "
+msgstr ""
+
+msgid "version"
 msgstr ""
