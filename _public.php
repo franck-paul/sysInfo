@@ -127,7 +127,7 @@ class tplSysInfo
     {
         global $core;
 
-        $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'); ?>' . '</h3>' . "\n";
+        $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicTemplatetagsList(); ?>';
 
         return $code;
