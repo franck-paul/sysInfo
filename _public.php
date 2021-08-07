@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 $core->addBehavior('publicBreadcrumb', ['extSysInfo', 'publicBreadcrumb']);
 $core->addBehavior('urlHandlerBeforeGetData', ['extSysInfo', 'urlHandlerBeforeGetData']);
@@ -45,7 +46,6 @@ class urlSysInfo extends dcUrlHandlers
         global $core, $_ctx;
 
         if ($args == 'behaviours') {
-
             $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
             if (!empty($tplset) && is_dir(dirname(__FILE__) . '/default-templates/' . $tplset)) {
                 $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . $tplset);
@@ -54,9 +54,7 @@ class urlSysInfo extends dcUrlHandlers
             }
             self::serveDocument('behaviours.html');
             exit;
-
         } elseif ($args == 'templatetags') {
-
             $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
             if (!empty($tplset) && is_dir(dirname(__FILE__) . '/default-templates/' . $tplset)) {
                 $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . $tplset);
@@ -65,11 +63,9 @@ class urlSysInfo extends dcUrlHandlers
             }
             self::serveDocument('templatetags.html');
             exit;
-
-        } else {
-            self::p404();
-            exit;
         }
+        self::p404();
+        exit;
     }
 }
 

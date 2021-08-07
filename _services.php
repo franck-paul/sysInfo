@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 class sysInfoRest
 {
@@ -68,8 +69,7 @@ class sysInfoRest
                         if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
                             $cache_fullpath = $cache_dir . '/' . $root . '/' . $file;
                             if (is_dir($cache_fullpath)) {
-                                $content .=
-                                '<tr>' .
+                                $content .= '<tr>' .
                                 '<td class="nowrap">' . $root . '</td>' . // 1st level
                                 '<td class="nowrap">' .
                                 '<a class="sc_subdir" href="#">' . $file . '</a>' .
@@ -121,8 +121,7 @@ class sysInfoRest
                                 $cache_fullpath = $dir . '/' . $file;
                                 if (is_file($cache_fullpath)) {
                                     $k = str_split($file, 2);
-                                    $content .=
-                                    '<tr>' .
+                                    $content .= '<tr>' .
                                     '<td class="nowrap">' . $k[0] . '</td>' . // 1st level
                                     '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
                                     '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
@@ -143,8 +142,7 @@ class sysInfoRest
                 if ($content == '') {
                     // No more dirs and files → send an empty raw
                     $k = explode('/', $root);
-                    $content .=
-                    '<tr>' .
+                    $content .= '<tr>' .
                     '<td class="nowrap">' . $k[0] . '</td>' .         // 1st level
                     '<td class="nowrap">' . $k[1] . '</td>' .         // 2nd level
                     '<td class="nowrap">' . __('(empty)') . '</td>' . // 3rd level (empty)

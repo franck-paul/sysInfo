@@ -10,12 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 $core->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', ['urlSysInfo', 'sysInfo']);
 
-if (!defined('DC_CONTEXT_ADMIN')) {return false;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return false;
+}
 
 // Admin mode only
 

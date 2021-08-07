@@ -4,20 +4,24 @@
   color: #8a2be2;
   background-color: #f3f3f3;
 }
+
 pre.sysinfo {
   white-space: pre;
   margin: 0;
 }
+
 blockquote.sysinfo {
   font-family: serif;
   color: #636363;
   font-style: italic;
   font-size: 1.125em;
   line-height: 1.33;
-  quotes: '\201C' '\201D';
+  quotes: '\201C''\201D';
   margin-top: 1.7777778em;
 }
-blockquote.sysinfo:before, blockquote.sysinfo:after {
+
+blockquote.sysinfo:before,
+blockquote.sysinfo:after {
   margin-top: 0;
   font-size: 3em;
   display: block;
@@ -25,15 +29,18 @@ blockquote.sysinfo:before, blockquote.sysinfo:after {
   color: #dcdcdc;
   margin-bottom: 0;
 }
+
 blockquote.sysinfo:before {
   content: open-quote;
   float: left;
   margin-right: .25em;
 }
+
 blockquote.sysinfo:after {
   content: close-quote;
   text-align: right;
 }
+
 #content details {
   padding: .25em;
   padding-left: .5em;
@@ -41,15 +48,18 @@ blockquote.sysinfo:after {
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
+
 #content details:first-of-type {
   border-top: 1px solid #ccc;
 }
+
 #content details:hover {
-/*
+  /*
   color: var(--body-background);
   background-color: var(--body-color);
 */
 }
+
 #expand-all {
   color: var(--body-background);
   background-color: var(--body-color);
@@ -58,26 +68,34 @@ blockquote.sysinfo:after {
 
 /* Source preview (compiled template, static cache) */
 
-.tpl_compiled_view, .sc_compiled_view {
+.tpl_compiled_view,
+.sc_compiled_view {
   width: auto;
   background: #fff;
 }
-.tpl_compiled_view h1, .sc_compiled_view h1 {
+
+.tpl_compiled_view h1,
+.sc_compiled_view h1 {
   font-weight: bold;
   width: initial;
   text-indent: 1em;
   background: #fff;
 }
-.tpl_compiled_view textarea, .sc_compiled_view textarea {
+
+.tpl_compiled_view textarea,
+.sc_compiled_view textarea {
   resize: none;
   width: calc(100% - 2em);
   height: 90vh;
   margin: 1em;
 }
-.tpl_compiled_view .CodeMirror, .sc_compiled_view .CodeMirror {
+
+.tpl_compiled_view .CodeMirror,
+.sc_compiled_view .CodeMirror {
   height: 90vh;
   font: 1em Monaco, "Courier New", Courier, monospace;
 }
+
 /* Static cache calculator */
 
 #sccalc_res {

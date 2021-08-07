@@ -45,8 +45,14 @@ msgstr "Fichiers template compilés"
 msgid "Plugins repository"
 msgstr "Dépôt des plugins"
 
+msgid "Plugins repository (cache)"
+msgstr "Dépôt des plugins (cache)"
+
 msgid "Themes repository"
 msgstr "Dépôt des thèmes"
+
+msgid "Themes repository (cache)"
+msgstr "Dépôt des thèmes (cache)"
 
 msgid "Template paths"
 msgstr "Répertoires de template"

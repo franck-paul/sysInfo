@@ -10,22 +10,25 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 $checklists = [
-    __('Compiled templates')   => 'templates',
-    __('Plugins repository')   => 'dcrepo-plugins',
-    __('Themes repository')    => 'dcrepo-themes',
-    __('Template paths')       => 'tplpaths',
-    __('URL handlers')         => 'urlhandlers',
-    __('Behaviours')           => 'behaviours',
-    __('DC Constants')         => 'constants',
-    __('Admin URLs')           => 'adminurls',
-    __('Editors and Syntaxes') => 'formaters',
-    __('Plugins')              => 'plugins',
-    __('REST methods')         => 'rest',
-    __('PHP info')             => 'phpinfo'
+    __('Compiled templates')         => 'templates',
+    __('Plugins repository (cache)') => 'dcrepo-plugins-cache',
+    __('Plugins repository')         => 'dcrepo-plugins',
+    __('Themes repository (cache)')  => 'dcrepo-themes-cache',
+    __('Themes repository')          => 'dcrepo-themes',
+    __('Template paths')             => 'tplpaths',
+    __('URL handlers')               => 'urlhandlers',
+    __('Behaviours')                 => 'behaviours',
+    __('DC Constants')               => 'constants',
+    __('Admin URLs')                 => 'adminurls',
+    __('Editors and Syntaxes')       => 'formaters',
+    __('Plugins')                    => 'plugins',
+    __('REST methods')               => 'rest',
+    __('PHP info')                   => 'phpinfo'
 ];
 
 if ($core->plugins->moduleExists('staticCache')) {
@@ -288,6 +291,7 @@ switch ($checklist) {
             echo '()</code></td></tr>';
         }
         echo '</tbody></table>';
+
         break;
 
     case 'plugins':
@@ -308,6 +312,7 @@ switch ($checklist) {
             echo '<pre class="sysinfo">' . print_r($m, true) . '</pre></td></tr>';
         }
         echo '</tbody></table>';
+
         break;
 
     case 'formaters':
@@ -328,7 +333,7 @@ switch ($checklist) {
             $newline = false;
             if (is_array($s)) {
                 foreach ($s as $f) {
-                    echo ($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal">';
+                    echo($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal">';
                     echo $f;
                     echo '</td>';
                     $newline = true;
@@ -337,6 +342,7 @@ switch ($checklist) {
             echo '</tr>';
         }
         echo '</tbody></table>';
+
         break;
 
     case 'constants':
@@ -360,6 +366,7 @@ switch ($checklist) {
             echo '</td></tr>';
         }
         echo '</tbody></table>';
+
         break;
 
     case 'behaviours':
@@ -380,7 +387,7 @@ switch ($checklist) {
             $newline = false;
             if (is_array($f)) {
                 foreach ($f as $fi) {
-                    echo ($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal"><code>';
+                    echo($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal"><code>';
                     if (is_array($fi)) {
                         if (is_object($fi[0])) {
                             echo get_class($fi[0]) . '-&gt;' . $fi[1];
@@ -401,6 +408,7 @@ switch ($checklist) {
         echo '</tbody></table>';
 
         echo '<p><a id="sysinfo-preview" href="' . $core->blog->url . $core->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
+
         break;
 
     case 'urlhandlers':
@@ -432,6 +440,7 @@ switch ($checklist) {
         }
         echo '</tbody>';
         echo '</table>';
+
         break;
 
     case 'adminurls':
@@ -452,6 +461,7 @@ switch ($checklist) {
         }
         echo '</tbody>';
         echo '</table>';
+
         break;
 
     case 'phpinfo':
@@ -482,6 +492,7 @@ switch ($checklist) {
             }
             echo "</table>\n";
         }
+
         break;
 
     case 'templates':
@@ -531,13 +542,11 @@ switch ($checklist) {
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
-
             } elseif (substr($sub_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
                 $sub_path = substr($sub_path, strlen(DC_ROOT));
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
-
             }
             $path_displayed = false;
             // Don't know exactly why but need to cope with */default-templates !
@@ -582,6 +591,7 @@ switch ($checklist) {
         '<p class="col right">' . $core->formNonce() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
             '</div>' .
             '</form>';
+
         break;
 
     case 'tplpaths':
@@ -604,19 +614,18 @@ switch ($checklist) {
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
-
             } elseif (substr($sub_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
                 $sub_path = substr($sub_path, strlen(DC_ROOT));
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
-
             }
             echo '<tr><td>' . $sub_path . '</td><tr>';
         }
         echo '</tbody></table>';
 
         echo '<p><a id="sysinfo-preview" href="' . $core->blog->url . $core->url->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
+
         break;
 
     case 'sc':
@@ -693,23 +702,26 @@ switch ($checklist) {
         break;
 
     case 'dcrepo-plugins':
+    case 'dcrepo-plugins-cache':
         // Get installation info
         $cache_path = path::real(DC_TPL_CACHE);
+        $xml_url    = $core->blog->settings->system->store_plugin_url;
         $in_cache   = false;
 
-        // Get XML cache file for plugins
-        $xml_url  = $core->blog->settings->system->store_plugin_url;
-        $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
-            $cache_path,
-            'dcrepo',
-            substr(md5($xml_url), 0, 2),
-            substr(md5($xml_url), 2, 2),
-            md5($xml_url)
-        );
-        if (file_exists($ser_file)) {
-            $in_cache = true;
+        if ($checklist === 'dcrepo-plugins-cache') {
+            // Get XML cache file for plugins
+            $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
+                $cache_path,
+                'dcrepo',
+                substr(md5($xml_url), 0, 2),
+                substr(md5($xml_url), 2, 2),
+                md5($xml_url)
+            );
+            if (file_exists($ser_file)) {
+                $in_cache = true;
+            }
         }
-        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE);
+        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE, !$in_cache);
         $raw_datas = $parser->getModules();
         dcUtils::lexicalKeySort($raw_datas);
 
@@ -726,26 +738,30 @@ switch ($checklist) {
             echo '</ul>';
             echo '</details>';
         }
+
         break;
 
     case 'dcrepo-themes':
+    case 'dcrepo-themes-cache':
         // Get installation info
         $cache_path = path::real(DC_TPL_CACHE);
+        $xml_url    = $core->blog->settings->system->store_theme_url;
         $in_cache   = false;
 
-        // Get XML cache file for themes
-        $xml_url  = $core->blog->settings->system->store_theme_url;
-        $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
-            $cache_path,
-            'dcrepo',
-            substr(md5($xml_url), 0, 2),
-            substr(md5($xml_url), 2, 2),
-            md5($xml_url)
-        );
-        if (file_exists($ser_file)) {
-            $in_cache = true;
+        if ($checklist === 'dcrepo-themes-cache') {
+            // Get XML cache file for themes
+            $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
+                $cache_path,
+                'dcrepo',
+                substr(md5($xml_url), 0, 2),
+                substr(md5($xml_url), 2, 2),
+                md5($xml_url)
+            );
+            if (file_exists($ser_file)) {
+                $in_cache = true;
+            }
         }
-        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE);
+        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE, !$in_cache);
         $raw_datas = $parser->getModules();
         dcUtils::lexicalKeySort($raw_datas);
 
@@ -762,6 +778,7 @@ switch ($checklist) {
             echo '</ul>';
             echo '</details>';
         }
+
         break;
 
     default:
@@ -782,6 +799,7 @@ switch ($checklist) {
         echo '<li>' . __('DB driver: ') . '<strong>' . $core->con->driver() . '</strong> ' . __('version') . ' <strong>' . $core->con->version() . '</strong></li>';
         echo '</ul>';
         echo '</details>';
+
         break;
 }
 
