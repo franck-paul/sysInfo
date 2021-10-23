@@ -23,7 +23,9 @@ $this->registerModule(
         'requires' => [['core', '2.19']],                           // Dependencies
         'type'     => 'plugin',                                     // Type
         'priority' => 99999999999,                                  // Priority
-        'details'  => 'https://open-time.net/docs/plugins/sysInfo', // Details URL
-        'support'  => 'https://github.com/franck-paul/sysInfo'      // Support URL
+
+        'details'    => 'https://open-time.net/docs/plugins/sysInfo',   // Details URL
+        'support'    => 'https://github.com/franck-paul/sysInfo',       // Support URL
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/sysInfo/main/dcstore.xml'
     ]
 );
