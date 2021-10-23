@@ -722,7 +722,7 @@ switch ($checklist) {
             }
         }
         $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE, !$in_cache);
-        $raw_datas = $parser->getModules();
+        $raw_datas = !$parser ? [] : $parser->getModules();
         dcUtils::lexicalKeySort($raw_datas);
 
         echo '<h3>' . __('Repository plugins list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
@@ -762,7 +762,7 @@ switch ($checklist) {
             }
         }
         $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE, !$in_cache);
-        $raw_datas = $parser->getModules();
+        $raw_datas = !$parser ? [] : $parser->getModules();
         dcUtils::lexicalKeySort($raw_datas);
 
         echo '<h3>' . __('Repository themes list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
