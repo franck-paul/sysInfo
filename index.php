@@ -727,7 +727,7 @@ switch ($checklist) {
 
         echo '<h3>' . __('Repository plugins list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
         if (!$parser) {
-            echo '<p>' . __('Repository is unreachable') . '</p>'
+            echo '<p>' . __('Repository is unreachable') . '</p>';
         } else {
             echo '<details id="expand-all"><summary>' . __('Plugin ID') . '</summary></details>';
             $url_fmt = '<a href="%1$s">%1$s</a>';
@@ -771,7 +771,7 @@ switch ($checklist) {
 
         echo '<h3>' . __('Repository themes list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
         if (!$parser) {
-            echo '<p>' . __('Repository is unreachable') . '</p>'
+            echo '<p>' . __('Repository is unreachable') . '</p>';
         } else {
             echo '<details id="expand-all"><summary>' . __('Theme ID') . '</summary></details>';
             $url_fmt = '<a href="%1$s">%1$s</a>';
