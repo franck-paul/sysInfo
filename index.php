@@ -142,7 +142,8 @@ $publicPrepend = function () {
     $core->tpl->setPath(
         $__theme_tpl_path,
         $main_plugins_root[0] . '/../inc/public/default-templates/' . $tplset,
-        $core->tpl->getPath());
+        $core->tpl->getPath()
+    );
 
     // Looking for default-templates in each plugin's dir
     $plugins = $core->plugins->getModules();
@@ -242,7 +243,8 @@ dcPage::breadcrumb(
     [
         __('System')             => '',
         __('System Information') => ''
-    ]);
+    ]
+);
 echo dcPage::notices();
 
 if (!empty($_GET['tpl'])) {
@@ -569,8 +571,14 @@ switch ($checklist) {
                                 '<td scope="row" class="nowrap">' . $file . '</td>' .
                                 '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                                 '<td class="nowrap">' .
-                                form::checkbox(['tpl[]'], $cache_file, false,
-                                    ($file_exists) ? 'tpl_compiled' : '', '', !($file_exists)) . ' ' .
+                                form::checkbox(
+                                    ['tpl[]'],
+                                    $cache_file,
+                                    false,
+                                    ($file_exists) ? 'tpl_compiled' : '',
+                                    '',
+                                    !($file_exists)
+                                ) . ' ' .
                                     '<label class="classic">' .
                                     ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
                                     $cache_file .
@@ -710,7 +718,8 @@ switch ($checklist) {
 
         if ($checklist === 'dcrepo-plugins-cache') {
             // Get XML cache file for plugins
-            $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
+            $ser_file = sprintf(
+                '%s/%s/%s/%s/%s.ser',
                 $cache_path,
                 'dcrepo',
                 substr(md5($xml_url), 0, 2),
@@ -754,7 +763,8 @@ switch ($checklist) {
 
         if ($checklist === 'dcrepo-themes-cache') {
             // Get XML cache file for themes
-            $ser_file = sprintf('%s/%s/%s/%s/%s.ser',
+            $ser_file = sprintf(
+                '%s/%s/%s/%s/%s.ser',
                 $cache_path,
                 'dcrepo',
                 substr(md5($xml_url), 0, 2),

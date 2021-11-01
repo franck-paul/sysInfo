@@ -17,11 +17,13 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('sysInfo') . __('System Information');
 
-$_menu['System']->addItem(__('System info'),
+$_menu['System']->addItem(
+    __('System info'),
     $core->adminurl->get('admin.plugin.sysInfo'),
     urldecode(dcPage::getPF('sysInfo/icon.png')),
     preg_match('/' . preg_quote($core->adminurl->get('admin.plugin.sysInfo')) . '(&.*)/', $_SERVER['REQUEST_URI']),
-    $core->auth->isSuperAdmin());
+    $core->auth->isSuperAdmin()
+);
 
 /* Register favorite */
 $core->addBehavior('adminDashboardFavorites', ['sysInfoAdmin', 'adminDashboardFavorites']);
