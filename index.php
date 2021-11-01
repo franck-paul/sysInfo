@@ -726,17 +726,21 @@ switch ($checklist) {
         dcUtils::lexicalKeySort($raw_datas);
 
         echo '<h3>' . __('Repository plugins list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
-        echo '<details id="expand-all"><summary>' . __('Plugin ID') . '</summary></details>';
-        $url_fmt = '<a href="%1$s">%1$s</a>';
-        foreach ($raw_datas as $id => $infos) {
-            echo '<details><summary>' . $id . '</summary>';
-            echo '<ul>';
-            foreach ($infos as $key => $value) {
-                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
-                echo '<li>' . $key . ' = ' . $val . '</li>';
+        if (!$parser) {
+            echo '<p>' . __('Repository is unreachable') . '</p>';
+        } else {
+            echo '<details id="expand-all"><summary>' . __('Plugin ID') . '</summary></details>';
+            $url_fmt = '<a href="%1$s">%1$s</a>';
+            foreach ($raw_datas as $id => $infos) {
+                echo '<details><summary>' . $id . '</summary>';
+                echo '<ul>';
+                foreach ($infos as $key => $value) {
+                    $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
+                    echo '<li>' . $key . ' = ' . $val . '</li>';
+                }
+                echo '</ul>';
+                echo '</details>';
             }
-            echo '</ul>';
-            echo '</details>';
         }
 
         break;
@@ -766,17 +770,21 @@ switch ($checklist) {
         dcUtils::lexicalKeySort($raw_datas);
 
         echo '<h3>' . __('Repository themes list') . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
-        echo '<details id="expand-all"><summary>' . __('Theme ID') . '</summary></details>';
-        $url_fmt = '<a href="%1$s">%1$s</a>';
-        foreach ($raw_datas as $id => $infos) {
-            echo '<details><summary>' . $id . '</summary>';
-            echo '<ul>';
-            foreach ($infos as $key => $value) {
-                $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
-                echo '<li>' . $key . ' = ' . $val . '</li>';
+        if (!$parser) {
+            echo '<p>' . __('Repository is unreachable') . '</p>';
+        } else {
+            echo '<details id="expand-all"><summary>' . __('Theme ID') . '</summary></details>';
+            $url_fmt = '<a href="%1$s">%1$s</a>';
+            foreach ($raw_datas as $id => $infos) {
+                echo '<details><summary>' . $id . '</summary>';
+                echo '<ul>';
+                foreach ($infos as $key => $value) {
+                    $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
+                    echo '<li>' . $key . ' = ' . $val . '</li>';
+                }
+                echo '</ul>';
+                echo '</details>';
             }
-            echo '</ul>';
-            echo '</details>';
         }
 
         break;
