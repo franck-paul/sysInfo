@@ -28,6 +28,7 @@ $checklists = [
     __('Editors and Syntaxes')       => 'formaters',
     __('Plugins')                    => 'plugins',
     __('REST methods')               => 'rest',
+    __('Types of permission')        => 'permissions',
     __('PHP info')                   => 'phpinfo'
 ];
 
@@ -49,6 +50,7 @@ $constants = [
     'DC_ADMIN_URL'            => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
     'DC_AKISMET_SUPER'        => defined('DC_AKISMET_SUPER') ? (DC_AKISMET_SUPER ? 'true' : 'false') : $undefined,
     'DC_ALLOW_MULTI_MODULES'  => defined('DC_ALLOW_MULTI_MODULES') ? (DC_ALLOW_MULTI_MODULES ? 'true' : 'false') : $undefined,
+    'DC_ALLOW_REPOSITORIES'   => defined('DC_ALLOW_REPOSITORIES') ? (DC_ALLOW_REPOSITORIES ? 'true' : 'false') : $undefined,
     'DC_ANTISPAM_CONF_SUPER'  => defined('DC_ANTISPAM_CONF_SUPER') ? (DC_ANTISPAM_CONF_SUPER ? 'true' : 'false') : $undefined,
     'DC_AUTH_PAGE'            => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
     'DC_AUTH_SESS_ID'         => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
@@ -81,6 +83,7 @@ $constants = [
     'DC_NEXT_REQUIRED_PHP'    => defined('DC_NEXT_REQUIRED_PHP') ? DC_NEXT_REQUIRED_PHP : $undefined,
     'DC_NOT_UPDATE'           => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
     'DC_PLUGINS_ROOT'         => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
+    'DC_QUERY_TIMEOUT'        => defined('DC_QUERY_TIMEOUT') ? DC_QUERY_TIMEOUT . ' ' . __('seconds') : $undefined,
     'DC_RC_PATH'              => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
     'DC_ROOT'                 => defined('DC_ROOT') ? DC_ROOT : $undefined,
     'DC_SESSION_NAME'         => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
@@ -266,6 +269,29 @@ $core->formNonce() . '<input type="submit" value="' . __('Check') . '" /></p>' .
 
 // Display required information
 switch ($checklist) {
+
+    case 'permissions':
+        // Affichage de la liste des types de permission enregistrés
+        $permissions = $core->auth->getPermissionsTypes();
+
+        echo '<table id="chk-table-result" class="sysinfo">';
+        echo '<caption>' . __('Types of permission') . '</caption>';
+        echo '<thead>' .
+        '<tr>' .
+        '<th scope="col" class="nowrap">' . __('Type') . '</th>' .
+        '<th scope="col" class="maximal">' . __('Label') . '</th>' .
+            '</tr>' .
+            '</thead>';
+        echo '<tbody>';
+        foreach ($permissions as $n => $l) {
+            echo '<tr>' .
+            '<td class="nowrap">' . $n . '</td>' .
+            '<td class="maximal">' . $l . '</td>' .
+            '</tr>';
+        }
+        echo '</tbody></table>';
+
+        break;
 
     case 'rest':
         $methods = $core->rest->functions;

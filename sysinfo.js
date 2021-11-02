@@ -1,17 +1,16 @@
 /*global $, dotclear, CodeMirror */
 'use strict';
 
-$(function () {
+$(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('sysinfo'));
 
-  const dotclearAjax = (method, args, fn, msg) => {
+  const dotclearAjax = (method, args, fn, msg = '') => {
     let content = null;
     const params = {
       xd_check: dotclear.nonce,
       f: method,
     };
     $.extend(params, args);
-    msg = msg || '';
     const promise = $.ajax({
       url: 'services.php',
       data: params,
@@ -38,7 +37,7 @@ $(function () {
     });
   };
 
-  const getStaticCacheFilename = (url, fn) => dotclearAjax('getStaticCacheName', { url: url }, fn, '');
+  const getStaticCacheFilename = (url, fn) => dotclearAjax('getStaticCacheName', { url }, fn, '');
 
   const loadStaticCacheDirs = (dir, fn) => dotclearAjax('getStaticCacheDir', { root: dir }, fn, '');
 
@@ -62,7 +61,7 @@ $(function () {
     )}</textarea></div>`;
     $.magnificPopup.open({
       items: {
-        src: src,
+        src,
         type: 'inline',
       },
       callbacks: {
@@ -81,12 +80,12 @@ $(function () {
             if (dotclear.colorsyntax_theme !== '') {
               options.theme = dotclear.colorsyntax_theme;
             }
-            const textarea = document.getElementById(prefix + '_source');
+            const textarea = document.getElementById(`${prefix}_source`);
             cm_editor = CodeMirror.fromTextArea(textarea, options);
           }
         },
         close: () => {
-          if (cm_editor !== undefined && cm_editor !== null) {
+          if (cm_editor != null) {
             // Remove Codemirror instance
             cm_editor.toTextArea();
           }
@@ -101,7 +100,7 @@ $(function () {
     const template_file = $(e.target).text();
     // Open template file content in a modal iframe
     if (template_file !== undefined) {
-      loadServerFile(template_file, 'tpl', function (content) {
+      loadServerFile(template_file, 'tpl', (content) => {
         viewSource('tpl_compiled', template_file, content);
       });
     }
@@ -119,7 +118,7 @@ $(function () {
       $('a.sc_subdir').on('click', (f) => {
         f.preventDefault();
         const sub_dir = $(f.target).text();
-        loadStaticCacheList(main_dir + '/' + sub_dir, (list) => {
+        loadStaticCacheList(`${main_dir}/${sub_dir}`, (list) => {
           // Insert list and remove previous raw
           $('a.sc_compiled').off('click');
           const s = $(f.target).parent().parent();
@@ -147,20 +146,20 @@ $(function () {
   });
 
   // Static cache calculator
-  $('#getscaction').on('click', function (e) {
+  $('#getscaction').on('click', (e) => {
     e.preventDefault();
     $('#sccalc_res').text('');
     $('#sccalc_preview').text('').off('click');
     const url = $('#sccalc_url').val();
     if (url !== undefined && url !== '') {
-      getStaticCacheFilename(url, function (res) {
-        const text = String.fromCharCode(160) + res.slice(0, 2) + ' / ' + res.slice(2, 4) + ' / ' + res.slice(4, 6) + ' / ';
+      getStaticCacheFilename(url, (res) => {
+        const text = `${String.fromCharCode(160) + res.slice(0, 2)} / ${res.slice(2, 4)} / ${res.slice(4, 6)} / `;
         $('#sccalc_res').text(text);
         $('#sccalc_preview').text(res).trigger('focus');
-        $('#sccalc_preview').on('click', function (f) {
+        $('#sccalc_preview').on('click', (f) => {
           f.preventDefault();
-          const cache_file = res.slice(0, 2) + '/' + res.slice(2, 4) + '/' + res.slice(4, 6) + '/' + res;
-          loadServerFile($(f.target).attr('data-dir') + '/' + cache_file, 'sc', function (content) {
+          const cache_file = `${res.slice(0, 2)}/${res.slice(2, 4)}/${res.slice(4, 6)}/${res}`;
+          loadServerFile(`${$(f.target).attr('data-dir')}/${cache_file}`, 'sc', (content) => {
             viewSource('sc_compiled', res, content);
           });
         });
@@ -176,9 +175,7 @@ $(function () {
   });
   $('#tplform td input[type=checkbox]').enableShiftClick();
   dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
-  $('form input[type=submit][name=deltplaction]').on('click', function () {
-    return window.confirm(dotclear.msg.confirm_del_tpl);
-  });
+  $('form input[type=submit][name=deltplaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_tpl));
 
   // Static cache files
   $('#scform .checkboxes-helpers').each(function () {
@@ -186,9 +183,7 @@ $(function () {
   });
   $('#scform td input[type=checkbox]').enableShiftClick();
   dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-  $('form input[type=submit][name=delscaction]').on('click', function () {
-    return window.confirm(dotclear.msg.confirm_del_sc);
-  });
+  $('form input[type=submit][name=delscaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_sc));
 
   // Expand/Contract all (details)
   $('#expand-all').on('click', function (e) {

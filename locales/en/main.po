@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-19 16:48+0200\n"
+"POT-Creation-Date: 2021-11-02 08:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,16 +46,16 @@ msgstr ""
 msgid "Compiled templates"
 msgstr ""
 
-msgid "Plugins repository"
-msgstr ""
-
 msgid "Plugins repository (cache)"
 msgstr ""
 
-msgid "Themes repository"
+msgid "Plugins repository"
 msgstr ""
 
 msgid "Themes repository (cache)"
+msgstr ""
+
+msgid "Themes repository"
 msgstr ""
 
 msgid "Template paths"
@@ -82,6 +82,9 @@ msgstr ""
 msgid "REST methods"
 msgstr ""
 
+msgid "Types of permission"
+msgstr ""
+
 msgid "PHP info"
 msgstr ""
 
@@ -89,6 +92,9 @@ msgid "Static cache"
 msgstr ""
 
 msgid "(see inc/config.php)"
+msgstr ""
+
+msgid "seconds"
 msgstr ""
 
 msgid "No cache file selected"
@@ -116,6 +122,9 @@ msgid "Select a checklist:"
 msgstr ""
 
 msgid "Check"
+msgstr ""
+
+msgid "Type"
 msgstr ""
 
 msgid "Method"
@@ -158,9 +167,6 @@ msgid "Display public behaviours"
 msgstr ""
 
 msgid "List of known URLs"
-msgstr ""
-
-msgid "Type"
 msgstr ""
 
 msgid "base URL"
@@ -227,6 +233,9 @@ msgid "Repository plugins list"
 msgstr ""
 
 msgid "cache"
+msgstr ""
+
+msgid "Repository is unreachable"
 msgstr ""
 
 msgid "Plugin ID"
