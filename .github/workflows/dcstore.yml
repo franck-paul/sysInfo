@@ -59,6 +59,7 @@ jobs:
       id: update-dcstore
       shell: bash
       run: |
+        sed -i -e 's#<version>\(.*\)\</version>#<version>${{steps.getversion.outputs.module_version}}</version>#' dcstore.xml
         sed -i -e 's#\<da:dcmin>.*\</da:dcmin>#\<da:dcmin>${{steps.getversion.outputs.module_dcmin}}\</da:dcmin>#' dcstore.xml
         sed -i -e 's#download/[^/]*/#download/${{steps.getversion.outputs.module_version}}/#' dcstore.xml
         sed -i -e 's#\(.*\)-.*\.zip#\1-${{steps.getversion.outputs.module_version}}.zip#' dcstore.xml
