@@ -23,6 +23,10 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.0'
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
     # Run PHP code
     - name: Run PHP code
       shell: php {0}
@@ -30,3 +34,8 @@ jobs:
         <?php
         $welcome = "Hello, world";
         echo $welcome;
+        $nb = count($argv);
+        echo "Nb of arguments: " . $nb;
+        echo $argv[0];
+        $df = file_get_contents('./_define.php');
+        echo '---' . "\n" . $df . "\n" . '---';
