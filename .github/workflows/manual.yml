@@ -66,6 +66,8 @@ jobs:
         test=$(git diff --name-only -- dcstore.xml)
         test="dcstore.xml"
         if [[ "$test" != "" ]]; then
+          git config --global user.email "carnet.franck.paul@gmail.com"
+          git config --global user.name "franck-paul"
           git add dcstore.xml
           git commit -m "Update dcstore.xml"
         fi
