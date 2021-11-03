@@ -49,6 +49,16 @@ jobs:
         }
         echo "::set-output name=module_version::$version\n";
         echo "::set-output name=module_dcmin::$dcmin\n";
+        if ($version !== '') {
+          $ds = file_get_contents('dcstore.xml');
+          $ds = preg_replace('/<version>(.*?)<\/version>/s',"<version>$version</version>",$ds);
+          $ds = preg_replace('/download\/(.*?)\//s',"download/$version/",$ds);
+          $ds = preg_replace('/(.*)-(.*?).zip/s',"$1-$version.zip",$ds);
+          $ds = preg_replace('/<da:dcmin>(.*?)<\/da:dcmin>/s',"<da:dcmin>$dcmin</da:dcmin>",$ds);
+          if ($ds) {
+            file_put_contents('dcstore.xml',$ds);
+          }
+        }
 
     # Cope with returned version
     - name: Log output of the script
@@ -59,15 +69,13 @@ jobs:
       id: update-dcstore
       shell: bash
       run: |
-        sed -i -e 's#<version>\(.*\)\</version>#<version>${{steps.getversion.outputs.module_version}}</version>#' dcstore.xml
-        sed -i -e 's#\<da:dcmin>.*\</da:dcmin>#\<da:dcmin>${{steps.getversion.outputs.module_dcmin}}\</da:dcmin>#' dcstore.xml
-        sed -i -e 's#download/[^/]*/#download/${{steps.getversion.outputs.module_version}}/#' dcstore.xml
-        sed -i -e 's#\(.*\)-.*\.zip#\1-${{steps.getversion.outputs.module_version}}.zip#' dcstore.xml
         cat dcstore.xml
         test=$(git diff --name-only -- dcstore.xml)
         if [[ "$test" != "" ]]; then
+          echo "dcstore.xml modified, need to be commit"
           git config --global user.email "carnet.franck.paul@gmail.com"
           git config --global user.name "franck-paul"
           git add dcstore.xml
           git commit -m "Update dcstore.xml"
+          git push
         fi
