@@ -35,7 +35,7 @@ jobs:
         <?php
         $df = file_get_contents('./_define.php');
         $version = '';
-        if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches,PREG_OFFSET_CAPTURE,0)) {
+        if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
           if (isset($matches[5])) {
             $version = $matches[5];
           }
