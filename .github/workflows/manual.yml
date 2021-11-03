@@ -41,7 +41,7 @@ jobs:
             $version = $matches[5];
             if (isset($matches[7])) {
               $str = $matches[7];
-              if (preg_match('/\[(.*?)'core'(.*?),(.*?)'(.*?)'(.*?)\]/s',$str,$submatches)) {
+              if (preg_match('/\[(.*?)\'core\'(.*?),(.*?)\'(.*?)\'(.*?)\]/s',$str,$submatches)) {
                 $dcmin = $submatches[4];
               }
             }
