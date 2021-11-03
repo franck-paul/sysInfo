@@ -63,4 +63,9 @@ jobs:
         sed -i -e 's#download/[^/]*/#download/${{steps.getversion.outputs.module_version}}/#' dcstore.xml
         sed -i -e 's#\(.*\)-.*\.zip#\1-${{steps.getversion.outputs.module_version}}.zip#' dcstore.xml
         cat dcstore.xml
-        
+        test=$(git diff --name-only -- dcstore.xml)
+        test="dcstore.xml"
+        if [[ "$test" != "" ]]; then
+          git add dcstore.xml
+          git commit -m "Update dcstore.xml"
+        fi
