@@ -38,10 +38,11 @@ jobs:
         if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
           if (isset($matches[5])) {
             $version = $matches[5];
+            echo "Found version $version in _define.php";
           }
         }
-        echo $version;
+        echo "::set-output name=module_version::$version"
 
     # Cope with returned version
     - name: Log output of the script
-      run: echo "${{steps.getversion.outputs}}"
+      run: echo "${{steps.getversion.outputs.module_version}}"
