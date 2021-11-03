@@ -64,7 +64,6 @@ jobs:
         sed -i -e 's#\(.*\)-.*\.zip#\1-${{steps.getversion.outputs.module_version}}.zip#' dcstore.xml
         cat dcstore.xml
         test=$(git diff --name-only -- dcstore.xml)
-        test="dcstore.xml"
         if [[ "$test" != "" ]]; then
           git config --global user.email "carnet.franck.paul@gmail.com"
           git config --global user.name "franck-paul"
