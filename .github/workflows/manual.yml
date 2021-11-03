@@ -47,8 +47,8 @@ jobs:
             }
           }
         }
-        echo "::set-output name=module_version::$version";
-        echo "::set-output name=module_dcmin::$dcmin";
+        echo "::set-output name=module_version::$version\n";
+        echo "::set-output name=module_dcmin::$dcmin\n";
 
     # Cope with returned version
     - name: Log output of the script
