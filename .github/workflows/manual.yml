@@ -35,13 +35,21 @@ jobs:
         <?php
         $df = file_get_contents('./_define.php');
         $version = '';
+        $dcmin = '2.0';
         if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
           if (isset($matches[5])) {
             $version = $matches[5];
+            if (isset($matches[7])) {
+              $str = $matches[7];
+              if (preg_match('/\[(.*?)'core'(.*?),(.*?)'(.*?)'(.*?)\]/s',$str,$submatches)) {
+                $dcmin = $submatches[4];
+              }
+            }
           }
         }
         echo "::set-output name=module_version::$version";
+        echo "::set-output name=module_dcmin::$dcmin";
 
     # Cope with returned version
     - name: Log output of the script
-      run: echo "${{steps.getversion.outputs.module_version}}"
+      run: echo "${{steps.getversion.outputs.module_version}} (dotclear ${{steps.getversion.outputs.module_dcmin}}+)"
