@@ -41,7 +41,8 @@ jobs:
           }
         }
         echo $version;
+        putenv("MODVER=$version");
 
     # Cope with returned version
     - name: Log output of the script
-      run: echo "${{steps.getversion.outputs.result}}"
+      run: echo "${{steps.getversion.env.MODVER}}"
