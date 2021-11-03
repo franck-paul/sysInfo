@@ -34,14 +34,14 @@ jobs:
       run: |
         <?php
         $df = file_get_contents('./_define.php');
-        echo '---' . "\n" . $df . "\n" . '---';
+        $version = '';
         if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches,PREG_OFFSET_CAPTURE,0)) {
           if (isset($matches[5])) {
             $version = $matches[5];
-            echo "Version : " . $version;
           }
         }
-    # 
+        echo $version;
+
+    # Cope with returned version
     - name: Log output of the script
       run: echo "${{steps.getversion.outputs.result}}"
-  
