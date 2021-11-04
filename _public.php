@@ -35,7 +35,7 @@ class extSysInfo
         global $core;
 
         $core->blog->settings->addNamespace('sysinfo');
-        $ctx->http_cache = (boolean) $core->blog->settings->sysinfo->http_cache;
+        $ctx->http_cache = (bool) $core->blog->settings->sysinfo->http_cache;
     }
 }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 08:43+0100\n"
+"POT-Creation-Date: 2021-11-04 10:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,78 @@ msgid "…"
 msgstr ""
 
 msgid "(empty)"
+msgstr ""
+
+msgid " from: "
+msgstr ""
+
+msgid "cache"
+msgstr ""
+
+msgid "Repository is unreachable"
+msgstr ""
+
+msgid "Repository plugins list"
+msgstr ""
+
+msgid "Plugin ID"
+msgstr ""
+
+msgid "Repository themes list"
+msgstr ""
+
+msgid "Theme ID"
+msgstr ""
+
+msgid "Live long and prosper."
+msgstr ""
+
+msgid "To infinity and beyond."
+msgstr ""
+
+msgid "So long, and thanks for all the fish."
+msgstr ""
+
+msgid "Find a needle in a haystack."
+msgstr ""
+
+msgid "A clever person solves a problem. A wise person avoids it."
+msgstr ""
+
+msgid "PHP Version: "
+msgstr ""
+
+msgid "DB driver: "
+msgstr ""
+
+msgid "version"
+msgstr ""
+
+msgid "Cache directory does not exists"
+msgstr ""
+
+msgid "Cache directory is not readable"
+msgstr ""
+
+msgid "URL:"
+msgstr ""
+
+msgid " → "
+msgstr ""
+
+msgid "List of static cache files in"
+msgstr ""
+
+msgid "last update:"
+msgstr ""
+
+msgid "Cache subpath"
+msgstr ""
+
+msgid "Cache file"
+msgstr ""
+
+msgid "Delete selected cache files"
 msgstr ""
 
 msgid "Compiled templates"
@@ -196,15 +268,6 @@ msgstr ""
 msgid "Template file"
 msgstr ""
 
-msgid "Cache subpath"
-msgstr ""
-
-msgid "Cache file"
-msgstr ""
-
-msgid "Delete selected cache files"
-msgstr ""
-
 msgid "List of template paths"
 msgstr ""
 
@@ -212,61 +275,4 @@ msgid "Path"
 msgstr ""
 
 msgid "Display template tags"
-msgstr ""
-
-msgid "URL:"
-msgstr ""
-
-msgid " → "
-msgstr ""
-
-msgid "List of static cache files in"
-msgstr ""
-
-msgid "last update:"
-msgstr ""
-
-msgid " from: "
-msgstr ""
-
-msgid "Repository plugins list"
-msgstr ""
-
-msgid "cache"
-msgstr ""
-
-msgid "Repository is unreachable"
-msgstr ""
-
-msgid "Plugin ID"
-msgstr ""
-
-msgid "Repository themes list"
-msgstr ""
-
-msgid "Theme ID"
-msgstr ""
-
-msgid "Live long and prosper."
-msgstr ""
-
-msgid "To infinity and beyond."
-msgstr ""
-
-msgid "So long, and thanks for all the fish."
-msgstr ""
-
-msgid "Find a needle in a haystack."
-msgstr ""
-
-msgid "A clever person solves a problem. A wise person avoids it."
-msgstr ""
-
-msgid "PHP Version: "
-msgstr ""
-
-msgid "DB driver: "
-msgstr ""
-
-msgid "version"
 msgstr ""
