@@ -15,28 +15,45 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 }
 
 $checklists = [
-    __('Compiled templates')         => 'templates',
-    __('Plugins repository (cache)') => 'dcrepo-plugins-cache',
-    __('Plugins repository')         => 'dcrepo-plugins',
-    __('Themes repository (cache)')  => 'dcrepo-themes-cache',
-    __('Themes repository')          => 'dcrepo-themes',
-    __('Template paths')             => 'tplpaths',
-    __('URL handlers')               => 'urlhandlers',
-    __('Behaviours')                 => 'behaviours',
-    __('DC Constants')               => 'constants',
-    __('Admin URLs')                 => 'adminurls',
-    __('Editors and Syntaxes')       => 'formaters',
-    __('Plugins')                    => 'plugins',
-    __('REST methods')               => 'rest',
-    __('Types of permission')        => 'permissions',
-    __('PHP info')                   => 'phpinfo'
+    __('System') => [
+        __('Versions')     => 'default',
+        __('PHP info')     => 'phpinfo',
+        __('DC Constants') => 'constants',
+    ],
+
+    __('Core') => [
+        __('URL handlers')        => 'urlhandlers',
+        __('Behaviours')          => 'behaviours',
+        __('Admin URLs')          => 'adminurls',
+        __('Types of permission') => 'permissions',
+    ],
+
+    __('Templates') => [
+        __('Compiled templates') => 'templates',
+        __('Template paths')     => 'tplpaths',
+    ],
+
+    __('Repositories') => [
+        __('Plugins repository (cache)') => 'dcrepo-plugins-cache',
+        __('Plugins repository')         => 'dcrepo-plugins',
+        __('Themes repository (cache)')  => 'dcrepo-themes-cache',
+        __('Themes repository')          => 'dcrepo-themes',
+    ],
+
+    __('Miscellaneous') => [
+        __('Plugins')              => 'plugins',
+        __('Editors and Syntaxes') => 'formaters',
+        __('REST methods')         => 'rest',
+    ]
 ];
 
 if ($core->plugins->moduleExists('staticCache')) {
     if (defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE) {
         if (defined('DC_SC_CACHE_DIR')) {
             if (dcStaticCacheControl::cacheCurrentBlog()) {
-                $checklists[__('Static cache')] = 'sc';
+                $checklists[__('3rd party')] = [
+                    __('Static cache') => 'sc'
+                ];
             }
         }
     }
