@@ -18,6 +18,8 @@ blockquote.sysinfo {
   line-height: 1.33;
   quotes: '\201C''\201D';
   margin-top: 1.7777778em;
+  display: grid;
+  width: fit-content;
 }
 
 blockquote.sysinfo:before,

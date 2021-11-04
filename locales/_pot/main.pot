@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 12:34+0100\n"
+"POT-Creation-Date: 2021-11-04 12:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid "sysInfo"
 msgstr ""
 
 #: ../git-plugins/sysInfo/_admin.php:21
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:635
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:639
 msgid "System info"
 msgstr ""
 
@@ -48,7 +48,7 @@ msgid "Values"
 msgstr ""
 
 #: ../git-plugins/sysInfo/_services.php:77
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:844
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:848
 msgid "…"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgid "(empty)"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:32
-#: ../git-plugins/sysInfo/index.php:22
+#: ../git-plugins/sysInfo/index.php:28
 msgid "Types of permission"
 msgstr ""
 
@@ -165,27 +165,27 @@ msgid "Template file"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:372
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:828
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:832
 msgid "Cache subpath"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:373
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:829
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:833
 msgid "Cache file"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:439
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:856
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:860
 msgid "Delete selected cache files"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:460
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:877
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:881
 msgid "No cache file selected"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:474
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:889
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:893
 msgid "Selected cache files have been deleted."
 msgstr ""
 
@@ -249,48 +249,64 @@ msgstr ""
 msgid "A clever person solves a problem. A wise person avoids it."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:637
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:631
+msgid "I'm sorry, Dave. I'm afraid I can't do that."
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:632
+msgid "With great power there must also come great responsibility."
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:633
+msgid "It's great, we have to do it all over again!"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:634
+msgid "Have You Tried Turning It Off And On Again?"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:641
 msgid "PHP Version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:638
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:642
 msgid "DB driver: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:638
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:642
 msgid "version"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:735
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:750
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:739
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:754
 msgid "(see inc/config.php)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:755
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:759
 msgid "seconds"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:803
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:807
 msgid "Static cache directory does not exists"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:806
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:810
 msgid "Static cache directory is not readable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:814
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:818
 msgid "URL:"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:816
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:820
 msgid " → "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:824
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:828
 msgid "List of static cache files in"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:825
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:829
 msgid "last update:"
 msgstr ""
 
@@ -310,52 +326,52 @@ msgstr ""
 msgid "DC Constants"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:25
-msgid "Templates"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:26
-msgid "Compiled templates"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:27
-msgid "Template paths"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:30
-msgid "Repositories"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:31
-msgid "Plugins repository (cache)"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:32
-msgid "Plugins repository"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:33
-msgid "Themes repository (cache)"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:34
-msgid "Themes repository"
-msgstr ""
-
-#: ../git-plugins/sysInfo/index.php:37
+#: ../git-plugins/sysInfo/index.php:24
 msgid "Core"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:38
+#: ../git-plugins/sysInfo/index.php:25
 msgid "URL handlers"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:39
+#: ../git-plugins/sysInfo/index.php:26
 msgid "Behaviours"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:40
+#: ../git-plugins/sysInfo/index.php:27
 msgid "Admin URLs"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:31
+msgid "Templates"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:32
+msgid "Compiled templates"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:33
+msgid "Template paths"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:36
+msgid "Repositories"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:37
+msgid "Plugins repository (cache)"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:38
+msgid "Plugins repository"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:39
+msgid "Themes repository (cache)"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:40
+msgid "Themes repository"
 msgstr ""
 
 #: ../git-plugins/sysInfo/index.php:43

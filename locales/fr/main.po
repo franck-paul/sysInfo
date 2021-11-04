@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 12:34+0100\n"
+"POT-Creation-Date: 2021-11-04 12:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -177,6 +177,18 @@ msgstr "trouver une aiguille dans une meule de foin."
 msgid "A clever person solves a problem. A wise person avoids it."
 msgstr "Une personne intelligente résout un problème. Une personne sage les évite."
 
+msgid "I'm sorry, Dave. I'm afraid I can't do that."
+msgstr "Désolé Dave. J'ai peur de ne pouvoir faire cela."
+
+msgid "With great power there must also come great responsibility."
+msgstr "Avec de grands pouvoirs viennent de grandes responsabilités."
+
+msgid "It's great, we have to do it all over again!"
+msgstr "C'est génial, faut tout refaire !"
+
+msgid "Have You Tried Turning It Off And On Again?"
+msgstr "Avez-vous essayé de l'éteindre et de le rallumer ?"
+
 msgid "PHP Version: "
 msgstr "Version de PHP : "
 
@@ -222,6 +234,18 @@ msgstr "PHP info"
 msgid "DC Constants"
 msgstr "Constantes DC"
 
+msgid "Core"
+msgstr "Moteur"
+
+msgid "URL handlers"
+msgstr "Gestionnaires d'URL"
+
+msgid "Behaviours"
+msgstr "Behaviours"
+
+msgid "Admin URLs"
+msgstr "URLs d'administration"
+
 msgid "Templates"
 msgstr "Moteur de template"
 
@@ -245,18 +269,6 @@ msgstr "Dépôt des thèmes (cache)"
 
 msgid "Themes repository"
 msgstr "Dépôt des thèmes"
-
-msgid "Core"
-msgstr "Moteur"
-
-msgid "URL handlers"
-msgstr "Gestionnaires d'URL"
-
-msgid "Behaviours"
-msgstr "Behaviours"
-
-msgid "Admin URLs"
-msgstr "URLs d'administration"
 
 msgid "Miscellaneous"
 msgstr "Divers"

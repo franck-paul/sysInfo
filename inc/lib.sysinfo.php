@@ -627,7 +627,11 @@ class libSysInfo
             __('To infinity and beyond.'),
             __('So long, and thanks for all the fish.'),
             __('Find a needle in a haystack.'),
-            __('A clever person solves a problem. A wise person avoids it.')
+            __('A clever person solves a problem. A wise person avoids it.'),
+            __('I\'m sorry, Dave. I\'m afraid I can\'t do that.'),
+            __('With great power there must also come great responsibility.'),
+            __('It\'s great, we have to do it all over again!'),
+            __('Have You Tried Turning It Off And On Again?')
         ];
         $q = rand(0, count($quotes) - 1);
 
