@@ -1,9 +1,7 @@
-# This is a basic workflow that is manually triggered
+# This is a basic workflow that is triggered on every push
 
 name: On push workflow
 
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
 on:
   push:
 
@@ -33,36 +31,40 @@ jobs:
       shell: php {0}
       run: |
         <?php
-        $df = file_get_contents('./_define.php');
         $version = '';
         $dcmin = '2.0';
-        if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
-          if (isset($matches[5])) {
-            $version = $matches[5];
-            if (isset($matches[7])) {
-              $str = $matches[7];
-              if (preg_match('/\[(.*?)\'core\'(.*?),(.*?)\'(.*?)\'(.*?)\]/s',$str,$submatches)) {
-                $dcmin = $submatches[4];
+        if (file_exists('dcstore.xml')) {
+          $df = file_get_contents('./_define.php');
+          if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
+            if (isset($matches[5])) {
+              $version = $matches[5];
+              if (isset($matches[7])) {
+                $str = $matches[7];
+                if (preg_match('/\[(.*?)\'core\'(.*?),(.*?)\'(.*?)\'(.*?)\]/s',$str,$submatches)) {
+                  $dcmin = $submatches[4];
+                }
+              }
+            }
+          }
+          if ($version !== '') {
+            $ds = file_get_contents('dcstore.xml');
+            if ($ds) {
+              $ds = preg_replace('/<version>(.*?)<\/version>/s',"<version>$version</version>",$ds);
+              $ds = preg_replace('/download\/(.*?)\//s',"download/$version/",$ds);
+              $ds = preg_replace('/(.*)-(.*?).zip/s',"$1-$version.zip",$ds);
+              $ds = preg_replace('/<da:dcmin>(.*?)<\/da:dcmin>/s',"<da:dcmin>$dcmin</da:dcmin>",$ds);
+              if ($ds) {
+                file_put_contents('dcstore.xml',$ds);
               }
             }
           }
         }
         echo "::set-output name=module_version::$version\n";
         echo "::set-output name=module_dcmin::$dcmin\n";
-        if ($version !== '') {
-          $ds = file_get_contents('dcstore.xml');
-          $ds = preg_replace('/<version>(.*?)<\/version>/s',"<version>$version</version>",$ds);
-          $ds = preg_replace('/download\/(.*?)\//s',"download/$version/",$ds);
-          $ds = preg_replace('/(.*)-(.*?).zip/s',"$1-$version.zip",$ds);
-          $ds = preg_replace('/<da:dcmin>(.*?)<\/da:dcmin>/s',"<da:dcmin>$dcmin</da:dcmin>",$ds);
-          if ($ds) {
-            file_put_contents('dcstore.xml',$ds);
-          }
-        }
 
     # Cope with returned version
     - name: Log output of the script
-      run: echo "${{steps.getversion.outputs.module_version}} (dotclear ${{steps.getversion.outputs.module_dcmin}}+)"
+      run: echo "${{steps.getversion.outputs.module_version}} (Dotclear ${{steps.getversion.outputs.module_dcmin}}+)"
 
     # Update dcstore.xml if necessary
     - name: Update dcstore
@@ -76,6 +78,6 @@ jobs:
           git config --global user.email "carnet.franck.paul@gmail.com"
           git config --global user.name "franck-paul"
           git add dcstore.xml
-          git commit -m "Update dcstore.xml"
+          git commit -m "Update dcstore.xml - version ${{steps.getversion.outputs.module_version}} - Dotclear ${{steps.getversion.outputs.module_dcmin}}+"
           git push
         fi
