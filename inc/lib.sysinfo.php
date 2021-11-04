@@ -735,7 +735,7 @@ class libSysInfo
             'DC_CONTEXT_ADMIN'        => defined('DC_CONTEXT_ADMIN') ? (DC_CONTEXT_ADMIN ? 'true' : 'false') : $undefined,
             'DC_CONTEXT_MODULE'       => defined('DC_CONTEXT_MODULE') ? (DC_CONTEXT_MODULE ? 'true' : 'false') : $undefined,
             'DC_CRYPT_ALGO'           => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
-            'DC_DA_NOT_UPDATE'        => defined('DC_DA_NOT_UPDATE') ? (DC_DA_NOT_UPDATE ? 'true' : 'false') : $undefined,
+            'DC_STORE_NOT_UPDATE'     => defined('DC_STORE_NOT_UPDATE') ? (DC_STORE_NOT_UPDATE ? 'true' : 'false') : $undefined,
             'DC_DBDRIVER'             => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
             'DC_DBHOST'               => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
             'DC_DBNAME'               => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
