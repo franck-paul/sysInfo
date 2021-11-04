@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 12:47+0100\n"
+"POT-Creation-Date: 2021-11-04 15:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,6 +200,10 @@ msgid "DB driver: "
 msgstr ""
 
 msgid "version"
+msgstr ""
+
+#, php-format
+msgid "using <strong>%s</strong> syntax"
 msgstr ""
 
 msgid "(see inc/config.php)"

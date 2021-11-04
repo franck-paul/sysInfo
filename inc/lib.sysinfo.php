@@ -639,7 +639,10 @@ class libSysInfo
             '<details open><summary>' . __('System info') . '</summary>' .
             '<ul>' .
             '<li>' . __('PHP Version: ') . '<strong>' . phpversion() . '</strong></li>' .
-            '<li>' . __('DB driver: ') . '<strong>' . self::$core->con->driver() . '</strong> ' . __('version') . ' <strong>' . self::$core->con->version() . '</strong></li>' .
+            '<li>' .
+                __('DB driver: ') . '<strong>' . self::$core->con->driver() . '</strong> ' .
+                __('version') . ' <strong>' . self::$core->con->version() . '</strong> ' .
+                sprintf(__('using <strong>%s</strong> syntax'), self::$core->con->syntax()) . '</li>' .
             '</ul>' .
             '</details>';
 
