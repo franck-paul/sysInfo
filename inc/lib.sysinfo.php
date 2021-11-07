@@ -535,7 +535,7 @@ class libSysInfo
      *
      * @return     string
      */
-    private static function repoModules(bool $use_cache = false, string $url, string $title, string $label): string
+    private static function repoModules(bool $use_cache, string $url, string $title, string $label): string
     {
         $cache_path = path::real(DC_TPL_CACHE);
         $xml_url    = $url;
