@@ -1,12 +1,9 @@
-# This is a basic workflow that is triggered on release event
+name: Update cdstore.xml file if necessary
 
-name: On release workflow
-
-on: [release,workflow_dispatch]
+on: [workflow_dispatch]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
   # This workflow contains a single job called "dcstore"
   dcstore:
     # The type of runner that the job will run on
@@ -14,69 +11,68 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
 
-    # Setup PHP
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.0'
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    # Run PHP code
-    - name: Run PHP code
-      id: getversion
-      shell: php {0}
-      run: |
-        <?php
-        $version = '';
-        $dcmin = '2.0';
-        if (file_exists('dcstore.xml')) {
-          $df = file_get_contents('./_define.php');
-          if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
-            if (isset($matches[5])) {
-              $version = $matches[5];
-              if (isset($matches[7])) {
-                $str = $matches[7];
-                if (preg_match('/\[(.*?)\'core\'(.*?),(.*?)\'(.*?)\'(.*?)\]/s',$str,$submatches)) {
-                  $dcmin = $submatches[4];
+      # Run PHP code
+      - name: Run PHP code
+        id: getversion
+        shell: php {0}
+        run: |
+          <?php
+          $version = '';
+          $dcmin = '2.0';
+          if (file_exists('dcstore.xml')) {
+            $df = file_get_contents('./_define.php');
+            if (preg_match('/registerModule\((.*?),(.*?),(.*?),(.*?)\'(.*?)\'(.*?)(,.*)\)/s',$df,$matches)) {
+              if (isset($matches[5])) {
+                $version = $matches[5];
+                if (isset($matches[7])) {
+                  $str = $matches[7];
+                  if (preg_match('/\[(.*?)\'core\'(.*?),(.*?)\'(.*?)\'(.*?)\]/s',$str,$submatches)) {
+                    $dcmin = $submatches[4];
+                  }
+                }
+              }
+            }
+            if ($version !== '') {
+              $ds = file_get_contents('dcstore.xml');
+              if ($ds) {
+                $ds = preg_replace('/<version>(.*?)<\/version>/s',"<version>$version</version>",$ds);
+                $ds = preg_replace('/download\/(.*?)\//s',"download/$version/",$ds);
+                $ds = preg_replace('/(.*)-(.*?).zip/s',"$1-$version.zip",$ds);
+                $ds = preg_replace('/<da:dcmin>(.*?)<\/da:dcmin>/s',"<da:dcmin>$dcmin</da:dcmin>",$ds);
+                if ($ds) {
+                  file_put_contents('dcstore.xml',$ds);
                 }
               }
             }
           }
-          if ($version !== '') {
-            $ds = file_get_contents('dcstore.xml');
-            if ($ds) {
-              $ds = preg_replace('/<version>(.*?)<\/version>/s',"<version>$version</version>",$ds);
-              $ds = preg_replace('/download\/(.*?)\//s',"download/$version/",$ds);
-              $ds = preg_replace('/(.*)-(.*?).zip/s',"$1-$version.zip",$ds);
-              $ds = preg_replace('/<da:dcmin>(.*?)<\/da:dcmin>/s',"<da:dcmin>$dcmin</da:dcmin>",$ds);
-              if ($ds) {
-                file_put_contents('dcstore.xml',$ds);
-              }
-            }
-          }
-        }
-        echo "::set-output name=module_version::$version\n";
-        echo "::set-output name=module_dcmin::$dcmin\n";
+          echo "::set-output name=module_version::$version\n";
+          echo "::set-output name=module_dcmin::$dcmin\n";
 
-    # Cope with returned version
-    - name: Log output of the script
-      run: echo "${{steps.getversion.outputs.module_version}} (Dotclear ${{steps.getversion.outputs.module_dcmin}}+)"
+      # Cope with returned version
+      - name: Log output of the script
+        run: echo "${{steps.getversion.outputs.module_version}} (Dotclear ${{steps.getversion.outputs.module_dcmin}}+)"
 
-    # Update dcstore.xml if necessary
-    - name: Update dcstore
-      id: update-dcstore
-      shell: bash
-      run: |
-        cat dcstore.xml
-        test=$(git diff --name-only -- dcstore.xml)
-        if [[ "$test" != "" ]]; then
-          echo "dcstore.xml modified, need to be commit"
-          git config --global user.email "carnet.franck.paul@gmail.com"
-          git config --global user.name "franck-paul"
-          git add dcstore.xml
-          git commit -m "Update dcstore.xml - version ${{steps.getversion.outputs.module_version}} - Dotclear ${{steps.getversion.outputs.module_dcmin}}+"
-          git push
-        fi
+      # Update dcstore.xml if necessary
+      - name: Update dcstore
+        id: update-dcstore
+        shell: bash
+        run: |
+          cat dcstore.xml
+          test=$(git diff --name-only -- dcstore.xml)
+          if [[ "$test" != "" ]]; then
+            echo "dcstore.xml modified, need to be commit"
+            git config --global user.email "carnet.franck.paul@gmail.com"
+            git config --global user.name "franck-paul"
+            git add dcstore.xml
+            git commit -m "Update dcstore.xml - version ${{steps.getversion.outputs.module_version}} - Dotclear ${{steps.getversion.outputs.module_dcmin}}+"
+            git push
+          fi
