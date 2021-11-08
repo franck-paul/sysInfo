@@ -1,6 +1,10 @@
 name: Update dcstore.xml file if necessary
 
-on: [workflow_dispatch]
+on:
+  release:
+    types:
+      - released
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,6 +23,14 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      # Back to default branche
+      - name: Back to default branch of repository
+        shell: bash
+        run: |
+          echo "git fetch && git switch ${{github.event.repository.default_branch}}"
+          git fetch
+          git switch ${{github.event.repository.default_branch}}
 
       # Run PHP code
       - name: Run PHP code
@@ -57,9 +69,15 @@ jobs:
           echo "::set-output name=module_version::$version\n";
           echo "::set-output name=module_dcmin::$dcmin\n";
 
-      # Cope with returned version
+      # Cope with returned versions
       - name: Log output of the script
+        shell: bash
         run: echo "${{steps.getversion.outputs.module_version}} (Dotclear ${{steps.getversion.outputs.module_dcmin}}+)"
+
+      # Log default branch
+      - name: Log output the default branch
+        shell: bash
+        run: echo "The default branch is ${{github.event.repository.default_branch}}"
 
       # Update dcstore.xml if necessary
       - name: Update dcstore
@@ -70,9 +88,15 @@ jobs:
           test=$(git diff --name-only -- dcstore.xml)
           if [[ "$test" != "" ]]; then
             echo "dcstore.xml modified, need to be commit"
+            echo "set credentials"
             git config --global user.email "carnet.franck.paul@gmail.com"
             git config --global user.name "franck-paul"
+            echo "git add dcstore.xml"
             git add dcstore.xml
+            echo "git commit"
             git commit -m "Update dcstore.xml - version ${{steps.getversion.outputs.module_version}} - Dotclear ${{steps.getversion.outputs.module_dcmin}}+"
+            echo "git push"
             git push
+          else
+            echo "nothing to do"
           fi
