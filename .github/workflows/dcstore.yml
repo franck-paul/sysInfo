@@ -1,4 +1,4 @@
-name: Update cdstore.xml file if necessary
+name: Update dcstore.xml file if necessary
 
 on: [workflow_dispatch]
 
