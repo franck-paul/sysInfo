@@ -44,7 +44,7 @@ $checklists = [
         __('Plugins')              => 'plugins',
         __('Editors and Syntaxes') => 'formaters',
         __('REST methods')         => 'rest',
-    ]
+    ],
 ];
 
 if ($core->plugins->moduleExists('staticCache')) {
@@ -52,7 +52,7 @@ if ($core->plugins->moduleExists('staticCache')) {
         if (defined('DC_SC_CACHE_DIR')) {
             if (dcStaticCacheControl::cacheCurrentBlog()) {
                 $checklists[__('3rd party')] = [
-                    __('Static cache') => 'sc'
+                    __('Static cache') => 'sc',
                 ];
             }
         }
@@ -84,8 +84,8 @@ dcPage::jsJson('sysinfo', [
         'confirm_del_tpl' => __('Are you sure you want to remove selected template cache files?'),
         'confirm_del_sc'  => __('Are you sure you want to remove selected static cache files?'),
         'tpl_not_found'   => __('Compiled template file not found or unreadable'),
-        'sc_not_found'    => __('Static cache file not found or unreadable')
-    ]
+        'sc_not_found'    => __('Static cache file not found or unreadable'),
+    ],
 ]) .
 dcPage::jsModal() .
 dcPage::jsLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.js')), $core->getVersion('sysInfo'));
@@ -102,7 +102,7 @@ echo
 dcPage::breadcrumb(
     [
         __('System')             => '',
-        __('System Information') => ''
+        __('System Information') => '',
     ]
 );
 echo dcPage::notices();
