@@ -308,14 +308,13 @@ class libSysInfo
         $phpinfo = ['phpinfo' => []];
         if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
+                $keys = array_keys($phpinfo);
                 if (strlen($match[1])) {
                     $phpinfo[$match[1]] = [];
                 } elseif (isset($match[3])) {
-                    /* @phpstan-ignore-next-line */
-                    @$phpinfo[end(array_keys($phpinfo))][$match[2]] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
+                    @$phpinfo[end($keys)][$match[2]] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
                 } else {
-                    /* @phpstan-ignore-next-line */
-                    @$phpinfo[end(array_keys($phpinfo))][] = $match[2];
+                    @$phpinfo[end($keys)][] = $match[2];
                 }
             }
         }
@@ -408,7 +407,7 @@ class libSysInfo
                                 $cache_fullpath = path::real(DC_TPL_CACHE) . '/cbtpl/' . $cache_subpath;
                                 $file_check     = $cache_fullpath . '/' . $cache_file;
                                 $file_exists    = file_exists($file_check);
-                                $file_url       = http::getHost() . $cache_path . '/cbtpl/' . $cache_subpath . '/' . $cache_file;
+                                // $file_url       = http::getHost() . $cache_path . '/cbtpl/' . $cache_subpath . '/' . $cache_file;
                                 $str .= '<tr>' .
                                     '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
                                     '<td scope="row" class="nowrap">' . $file . '</td>' .
@@ -493,7 +492,7 @@ class libSysInfo
      */
     public static function tplPaths(): string
     {
-        $tplset        = self::publicPrepend();
+        self::publicPrepend();
         $paths         = self::$core->tpl->getPath();
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 
@@ -794,6 +793,89 @@ class libSysInfo
         }
 
         return $constants;
+    }
+
+    public static function folders()
+    {
+        // Check generic Dotclear folders
+        $folders = [
+            'root'   => DC_ROOT,
+            'config' => DC_RC_PATH,
+            'cache'  => [
+                DC_TPL_CACHE,
+                DC_TPL_CACHE . '/cbfeed',
+                DC_TPL_CACHE . '/cbtpl',
+                DC_TPL_CACHE . '/dcrepo',
+                DC_TPL_CACHE . '/versions',
+            ],
+            'digest'  => DC_DIGESTS,
+            'l10n'    => DC_L10N_ROOT,
+            'plugins' => explode(':', DC_PLUGINS_ROOT),
+            'public'  => self::$core->blog->public_path,
+            'themes'  => self::$core->blog->themes_path,
+            'var'     => DC_VAR,
+            'static'  => DC_SC_CACHE_DIR,
+        ];
+
+        $str = '<table id="urls" class="sysinfo"><caption>' . __('Dotclear folders and files') . '</caption>' .
+            '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
+            '<th scope="col">' . __('Path') . '</th>' .
+            '<th scope="col" class="maximal">' . __('Status') . '</th></tr></thead>' .
+            '<tbody>';
+
+        foreach ($folders as $name => $subfolder) {
+            if (!is_array($subfolder)) {
+                $subfolder = [$subfolder];
+            }
+            foreach ($subfolder as $folder) {
+                $path     = path::real($folder);
+                $writable = is_writable($path);
+                $touch    = true;
+                $err      = [];
+                if ($writable && is_dir($path)) {
+                    // Try to create a file, inherit dir perms and then delete it
+                    try {
+                        $void  = $path . (substr($path, -1) === '/' ? '' : '/') . 'tmp-' . str_shuffle(MD5(microtime()));
+                        $touch = false;
+                        files::putContent($void, '');
+                        if (file_exists($void)) {
+                            files::inheritChmod($void);
+                            unlink($void);
+                            $touch = true;
+                        }
+                    } catch (Exception $e) {
+                        $err[] = $void . ' : ' . $e->getMessage();
+                    }
+                }
+                if ($path) {
+                    $status = $writable && $touch ?
+                    '<img src="images/check-on.png" alt="" /> ' . __('Writable') :
+                    '<img src="images/check-wrn.png" alt="" /> ' . __('Readonly');
+                } else {
+                    $status = '<img src="images/check-off.png" alt="" /> ' . __('Unknown');
+                }
+                if (count($err) > 0) {
+                    $status .= '<div style="display: none;"><p>' . implode('<br />' . $err) . '</p></div>';
+                }
+
+                if (substr($folder, 0, strlen(DC_ROOT)) === DC_ROOT) {
+                    $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen(DC_ROOT));
+                }
+
+                $str .= '<tr>' .
+                '<td scope="row" class="nowrap">' . $name . '</td>' .
+                '<td class="maximal">' . $folder . '</td>' .
+                '<td class="nowrap">' . $status . '</td>' .
+                '</tr>';
+
+                $name = '';     // Avoid repeating it if multiple lines
+            }
+        }
+
+        $str .= '</tbody>' .
+            '</table>';
+
+        return $str;
     }
 
     /* --- 3rd party plugins specific --- */

@@ -22,5 +22,5 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 
 // Admin mode only
 
-$__autoload['sysInfoRest'] = dirname(__FILE__) . '/_services.php';
-$__autoload['libSysInfo']  = dirname(__FILE__) . '/inc/lib.sysinfo.php';
+$__autoload['sysInfoRest'] = __DIR__ . '/_services.php';
+$__autoload['libSysInfo']  = __DIR__ . '/inc/lib.sysinfo.php';

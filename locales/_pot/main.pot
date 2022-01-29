@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 15:45+0100\n"
+"POT-Creation-Date: 2022-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/_admin.php:18 ../git-plugins/sysInfo/_admin.php:36
 #: ../git-plugins/sysInfo/_public.php:29 ../git-plugins/sysInfo/_public.php:76
-#: ../git-plugins/sysInfo/index.php:76 ../git-plugins/sysInfo/index.php:105
+#: ../git-plugins/sysInfo/index.php:77 ../git-plugins/sysInfo/index.php:106
 msgid "System Information"
 msgstr ""
 
@@ -27,28 +27,28 @@ msgid "sysInfo"
 msgstr ""
 
 #: ../git-plugins/sysInfo/_admin.php:21
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:639
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:641
 msgid "System info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/_public.php:83
+#: ../git-plugins/sysInfo/_public.php:81
 msgid "Public behaviours list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/_public.php:126
+#: ../git-plugins/sysInfo/_public.php:122
 msgid "Template tags list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/_public.php:142
+#: ../git-plugins/sysInfo/_public.php:138
 msgid "Blocks"
 msgstr ""
 
-#: ../git-plugins/sysInfo/_public.php:148
+#: ../git-plugins/sysInfo/_public.php:144
 msgid "Values"
 msgstr ""
 
 #: ../git-plugins/sysInfo/_services.php:77
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:851
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:917
 msgid "…"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgid "(empty)"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:32
-#: ../git-plugins/sysInfo/index.php:28
+#: ../git-plugins/sysInfo/index.php:29
 msgid "Types of permission"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgid "Type"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:61
-#: ../git-plugins/sysInfo/index.php:46
+#: ../git-plugins/sysInfo/index.php:47
 msgid "REST methods"
 msgstr ""
 
@@ -141,6 +141,7 @@ msgid "Admin registered URLs"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:282
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:821
 msgid "Name"
 msgstr ""
 
@@ -152,170 +153,191 @@ msgstr ""
 msgid "Query string"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:367
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:369
 msgid "List of compiled templates in cache"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:370
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:372
 msgid "Template path"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:371
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:373
 msgid "Template file"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:372
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:835
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:374
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:901
 msgid "Cache subpath"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:373
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:836
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:375
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:902
 msgid "Cache file"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:439
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:863
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:441
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:929
 msgid "Delete selected cache files"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:460
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:884
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:462
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:950
 msgid "No cache file selected"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:474
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:896
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:476
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:962
 msgid "Selected cache files have been deleted."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:499
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:501
 msgid "List of template paths"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:502
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:504
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:822
 msgid "Path"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:523
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:525
 msgid "Display template tags"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:562
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:564
 msgid " from: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:562
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:564
 msgid "cache"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:564
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:566
 msgid "Repository is unreachable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:595
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:597
 msgid "Repository plugins list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:596
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:598
 msgid "Plugin ID"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:612
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:614
 msgid "Repository themes list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:613
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:615
 msgid "Theme ID"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:626
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:628
 msgid "Live long and prosper."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:627
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:629
 msgid "To infinity and beyond."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:628
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:630
 msgid "So long, and thanks for all the fish."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:629
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:631
 msgid "Find a needle in a haystack."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:630
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:632
 msgid "A clever person solves a problem. A wise person avoids it."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:631
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:633
 msgid "I'm sorry, Dave. I'm afraid I can't do that."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:632
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:634
 msgid "With great power there must also come great responsibility."
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:633
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:635
 msgid "It's great, we have to do it all over again!"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:634
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:636
 msgid "Have You Tried Turning It Off And On Again?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:641
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:643
 msgid "PHP Version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:643
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:645
 msgid "DB driver: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:644
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:646
 msgid "version"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:645
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:647
 #, php-format
 msgid "using <strong>%s</strong> syntax"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:742
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:757
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:748
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:765
 msgid "(see inc/config.php)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:762
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:771
 msgid "seconds"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:810
-msgid "Static cache directory does not exists"
-msgstr ""
-
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:813
-msgid "Static cache directory is not readable"
-msgstr ""
-
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:821
-msgid "URL:"
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:820
+msgid "Dotclear folders"
 msgstr ""
 
 #: ../git-plugins/sysInfo/inc/lib.sysinfo.php:823
+msgid "Status"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:834
+msgid "writable"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:835
+msgid "readonly"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:837
+msgid "unknown"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:876
+msgid "Static cache directory does not exists"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:879
+msgid "Static cache directory is not readable"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:887
+msgid "URL:"
+msgstr ""
+
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:889
 msgid " → "
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:831
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:897
 msgid "List of static cache files in"
 msgstr ""
 
-#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:832
+#: ../git-plugins/sysInfo/inc/lib.sysinfo.php:898
 msgid "last update:"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:18 ../git-plugins/sysInfo/index.php:104
+#: ../git-plugins/sysInfo/index.php:18 ../git-plugins/sysInfo/index.php:105
 msgid "System"
 msgstr ""
 
@@ -331,94 +353,98 @@ msgstr ""
 msgid "DC Constants"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:24
-msgid "Core"
+#: ../git-plugins/sysInfo/index.php:22
+msgid "Folders"
 msgstr ""
 
 #: ../git-plugins/sysInfo/index.php:25
-msgid "URL handlers"
+msgid "Core"
 msgstr ""
 
 #: ../git-plugins/sysInfo/index.php:26
-msgid "Behaviours"
+msgid "URL handlers"
 msgstr ""
 
 #: ../git-plugins/sysInfo/index.php:27
+msgid "Behaviours"
+msgstr ""
+
+#: ../git-plugins/sysInfo/index.php:28
 msgid "Admin URLs"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:31
+#: ../git-plugins/sysInfo/index.php:32
 msgid "Templates"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:32
+#: ../git-plugins/sysInfo/index.php:33
 msgid "Compiled templates"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:33
+#: ../git-plugins/sysInfo/index.php:34
 msgid "Template paths"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:36
+#: ../git-plugins/sysInfo/index.php:37
 msgid "Repositories"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:37
+#: ../git-plugins/sysInfo/index.php:38
 msgid "Plugins repository (cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:38
+#: ../git-plugins/sysInfo/index.php:39
 msgid "Plugins repository"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:39
+#: ../git-plugins/sysInfo/index.php:40
 msgid "Themes repository (cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:40
+#: ../git-plugins/sysInfo/index.php:41
 msgid "Themes repository"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:43
+#: ../git-plugins/sysInfo/index.php:44
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:44
+#: ../git-plugins/sysInfo/index.php:45
 msgid "Plugins"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:45
+#: ../git-plugins/sysInfo/index.php:46
 msgid "Editors and Syntaxes"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:54
+#: ../git-plugins/sysInfo/index.php:55
 msgid "3rd party"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:55
+#: ../git-plugins/sysInfo/index.php:56
 msgid "Static cache"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:84
+#: ../git-plugins/sysInfo/index.php:85
 msgid "Are you sure you want to remove selected template cache files?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:85
+#: ../git-plugins/sysInfo/index.php:86
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:86
+#: ../git-plugins/sysInfo/index.php:87
 msgid "Compiled template file not found or unreadable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:87
+#: ../git-plugins/sysInfo/index.php:88
 msgid "Static cache file not found or unreadable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:115
+#: ../git-plugins/sysInfo/index.php:116
 msgid "Select a checklist:"
 msgstr ""
 
-#: ../git-plugins/sysInfo/index.php:117
+#: ../git-plugins/sysInfo/index.php:118
 msgid "Check"
 msgstr ""

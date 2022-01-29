@@ -27,7 +27,7 @@ blockquote.sysinfo:after {
   margin-top: 0;
   font-size: 3em;
   display: block;
-  line-height: .25;
+  line-height: 0.25;
   color: #dcdcdc;
   margin-bottom: 0;
 }
@@ -35,7 +35,7 @@ blockquote.sysinfo:after {
 blockquote.sysinfo:before {
   content: open-quote;
   float: left;
-  margin-right: .25em;
+  margin-right: 0.25em;
 }
 
 blockquote.sysinfo:after {
@@ -44,8 +44,8 @@ blockquote.sysinfo:after {
 }
 
 #content details {
-  padding: .25em;
-  padding-left: .5em;
+  padding: 0.25em;
+  padding-left: 0.5em;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -95,7 +95,7 @@ blockquote.sysinfo:after {
 .tpl_compiled_view .CodeMirror,
 .sc_compiled_view .CodeMirror {
   height: 90vh;
-  font: 1em Monaco, "Courier New", Courier, monospace;
+  font: 1em Monaco, 'Courier New', Courier, monospace;
 }
 
 /* Static cache calculator */

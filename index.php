@@ -19,6 +19,7 @@ $checklists = [
         __('Versions')     => 'default',
         __('PHP info')     => 'phpinfo',
         __('DC Constants') => 'constants',
+        __('Folders')      => 'folders',
     ],
 
     __('Core') => [
@@ -147,6 +148,12 @@ switch ($checklist) {
     case 'constants':
         // Affichage des constantes remarquables de Dotclear
         echo libSysInfo::dcConstants();
+
+        break;
+
+    case 'folders':
+        // Affichage des dossiers remarquables de Dotclear
+        echo libSysInfo::folders();
 
         break;
 

@@ -43,23 +43,23 @@ class urlSysInfo extends dcUrlHandlers
 {
     public static function sysInfo($args)
     {
-        global $core, $_ctx;
+        global $core;
 
         if ($args == 'behaviours') {
             $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
-            if (!empty($tplset) && is_dir(dirname(__FILE__) . '/default-templates/' . $tplset)) {
-                $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . $tplset);
+            if (!empty($tplset) && is_dir(__DIR__ . '/default-templates/' . $tplset)) {
+                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
             } else {
-                $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . DC_DEFAULT_TPLSET);
+                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
             }
             self::serveDocument('behaviours.html');
             exit;
         } elseif ($args == 'templatetags') {
             $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
-            if (!empty($tplset) && is_dir(dirname(__FILE__) . '/default-templates/' . $tplset)) {
-                $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . $tplset);
+            if (!empty($tplset) && is_dir(__DIR__ . '/default-templates/' . $tplset)) {
+                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
             } else {
-                $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . DC_DEFAULT_TPLSET);
+                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
             }
             self::serveDocument('templatetags.html');
             exit;
@@ -78,8 +78,6 @@ class tplSysInfo
 
     public static function SysInfoBehaviours($attr)
     {
-        global $core;
-
         $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
 
@@ -121,8 +119,6 @@ class tplSysInfo
 
     public static function SysInfoTemplatetags($attr)
     {
-        global $core;
-
         $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicTemplatetagsList(); ?>';
 

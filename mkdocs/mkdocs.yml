@@ -1,37 +1,31 @@
 site_name: sysInfo
 
-# repo_url: https://bitbucket.org/franckpaul/
 repo_url: https://open-time.net/docs
-# edit_uri: src/default/mkdocs/docs/
 
 site_description: System information
 site_author: Franck Paul
-site_favicon: img/favicon.png
 
-pages:
-- 'Introduction': 'index.md'
-- User Guide:
-    - 'Template files': 'user-guide/tpl-files.md'
-    - 'Repository plugins': 'user-guide/repo-plugins.md'
-    - 'Repository themes': 'user-guide/repo-themes.md'
-    - 'Template paths': 'user-guide/tpl-paths.md'
-    - 'URL handlers': 'user-guide/url-handlers.md'
-    - 'Behaviors': 'user-guide/behaviors.md'
-    - 'Constants': 'user-guide/constants.md'
-    - 'Admin URLs': 'user-guide/admin-urls.md'
-    - 'Editors': 'user-guide/editors.md'
-    - 'Plugins': 'user-guide/plugins.md'
-    - 'REST Methods': 'user-guide/rest-methods.md'
-    - 'PHP Info': 'user-guide/phpinfo.md'
-    - 'Static cache files': 'user-guide/static-cache.md'
-    - 'HTTP cache': 'user-guide/http-cache.md'
-- 'Release Notes': 'release-notes.md'
-- 'About': 'about.md'
+nav:
+  - 'Introduction': 'index.md'
+  - User Guide:
+      - 'Template files': 'user-guide/tpl-files.md'
+      - 'Repository plugins': 'user-guide/repo-plugins.md'
+      - 'Repository themes': 'user-guide/repo-themes.md'
+      - 'Template paths': 'user-guide/tpl-paths.md'
+      - 'URL handlers': 'user-guide/url-handlers.md'
+      - 'Behaviors': 'user-guide/behaviors.md'
+      - 'Constants': 'user-guide/constants.md'
+      - 'Admin URLs': 'user-guide/admin-urls.md'
+      - 'Editors': 'user-guide/editors.md'
+      - 'Plugins': 'user-guide/plugins.md'
+      - 'REST Methods': 'user-guide/rest-methods.md'
+      - 'PHP Info': 'user-guide/phpinfo.md'
+      - 'Static cache files': 'user-guide/static-cache.md'
+      - 'HTTP cache': 'user-guide/http-cache.md'
+  - 'Release Notes': 'release-notes.md'
+  - 'About': 'about.md'
 
-# Theme (doc: http://squidfunk.github.io/mkdocs-material/)
-theme: material
 extra:
-#  logo: 'img/icon-big.png'
   palette:
     primary: 'Deep Purple'
     accent: 'Pink'
@@ -42,28 +36,28 @@ extra:
       link: 'https://twitter.com/franckpaul'
 
 markdown_extensions:
-- extra
-- fenced_code
-- meta
-- smarty
-- toc:
-    permalink: True
-- admonition
-- codehilite:
-    guess_lang: false
-- footnotes
-- pymdownx.arithmatex
-- pymdownx.betterem:
-    smart_enable: all
-- pymdownx.caret
-- pymdownx.critic
-- pymdownx.emoji:
-    emoji_generator: !!python/name:pymdownx.emoji.to_svg
-- pymdownx.inlinehilite
-- pymdownx.magiclink
-- pymdownx.mark
-- pymdownx.smartsymbols
-- pymdownx.superfences
-- pymdownx.tasklist:
-    custom_checkbox: true
-- pymdownx.tilde
+  - extra
+  - fenced_code
+  - meta
+  - smarty
+  - toc:
+      permalink: True
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
