@@ -814,8 +814,11 @@ class libSysInfo
             'public'  => self::$core->blog->public_path,
             'themes'  => self::$core->blog->themes_path,
             'var'     => DC_VAR,
-            'static'  => DC_SC_CACHE_DIR,
         ];
+
+        if (defined('DC_SC_CACHE_DIR')) {
+            $folders += ['static' => DC_SC_CACHE_DIR];
+        }
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Dotclear folders and files') . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
