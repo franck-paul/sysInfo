@@ -835,6 +835,7 @@ class libSysInfo
                 $writable = is_writable($path);
                 $touch    = true;
                 $err      = [];
+                $void     = '';
                 if ($writable && is_dir($path)) {
                     // Try to create a file, inherit dir perms and then delete it
                     try {
@@ -858,7 +859,7 @@ class libSysInfo
                     $status = '<img src="images/check-off.png" alt="" /> ' . __('Unknown');
                 }
                 if (count($err) > 0) {
-                    $status .= '<div style="display: none;"><p>' . implode('<br />' . $err) . '</p></div>';
+                    $status .= '<div style="display: none;"><p>' . implode('<br />', $err) . '</p></div>';
                 }
 
                 if (substr($folder, 0, strlen(DC_ROOT)) === DC_ROOT) {

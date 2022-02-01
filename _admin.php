@@ -20,7 +20,7 @@ __('sysInfo') . __('System Information');
 $_menu['System']->addItem(
     __('System info'),
     $core->adminurl->get('admin.plugin.sysInfo'),
-    urldecode(dcPage::getPF('sysInfo/icon.png')),
+    [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
     preg_match('/' . preg_quote($core->adminurl->get('admin.plugin.sysInfo')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
     $core->auth->isSuperAdmin()
 );
@@ -35,8 +35,8 @@ class sysInfoAdmin
         $favs->register('sysInfo', [
             'title'       => __('System Information'),
             'url'         => $core->adminurl->get('admin.plugin.sysInfo'),
-            'small-icon'  => urldecode(dcPage::getPF('sysInfo/icon.png')),
-            'large-icon'  => urldecode(dcPage::getPF('sysInfo/icon-big.png')),
+            'small-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
+            'large-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
             'permissions' => $core->auth->isSuperAdmin(),
         ]);
     }
