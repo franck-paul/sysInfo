@@ -212,7 +212,11 @@ class libSysInfo
                             $str .= $fi[0] . '::' . $fi[1];
                         }
                     } else {
-                        $str .= $fi . '()';
+                        if ($fi instanceof \Closure) {
+                            $str .= '__closure__';
+                        } else {
+                            $str .= $fi;
+                        }
                     }
                     $str .= '()</code></td>';
                     $newline = true;
