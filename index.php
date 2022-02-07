@@ -77,7 +77,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
   <title><?php echo __('System Information'); ?></title>
 <?php
 echo
-dcPage::cssLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.css')), 'screen', $core->getVersion('sysInfo')) .
+dcPage::cssModuleLoad('sysInfo/sysinfo.css', 'screen', $core->getVersion('sysInfo')) .
 dcPage::jsJson('sysinfo', [
     'colorsyntax'       => $user_ui_colorsyntax,
     'colorsyntax_theme' => $user_ui_colorsyntax_theme,
@@ -89,7 +89,7 @@ dcPage::jsJson('sysinfo', [
     ],
 ]) .
 dcPage::jsModal() .
-dcPage::jsLoad(urldecode(dcPage::getPF('sysInfo/sysinfo.js')), $core->getVersion('sysInfo'));
+dcPage::jsModuleLoad('sysInfo/sysinfo.js', $core->getVersion('sysInfo'));
 if ($user_ui_colorsyntax) {
     echo
     dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
