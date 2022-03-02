@@ -21,18 +21,18 @@ $(() => {
         // For debugging purpose only:
         // console.log($('rsp',data).attr('message'));
         window.console.log('Dotclear REST server error');
-      } else {
-        // ret -> status (true/false)
-        // msg -> REST method return value
-        const ret = Number($('rsp>sysinfo', data).attr('ret'));
-        content = $('rsp>sysinfo', data).attr('msg');
-        if (ret && fn !== undefined && typeof fn === 'function') {
-          // Call callback function with returned value
-          fn(content);
-        }
-        if (!ret && msg !== '') {
-          window.alert(msg);
-        }
+        return;
+      }
+      // ret -> status (true/false)
+      // msg -> REST method return value
+      const ret = Number($('rsp>sysinfo', data).attr('ret'));
+      content = $('rsp>sysinfo', data).attr('msg');
+      if (ret && fn !== undefined && typeof fn === 'function') {
+        // Call callback function with returned value
+        fn(content);
+      }
+      if (!ret && msg !== '') {
+        window.alert(msg);
       }
     });
   };

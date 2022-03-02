@@ -640,7 +640,8 @@ class libSysInfo
         ];
         $q = rand(0, count($quotes) - 1);
 
-        $str = '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' .
+        // Server info
+        $server = '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' .
             '<details open><summary>' . __('System info') . '</summary>' .
             '<ul>' .
             '<li>' . __('PHP Version: ') . '<strong>' . phpversion() . '</strong></li>' .
@@ -651,7 +652,43 @@ class libSysInfo
             '</ul>' .
             '</details>';
 
-        return $str;
+        // Dotclear info
+        $dotclear = '<details open><summary>' . __('Dotclear info') . '</summary>' .
+            '<ul>' .
+            '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>' .
+            '</ul>' .
+            '</details>';
+
+        // Update info
+
+        $versions = '';
+        $path     = path::real(DC_TPL_CACHE . '/versions');
+        if (is_dir($path)) {
+            $channels = ['stable', 'testing', 'unstable'];
+            foreach ($channels as $channel) {
+                $file = $path . '/dotclear-' . $channel;
+                if (file_exists($file)) {
+                    if ($content = @unserialize(@file_get_contents($file))) {
+                        if (is_array($content)) {
+                            $versions .= '<li>' . __('Channel: ') . '<strong>' . $channel . '</strong>' .
+                                ' (' . date(DATE_ATOM, filemtime($file)) . ')' .
+                                '<ul>' .
+                                '<li>' . __('version: ') . '<strong>' . $content['version'] . '</strong></li>' .
+                                '<li>' . __('href: ') . '<a href="' . $content['href'] . '">' . $content['href'] . '</a></li>' .
+                                '<li>' . __('checksum: ') . '<code>' . $content['checksum'] . '</code></li>' .
+                                '<li>' . __('info: ') . '<a href="' . $content['info'] . '">' . $content['info'] . '</a></li>' .
+                                '<li>' . __('PHP min: ') . '<strong>' . $content['php'] . '</strong></li>' .
+                                '</ul></li>';
+                        }
+                    }
+                }
+            }
+        }
+        if ($versions !== '') {
+            $versions = '<details open><summary>' . __('Update info') . '</summary><ul>' . $versions . '</ul></details>';
+        }
+
+        return $server . $dotclear . $versions;
     }
 
     /* --- helpers --- */
