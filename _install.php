@@ -17,7 +17,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 $new_version = $core->plugins->moduleInfo('sysInfo', 'version');
 $old_version = $core->getVersion('sysInfo');
 
-if (version_compare($old_version, $new_version, '>=')) {
+if ($old_version && version_compare((string) $old_version, $new_version, '>=')) {
     return;
 }
 
