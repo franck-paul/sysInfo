@@ -101,6 +101,8 @@ class tplSysInfo
                         } else {
                             $code .= $fi[0] . '::' . $fi[1] . '()';
                         }
+                    } elseif ($fi instanceof \Closure) {
+                        $code .= '__Closure__';
                     } else {
                         $code .= $fi . '()';
                     }
