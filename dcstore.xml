@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="sysInfo">
     <name>sysInfo</name>
-    <version>1.20.3</version>
+    <version>1.21</version>
     <author>Franck Paul</author>
     <desc>System Information</desc>
-    <file>https://github.com/franck-paul/sysInfo/releases/download/1.20.3/plugin-sysInfo-1.20.3.zip</file>
-    <da:dcmin>2.21</da:dcmin>
+    <file>https://github.com/franck-paul/sysInfo/releases/download/1.21/plugin-sysInfo-1.21.zip</file>
+    <da:dcmin>2.23</da:dcmin>
     <da:details>https://open-time.net/docs/plugins/sysInfo</da:details>
     <da:support>https://github.com/franck-paul/sysInfo</da:support>
   </module>
