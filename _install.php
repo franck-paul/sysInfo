@@ -14,22 +14,22 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = $core->plugins->moduleInfo('sysInfo', 'version');
-$old_version = $core->getVersion('sysInfo');
+$new_version = dcCore::app()->plugins->moduleInfo('sysInfo', 'version');
+$old_version = dcCore::app()->getVersion('sysInfo');
 
 if ($old_version && version_compare((string) $old_version, $new_version, '>=')) {
     return;
 }
 
 try {
-    $core->blog->settings->addNamespace('sysinfo');
-    $core->blog->settings->sysinfo->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
+    dcCore::app()->blog->settings->addNamespace('sysinfo');
+    dcCore::app()->blog->settings->sysinfo->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
 
-    $core->setVersion('sysInfo', $new_version);
+    dcCore::app()->setVersion('sysInfo', $new_version);
 
     return true;
 } catch (Exception $e) {
-    $core->error->add($e->getMessage());
+    dcCore::app()->error->add($e->getMessage());
 }
 
 return false;

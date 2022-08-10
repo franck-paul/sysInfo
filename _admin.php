@@ -19,32 +19,32 @@ __('sysInfo') . __('System Information');
 
 $_menu['System']->addItem(
     __('System info'),
-    $core->adminurl->get('admin.plugin.sysInfo'),
+    dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
     [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
-    preg_match('/' . preg_quote($core->adminurl->get('admin.plugin.sysInfo')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->isSuperAdmin()
+    preg_match('/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.sysInfo')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
+    dcCore::app()->auth->isSuperAdmin()
 );
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', ['sysInfoAdmin', 'adminDashboardFavorites']);
+dcCore::app()->addBehavior('adminDashboardFavorites', ['sysInfoAdmin', 'adminDashboardFavorites']);
 
 class sysInfoAdmin
 {
-    public static function adminDashboardFavorites($core, $favs)
+    public static function adminDashboardFavorites($core = null, $favs)
     {
         $favs->register('sysInfo', [
             'title'       => __('System Information'),
-            'url'         => $core->adminurl->get('admin.plugin.sysInfo'),
+            'url'         => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
             'small-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
             'large-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
-            'permissions' => $core->auth->isSuperAdmin(),
+            'permissions' => dcCore::app()->auth->isSuperAdmin(),
         ]);
     }
 }
 
 // Register REST methods
-$core->rest->addFunction('getCompiledTemplate', ['sysInfoRest', 'getCompiledTemplate']);
-$core->rest->addFunction('getStaticCacheFile', ['sysInfoRest', 'getStaticCacheFile']);
-$core->rest->addFunction('getStaticCacheDir', ['sysInfoRest', 'getStaticCacheDir']);
-$core->rest->addFunction('getStaticCacheList', ['sysInfoRest', 'getStaticCacheList']);
-$core->rest->addFunction('getStaticCacheName', ['sysInfoRest', 'getStaticCacheName']);
+dcCore::app()->rest->addFunction('getCompiledTemplate', ['sysInfoRest', 'getCompiledTemplate']);
+dcCore::app()->rest->addFunction('getStaticCacheFile', ['sysInfoRest', 'getStaticCacheFile']);
+dcCore::app()->rest->addFunction('getStaticCacheDir', ['sysInfoRest', 'getStaticCacheDir']);
+dcCore::app()->rest->addFunction('getStaticCacheList', ['sysInfoRest', 'getStaticCacheList']);
+dcCore::app()->rest->addFunction('getStaticCacheName', ['sysInfoRest', 'getStaticCacheName']);

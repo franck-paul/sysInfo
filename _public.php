@@ -14,12 +14,12 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$core->addBehavior('publicBreadcrumb', ['extSysInfo', 'publicBreadcrumb']);
-$core->addBehavior('urlHandlerBeforeGetData', ['extSysInfo', 'urlHandlerBeforeGetData']);
+dcCore::app()->addBehavior('publicBreadcrumb', ['extSysInfo', 'publicBreadcrumb']);
+dcCore::app()->addBehavior('urlHandlerBeforeGetData', ['extSysInfo', 'urlHandlerBeforeGetData']);
 
-$core->tpl->addValue('SysInfoPageTitle', ['tplSysInfo', 'SysInfoPageTitle']);
-$core->tpl->addValue('SysInfoBehaviours', ['tplSysInfo', 'SysInfoBehaviours']);
-$core->tpl->addValue('SysInfoTemplatetags', ['tplSysInfo', 'SysInfoTemplatetags']);
+dcCore::app()->tpl->addValue('SysInfoPageTitle', ['tplSysInfo', 'SysInfoPageTitle']);
+dcCore::app()->tpl->addValue('SysInfoBehaviours', ['tplSysInfo', 'SysInfoBehaviours']);
+dcCore::app()->tpl->addValue('SysInfoTemplatetags', ['tplSysInfo', 'SysInfoTemplatetags']);
 
 class extSysInfo
 {
@@ -32,10 +32,8 @@ class extSysInfo
 
     public static function urlHandlerBeforeGetData($ctx)
     {
-        global $core;
-
-        $core->blog->settings->addNamespace('sysinfo');
-        $ctx->http_cache = (bool) $core->blog->settings->sysinfo->http_cache;
+        dcCore::app()->blog->settings->addNamespace('sysinfo');
+        $ctx->http_cache = (bool) dcCore::app()->blog->settings->sysinfo->http_cache;
     }
 }
 
@@ -43,23 +41,21 @@ class urlSysInfo extends dcUrlHandlers
 {
     public static function sysInfo($args)
     {
-        global $core;
-
         if ($args == 'behaviours') {
-            $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
+            $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
             if (!empty($tplset) && is_dir(__DIR__ . '/default-templates/' . $tplset)) {
-                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
             } else {
-                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
             }
             self::serveDocument('behaviours.html');
             exit;
         } elseif ($args == 'templatetags') {
-            $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
+            $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
             if (!empty($tplset) && is_dir(__DIR__ . '/default-templates/' . $tplset)) {
-                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
             } else {
-                $core->tpl->setPath($core->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
             }
             self::serveDocument('templatetags.html');
             exit;
@@ -88,7 +84,7 @@ class tplSysInfo
     {
         $code = '<ul>' . "\n";
 
-        $bl = $GLOBALS['core']->getBehaviors('');
+        $bl = dcCore::app()->getBehaviors('');
         foreach ($bl as $b => $f) {
             $code .= '<li>' . $b . ' : ';
             if (is_array($f)) {
@@ -131,8 +127,8 @@ class tplSysInfo
     {
         $code = '<ul>' . "\n";
 
-        $tplblocks = array_values($GLOBALS['core']->tpl->getBlockslist());
-        $tplvalues = array_values($GLOBALS['core']->tpl->getValueslist());
+        $tplblocks = array_values(dcCore::app()->tpl->getBlockslist());
+        $tplvalues = array_values(dcCore::app()->tpl->getValueslist());
 
         sort($tplblocks, SORT_STRING);
         sort($tplvalues, SORT_STRING);

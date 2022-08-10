@@ -16,9 +16,6 @@ if (!defined('DC_RC_PATH')) {
 
 class libSysInfo
 {
-    /** @var dcCore dcCore instance */
-    public static $core;
-
     /**
      * Return list of registered permissions
      *
@@ -26,7 +23,7 @@ class libSysInfo
      */
     public static function permissions(): string
     {
-        $permissions = self::$core->auth->getPermissionsTypes();
+        $permissions = dcCore::app()->auth->getPermissionsTypes();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Types of permission') . '</caption>' .
@@ -55,7 +52,7 @@ class libSysInfo
      */
     public static function restMethods(): string
     {
-        $methods = self::$core->rest->functions;
+        $methods = dcCore::app()->rest->functions;
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('REST methods') . '</caption>' .
@@ -73,7 +70,7 @@ class libSysInfo
                     if (is_string($callback[0])) {
                         $str .= $callback[0] . '::' . $callback[1];
                     } else {
-                        $str .=  get_class($callback[0]) . '->' . $callback[1];
+                        $str .= get_class($callback[0]) . '->' . $callback[1];
                     }
                 } else {
                     $str .= $callback[0];
@@ -96,7 +93,7 @@ class libSysInfo
     public static function plugins(): string
     {
         // Affichage de la liste des plugins (et de leurs propriétés)
-        $plugins = self::$core->plugins->getModules();
+        $plugins = dcCore::app()->plugins->getModules();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Plugins (in loading order)') . '</caption>' .
@@ -124,7 +121,7 @@ class libSysInfo
     public static function formaters(): string
     {
         // Affichage de la liste des éditeurs et des syntaxes par éditeur
-        $formaters = self::$core->getFormaters();
+        $formaters = dcCore::app()->getFormaters();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Editors and their supported syntaxes') . '</caption>' .
@@ -192,7 +189,7 @@ class libSysInfo
     public static function behaviours(): string
     {
         // Affichage de la liste des behaviours inscrits
-        $bl = self::$core->getBehaviors('');
+        $bl = dcCore::app()->getBehaviors('');
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Behaviours list') . '</caption>' .
@@ -232,7 +229,7 @@ class libSysInfo
         }
         $str .= '</tbody></table>';
 
-        $str .= '<p><a id="sysinfo-preview" href="' . self::$core->blog->url . self::$core->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
+        $str .= '<p><a id="sysinfo-preview" href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
 
         return $str;
     }
@@ -245,7 +242,7 @@ class libSysInfo
     public static function URLHandlers(): string
     {
         // Récupération des types d'URL enregistrées
-        $urls = self::$core->url->getTypes();
+        $urls = dcCore::app()->url->getTypes();
 
         // Tables des URLs non gérées par le menu
         //$excluded = ['rsd','xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
@@ -284,7 +281,7 @@ class libSysInfo
     public static function adminURLs(): string
     {
         // Récupération de la liste des URLs d'admin enregistrées
-        $urls = self::$core->adminurl->dumpUrls();
+        $urls = dcCore::app()->adminurl->dumpUrls();
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
@@ -360,16 +357,16 @@ class libSysInfo
         } elseif (substr($cache_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
             $cache_path = substr($cache_path, strlen(DC_ROOT));
         }
-        $blog_host = self::$core->blog->host;
+        $blog_host = dcCore::app()->blog->host;
         if (substr($blog_host, -1) != '/') {
             $blog_host .= '/';
         }
-        $blog_url = self::$core->blog->url;
+        $blog_url = dcCore::app()->blog->url;
         if (substr($blog_url, 0, strlen($blog_host)) == $blog_host) {
             $blog_url = substr($blog_url, strlen($blog_host));
         }
 
-        $paths = self::$core->tpl->getPath();
+        $paths = dcCore::app()->tpl->getPath();
 
         $str = '<form action="' . $p_url . '" method="post" id="tplform">' .
             '<table id="chk-table-result" class="sysinfo">' .
@@ -445,7 +442,7 @@ class libSysInfo
         $str .= '</tbody></table>' .
             '<div class="two-cols">' .
             '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' . self::$core->formNonce() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
+            '<p class="col right">' . dcCore::app()->formNonce() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
             '</div>' .
             '</form>';
 
@@ -477,9 +474,9 @@ class libSysInfo
                 }
             } catch (Exception $e) {
                 $checklist = 'templates';
-                self::$core->error->add($e->getMessage());
+                dcCore::app()->error->add($e->getMessage());
             }
-            if (!self::$core->error->flag()) {
+            if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
                 http::redirect($p_url . '&tpl=1');
             }
@@ -501,7 +498,7 @@ class libSysInfo
     public static function tplPaths(): string
     {
         self::publicPrepend();
-        $paths         = self::$core->tpl->getPath();
+        $paths         = dcCore::app()->tpl->getPath();
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
@@ -529,7 +526,7 @@ class libSysInfo
         }
         $str .= '</tbody></table>';
 
-        $str .= '<p><a id="sysinfo-preview" href="' . self::$core->blog->url . self::$core->url->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
+        $str .= '<p><a id="sysinfo-preview" href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
 
         return $str;
     }
@@ -600,7 +597,7 @@ class libSysInfo
     {
         return self::repoModules(
             $use_cache,
-            self::$core->blog->settings->system->store_plugin_url,
+            dcCore::app()->blog->settings->system->store_plugin_url,
             __('Repository plugins list'),
             __('Plugin ID')
         );
@@ -617,7 +614,7 @@ class libSysInfo
     {
         return self::repoModules(
             $use_cache,
-            self::$core->blog->settings->system->store_theme_url,
+            dcCore::app()->blog->settings->system->store_theme_url,
             __('Repository themes list'),
             __('Theme ID')
         );
@@ -650,9 +647,9 @@ class libSysInfo
             '<ul>' .
             '<li>' . __('PHP Version: ') . '<strong>' . phpversion() . '</strong></li>' .
             '<li>' .
-                __('DB driver: ') . '<strong>' . self::$core->con->driver() . '</strong> ' .
-                __('version') . ' <strong>' . self::$core->con->version() . '</strong> ' .
-                sprintf(__('using <strong>%s</strong> syntax'), self::$core->con->syntax()) . '</li>' .
+                __('DB driver: ') . '<strong>' . dcCore::app()->con->driver() . '</strong> ' .
+                __('version') . ' <strong>' . dcCore::app()->con->version() . '</strong> ' .
+                sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
             '</ul>' .
             '</details>';
 
@@ -706,50 +703,50 @@ class libSysInfo
     {
         // Emulate public prepend
 
-        self::$core->tpl    = new dcTemplate(DC_TPL_CACHE, '$core->tpl', self::$core);
-        self::$core->themes = new dcThemes(self::$core);
-        self::$core->themes->loadModules(self::$core->blog->themes_path);
+        dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, '$core->tpl', dcCore::app());
+        dcCore::app()->themes = new dcThemes(dcCore::app());
+        dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path);
         if (!isset($__theme)) {     // @phpstan-ignore-line
-            $__theme = self::$core->blog->settings->system->theme;
+            $__theme = dcCore::app()->blog->settings->system->theme;
         }
-        if (!self::$core->themes->moduleExists($__theme)) {
-            $__theme = self::$core->blog->settings->system->theme = 'default';
+        if (!dcCore::app()->themes->moduleExists($__theme)) {
+            $__theme = dcCore::app()->blog->settings->system->theme = 'default';
         }
-        $tplset         = self::$core->themes->moduleInfo($__theme, 'tplset');
-        $__parent_theme = self::$core->themes->moduleInfo($__theme, 'parent');
+        $tplset         = dcCore::app()->themes->moduleInfo($__theme, 'tplset');
+        $__parent_theme = dcCore::app()->themes->moduleInfo($__theme, 'parent');
         if ($__parent_theme) {
-            if (!self::$core->themes->moduleExists($__parent_theme)) {
-                $__theme        = self::$core->blog->settings->system->theme        = 'default';
+            if (!dcCore::app()->themes->moduleExists($__parent_theme)) {
+                $__theme        = dcCore::app()->blog->settings->system->theme        = 'default';
                 $__parent_theme = null;
             }
         }
         $__theme_tpl_path = [
-            self::$core->blog->themes_path . '/' . $__theme . '/tpl',
+            dcCore::app()->blog->themes_path . '/' . $__theme . '/tpl',
         ];
         if ($__parent_theme) {
-            $__theme_tpl_path[] = self::$core->blog->themes_path . '/' . $__parent_theme . '/tpl';
+            $__theme_tpl_path[] = dcCore::app()->blog->themes_path . '/' . $__parent_theme . '/tpl';
             if (empty($tplset)) {
-                $tplset = self::$core->themes->moduleInfo($__parent_theme, 'tplset');
+                $tplset = dcCore::app()->themes->moduleInfo($__parent_theme, 'tplset');
             }
         }
         if (empty($tplset)) {
             $tplset = DC_DEFAULT_TPLSET;
         }
         $main_plugins_root = explode(':', DC_PLUGINS_ROOT);
-        self::$core->tpl->setPath(
+        dcCore::app()->tpl->setPath(
             $__theme_tpl_path,
             $main_plugins_root[0] . '/../inc/public/default-templates/' . $tplset,
-            self::$core->tpl->getPath()
+            dcCore::app()->tpl->getPath()
         );
 
         // Looking for default-templates in each plugin's dir
-        $plugins = self::$core->plugins->getModules();
+        $plugins = dcCore::app()->plugins->getModules();
         foreach ($plugins as $k => $v) {
-            $plugin_root = self::$core->plugins->moduleInfo($k, 'root');
+            $plugin_root = dcCore::app()->plugins->moduleInfo($k, 'root');
             if ($plugin_root) {
-                self::$core->tpl->setPath(self::$core->tpl->getPath(), $plugin_root . '/default-templates/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/default-templates/' . $tplset);
                 // To be exhaustive add also direct directory (without templateset)
-                self::$core->tpl->setPath(self::$core->tpl->getPath(), $plugin_root . '/default-templates');
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/default-templates');
             }
         }
 
@@ -765,43 +762,38 @@ class libSysInfo
     {
         $undefined = '<!-- undefined -->';
         $constants = [
-            'DC_ADMIN_CONTEXT'  => defined('DC_ADMIN_CONTEXT') ? (DC_ADMIN_CONTEXT ? 'true' : 'false') : $undefined,
-            'DC_ADMIN_MAILFROM' => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
-            /* @phpstan-ignore-next-line */
-            'DC_ADMIN_SSL'     => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
-            'DC_ADMIN_URL'     => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
-            'DC_AKISMET_SUPER' => defined('DC_AKISMET_SUPER') ? (DC_AKISMET_SUPER ? 'true' : 'false') : $undefined,
-            /* @phpstan-ignore-next-line */
-            'DC_ALLOW_MULTI_MODULES' => defined('DC_ALLOW_MULTI_MODULES') ? (DC_ALLOW_MULTI_MODULES ? 'true' : 'false') : $undefined,
-            /* @phpstan-ignore-next-line */
-            'DC_ALLOW_REPOSITORIES'  => defined('DC_ALLOW_REPOSITORIES') ? (DC_ALLOW_REPOSITORIES ? 'true' : 'false') : $undefined,
-            'DC_ANTISPAM_CONF_SUPER' => defined('DC_ANTISPAM_CONF_SUPER') ? (DC_ANTISPAM_CONF_SUPER ? 'true' : 'false') : $undefined,
-            'DC_AUTH_PAGE'           => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
-            'DC_AUTH_SESS_ID'        => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
-            'DC_AUTH_SESS_UID'       => defined('DC_AUTH_SESS_UID') ? DC_AUTH_SESS_UID : $undefined,
-            'DC_BACKUP_PATH'         => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
-            'DC_BLOG_ID'             => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
-            'DC_CONTEXT_ADMIN'       => defined('DC_CONTEXT_ADMIN') ? (DC_CONTEXT_ADMIN ? 'true' : 'false') : $undefined,
-            'DC_CONTEXT_MODULE'      => defined('DC_CONTEXT_MODULE') ? (DC_CONTEXT_MODULE ? 'true' : 'false') : $undefined,
-            'DC_CRYPT_ALGO'          => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
-            /* @phpstan-ignore-next-line */
-            'DC_STORE_NOT_UPDATE' => defined('DC_STORE_NOT_UPDATE') ? (DC_STORE_NOT_UPDATE ? 'true' : 'false') : $undefined,
-            'DC_DBDRIVER'         => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
-            'DC_DBHOST'           => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
-            'DC_DBNAME'           => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
-            'DC_DBPASSWORD'       => defined('DC_DBPASSWORD') ? '********* ' . __('(see inc/config.php)') /* DC_DBPASSWORD */ : $undefined,
-            'DC_DBPREFIX'         => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
-            'DC_DBUSER'           => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
-            /* @phpstan-ignore-next-line */
-            'DC_DEBUG'           => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
-            'DC_DEFAULT_JQUERY'  => defined('DC_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
-            'DC_DEFAULT_TPLSET'  => defined('DC_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
-            'DC_DEV'             => defined('DC_DEV') ? (DC_DEV ? 'true' : 'false') : $undefined,
-            'DC_DIGESTS'         => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
-            'DC_DISTRIB_PLUGINS' => defined('DC_DISTRIB_PLUGINS') ? DC_DISTRIB_PLUGINS : $undefined,
-            'DC_DISTRIB_THEMES'  => defined('DC_DISTRIB_THEMES') ? DC_DISTRIB_THEMES : $undefined,
-            'DC_DNSBL_SUPER'     => defined('DC_DNSBL_SUPER') ? (DC_DNSBL_SUPER ? 'true' : 'false') : $undefined,
-            /* @phpstan-ignore-next-line */
+            'DC_ADMIN_CONTEXT'        => defined('DC_ADMIN_CONTEXT') ? (DC_ADMIN_CONTEXT ? 'true' : 'false') : $undefined,
+            'DC_ADMIN_MAILFROM'       => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
+            'DC_ADMIN_SSL'            => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
+            'DC_ADMIN_URL'            => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
+            'DC_AKISMET_SUPER'        => defined('DC_AKISMET_SUPER') ? (DC_AKISMET_SUPER ? 'true' : 'false') : $undefined,
+            'DC_ALLOW_MULTI_MODULES'  => defined('DC_ALLOW_MULTI_MODULES') ? (DC_ALLOW_MULTI_MODULES ? 'true' : 'false') : $undefined,
+            'DC_ALLOW_REPOSITORIES'   => defined('DC_ALLOW_REPOSITORIES') ? (DC_ALLOW_REPOSITORIES ? 'true' : 'false') : $undefined,
+            'DC_ANTISPAM_CONF_SUPER'  => defined('DC_ANTISPAM_CONF_SUPER') ? (DC_ANTISPAM_CONF_SUPER ? 'true' : 'false') : $undefined,
+            'DC_AUTH_PAGE'            => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
+            'DC_AUTH_SESS_ID'         => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
+            'DC_AUTH_SESS_UID'        => defined('DC_AUTH_SESS_UID') ? DC_AUTH_SESS_UID : $undefined,
+            'DC_BACKUP_PATH'          => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
+            'DC_BLOG_ID'              => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
+            'DC_CONTEXT_ADMIN'        => defined('DC_CONTEXT_ADMIN') ? (DC_CONTEXT_ADMIN ? 'true' : 'false') : $undefined,
+            'DC_CONTEXT_MODULE'       => defined('DC_CONTEXT_MODULE') ? (DC_CONTEXT_MODULE ? 'true' : 'false') : $undefined,
+            'DC_CRYPT_ALGO'           => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
+            'DC_STORE_NOT_UPDATE'     => defined('DC_STORE_NOT_UPDATE') ? (DC_STORE_NOT_UPDATE ? 'true' : 'false') : $undefined,
+            'DC_DBDRIVER'             => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
+            'DC_DBHOST'               => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
+            'DC_DBNAME'               => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
+            'DC_DBPASSWORD'           => defined('DC_DBPASSWORD') ? '********* ' . __('(see inc/config.php)') /* DC_DBPASSWORD */ : $undefined,
+            'DC_DBPREFIX'             => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
+            'DC_DBUSER'               => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
+            'DC_DEBUG'                => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
+            'DC_DEFAULT_JQUERY'       => defined('DC_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
+            'DC_DEFAULT_THEME'        => defined('DC_DEFAULT_THEME') ? DC_DEFAULT_THEME : $undefined,
+            'DC_DEFAULT_TPLSET'       => defined('DC_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
+            'DC_DEV'                  => defined('DC_DEV') ? (DC_DEV ? 'true' : 'false') : $undefined,
+            'DC_DIGESTS'              => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
+            'DC_DISTRIB_PLUGINS'      => defined('DC_DISTRIB_PLUGINS') ? DC_DISTRIB_PLUGINS : $undefined,
+            'DC_DISTRIB_THEMES'       => defined('DC_DISTRIB_THEMES') ? DC_DISTRIB_THEMES : $undefined,
+            'DC_DNSBL_SUPER'          => defined('DC_DNSBL_SUPER') ? (DC_DNSBL_SUPER ? 'true' : 'false') : $undefined,
             'DC_FAIRTRACKBACKS_FORCE' => defined('DC_FAIRTRACKBACKS_FORCE') ? (DC_FAIRTRACKBACKS_FORCE ? 'true' : 'false') : $undefined,
             'DC_FORCE_SCHEME_443'     => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
             'DC_L10N_ROOT'            => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
@@ -809,27 +801,26 @@ class libSysInfo
             'DC_MASTER_KEY'           => defined('DC_MASTER_KEY') ? '********* ' . __('(see inc/config.php)') /* DC_MASTER_KEY */ : $undefined,
             'DC_MAX_UPLOAD_SIZE'      => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
             'DC_NEXT_REQUIRED_PHP'    => defined('DC_NEXT_REQUIRED_PHP') ? DC_NEXT_REQUIRED_PHP : $undefined,
-            /* @phpstan-ignore-next-line */
-            'DC_NOT_UPDATE'       => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
-            'DC_PLUGINS_ROOT'     => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
-            'DC_QUERY_TIMEOUT'    => defined('DC_QUERY_TIMEOUT') ? DC_QUERY_TIMEOUT . ' ' . __('seconds') : $undefined,
-            'DC_RC_PATH'          => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
-            'DC_ROOT'             => defined('DC_ROOT') ? DC_ROOT : $undefined,
-            'DC_SESSION_NAME'     => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
-            'DC_SESSION_TTL'      => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
-            'DC_SHOW_HIDDEN_DIRS' => defined('DC_SHOW_HIDDEN_DIRS') ? (DC_SHOW_HIDDEN_DIRS ? 'true' : 'false') : $undefined,
-            'DC_START_TIME'       => defined('DC_START_TIME') ? DC_START_TIME : $undefined,
-            'DC_TPL_CACHE'        => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
-            'DC_UPDATE_URL'       => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
-            'DC_UPDATE_VERSION'   => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
-            'DC_VAR'              => defined('DC_VAR') ? DC_VAR : $undefined,
-            'DC_VENDOR_NAME'      => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
-            'DC_VERSION'          => defined('DC_VERSION') ? DC_VERSION : $undefined,
-            'DC_XMLRPC_URL'       => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
-            'CLEARBRICKS_VERSION' => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined,
+            'DC_NOT_UPDATE'           => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
+            'DC_PLUGINS_ROOT'         => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
+            'DC_QUERY_TIMEOUT'        => defined('DC_QUERY_TIMEOUT') ? DC_QUERY_TIMEOUT . ' ' . __('seconds') : $undefined,
+            'DC_RC_PATH'              => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
+            'DC_ROOT'                 => defined('DC_ROOT') ? DC_ROOT : $undefined,
+            'DC_SESSION_NAME'         => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
+            'DC_SESSION_TTL'          => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
+            'DC_SHOW_HIDDEN_DIRS'     => defined('DC_SHOW_HIDDEN_DIRS') ? (DC_SHOW_HIDDEN_DIRS ? 'true' : 'false') : $undefined,
+            'DC_START_TIME'           => defined('DC_START_TIME') ? DC_START_TIME : $undefined,
+            'DC_TPL_CACHE'            => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
+            'DC_UPDATE_URL'           => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
+            'DC_UPDATE_VERSION'       => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
+            'DC_VAR'                  => defined('DC_VAR') ? DC_VAR : $undefined,
+            'DC_VENDOR_NAME'          => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
+            'DC_VERSION'              => defined('DC_VERSION') ? DC_VERSION : $undefined,
+            'DC_XMLRPC_URL'           => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
+            'CLEARBRICKS_VERSION'     => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined,
         ];
 
-        if (self::$core->plugins->moduleExists('staticCache')) {
+        if (dcCore::app()->plugins->moduleExists('staticCache')) {
             $constants['DC_SC_CACHE_ENABLE']    = defined('DC_SC_CACHE_ENABLE') ? (DC_SC_CACHE_ENABLE ? 'true' : 'false') : $undefined;
             $constants['DC_SC_CACHE_DIR']       = defined('DC_SC_CACHE_DIR') ? DC_SC_CACHE_DIR : $undefined;
             $constants['DC_SC_CACHE_BLOGS_ON']  = defined('DC_SC_CACHE_BLOGS_ON') ? DC_SC_CACHE_BLOGS_ON : $undefined;
@@ -856,8 +847,8 @@ class libSysInfo
             'digest'  => DC_DIGESTS,
             'l10n'    => DC_L10N_ROOT,
             'plugins' => explode(':', DC_PLUGINS_ROOT),
-            'public'  => self::$core->blog->public_path,
-            'themes'  => self::$core->blog->themes_path,
+            'public'  => dcCore::app()->blog->public_path,
+            'themes'  => dcCore::app()->blog->themes_path,
             'var'     => DC_VAR,
         ];
 
@@ -938,7 +929,7 @@ class libSysInfo
      */
     public static function staticCache(string $p_url)
     {
-        $blog_host = self::$core->blog->host;
+        $blog_host = dcCore::app()->blog->host;
         if (substr($blog_host, -1) != '/') {
             $blog_host .= '/';
         }
@@ -959,7 +950,7 @@ class libSysInfo
         // Add a static cache URL convertor
         $str = '<p class="fieldset">' .
             '<label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
-            form::field('sccalc_url', 50, 255, html::escapeHTML(self::$core->blog->url)) . ' ' .
+            form::field('sccalc_url', 50, 255, html::escapeHTML(dcCore::app()->blog->url)) . ' ' .
             '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '" />' .
             ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
             '</p>';
@@ -1000,7 +991,7 @@ class libSysInfo
         $str .= '</tbody></table>';
         $str .= '<div class="two-cols">' .
             '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' . self::$core->formNonce() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
+            '<p class="col right">' . dcCore::app()->formNonce() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
             '</div>' .
             '</form>';
 
@@ -1030,9 +1021,9 @@ class libSysInfo
                 }
             } catch (Exception $e) {
                 $checklist = 'sc';
-                self::$core->error->add($e->getMessage());
+                dcCore::app()->error->add($e->getMessage());
             }
-            if (!self::$core->error->flag()) {
+            if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
                 http::redirect($p_url . '&sc=1');
             }
@@ -1046,8 +1037,3 @@ class libSysInfo
         }
     }
 }
-
-/*
- * Store current dcCore instance
- */
-libSysInfo::$core = $GLOBALS['core'];

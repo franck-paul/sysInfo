@@ -48,7 +48,7 @@ $checklists = [
     ],
 ];
 
-if ($core->plugins->moduleExists('staticCache')) {
+if (dcCore::app()->plugins->moduleExists('staticCache')) {
     if (defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE) {
         if (defined('DC_SC_CACHE_DIR')) {
             if (dcStaticCacheControl::cacheCurrentBlog()) {
@@ -67,9 +67,9 @@ libSysInfo::doFormTemplates($p_url, $checklist);
 libSysInfo::doFormStaticCache($p_url, $checklist);
 
 # Get interface setting
-$core->auth->user_prefs->addWorkspace('interface');
-$user_ui_colorsyntax       = $core->auth->user_prefs->interface->colorsyntax;
-$user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme;
+dcCore::app()->auth->user_prefs->addWorkspace('interface');
+$user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
+$user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
 
 ?>
 <html>
@@ -77,7 +77,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
   <title><?php echo __('System Information'); ?></title>
 <?php
 echo
-dcPage::cssModuleLoad('sysInfo/sysinfo.css', 'screen', $core->getVersion('sysInfo')) .
+dcPage::cssModuleLoad('sysInfo/sysinfo.css', 'screen', dcCore::app()->getVersion('sysInfo')) .
 dcPage::jsJson('sysinfo', [
     'colorsyntax'       => $user_ui_colorsyntax,
     'colorsyntax_theme' => $user_ui_colorsyntax_theme,
@@ -89,7 +89,7 @@ dcPage::jsJson('sysinfo', [
     ],
 ]) .
 dcPage::jsModal() .
-dcPage::jsModuleLoad('sysInfo/sysinfo.js', $core->getVersion('sysInfo'));
+dcPage::jsModuleLoad('sysInfo/sysinfo.js', dcCore::app()->getVersion('sysInfo'));
 if ($user_ui_colorsyntax) {
     echo
     dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
@@ -115,7 +115,7 @@ echo
     '<form action="' . $p_url . '" method="post">' .
     '<p class="field"><label for="checklist">' . __('Select a checklist:') . '</label> ' .
     form::combo('checklist', $checklists, $checklist) . ' ' .
-    $core->formNonce() . '<input type="submit" value="' . __('Check') . '" /></p>' .
+    dcCore::app()->formNonce() . '<input type="submit" value="' . __('Check') . '" /></p>' .
     '</form>';
 
 // Display required information
