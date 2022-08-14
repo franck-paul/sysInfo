@@ -30,7 +30,7 @@ dcCore::app()->addBehavior('adminDashboardFavorites', ['sysInfoAdmin', 'adminDas
 
 class sysInfoAdmin
 {
-    public static function adminDashboardFavorites($core = null, $favs)
+    public static function adminDashboardFavorites($core, $favs)
     {
         $favs->register('sysInfo', [
             'title'       => __('System Information'),

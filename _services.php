@@ -16,7 +16,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 
 class sysInfoRest
 {
-    public static function getCompiledTemplate($core = null, $get)
+    public static function getCompiledTemplate($core, $get)
     {
         // Return compiled template file content
         $file    = !empty($get['file']) ? $get['file'] : '';
@@ -43,7 +43,7 @@ class sysInfoRest
         return $rsp;
     }
 
-    public static function getStaticCacheDir($core = null, $get)
+    public static function getStaticCacheDir($core, $get)
     {
         // Return list of folders in a given cache folder
         $root    = !empty($get['root']) ? $get['root'] : '';
@@ -91,7 +91,7 @@ class sysInfoRest
         return $rsp;
     }
 
-    public static function getStaticCacheList($core = null, $get)
+    public static function getStaticCacheList($core, $get)
     {
         // Return list of folders and files in a given folder
         $root    = !empty($get['root']) ? $get['root'] : '';
@@ -159,7 +159,7 @@ class sysInfoRest
         return $rsp;
     }
 
-    public static function getStaticCacheName($core = null, $get)
+    public static function getStaticCacheName($core, $get)
     {
         // Return static cache filename from a given URL
         $url     = !empty($get['url']) ? $get['url'] : '';
@@ -184,7 +184,7 @@ class sysInfoRest
         return $rsp;
     }
 
-    public static function getStaticCacheFile($core = null, $get)
+    public static function getStaticCacheFile($core, $get)
     {
         // Return compiled static cache file content
         $file    = !empty($get['file']) ? $get['file'] : '';
