@@ -703,7 +703,7 @@ class libSysInfo
     {
         // Emulate public prepend
 
-        dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, '$core->tpl', dcCore::app());
+        dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl', dcCore::app());
         dcCore::app()->themes = new dcThemes(dcCore::app());
         dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path);
         if (!isset($__theme)) {     // @phpstan-ignore-line

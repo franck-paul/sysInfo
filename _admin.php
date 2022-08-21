@@ -17,7 +17,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('sysInfo') . __('System Information');
 
-$_menu['System']->addItem(
+dcCore::app()->menu['System']->addItem(
     __('System info'),
     dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
     [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
