@@ -706,27 +706,27 @@ class libSysInfo
         dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl', dcCore::app());
         dcCore::app()->themes = new dcThemes(dcCore::app());
         dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path);
-        if (!isset($__theme)) {     // @phpstan-ignore-line
-            $__theme = dcCore::app()->blog->settings->system->theme;
+        if (!isset(dcCore::app()->public->theme)) {     // @phpstan-ignore-line
+            dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme;
         }
-        if (!dcCore::app()->themes->moduleExists($__theme)) {
-            $__theme = dcCore::app()->blog->settings->system->theme = 'default';
+        if (!dcCore::app()->themes->moduleExists(dcCore::app()->public->theme)) {
+            dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme = 'default';
         }
-        $tplset         = dcCore::app()->themes->moduleInfo($__theme, 'tplset');
-        $__parent_theme = dcCore::app()->themes->moduleInfo($__theme, 'parent');
-        if ($__parent_theme) {
-            if (!dcCore::app()->themes->moduleExists($__parent_theme)) {
-                $__theme        = dcCore::app()->blog->settings->system->theme        = 'default';
-                $__parent_theme = null;
+        $tplset                             = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'tplset');
+        dcCore::app()->public->parent_theme = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'parent');
+        if (dcCore::app()->public->parent_theme) {
+            if (!dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
+                dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme        = 'default';
+                dcCore::app()->public->parent_theme = null;
             }
         }
-        $__theme_tpl_path = [
-            dcCore::app()->blog->themes_path . '/' . $__theme . '/tpl',
+        $tpl_path = [
+            dcCore::app()->blog->themes_path . '/' . dcCore::app()->public->theme . '/tpl',
         ];
-        if ($__parent_theme) {
-            $__theme_tpl_path[] = dcCore::app()->blog->themes_path . '/' . $__parent_theme . '/tpl';
+        if (dcCore::app()->public->parent_theme) {
+            $tpl_path[] = dcCore::app()->blog->themes_path . '/' . dcCore::app()->public->parent_theme . '/tpl';
             if (empty($tplset)) {
-                $tplset = dcCore::app()->themes->moduleInfo($__parent_theme, 'tplset');
+                $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->public->parent_theme, 'tplset');
             }
         }
         if (empty($tplset)) {
@@ -734,7 +734,7 @@ class libSysInfo
         }
         $main_plugins_root = explode(':', DC_PLUGINS_ROOT);
         dcCore::app()->tpl->setPath(
-            $__theme_tpl_path,
+            $tpl_path,
             $main_plugins_root[0] . '/../inc/public/default-templates/' . $tplset,
             dcCore::app()->tpl->getPath()
         );
