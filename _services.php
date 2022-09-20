@@ -192,11 +192,9 @@ class sysInfoRest
         $ret     = false;
         $content = '';
 
-        if ($file != '') {
-            if (file_exists($file) && is_readable($file)) {
-                $content = file_get_contents($file);
-                $ret     = true;
-            }
+        if ($file != '' && file_exists($file) && is_readable($file)) {
+            $content = file_get_contents($file);
+            $ret     = true;
         }
 
         $rsp->ret = $ret;

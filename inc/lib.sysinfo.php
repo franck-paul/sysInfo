@@ -245,7 +245,7 @@ class libSysInfo
         $urls = dcCore::app()->url->getTypes();
 
         // Tables des URLs non gérées par le menu
-        //$excluded = ['rsd','xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
+        //$excluded = ['xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
         $excluded = [];
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . '</caption>' .
@@ -403,38 +403,33 @@ class libSysInfo
             $files    = files::scandir($path);
             if (is_array($files)) {
                 foreach ($files as $file) {
-                    if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches)) {
-                        if (isset($matches[1])) {
-                            if (!in_array($file, $stack)) {
-                                $stack[]        = $file;
-                                $cache_file     = md5($md5_path . '/' . $file) . '.php';
-                                $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
-                                $cache_fullpath = path::real(DC_TPL_CACHE) . '/cbtpl/' . $cache_subpath;
-                                $file_check     = $cache_fullpath . '/' . $cache_file;
-                                $file_exists    = file_exists($file_check);
-                                // $file_url       = http::getHost() . $cache_path . '/cbtpl/' . $cache_subpath . '/' . $cache_file;
-                                $str .= '<tr>' .
-                                    '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
-                                    '<td scope="row" class="nowrap">' . $file . '</td>' .
-                                    '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
-                                    '<td class="nowrap">' .
-                                    form::checkbox(
-                                        ['tpl[]'],
-                                        $cache_file,
-                                        false,
-                                        ($file_exists) ? 'tpl_compiled' : '',
-                                        '',
-                                        !($file_exists)
-                                    ) . ' ' .
-                                    '<label class="classic">' .
-                                    ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
-                                    $cache_file .
-                                    ($file_exists ? '</a>' : '') .
-                                    '</label></td>' .
-                                    '</tr>';
-                                $path_displayed = true;
-                            }
-                        }
+                    if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
+                        $stack[]        = $file;
+                        $cache_file     = md5($md5_path . '/' . $file) . '.php';
+                        $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
+                        $cache_fullpath = path::real(DC_TPL_CACHE) . '/cbtpl/' . $cache_subpath;
+                        $file_check     = $cache_fullpath . '/' . $cache_file;
+                        $file_exists    = file_exists($file_check);
+                        $str .= '<tr>' .
+                            '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
+                            '<td class="nowrap">' . $file . '</td>' .
+                            '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
+                            '<td class="nowrap">' .
+                            form::checkbox(
+                                ['tpl[]'],
+                                $cache_file,
+                                false,
+                                ($file_exists) ? 'tpl_compiled' : '',
+                                '',
+                                !($file_exists)
+                            ) . ' ' .
+                            '<label class="classic">' .
+                            ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
+                            $cache_file .
+                            ($file_exists ? '</a>' : '') .
+                            '</label></td>' .
+                            '</tr>';
+                        $path_displayed = true;
                     }
                 }
             }
@@ -466,7 +461,7 @@ class libSysInfo
                     throw new Exception(__('No cache file selected'));
                 }
                 $root_cache = path::real(DC_TPL_CACHE) . '/cbtpl/';
-                foreach ($_POST['tpl'] as $k => $v) {
+                foreach ($_POST['tpl'] as $v) {
                     $cache_file = $root_cache . sprintf('%s/%s', substr($v, 0, 2), substr($v, 2, 2)) . '/' . $v;
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
@@ -657,6 +652,7 @@ class libSysInfo
         $dotclear = '<details open><summary>' . __('Dotclear info') . '</summary>' .
             '<ul>' .
             '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>' .
+            '<li>' . __('Clearbricks version: ') . '<strong>' . CLEARBRICKS_VERSION . '</strong></li>' .
             '</ul>' .
             '</details>';
 
@@ -702,8 +698,11 @@ class libSysInfo
     private static function publicPrepend(): string
     {
         // Emulate public prepend
+        if (!dcCore::app()->public) {
+            dcCore::app()->public = new dcPublic();
+        }
 
-        dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl', dcCore::app());
+        dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
         dcCore::app()->themes = new dcThemes(dcCore::app());
         dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path);
         if (!isset(dcCore::app()->public->theme)) {     // @phpstan-ignore-line
@@ -714,11 +713,9 @@ class libSysInfo
         }
         $tplset                             = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'tplset');
         dcCore::app()->public->parent_theme = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'parent');
-        if (dcCore::app()->public->parent_theme) {
-            if (!dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
-                dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme        = 'default';
-                dcCore::app()->public->parent_theme = null;
-            }
+        if (dcCore::app()->public->parent_theme && !dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
+            dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme        = 'default';
+            dcCore::app()->public->parent_theme = null;
         }
         $tpl_path = [
             dcCore::app()->blog->themes_path . '/' . dcCore::app()->public->theme . '/tpl',
@@ -894,7 +891,7 @@ class libSysInfo
                 } else {
                     $status = '<img src="images/check-off.png" alt="" /> ' . __('Unknown');
                 }
-                if (count($err) > 0) {
+                if (count($err)) {
                     $status .= '<div style="display: none;"><p>' . implode('<br />', $err) . '</p></div>';
                 }
 
@@ -903,7 +900,7 @@ class libSysInfo
                 }
 
                 $str .= '<tr>' .
-                '<td scope="row" class="nowrap">' . $name . '</td>' .
+                '<td class="nowrap">' . $name . '</td>' .
                 '<td class="maximal">' . $folder . '</td>' .
                 '<td class="nowrap">' . $status . '</td>' .
                 '</tr>';
@@ -1014,7 +1011,7 @@ class libSysInfo
                 if (empty($_POST['sc'])) {
                     throw new Exception(__('No cache file selected'));
                 }
-                foreach ($_POST['sc'] as $k => $cache_file) {
+                foreach ($_POST['sc'] as $cache_file) {
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
                     }

@@ -48,16 +48,10 @@ $checklists = [
     ],
 ];
 
-if (dcCore::app()->plugins->moduleExists('staticCache')) {
-    if (defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE) {
-        if (defined('DC_SC_CACHE_DIR')) {
-            if (dcStaticCacheControl::cacheCurrentBlog()) {
-                $checklists[__('3rd party')] = [
-                    __('Static cache') => 'sc',
-                ];
-            }
-        }
-    }
+if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR') && dcStaticCacheControl::cacheCurrentBlog()) {
+    $checklists[__('3rd party')] = [
+        __('Static cache') => 'sc',
+    ];
 }
 
 $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';

@@ -23,7 +23,7 @@ dcCore::app()->tpl->addValue('SysInfoTemplatetags', ['tplSysInfo', 'SysInfoTempl
 
 class extSysInfo
 {
-    public static function publicBreadcrumb($context, $separator)
+    public static function publicBreadcrumb($context)
     {
         if ($context == 'sysinfo') {
             return __('System Information');
@@ -67,12 +67,12 @@ class urlSysInfo extends dcUrlHandlers
 
 class tplSysInfo
 {
-    public static function SysInfoPageTitle($attr)
+    public static function SysInfoPageTitle()
     {
         return '<?php echo \'' . __('System Information') . '\'; ?>';
     }
 
-    public static function SysInfoBehaviours($attr)
+    public static function SysInfoBehaviours()
     {
         $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
@@ -115,7 +115,7 @@ class tplSysInfo
         return $code;
     }
 
-    public static function SysInfoTemplatetags($attr)
+    public static function SysInfoTemplatetags()
     {
         $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicTemplatetagsList(); ?>';
