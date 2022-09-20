@@ -645,7 +645,7 @@ class libSysInfo
                 __('DB driver: ') . '<strong>' . dcCore::app()->con->driver() . '</strong> ' .
                 __('version') . ' <strong>' . dcCore::app()->con->version() . '</strong> ' .
                 sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
-            '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::error_level_tostring(error_reporting(), ' + ') . '</li>' .
+            '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
             '</ul>' .
             '</details>';
 
@@ -929,7 +929,7 @@ class libSysInfo
      *
      * @return     string
      */
-    private static function error_level_tostring(int $intval, string $separator = ','): string
+    private static function errorLevelToString(int $intval, string $separator = ','): string
     {
         $errorlevels = [
             E_ALL               => 'E_ALL',
@@ -947,15 +947,16 @@ class libSysInfo
             E_NOTICE            => 'E_NOTICE',
             E_PARSE             => 'E_PARSE',
             E_WARNING           => 'E_WARNING',
-            E_ERROR             => 'E_ERROR', ];
-        $result = '';
+            E_ERROR             => 'E_ERROR',
+        ];
+        $result = [];
         foreach ($errorlevels as $number => $name) {
             if (($intval & $number) === $number) {
-                $result .= ($result !== '' ? $separator : '') . $name;
+                $result[] = $name;
             }
         }
 
-        return $result;
+        return implode($separator, $result);
     }
 
     /* --- 3rd party plugins specific --- */
