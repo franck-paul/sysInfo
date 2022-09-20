@@ -832,7 +832,12 @@ class libSysInfo
         return $constants;
     }
 
-    private static function folders()
+    /**
+     * Check generic Dotclear folders
+     *
+     * @return     string
+     */
+    public static function folders(): string
     {
         // Check generic Dotclear folders
         $folders = [
