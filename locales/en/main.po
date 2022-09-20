@@ -206,6 +206,9 @@ msgstr ""
 msgid "using <strong>%s</strong> syntax"
 msgstr ""
 
+msgid "Error reporting: "
+msgstr ""
+
 msgid "(see inc/config.php)"
 msgstr ""
 

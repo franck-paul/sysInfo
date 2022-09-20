@@ -202,6 +202,9 @@ msgstr "version"
 msgid "using <strong>%s</strong> syntax"
 msgstr "avec la syntaxe <strong>%s</strong>"
 
+msgid "Error reporting: "
+msgstr "Niveau de rapport d'erreur PHP : "
+
 msgid "Dotclear info"
 msgstr "Infos Dotclear"
 

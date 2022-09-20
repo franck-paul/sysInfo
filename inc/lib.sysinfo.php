@@ -650,6 +650,7 @@ class libSysInfo
                 __('DB driver: ') . '<strong>' . dcCore::app()->con->driver() . '</strong> ' .
                 __('version') . ' <strong>' . dcCore::app()->con->version() . '</strong> ' .
                 sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
+            '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::error_level_tostring(error_reporting(), ' + ') . '</li>' .
             '</ul>' .
             '</details>';
 
@@ -831,7 +832,7 @@ class libSysInfo
         return $constants;
     }
 
-    public static function folders()
+    private static function folders()
     {
         // Check generic Dotclear folders
         $folders = [
@@ -916,6 +917,43 @@ class libSysInfo
             '</table>';
 
         return $str;
+    }
+
+    /**
+     * PHP error_reporting to string
+     *
+     * @param      int     $intval     The intval
+     * @param      string  $separator  The separator
+     *
+     * @return     string
+     */
+    private static function error_level_tostring(int $intval, string $separator = ','): string
+    {
+        $errorlevels = [
+            E_ALL               => 'E_ALL',
+            E_USER_DEPRECATED   => 'E_USER_DEPRECATED',
+            E_DEPRECATED        => 'E_DEPRECATED',
+            E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
+            E_STRICT            => 'E_STRICT',
+            E_USER_NOTICE       => 'E_USER_NOTICE',
+            E_USER_WARNING      => 'E_USER_WARNING',
+            E_USER_ERROR        => 'E_USER_ERROR',
+            E_COMPILE_WARNING   => 'E_COMPILE_WARNING',
+            E_COMPILE_ERROR     => 'E_COMPILE_ERROR',
+            E_CORE_WARNING      => 'E_CORE_WARNING',
+            E_CORE_ERROR        => 'E_CORE_ERROR',
+            E_NOTICE            => 'E_NOTICE',
+            E_PARSE             => 'E_PARSE',
+            E_WARNING           => 'E_WARNING',
+            E_ERROR             => 'E_ERROR', ];
+        $result = '';
+        foreach ($errorlevels as $number => $name) {
+            if (($intval & $number) === $number) {
+                $result .= ($result !== '' ? $separator : '') . $name;
+            }
+        }
+
+        return $result;
     }
 
     /* --- 3rd party plugins specific --- */
