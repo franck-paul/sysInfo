@@ -699,12 +699,10 @@ class libSysInfo
     private static function publicPrepend(): string
     {
         // Emulate public prepend
-        if (!dcCore::app()->public) {
-            dcCore::app()->public = new dcPublic();
-        }
+        dcCore::app()->public = new dcPublic();
 
         dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
-        dcCore::app()->themes = new dcThemes(dcCore::app());
+        dcCore::app()->themes = new dcThemes();
         dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path);
         if (!isset(dcCore::app()->public->theme)) {     // @phpstan-ignore-line
             dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme;
