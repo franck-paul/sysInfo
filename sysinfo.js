@@ -57,7 +57,7 @@ $(() => {
   const viewSource = (prefix, filename, content) => {
     let cm_editor; // Codemirror instance
     const src = `<div class="${prefix}_view"><h1>${filename}</h1><textarea id="${prefix}_source">${JSON.parse(
-      window.atob(content)
+      window.atob(content),
     )}</textarea></div>`;
     $.magnificPopup.open({
       items: {
@@ -171,15 +171,23 @@ $(() => {
 
   // Template cache files
   $('#tplform .checkboxes-helpers').each(function () {
-    dotclear.checkboxesHelpers(this, undefined, '#tplform td input[type=checkbox]:enabled', '#tplform #deltplaction');
+    dotclear.checkboxesHelpers(this, undefined, '#tplform td input[type=checkbox]:not(:disabled)', '#tplform #deltplaction');
   });
   $('#tplform td input[type=checkbox]').enableShiftClick();
   dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
   $('form input[type=submit][name=deltplaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_tpl));
 
+  // Versions in DB
+  $('#verform .checkboxes-helpers').each(function () {
+    dotclear.checkboxesHelpers(this, undefined, '#verform td input[type=checkbox]:not(:disabled)', '#verform #delveraction');
+  });
+  $('#verform td input[type=checkbox]').enableShiftClick();
+  dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
+  $('form input[type=submit][name=delveraction]').on('click', () => window.confirm(dotclear.msg.confirm_del_ver));
+
   // Static cache files
   $('#scform .checkboxes-helpers').each(function () {
-    dotclear.checkboxesHelpers(this, undefined, '#scform td input[type=checkbox]:enabled', '#scform #delscaction');
+    dotclear.checkboxesHelpers(this, undefined, '#scform td input[type=checkbox]:not(:disabled)', '#scform #delscaction');
   });
   $('#scform td input[type=checkbox]').enableShiftClick();
   dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');

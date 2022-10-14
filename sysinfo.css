@@ -5,6 +5,26 @@
   background-color: #f3f3f3;
 }
 
+.sysinfo .version-unknown {
+  color: var(--msg-error-color);
+  background: var(--msg-error-background);
+}
+
+.sysinfo .version-disabled {
+  color: var(--msg-warn-color);
+  background: var(--msg-warn-background);
+}
+
+.sysinfo .version-distrib {
+  color: var(--msg-success-color);
+  background: var(--msg-success-background);
+}
+
+.sysinfo .version-core {
+  color: var(--msg-info-color);
+  background: var(--msg-info-background);
+}
+
 pre.sysinfo {
   white-space: pre;
   margin: 0;

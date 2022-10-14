@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 15:44+0100\n"
+"POT-Creation-Date: 2022-10-14 11:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,45 @@ msgid "…"
 msgstr ""
 
 msgid "(empty)"
+msgstr ""
+
+msgid "List of versions registered in the database"
+msgstr ""
+
+msgid "Module"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Core"
+msgstr ""
+
+msgid "Distributed"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Not found but may exist"
+msgstr ""
+
+msgid "Update versions"
+msgstr ""
+
+msgid "Delete selected versions"
+msgstr ""
+
+msgid "No version selected"
+msgstr ""
+
+msgid "Selected versions have been deleted."
+msgstr ""
+
+msgid "Versions have been updated."
 msgstr ""
 
 msgid "Types of permission"
@@ -209,10 +248,52 @@ msgstr ""
 msgid "Error reporting: "
 msgstr ""
 
+msgid "Dotclear info"
+msgstr ""
+
+msgid "Dotclear version: "
+msgstr ""
+
+msgid "Clearbricks version: "
+msgstr ""
+
+msgid "Channel: "
+msgstr ""
+
+msgid "version: "
+msgstr ""
+
+msgid "href: "
+msgstr ""
+
+msgid "checksum: "
+msgstr ""
+
+msgid "info: "
+msgstr ""
+
+msgid "PHP min: "
+msgstr ""
+
+msgid "Update info"
+msgstr ""
+
 msgid "(see inc/config.php)"
 msgstr ""
 
 msgid "seconds"
+msgstr ""
+
+msgid "Dotclear folders and files"
+msgstr ""
+
+msgid "Writable"
+msgstr ""
+
+msgid "Readonly"
+msgstr ""
+
+msgid "Unknown"
 msgstr ""
 
 msgid "Static cache directory does not exists"
@@ -236,16 +317,13 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-msgid "Versions"
-msgstr ""
-
 msgid "PHP info"
 msgstr ""
 
 msgid "DC Constants"
 msgstr ""
 
-msgid "Core"
+msgid "Folders"
 msgstr ""
 
 msgid "URL handlers"
@@ -290,6 +368,9 @@ msgstr ""
 msgid "Editors and Syntaxes"
 msgstr ""
 
+msgid "Versions"
+msgstr ""
+
 msgid "3rd party"
 msgstr ""
 
@@ -297,6 +378,9 @@ msgid "Static cache"
 msgstr ""
 
 msgid "Are you sure you want to remove selected template cache files?"
+msgstr ""
+
+msgid "Are you sure you want to remove selected versions from database?"
 msgstr ""
 
 msgid "Are you sure you want to remove selected static cache files?"

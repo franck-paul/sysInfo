@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * @brief sysInfo, a plugin for Dotclear 2
  *
  * @package Dotclear
@@ -10,12 +10,138 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
-
 class libSysInfo
 {
+    /**
+     * Return list of registered versions (core, plugins, themes, …)
+     *
+     * @return     string
+     */
+    public static function versions(): string
+    {
+        $versions    = dcCore::app()->getVersions();
+        $distributed = explode(',', DC_DISTRIB_PLUGINS);
+        $plugins     = dcCore::app()->plugins->getModules();
+        $paths       = explode(':', DC_PLUGINS_ROOT);
+
+        $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="verform">' .
+            '<table id="chk-table-result" class="sysinfo">' .
+            '<caption>' . __('List of versions registered in the database') . '</caption>' .
+            '<thead>' .
+            '<tr>' .
+            '<th scope="col" class="">' . __('Module') . '</th>' .
+            '<th scope="col" class="nowrap">' . __('Version') . '</th>' .
+            '<th scope="col" class="nowrap">' . __('Status') . '</th>' .
+            '</tr>' .
+            '</thead>' .
+            '<tbody>';
+        foreach ($versions as $module => $version) {
+            $status   = [];
+            $class    = [];
+            $name     = $module;
+            $checkbox = new formCheckbox(['ver[]'], false);
+            $input    = (new formInput('m-' . $module))->value($version);
+
+            if ($module === 'core') {
+                $class[]  = 'version-core';
+                $name     = '<strong>' . $module . '</strong>';
+                $status[] = __('Core');
+                $checkbox->disabled(true);
+                $input->disabled(true);
+            } else {
+                if (in_array($module, $distributed)) {
+                    $class[]  = 'version-distrib';
+                    $status[] = __('Distributed');
+                    $checkbox->disabled(true);
+                    $input->disabled(true);
+                }
+                if (!in_array($module, array_values(array_keys($plugins)))) {
+                    $exists = false;
+                    // Look if the module exists in one of DC
+                    foreach ($paths as $path) {
+                        if (is_dir($path . DIRECTORY_SEPARATOR . $module)) {
+                            $exists = true;
+
+                            break;
+                        }
+                    }
+                    if ($exists) {
+                        $class[]  = 'version-disabled';
+                        $status[] = __('Disabled');
+                    } else {
+                        $class[]  = 'version-unknown';
+                        $status[] = __('Not found but may exist');
+                    }
+                }
+            }
+            $str .= '<tr class="' . implode(' ', $class) . '">' .
+                '<td class="">' . $checkbox->render() . ' ' . $name . '</td>' .
+                '<td class="nowrap">' . $input->render() . '</td>' .
+                '<td class="nowrap">' . implode(', ', $status) . '</td>' .
+                '</tr>';
+        }
+        $str .= '</tbody></table>' .
+            '<div class="two-cols">' .
+            '<p class="col checkboxes-helpers"></p>' .
+            '<p class="col right">' .
+            dcCore::app()->formNonce() .
+            (new formSubmit('updveraction', __('Update versions')))->render() . ' ' .
+            (new formSubmit('delveraction', __('Delete selected versions')))->class('delete')->render() .
+            '</p>' .
+            '</div>' .
+            '</form>';
+
+        return $str;
+    }
+
+    /**
+     * Cope with form versions action.
+     *
+     * @param      string     $checklist  The checklist
+     *
+     * @throws     Exception
+     */
+    public static function doFormVersions(string &$checklist)
+    {
+        if (!empty($_POST['delveraction'])) {
+            // Cope with versions deletion
+            try {
+                ; // Delete selected versions
+                if (empty($_POST['ver'])) {
+                    throw new Exception(__('No version selected'));
+                }
+            } catch (Exception $e) {
+                $checklist = 'versions';
+                dcCore::app()->error->add($e->getMessage());
+            }
+            if (!dcCore::app()->error->flag()) {
+                dcPage::addSuccessNotice(__('Selected versions have been deleted.'));
+                http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
+            }
+        }
+
+        if (!empty($_POST['updveraction'])) {
+            // Cope with versions update
+            try {
+                ; // Update all versions
+            } catch (Exception $e) {
+                $checklist = 'versions';
+                dcCore::app()->error->add($e->getMessage());
+            }
+            if (!dcCore::app()->error->flag()) {
+                dcPage::addSuccessNotice(__('Versions have been updated.'));
+                http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
+            }
+        }
+    }
+
+    public static function doCheckVersions(string &$checklist)
+    {
+        if (!empty($_GET['ver'])) {
+            $checklist = 'versions';
+        }
+    }
+
     /**
      * Return list of registered permissions
      *
@@ -155,6 +281,7 @@ class libSysInfo
      */
     public static function dcConstants(): string
     {
+        $undefined = '';
         $constants = self::getConstants($undefined);
 
         // Affichage des constantes remarquables de Dotclear
@@ -346,7 +473,7 @@ class libSysInfo
      *
      * @return     string
      */
-    public static function templates(string $p_url): string
+    public static function templates(): string
     {
         $tplset = self::publicPrepend();
 
@@ -368,7 +495,7 @@ class libSysInfo
 
         $paths = dcCore::app()->tpl->getPath();
 
-        $str = '<form action="' . $p_url . '" method="post" id="tplform">' .
+        $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="tplform">' .
             '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . '/cbtpl' . '</caption>' .
             '<thead>' .
@@ -447,12 +574,11 @@ class libSysInfo
     /**
      * Cope with form templates action.
      *
-     * @param      string     $p_url      The p url
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception
      */
-    public static function doFormTemplates(string $p_url, string &$checklist)
+    public static function doFormTemplates(string &$checklist)
     {
         if (!empty($_POST['deltplaction'])) {
             // Cope with cache file deletion
@@ -473,7 +599,7 @@ class libSysInfo
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                http::redirect($p_url . '&tpl=1');
+                http::redirect(dcCore::app()->admin->getPageURL() . '&tpl=1');
             }
         }
     }
@@ -699,6 +825,7 @@ class libSysInfo
     private static function publicPrepend(): string
     {
         // Emulate public prepend
+        define('DC_CONTEXT_PUBLIC', true);
         dcCore::app()->public = new dcPublic();
 
         dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
@@ -713,7 +840,7 @@ class libSysInfo
         $tplset                             = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'tplset');
         dcCore::app()->public->parent_theme = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'parent');
         if (dcCore::app()->public->parent_theme && !dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
-            dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme        = 'default';
+            dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme = 'default';
             dcCore::app()->public->parent_theme = null;
         }
         $tpl_path = [
@@ -774,6 +901,7 @@ class libSysInfo
             'DC_CONTEXT_ADMIN'        => defined('DC_CONTEXT_ADMIN') ? (DC_CONTEXT_ADMIN ? 'true' : 'false') : $undefined,
             'DC_CONTEXT_MODULE'       => defined('DC_CONTEXT_MODULE') ? (DC_CONTEXT_MODULE ? 'true' : 'false') : $undefined,
             'DC_CRYPT_ALGO'           => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
+            'DC_CSP_LOGFILE'          => defined('DC_CSP_LOGFILE') ? DC_CSP_LOGFILE : $undefined,
             'DC_STORE_NOT_UPDATE'     => defined('DC_STORE_NOT_UPDATE') ? (DC_STORE_NOT_UPDATE ? 'true' : 'false') : $undefined,
             'DC_DBDRIVER'             => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
             'DC_DBHOST'               => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
@@ -962,11 +1090,9 @@ class libSysInfo
     /**
      * Return list of files in static cache
      *
-     * @param      string  $p_url  The p url
-     *
      * @return     string  ( description_of_the_return_value )
      */
-    public static function staticCache(string $p_url)
+    public static function staticCache()
     {
         $blog_host = dcCore::app()->blog->host;
         if (substr($blog_host, -1) != '/') {
@@ -995,7 +1121,7 @@ class libSysInfo
             '</p>';
 
         // List of existing cache files
-        $str .= '<form action="' . $p_url . '" method="post" id="scform">';
+        $str .= '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="scform">';
 
         $str .= '<table id="chk-table-result" class="sysinfo">';
         $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root)) .
@@ -1040,12 +1166,11 @@ class libSysInfo
     /**
      * Cope with static cache form action.
      *
-     * @param      string     $p_url      The p url
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception  (description)
      */
-    public static function doFormStaticCache(string $p_url, string &$checklist)
+    public static function doFormStaticCache(string &$checklist)
     {
         if (!empty($_POST['delscaction'])) {
             // Cope with static cache file deletion
@@ -1064,7 +1189,7 @@ class libSysInfo
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                http::redirect($p_url . '&sc=1');
+                http::redirect(dcCore::app()->admin->getPageURL() . '&sc=1');
             }
         }
     }
