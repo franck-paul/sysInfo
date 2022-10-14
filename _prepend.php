@@ -14,13 +14,11 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-dcCore::app()->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', ['urlSysInfo', 'sysInfo']);
+Clearbricks::lib()->autoload([
+    'sysInfoRest' => __DIR__ . '/_services.php',
+    'libSysInfo'  => __DIR__ . '/inc/lib.sysinfo.php',
+    'urlSysInfo'  => __DIR__ . '/inc/public.url.php',
+    'tplSysInfo'  => __DIR__ . '/inc/public.tpl.php',
+]);
 
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return false;
-}
-
-// Admin mode only
-
-$__autoload['sysInfoRest'] = __DIR__ . '/_services.php';
-$__autoload['libSysInfo']  = __DIR__ . '/inc/lib.sysinfo.php';
+dcCore::app()->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', [urlSysInfo::class, 'sysInfo']);

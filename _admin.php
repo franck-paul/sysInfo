@@ -26,21 +26,15 @@ dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
 );
 
 /* Register favorite */
-dcCore::app()->addBehavior('adminDashboardFavorites', ['sysInfoAdmin', 'adminDashboardFavorites']);
-
-class sysInfoAdmin
-{
-    public static function adminDashboardFavorites($core, $favs)
-    {
-        $favs->register('sysInfo', [
-            'title'       => __('System Information'),
-            'url'         => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
-            'small-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
-            'large-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
-            'permissions' => dcCore::app()->auth->isSuperAdmin(),
-        ]);
-    }
-}
+dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $favs) {
+    $favs->register('sysInfo', [
+        'title'       => __('System Information'),
+        'url'         => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
+        'small-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
+        'large-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
+        'permissions' => dcCore::app()->auth->isSuperAdmin(),
+    ]);
+});
 
 // Register REST methods
 dcCore::app()->rest->addFunction('getCompiledTemplate', ['sysInfoRest', 'getCompiledTemplate']);

@@ -513,7 +513,7 @@ class libSysInfo
 
         $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="tplform">' .
             '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . '/cbtpl' . '</caption>' .
+            '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Template path') . '</th>' .
@@ -541,17 +541,17 @@ class libSysInfo
                 }
             }
             $path_displayed = false;
-            // Don't know exactly why but need to cope with */default-templates !
-            $md5_path = (!strstr($path, '/default-templates/' . $tplset) ? $path : path::real($path));
+            // Don't know exactly why but need to cope with */dcPublic::TPL_ROOT !
+            $md5_path = (!strstr($path, '/' . dcPublic::TPL_ROOT . '/' . $tplset) ? $path : path::real($path));
             $files    = files::scandir($path);
             if (is_array($files)) {
                 foreach ($files as $file) {
                     if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
                         $stack[]        = $file;
-                        $cache_file     = md5($md5_path . '/' . $file) . '.php';
+                        $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
                         $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
-                        $cache_fullpath = path::real(DC_TPL_CACHE) . '/cbtpl/' . $cache_subpath;
-                        $file_check     = $cache_fullpath . '/' . $cache_file;
+                        $cache_fullpath = path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
+                        $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                         $file_exists    = file_exists($file_check);
                         $str .= '<tr>' .
                             '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
@@ -602,9 +602,9 @@ class libSysInfo
                 if (empty($_POST['tpl'])) {
                     throw new Exception(__('No cache file selected'));
                 }
-                $root_cache = path::real(DC_TPL_CACHE) . '/cbtpl/';
+                $root_cache = path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
                 foreach ($_POST['tpl'] as $v) {
-                    $cache_file = $root_cache . sprintf('%s/%s', substr($v, 0, 2), substr($v, 2, 2)) . '/' . $v;
+                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($v, 0, 2), substr($v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
                     }
@@ -874,18 +874,18 @@ class libSysInfo
         $main_plugins_root = explode(':', DC_PLUGINS_ROOT);
         dcCore::app()->tpl->setPath(
             $tpl_path,
-            $main_plugins_root[0] . '/../inc/public/default-templates/' . $tplset,
+            $main_plugins_root[0] . '/../inc/public' . '/' . dcPublic::TPL_ROOT . '/' . $tplset,
             dcCore::app()->tpl->getPath()
         );
 
-        // Looking for default-templates in each plugin's dir
+        // Looking for dcPublic::TPL_ROOT in each plugin's dir
         $plugins = dcCore::app()->plugins->getModules();
         foreach ($plugins as $k => $v) {
             $plugin_root = dcCore::app()->plugins->moduleInfo($k, 'root');
             if ($plugin_root) {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/default-templates/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
                 // To be exhaustive add also direct directory (without templateset)
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/default-templates');
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . dcPublic::TPL_ROOT);
             }
         }
 
@@ -984,10 +984,10 @@ class libSysInfo
             'config' => DC_RC_PATH,
             'cache'  => [
                 DC_TPL_CACHE,
-                DC_TPL_CACHE . '/cbfeed',
-                DC_TPL_CACHE . '/cbtpl',
-                DC_TPL_CACHE . '/dcrepo',
-                DC_TPL_CACHE . '/versions',
+                DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'cbfeed',
+                DC_TPL_CACHE . DIRECTORY_SEPARATOR . template::CACHE_FOLDER,
+                DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'dcrepo',
+                DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'versions',
             ],
             'digest'  => DC_DIGESTS,
             'l10n'    => DC_L10N_ROOT,
@@ -1020,7 +1020,7 @@ class libSysInfo
                 if ($writable && is_dir($path)) {
                     // Try to create a file, inherit dir perms and then delete it
                     try {
-                        $void  = $path . (substr($path, -1) === '/' ? '' : '/') . 'tmp-' . str_shuffle(MD5(microtime()));
+                        $void  = $path . (substr($path, -1) === DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . 'tmp-' . str_shuffle(MD5(microtime()));
                         $touch = false;
                         files::putContent($void, '');
                         if (file_exists($void)) {
@@ -1117,6 +1117,7 @@ class libSysInfo
         $cache_dir = path::real(DC_SC_CACHE_DIR, false);
         $cache_key = md5(http::getHostFromURL($blog_host));
         $cache     = new dcStaticCache(DC_SC_CACHE_DIR, $cache_key);
+        $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if (!is_dir($cache_dir)) {
             return '<p>' . __('Static cache directory does not exists') . '</p>';
@@ -1126,7 +1127,7 @@ class libSysInfo
         }
         $k          = str_split($cache_key, 2);
         $cache_root = $cache_dir;
-        $cache_dir  = sprintf('%s/%s/%s/%s/%s', $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+        $cache_dir  = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
         // Add a static cache URL convertor
         $str = '<p class="fieldset">' .
@@ -1154,7 +1155,7 @@ class libSysInfo
         if (is_array($files)) {
             foreach ($files as $file) {
                 if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                    $cache_fullpath = $cache_dir . '/' . $file;
+                    $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($cache_fullpath)) {
                         $str .= '<tr>' .
                             '<td class="nowrap">' .

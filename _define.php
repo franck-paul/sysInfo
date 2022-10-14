@@ -15,17 +15,17 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'sysInfo',            // Name
-    'System Information', // Description
-    'Franck Paul',        // Author
-    '1.22.1',
+    'sysInfo',
+    'System Information',
+    'Franck Paul',
+    '1.23',
     [
-        'requires' => [['core', '2.24']],                           // Dependencies
-        'type'     => 'plugin',                                     // Type
-        'priority' => 99999999999,                                  // Priority
+        'requires' => [['core', '2.24']],
+        'type'     => 'plugin',
+        'priority' => 99999999999,
 
-        'details'    => 'https://open-time.net/docs/plugins/sysInfo',   // Details URL
-        'support'    => 'https://github.com/franck-paul/sysInfo',       // Support URL
+        'details'    => 'https://open-time.net/docs/plugins/sysInfo',
+        'support'    => 'https://github.com/franck-paul/sysInfo',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/sysInfo/main/dcstore.xml',
     ]
 );

@@ -26,8 +26,8 @@ class sysInfoRest
 
         if ($file != '') {
             // Load content of compiled template file (if exist and if is readable)
-            $subpath  = sprintf('%s/%s', substr($file, 0, 2), substr($file, 2, 2));
-            $fullpath = path::real(DC_TPL_CACHE) . '/cbtpl/' . $subpath . '/' . $file;
+            $subpath  = sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($file, 0, 2), substr($file, 2, 2));
+            $fullpath = path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
             if (file_exists($fullpath) && is_readable($fullpath)) {
                 $content = file_get_contents($fullpath);
                 $ret     = true;
@@ -50,6 +50,7 @@ class sysInfoRest
         $rsp     = new xmlTag('sysinfo');
         $ret     = false;
         $content = '';
+        $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if ($root != '') {
             $blog_host = dcCore::app()->blog->host;
@@ -60,14 +61,14 @@ class sysInfoRest
             $cache_key = md5(http::getHostFromURL($blog_host));
 
             $k         = str_split($cache_key, 2);
-            $cache_dir = sprintf('%s/%s/%s/%s/%s', $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+            $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
             if (is_dir($cache_dir) && is_readable($cache_dir)) {
-                $files = files::scandir($cache_dir . '/' . $root);
+                $files = files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
                 if (is_array($files)) {
                     foreach ($files as $file) {
                         if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                            $cache_fullpath = $cache_dir . '/' . $root . '/' . $file;
+                            $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
                             if (is_dir($cache_fullpath)) {
                                 $content .= '<tr>' .
                                 '<td class="nowrap">' . $root . '</td>' . // 1st level
@@ -98,6 +99,7 @@ class sysInfoRest
         $rsp     = new xmlTag('sysinfo');
         $ret     = false;
         $content = '';
+        $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if ($root != '') {
             $blog_host = dcCore::app()->blog->host;
@@ -109,16 +111,16 @@ class sysInfoRest
 
             if (is_dir($cache_dir) && is_readable($cache_dir)) {
                 $k         = str_split($cache_key, 2);
-                $cache_dir = sprintf('%s/%s/%s/%s/%s', $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+                $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
-                $dirs = [$cache_dir . '/' . $root];
+                $dirs = [$cache_dir . DIRECTORY_SEPARATOR . $root];
                 do {
                     $dir   = array_shift($dirs);
                     $files = files::scandir($dir);
                     if (is_array($files)) {
                         foreach ($files as $file) {
                             if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                                $cache_fullpath = $dir . '/' . $file;
+                                $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
                                 if (is_file($cache_fullpath)) {
                                     $k = str_split($file, 2);
                                     $content .= '<tr>' .
@@ -133,7 +135,7 @@ class sysInfoRest
                                     '</td>' . // cache file
                                     '</tr>' . "\n";
                                 } else {
-                                    $dirs[] = $dir . '/' . $file;
+                                    $dirs[] = $dir . DIRECTORY_SEPARATOR . $file;
                                 }
                             }
                         }
@@ -141,7 +143,7 @@ class sysInfoRest
                 } while (count($dirs));
                 if ($content == '') {
                     // No more dirs and files → send an empty raw
-                    $k = explode('/', $root);
+                    $k = explode(DIRECTORY_SEPARATOR, $root);
                     $content .= '<tr>' .
                     '<td class="nowrap">' . $k[0] . '</td>' .         // 1st level
                     '<td class="nowrap">' . $k[1] . '</td>' .         // 2nd level
