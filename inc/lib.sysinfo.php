@@ -39,21 +39,21 @@ class libSysInfo
             $status   = [];
             $class    = [];
             $name     = $module;
-            $checkbox = new formCheckbox(['ver[]'], false);
-            $input    = (new formInput('m-' . $module))->value($version);
+            $checkbox = (new formCheckbox(['ver[]'], false))->value($module);
+            $input    = (new formInput(['m[' . $module . ']']))->value($version);
 
             if ($module === 'core') {
                 $class[]  = 'version-core';
                 $name     = '<strong>' . $module . '</strong>';
                 $status[] = __('Core');
-                $checkbox->disabled(true);
-                $input->disabled(true);
+                $checkbox->disabled(true);  // Do not delete core version
+                $input->disabled(true);     // Do not modify core version
             } else {
                 if (in_array($module, $distributed)) {
                     $class[]  = 'version-distrib';
                     $status[] = __('Distributed');
-                    $checkbox->disabled(true);
-                    $input->disabled(true);
+                    $checkbox->disabled(true);  // Do not delete distributed module version
+                    $input->disabled(true);     // Do not modify distributed module version
                 }
                 if (!in_array($module, array_values(array_keys($plugins)))) {
                     $exists = false;
@@ -106,10 +106,18 @@ class libSysInfo
         if (!empty($_POST['delveraction'])) {
             // Cope with versions deletion
             try {
-                ; // Delete selected versions
                 if (empty($_POST['ver'])) {
                     throw new Exception(__('No version selected'));
                 }
+                $list = [];
+                foreach ($_POST['ver'] as $v) {
+                    $list[] = $v;
+                }
+                $sql = new dcDeleteStatement();
+                $sql
+                    ->from(dcCore::app()->prefix . dcCore::VERSION_TABLE_NAME)
+                    ->where('module' . $sql->in($list));
+                $sql->delete();
             } catch (Exception $e) {
                 $checklist = 'versions';
                 dcCore::app()->error->add($e->getMessage());
@@ -123,7 +131,15 @@ class libSysInfo
         if (!empty($_POST['updveraction'])) {
             // Cope with versions update
             try {
-                ; // Update all versions
+                $sql = new dcUpdateStatement();
+                $sql
+                    ->ref(dcCore::app()->prefix . dcCore::VERSION_TABLE_NAME);
+                foreach ($_POST['m'] as $module => $version) {
+                    $sql
+                        ->set('version = ' . $sql->quote($version), true)   // Reset value
+                        ->where('module = ' . $sql->quote($module), true)   // Reset condition
+                        ->update();
+                }
             } catch (Exception $e) {
                 $checklist = 'versions';
                 dcCore::app()->error->add($e->getMessage());
