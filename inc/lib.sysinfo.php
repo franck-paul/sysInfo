@@ -21,8 +21,14 @@ class libSysInfo
     {
         $versions    = dcCore::app()->getVersions();
         $distributed = explode(',', DC_DISTRIB_PLUGINS);
-        $plugins     = dcCore::app()->plugins->getModules();
         $paths       = explode(':', DC_PLUGINS_ROOT);
+
+        // Some plugins may have registered their version with a different case reprensetation of their name
+        // which is not a very good idea, but we need to cope with legacy code ;-)
+        // Ex: dcRevisions store it as 'dcrevisions'
+        // So we will check by ignoring case
+        $plugins  = array_map(fn ($name): string => mb_strtolower($name), array_values(array_keys(dcCore::app()->plugins->getModules())));
+        $disabled = array_map(fn ($name): string => mb_strtolower($name), array_values(array_keys(dcCore::app()->plugins->getDisabledModules())));
 
         $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
@@ -55,14 +61,20 @@ class libSysInfo
                     $checkbox->disabled(true);  // Do not delete distributed module version
                     $input->disabled(true);     // Do not modify distributed module version
                 }
-                if (!in_array($module, array_values(array_keys($plugins)))) {
-                    $exists = false;
-                    // Look if the module exists in one of DC
-                    foreach ($paths as $path) {
-                        if (is_dir($path . DIRECTORY_SEPARATOR . $module)) {
-                            $exists = true;
+                if (!in_array(mb_strtolower($module), $plugins)) {
+                    // Not in activated plugins list
+                    if (in_array(mb_strtolower($module), $disabled)) {
+                        // In disabled plugins list
+                        $exists = true;
+                    } else {
+                        $exists = false;
+                        // Look if the module exists in one of specified plugins paths
+                        foreach ($paths as $path) {
+                            if (is_dir($path . DIRECTORY_SEPARATOR . $module)) {
+                                $exists = true;
 
-                            break;
+                                break;
+                            }
                         }
                     }
                     if ($exists) {
