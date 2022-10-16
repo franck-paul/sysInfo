@@ -32,7 +32,7 @@ class libSysInfo
 
         $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of versions registered in the database') . '</caption>' .
+            '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="">' . __('Module') . '</th>' .
@@ -183,7 +183,7 @@ class libSysInfo
         $permissions = dcCore::app()->auth->getPermissionsTypes();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Types of permission') . '</caption>' .
+            '<caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Type') . '</th>' .
@@ -212,7 +212,7 @@ class libSysInfo
         $methods = dcCore::app()->rest->functions;
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('REST methods') . '</caption>' .
+            '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Method') . '</th>' .
@@ -253,7 +253,7 @@ class libSysInfo
         $plugins = dcCore::app()->plugins->getModules();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Plugins (in loading order)') . '</caption>' .
+            '<caption>' . __('Plugins (in loading order)') . ' (' . sprintf('%d', count($plugins)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Plugin id') . '</th>' .
@@ -316,7 +316,7 @@ class libSysInfo
 
         // Affichage des constantes remarquables de Dotclear
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Dotclear constants') . '</caption>' .
+            '<caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Constant') . '</th>' .
@@ -349,7 +349,7 @@ class libSysInfo
         $bl = dcCore::app()->getBehaviors('');
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Behaviours list') . '</caption>' .
+            '<caption>' . __('Behaviours list') . ' (' . sprintf('%d', count($bl)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Behavior') . '</th>' .
@@ -405,7 +405,7 @@ class libSysInfo
         //$excluded = ['xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
         $excluded = [];
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . '</caption>' .
+        $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .
             '<thead><tr><th scope="col">' . __('Type') . '</th>' .
             '<th scope="col">' . __('base URL') . '</th>' .
             '<th scope="col" class="maximal">' . __('Regular expression') . '</th></tr></thead>' .
@@ -440,7 +440,7 @@ class libSysInfo
         // Récupération de la liste des URLs d'admin enregistrées
         $urls = dcCore::app()->adminurl->dumpUrls();
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . '</caption>' .
+        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
             '<th scope="col">' . __('URL') . '</th>' .
             '<th scope="col" class="maximal">' . __('Query string') . '</th></tr></thead>' .
@@ -656,7 +656,7 @@ class libSysInfo
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of template paths') . '</caption>' .
+            '<caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Path') . '</th>' .
@@ -719,7 +719,9 @@ class libSysInfo
         $raw_datas = !$parser ? [] : $parser->getModules();     // @phpstan-ignore-line
         dcUtils::lexicalKeySort($raw_datas);
 
-        $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . '</h3>';
+        $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
+
+        $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . $count . '</h3>';
         if (!$parser) {     // @phpstan-ignore-line
             $str .= '<p>' . __('Repository is unreachable') . '</p>';
         } else {

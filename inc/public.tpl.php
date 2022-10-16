@@ -19,7 +19,9 @@ class tplSysInfo
 
     public static function SysInfoBehaviours()
     {
-        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . '</h3>' . "\n";
+        $bl = dcCore::app()->getBehaviors('');
+
+        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
         $code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
 
         return $code;
