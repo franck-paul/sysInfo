@@ -112,9 +112,12 @@ class libSysInfo
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception
+     *
+     * @return  string
      */
-    public static function doFormVersions(string &$checklist)
+    public static function doFormVersions(string $checklist): string
     {
+        $nextlist = $checklist;
         if (!empty($_POST['delveraction'])) {
             // Cope with versions deletion
             try {
@@ -153,7 +156,7 @@ class libSysInfo
                         ->update();
                 }
             } catch (Exception $e) {
-                $checklist = 'versions';
+                $nextlist = 'versions';
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
@@ -161,13 +164,13 @@ class libSysInfo
                 http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
             }
         }
+
+        return $nextlist;
     }
 
-    public static function doCheckVersions(string &$checklist)
+    public static function doCheckVersions(string $checklist): string
     {
-        if (!empty($_GET['ver'])) {
-            $checklist = 'versions';
-        }
+        return !empty($_GET['ver']) ? 'versions' : $checklist;
     }
 
     /**
@@ -309,8 +312,7 @@ class libSysInfo
      */
     public static function dcConstants(): string
     {
-        $undefined = '';
-        $constants = self::getConstants($undefined);
+        [$undefined, $constants] = self::getConstants();
 
         // Affichage des constantes remarquables de Dotclear
         $str = '<table id="chk-table-result" class="sysinfo">' .
@@ -605,9 +607,12 @@ class libSysInfo
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception
+     *
+     * @return  string
      */
-    public static function doFormTemplates(string &$checklist)
+    public static function doFormTemplates(string $checklist): string
     {
+        $nextlist = $checklist;
         if (!empty($_POST['deltplaction'])) {
             // Cope with cache file deletion
             try {
@@ -622,7 +627,7 @@ class libSysInfo
                     }
                 }
             } catch (Exception $e) {
-                $checklist = 'templates';
+                $nextlist = 'templates';
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
@@ -630,13 +635,13 @@ class libSysInfo
                 http::redirect(dcCore::app()->admin->getPageURL() . '&tpl=1');
             }
         }
+
+        return $nextlist;
     }
 
-    public static function doCheckTemplates(string &$checklist)
+    public static function doCheckTemplates(string $checklist): string
     {
-        if (!empty($_GET['tpl'])) {
-            $checklist = 'templates';
-        }
+        return !empty($_GET['tpl']) ? 'templates' : $checklist;
     }
 
     /**
@@ -907,9 +912,9 @@ class libSysInfo
     /**
      * Get current list of Dotclear constants and their values
      *
-     * @return     array  list of constants
+     * @return     array  array[0] = undefined value, array[1] = list of constants
      */
-    private static function getConstants(?string &$undefined): array
+    private static function getConstants(): array
     {
         $undefined = '<!-- undefined -->';
         $constants = [
@@ -980,7 +985,7 @@ class libSysInfo
             $constants['DC_SC_EXCLUDED_URL']    = defined('DC_SC_EXCLUDED_URL') ? DC_SC_EXCLUDED_URL : $undefined;
         }
 
-        return $constants;
+        return [$undefined, $constants];
     }
 
     /**
@@ -1198,9 +1203,12 @@ class libSysInfo
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception  (description)
+     *
+     * @return  string
      */
-    public static function doFormStaticCache(string &$checklist)
+    public static function doFormStaticCache(string $checklist): string
     {
+        $nextlist = $checklist;
         if (!empty($_POST['delscaction'])) {
             // Cope with static cache file deletion
             try {
@@ -1213,7 +1221,7 @@ class libSysInfo
                     }
                 }
             } catch (Exception $e) {
-                $checklist = 'sc';
+                $nextlist = 'sc';
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
@@ -1221,12 +1229,12 @@ class libSysInfo
                 http::redirect(dcCore::app()->admin->getPageURL() . '&sc=1');
             }
         }
+
+        return $nextlist;
     }
 
-    public static function doCheckStaticCache(string &$checklist)
+    public static function doCheckStaticCache(string $checklist): string
     {
-        if (!empty($_GET['sc'])) {
-            $checklist = 'sc';
-        }
+        return !empty($_GET['sc']) ? 'sc' : $checklist;
     }
 }

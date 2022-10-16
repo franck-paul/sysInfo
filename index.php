@@ -67,9 +67,9 @@ class adminSysinfo
         $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
 
         // Cope with form submit return
-        libSysInfo::doCheckVersions($checklist);
-        libSysInfo::doCheckTemplates($checklist);
-        libSysInfo::doCheckStaticCache($checklist);
+        $checklist = libSysInfo::doCheckVersions($checklist);
+        $checklist = libSysInfo::doCheckTemplates($checklist);
+        $checklist = libSysInfo::doCheckStaticCache($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
     }
@@ -82,9 +82,9 @@ class adminSysinfo
         $checklist = dcCore::app()->admin->checklist;
 
         // Cope with form submit
-        libSysInfo::doFormVersions($checklist);
-        libSysInfo::doFormTemplates($checklist);
-        libSysInfo::doFormStaticCache($checklist);
+        $checklist = libSysInfo::doFormVersions($checklist);
+        $checklist = libSysInfo::doFormTemplates($checklist);
+        $checklist = libSysInfo::doFormStaticCache($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
     }
