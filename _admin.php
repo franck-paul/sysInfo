@@ -37,8 +37,8 @@ dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $f
 });
 
 // Register REST methods
-dcCore::app()->rest->addFunction('getCompiledTemplate', ['sysInfoRest', 'getCompiledTemplate']);
-dcCore::app()->rest->addFunction('getStaticCacheFile', ['sysInfoRest', 'getStaticCacheFile']);
-dcCore::app()->rest->addFunction('getStaticCacheDir', ['sysInfoRest', 'getStaticCacheDir']);
-dcCore::app()->rest->addFunction('getStaticCacheList', ['sysInfoRest', 'getStaticCacheList']);
-dcCore::app()->rest->addFunction('getStaticCacheName', ['sysInfoRest', 'getStaticCacheName']);
+dcCore::app()->rest->addFunction('getCompiledTemplate', [sysInfoRest::class, 'getCompiledTemplate']);
+dcCore::app()->rest->addFunction('getStaticCacheFile', [sysInfoRest::class, 'getStaticCacheFile']);
+dcCore::app()->rest->addFunction('getStaticCacheDir', [sysInfoRest::class, 'getStaticCacheDir']);
+dcCore::app()->rest->addFunction('getStaticCacheList', [sysInfoRest::class, 'getStaticCacheList']);
+dcCore::app()->rest->addFunction('getStaticCacheName', [sysInfoRest::class, 'getStaticCacheName']);

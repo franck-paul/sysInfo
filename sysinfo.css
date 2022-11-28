@@ -75,13 +75,6 @@ blockquote.sysinfo:after {
   border-top: 1px solid #ccc;
 }
 
-#content details:hover {
-  /*
-  color: var(--body-background);
-  background-color: var(--body-color);
-*/
-}
-
 #expand-all {
   color: var(--body-background);
   background-color: var(--body-color);
