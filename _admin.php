@@ -28,11 +28,10 @@ dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
 /* Register favorite */
 dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $favs) {
     $favs->register('sysInfo', [
-        'title'       => __('System Information'),
-        'url'         => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
-        'small-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
-        'large-icon'  => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
-        'permissions' => dcCore::app()->auth->isSuperAdmin(),
+        'title'      => __('System Information'),
+        'url'        => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
+        'small-icon' => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
+        'large-icon' => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
     ]);
 });
 
