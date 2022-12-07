@@ -408,19 +408,37 @@ class libSysInfo
         $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .
             '<thead><tr><th scope="col">' . __('Type') . '</th>' .
             '<th scope="col">' . __('base URL') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Regular expression') . '</th></tr></thead>' .
+            '<th scope="col">' . __('Regular expression') . '</th>' .
+            '<th scope="col">' . __('Callback') . '</th>' .
+            '</tr></thead>' .
             '<tbody>' .
             '<tr>' .
             '<td scope="row">' . 'home' . '</td>' .
             '<td>' . '' . '</td>' .
-            '<td class="maximal"><code>' . '^$' . '</code></td>' .
+            '<td><code>' . '^$' . '</code></td>' .
+            '<td><code>' . '(default)' . '</code></td>' .
             '</tr>';
         foreach ($urls as $type => $param) {
             if (!in_array($type, $excluded)) {
+                $fi = $param['handler'];
+                if (is_array($fi)) {
+                    if (is_object($fi[0])) {
+                        $handler = get_class($fi[0]) . '-&gt;' . $fi[1];
+                    } else {
+                        $handler = $fi[0] . '::' . $fi[1];
+                    }
+                } else {
+                    if ($fi instanceof \Closure) {
+                        $handler = '__closure__';
+                    } else {
+                        $handler = $fi;
+                    }
+                }
                 $str .= '<tr>' .
                     '<td scope="row">' . $type . '</td>' .
                     '<td>' . $param['url'] . '</td>' .
-                    '<td class="maximal"><code>' . $param['representation'] . '</code></td>' .
+                    '<td><code>' . $param['representation'] . '</code></td>' .
+                    '<td><code>' . $handler . '()</code></td>' .
                     '</tr>';
             }
         }
