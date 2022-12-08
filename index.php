@@ -103,7 +103,7 @@ class adminSysinfo
         '<html>' .
         '<head>' .
         '<title>' . __('System Information') . '</title>' .
-        dcPage::cssModuleLoad('sysInfo/sysinfo.css', 'screen', dcCore::app()->getVersion('sysInfo')) .
+        dcPage::cssModuleLoad('sysInfo/css/sysinfo.css', 'screen', dcCore::app()->getVersion('sysInfo')) .
         dcPage::jsJson('sysinfo', [
             'colorsyntax'       => $user_ui_colorsyntax,
             'colorsyntax_theme' => $user_ui_colorsyntax_theme,
@@ -116,7 +116,7 @@ class adminSysinfo
             ],
         ]) .
         dcPage::jsModal() .
-        dcPage::jsModuleLoad('sysInfo/sysinfo.js', dcCore::app()->getVersion('sysInfo'));
+        dcPage::jsModuleLoad('sysInfo/js/sysinfo.js', dcCore::app()->getVersion('sysInfo'));
         if ($user_ui_colorsyntax) {
             echo
             dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);

@@ -25,7 +25,12 @@ try {
     dcCore::app()->blog->settings->addNamespace('sysinfo');
     dcCore::app()->blog->settings->sysinfo->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
 
-    dcCore::app()->setVersion('sysInfo', $new_version);
+    // Cleanup
+    if (version_compare((string) $old_version, '2.2', '<')) {
+        // Remove moved css/js
+        @unlink(__DIR__ . DIRECTORY_SEPARATOR . 'sysinfo.js');
+        @unlink(__DIR__ . DIRECTORY_SEPARATOR . 'sysInfo.css');
+    }
 
     return true;
 } catch (Exception $e) {
