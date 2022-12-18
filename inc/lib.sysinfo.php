@@ -815,6 +815,25 @@ class libSysInfo
         ];
         $q = rand(0, count($quotes) - 1);
 
+        // Get cache info
+        $caches = [];
+        if (function_exists('opcache_get_status') && is_array(opcache_get_status())) {
+            $caches[] = 'OPCache';
+        }
+        if (function_exists('apcu_cache_info') && is_array(apcu_cache_info())) {
+            $caches[] = 'APC';
+        }
+        if (class_exists('Memcache')) {
+            $memcache     = new Memcache();
+            $isMemcacheOn = @$memcache->connect('localhost');
+            if ($isMemcacheOn) {
+                $caches[] = 'Memcache';
+            }
+        }
+        if (count($caches) === 0) {
+            $caches[] = __('None');
+        }
+
         // Server info
         $server = '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' .
             '<details open><summary>' . __('System info') . '</summary>' .
@@ -825,6 +844,7 @@ class libSysInfo
                 __('version') . ' <strong>' . dcCore::app()->con->version() . '</strong> ' .
                 sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
             '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
+            '<li>' . __('PHP Cache: ') . '<strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
             '</ul>' .
             '</details>';
 
