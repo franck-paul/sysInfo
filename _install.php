@@ -14,10 +14,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = dcCore::app()->plugins->moduleInfo('sysInfo', 'version');
-$old_version = dcCore::app()->getVersion('sysInfo');
-
-if ($old_version && version_compare((string) $old_version, $new_version, '>=')) {
+if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->moduleInfo(basename(__DIR__), 'version'))) {
     return;
 }
 
@@ -26,10 +23,12 @@ try {
     dcCore::app()->blog->settings->sysinfo->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
 
     // Cleanup
+    $old_version = dcCore::app()->getVersion(basename(__DIR__));
+
     if (version_compare((string) $old_version, '2.2', '<')) {
         // Remove moved css/js
-        @unlink(__DIR__ . DIRECTORY_SEPARATOR . 'sysinfo.js');
-        @unlink(__DIR__ . DIRECTORY_SEPARATOR . 'sysInfo.css');
+        @unlink(dcUtils::path([__DIR__, 'sysinfo.js']));
+        @unlink(dcUtils::path([__DIR__, 'sysInfo.css']));
     }
 
     return true;
