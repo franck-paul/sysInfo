@@ -10,11 +10,22 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\SysInfo;
+
+use dcCore;
+
 class tplSysInfo
 {
     public static function SysInfoPageTitle()
     {
-        return '<?php echo \'' . __('System Information') . '\'; ?>';
+        $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
+        if (empty($tplset)) {
+            $tplset = DC_DEFAULT_TPLSET . '-default';
+        }
+
+        return '<?php echo \'<span class="dc-tpl-' . $tplset . '">' . __('System Information') . '</span>\'; ?>';
     }
 
     public static function SysInfoBehaviours()
@@ -22,7 +33,7 @@ class tplSysInfo
         $bl = dcCore::app()->getBehaviors('');
 
         $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
-        $code .= '<?php echo tplSysInfo::publicBehavioursList(); ?>';
+        $code .= '<?php echo ' . __NAMESPACE__ . '\\' . 'tplSysInfo::publicBehavioursList(); ?>';
 
         return $code;
     }
@@ -65,7 +76,7 @@ class tplSysInfo
     public static function SysInfoTemplatetags()
     {
         $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
-        $code .= '<?php echo tplSysInfo::publicTemplatetagsList(); ?>';
+        $code .= '<?php echo ' . __NAMESPACE__ . '\\' . 'tplSysInfo::publicTemplatetagsList(); ?>';
 
         return $code;
     }

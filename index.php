@@ -10,6 +10,16 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\SysInfo;
+
+use dcCore;
+use dcPage;
+use dcStaticCacheControl;
+
+use form;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
@@ -22,26 +32,26 @@ class adminSysinfo
     public static function init()
     {
         $checklists = [
-            __('System') => [
+            __('System')        => [
                 __('Information')  => 'default',
                 __('PHP info')     => 'phpinfo',
                 __('DC Constants') => 'constants',
                 __('Folders')      => 'folders',
             ],
 
-            __('Core') => [
+            __('Core')          => [
                 __('URL handlers')        => 'urlhandlers',
                 __('Behaviours')          => 'behaviours',
                 __('Admin URLs')          => 'adminurls',
                 __('Types of permission') => 'permissions',
             ],
 
-            __('Templates') => [
+            __('Templates')     => [
                 __('Compiled templates') => 'templates',
                 __('Template paths')     => 'tplpaths',
             ],
 
-            __('Repositories') => [
+            __('Repositories')  => [
                 __('Plugins repository (cache)') => 'dcrepo-plugins-cache',
                 __('Plugins repository')         => 'dcrepo-plugins',
                 __('Themes repository (cache)')  => 'dcrepo-themes-cache',

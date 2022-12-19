@@ -10,6 +10,36 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\SysInfo;
+
+// PHP ns
+use Exception;
+
+// Dotclear ns
+use dcCore;
+use dcDeleteStatement;
+use dcPage;
+use dcPublic;
+use dcStaticCache;
+use dcStoreReader;
+use dcTemplate;
+use dcThemes;
+use dcUpdateStatement;
+use dcUtils;
+
+// Clearbricks ns
+use files;
+use formCheckbox;
+use formInput;
+use formSubmit;
+use form;
+use html;
+use http;
+use path;
+use template;
+
 class libSysInfo
 {
     /**
@@ -817,15 +847,15 @@ class libSysInfo
 
         // Get cache info
         $caches = [];
-        if (function_exists('opcache_get_status') && is_array(opcache_get_status())) {
+        if (function_exists('\opcache_get_status') && is_array(\opcache_get_status())) {
             $caches[] = 'OPCache';
         }
-        if (function_exists('apcu_cache_info') && is_array(apcu_cache_info())) {
+        if (function_exists('\apcu_cache_info') && is_array(\apcu_cache_info())) {
             $caches[] = 'APC';
         }
-        if (class_exists('Memcache')) {
-            $memcache     = new Memcache();
-            $isMemcacheOn = @$memcache->connect('localhost');
+        if (class_exists('\Memcache')) {
+            $memcache     = new \Memcache();
+            $isMemcacheOn = @$memcache->connect('localhost', 11211, 1);
             if ($isMemcacheOn) {
                 $caches[] = 'Memcache';
             }
@@ -1037,9 +1067,9 @@ class libSysInfo
     {
         // Check generic Dotclear folders
         $folders = [
-            'root'   => DC_ROOT,
-            'config' => DC_RC_PATH,
-            'cache'  => [
+            'root'    => DC_ROOT,
+            'config'  => DC_RC_PATH,
+            'cache'   => [
                 DC_TPL_CACHE,
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'cbfeed',
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . template::CACHE_FOLDER,
