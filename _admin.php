@@ -10,6 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\SysInfo;
+
+use dcAdmin;
+use dcCore;
+use dcFavorites;
+use dcPage;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
@@ -34,10 +43,3 @@ dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $f
         'large-icon' => [urldecode(dcPage::getPF('sysInfo/icon.svg')), urldecode(dcPage::getPF('sysInfo/icon-dark.svg'))],
     ]);
 });
-
-// Register REST methods
-dcCore::app()->rest->addFunction('getCompiledTemplate', [sysInfoRest::class, 'getCompiledTemplate']);
-dcCore::app()->rest->addFunction('getStaticCacheFile', [sysInfoRest::class, 'getStaticCacheFile']);
-dcCore::app()->rest->addFunction('getStaticCacheDir', [sysInfoRest::class, 'getStaticCacheDir']);
-dcCore::app()->rest->addFunction('getStaticCacheList', [sysInfoRest::class, 'getStaticCacheList']);
-dcCore::app()->rest->addFunction('getStaticCacheName', [sysInfoRest::class, 'getStaticCacheName']);

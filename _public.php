@@ -10,6 +10,13 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\SysInfo;
+
+use context;
+use dcCore;
+
 if (!defined('DC_RC_PATH')) {
     return;
 }

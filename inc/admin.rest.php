@@ -10,9 +10,19 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\SysInfo;
+
+use dcCore;
+
+use files;
+use form;
+use html;
+use http;
+use path;
+use template;
+use xmlTag;
 
 class sysInfoRest
 {
