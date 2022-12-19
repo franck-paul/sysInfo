@@ -18,13 +18,13 @@ $this->registerModule(
     'sysInfo',
     'System Information',
     'Franck Paul',
-    '2.3',
+    '2.4',
     [
-        'requires' => [['core', '2.24']],
-        'type'     => 'plugin',
-        'priority' => 99999999999,
+        'requires'   => [['core', '2.24']],
+        'type'       => 'plugin',
+        'priority'   => 99999999999,
 
-        'details'    => 'https://open-time.net/docs/plugins/sysInfo',
+        'details'    => 'https://open-time.net/?q=sysinfo',
         'support'    => 'https://github.com/franck-paul/sysInfo',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/sysInfo/main/dcstore.xml',
     ]

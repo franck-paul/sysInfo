@@ -6,7 +6,7 @@
     <desc>System Information</desc>
     <file>https://github.com/franck-paul/sysInfo/releases/download/2.3/plugin-sysInfo-2.3.zip</file>
     <da:dcmin>2.24</da:dcmin>
-    <da:details>https://open-time.net/docs/plugins/sysInfo</da:details>
+    <da:details>https://open-time.net/?q=sysinfo</da:details>
     <da:support>https://github.com/franck-paul/sysInfo</da:support>
   </module>
 </modules>
