@@ -105,7 +105,6 @@ class adminSysinfo
     public static function render()
     {
         # Get interface setting
-        dcCore::app()->auth->user_prefs->addWorkspace('interface');
         $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
         $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
 

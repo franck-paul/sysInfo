@@ -18,11 +18,11 @@ $this->registerModule(
     'sysInfo',
     'System Information',
     'Franck Paul',
-    '2.4',
+    '2.5',
     [
         'requires'   => [['core', '2.24']],
         'type'       => 'plugin',
-        'priority'   => 99999999999,
+        'priority'   => 99_999_999_999,
 
         'details'    => 'https://open-time.net/?q=sysinfo',
         'support'    => 'https://github.com/franck-paul/sysInfo',

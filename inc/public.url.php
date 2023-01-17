@@ -47,6 +47,5 @@ class urlSysInfo extends dcUrlHandlers
             exit;
         }
         self::p404();
-        exit;
     }
 }

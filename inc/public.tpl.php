@@ -32,7 +32,7 @@ class tplSysInfo
     {
         $bl = dcCore::app()->getBehaviors('');
 
-        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
+        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', is_countable($bl) ? count($bl) : 0) . ')' . '</h3>' . "\n";
         $code .= '<?php echo ' . __NAMESPACE__ . '\\' . 'tplSysInfo::publicBehavioursList(); ?>';
 
         return $code;

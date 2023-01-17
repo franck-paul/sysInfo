@@ -26,7 +26,6 @@ if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->module
 }
 
 try {
-    dcCore::app()->blog->settings->addNamespace('sysinfo');
     dcCore::app()->blog->settings->sysinfo->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
 
     return true;

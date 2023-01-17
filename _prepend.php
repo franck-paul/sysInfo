@@ -16,16 +16,17 @@ namespace Dotclear\Plugin\SysInfo;
 
 use Clearbricks;
 use dcCore;
+use dcUtils;
 
 if (!defined('DC_RC_PATH')) {
     return;
 }
 
 Clearbricks::lib()->autoload([
-    'Dotclear\\Plugin\\SysInfo\\sysInfoRest' => __DIR__ . '/inc/admin.rest.php',
-    'Dotclear\\Plugin\\SysInfo\\libSysInfo'  => __DIR__ . '/inc/lib.sysinfo.php',
-    'Dotclear\\Plugin\\SysInfo\\urlSysInfo'  => __DIR__ . '/inc/public.url.php',
-    'Dotclear\\Plugin\\SysInfo\\tplSysInfo'  => __DIR__ . '/inc/public.tpl.php',
+    \Dotclear\Plugin\SysInfo\sysInfoRest::class => dcUtils::path([__DIR__, 'inc', 'admin.rest.php']),
+    \Dotclear\Plugin\SysInfo\libSysInfo::class  => dcUtils::path([__DIR__, 'inc', 'lib.sysinfo.php']),
+    'Dotclear\\Plugin\\SysInfo\\urlSysInfo'  => dcUtils::path([__DIR__, 'inc', 'public.url.php']),
+    \Dotclear\Plugin\SysInfo\tplSysInfo::class  => dcUtils::path([__DIR__, 'inc', 'public.tpl.php']),
 ]);
 
 dcCore::app()->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', [urlSysInfo::class, 'sysInfo']);

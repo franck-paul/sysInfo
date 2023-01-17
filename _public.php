@@ -21,15 +21,16 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-dcCore::app()->addBehavior('publicBreadcrumb', function (?string $context) {
-    if ($context == 'sysinfo') {
-        return __('System Information');
-    }
-});
-dcCore::app()->addBehavior('urlHandlerBeforeGetData', function (context $ctx) {
-    dcCore::app()->blog->settings->addNamespace('sysinfo');
-    $ctx->http_cache = (bool) dcCore::app()->blog->settings->sysinfo->http_cache;
-});
+dcCore::app()->addBehaviors([
+    'publicBreadcrumb'        => function (?string $context) {
+        if ($context == 'sysinfo') {
+            return __('System Information');
+        }
+    },
+    'urlHandlerBeforeGetData' => function (context $ctx) {
+        $ctx->http_cache = (bool) dcCore::app()->blog->settings->sysinfo->http_cache;
+    },
+]);
 
 dcCore::app()->tpl->addValue('SysInfoPageTitle', [tplSysInfo::class, 'SysInfoPageTitle']);
 dcCore::app()->tpl->addValue('SysInfoBehaviours', [tplSysInfo::class, 'SysInfoBehaviours']);
