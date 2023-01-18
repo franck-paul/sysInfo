@@ -1099,35 +1099,35 @@ class libSysInfo
                 $subfolder = [$subfolder];
             }
             foreach ($subfolder as $folder) {
-                $path     = path::real($folder);
-                $writable = is_writable($path);
-                $touch    = true;
-                $err      = [];
-                $void     = '';
-                if ($writable && is_dir($path)) {
-                    // Try to create a file, inherit dir perms and then delete it
-                    try {
-                        $void  = $path . (substr($path, -1) === DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . 'tmp-' . str_shuffle(MD5(microtime()));
-                        $touch = false;
-                        files::putContent($void, '');
-                        if (file_exists($void)) {
-                            files::inheritChmod($void);
-                            unlink($void);
-                            $touch = true;
+                $err = '';
+                if ($path = path::real($folder)) {
+                    $writable = is_writable($path);
+                    $touch    = true;
+                    if ($writable && is_dir($path)) {
+                        // Try to create a file, inherit dir perms and then delete it
+                        $void = '';
+
+                        try {
+                            $void  = $path . (substr($path, -1) === DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . 'tmp-' . str_shuffle(MD5(microtime()));
+                            $touch = false;
+                            files::putContent($void, '');
+                            if (file_exists($void)) {
+                                files::inheritChmod($void);
+                                unlink($void);
+                                $touch = true;
+                            }
+                        } catch (Exception $e) {
+                            $err = $void . ' : ' . $e->getMessage();
                         }
-                    } catch (Exception $e) {
-                        $err[] = $void . ' : ' . $e->getMessage();
                     }
-                }
-                if ($path) {
                     $status = $writable && $touch ?
                     '<img src="images/check-on.png" alt="" /> ' . __('Writable') :
                     '<img src="images/check-wrn.png" alt="" /> ' . __('Readonly');
                 } else {
                     $status = '<img src="images/check-off.png" alt="" /> ' . __('Unknown');
                 }
-                if (count($err)) {
-                    $status .= '<div style="display: none;"><p>' . implode('<br />', $err) . '</p></div>';
+                if ($err !== '') {
+                    $status .= '<div style="display: none;"><p>' . $err . '</p></div>';
                 }
 
                 if (substr($folder, 0, strlen(DC_ROOT)) === DC_ROOT) {
