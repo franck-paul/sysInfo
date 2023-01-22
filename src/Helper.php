@@ -71,6 +71,8 @@ class Helper
             '</tr>' .
             '</thead>' .
             '<tbody>';
+
+        dcUtils::lexicalKeySort($versions);
         foreach ($versions as $module => $version) {
             $status   = [];
             $class    = [];
@@ -250,6 +252,8 @@ class Helper
             '</tr>' .
             '</thead>' .
             '<tbody>';
+
+        dcUtils::lexicalKeySort($methods);
         foreach ($methods as $method => $callback) {
             $str .= '<tr><td class="nowrap">' . $method . '</td><td class="maximal"><code>';
             if (is_array($callback)) {
@@ -354,6 +358,7 @@ class Helper
             '</tr>' .
             '</thead>' .
             '<tbody>';
+        dcUtils::lexicalKeySort($constants);
         foreach ($constants as $c => $v) {
             $str .= '<tr><td class="nowrap">' .
                 '<img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .
@@ -387,6 +392,8 @@ class Helper
             '</tr>' .
             '</thead>' .
             '<tbody>';
+
+        dcUtils::lexicalKeySort($bl);
         foreach ($bl as $b => $f) {
             $str .= '<tr><td class="nowrap">' . $b . '</td>';
             $newline = false;
@@ -775,6 +782,7 @@ class Helper
         } else {
             $str .= '<details id="expand-all"><summary>' . $label . '</summary></details>';
             $url_fmt = '<a href="%1$s">%1$s</a>';
+            dcUtils::lexicalKeySort($raw_datas);
             foreach ($raw_datas as $id => $infos) {
                 $str .= '<details><summary>' . $id . '</summary>';
                 $str .= '<ul>';
