@@ -12,11 +12,11 @@
  */
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\SysInfo;
+namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
 
-class tplSysInfo
+class FrontendTemplate
 {
     public static function SysInfoPageTitle()
     {
@@ -33,7 +33,7 @@ class tplSysInfo
         $bl = dcCore::app()->getBehaviors('');
 
         $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', is_countable($bl) ? count($bl) : 0) . ')' . '</h3>' . "\n";
-        $code .= '<?php echo ' . __NAMESPACE__ . '\\' . 'tplSysInfo::publicBehavioursList(); ?>';
+        $code .= '<?php echo ' . self::class . '::publicBehavioursList(); ?>';
 
         return $code;
     }
@@ -76,7 +76,7 @@ class tplSysInfo
     public static function SysInfoTemplatetags()
     {
         $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
-        $code .= '<?php echo ' . __NAMESPACE__ . '\\' . 'tplSysInfo::publicTemplatetagsList(); ?>';
+        $code .= '<?php echo ' . self::class . '::publicTemplatetagsList(); ?>';
 
         return $code;
     }

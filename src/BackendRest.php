@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\SysInfo;
+namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
 
@@ -24,7 +24,7 @@ use path;
 use template;
 use xmlTag;
 
-class sysInfoRest
+class BackendRest
 {
     public static function getCompiledTemplate($core, $get)
     {

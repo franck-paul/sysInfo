@@ -12,13 +12,13 @@
  */
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\SysInfo;
+namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
 use dcPublic;
 use dcUrlHandlers;
 
-class urlSysInfo extends dcUrlHandlers
+class FrontendUrl extends dcUrlHandlers
 {
     /**
      * Output the SysInfo page

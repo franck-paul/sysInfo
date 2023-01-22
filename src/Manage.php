@@ -12,24 +12,21 @@
  */
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\SysInfo;
+namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
+use dcNsProcess;
 use dcPage;
 use dcStaticCacheControl;
 
 use form;
 
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
-
-class adminSysinfo
+class Manage extends dcNsProcess
 {
     /**
      * Initializes the page.
      */
-    public static function init()
+    public static function init(): bool
     {
         $checklists = [
             __('System')        => [
@@ -77,33 +74,47 @@ class adminSysinfo
         $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
 
         // Cope with form submit return
-        $checklist = libSysInfo::doCheckVersions($checklist);
-        $checklist = libSysInfo::doCheckTemplates($checklist);
-        $checklist = libSysInfo::doCheckStaticCache($checklist);
+        $checklist = Helper::doCheckVersions($checklist);
+        $checklist = Helper::doCheckTemplates($checklist);
+        $checklist = Helper::doCheckStaticCache($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
+
+        self::$init = true;
+
+        return self::$init;
     }
 
     /**
      * Processes the request(s).
      */
-    public static function process()
+    public static function process(): bool
     {
+        if (!self::$init) {
+            return false;
+        }
+
         $checklist = dcCore::app()->admin->checklist;
 
         // Cope with form submit
-        $checklist = libSysInfo::doFormVersions($checklist);
-        $checklist = libSysInfo::doFormTemplates($checklist);
-        $checklist = libSysInfo::doFormStaticCache($checklist);
+        $checklist = Helper::doFormVersions($checklist);
+        $checklist = Helper::doFormTemplates($checklist);
+        $checklist = Helper::doFormStaticCache($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
+
+        return true;
     }
 
     /**
      * Renders the page.
      */
-    public static function render()
+    public static function render(): void
     {
+        if (!self::$init) {
+            return;
+        }
+
         # Get interface setting
         $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
         $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
@@ -153,105 +164,105 @@ class adminSysinfo
         switch (dcCore::app()->admin->checklist) {
             case 'permissions':
                 // Affichage de la liste des types de permission enregistrés
-                echo libSysInfo::permissions();
+                echo Helper::permissions();
 
                 break;
 
             case 'rest':
                 // Affichage de la liste des méthodes REST
-                echo libSysInfo::restMethods();
+                echo Helper::restMethods();
 
                 break;
 
             case 'plugins':
                 // Affichage de la liste des plugins (et de leurs propriétés)
-                echo libSysInfo::plugins();
+                echo Helper::plugins();
 
                 break;
 
             case 'formaters':
                 // Affichage de la liste des éditeurs et des syntaxes par éditeur
-                echo libSysInfo::formaters();
+                echo Helper::formaters();
 
                 break;
 
             case 'constants':
                 // Affichage des constantes remarquables de Dotclear
-                echo libSysInfo::dcConstants();
+                echo Helper::dcConstants();
 
                 break;
 
             case 'folders':
                 // Affichage des dossiers remarquables de Dotclear
-                echo libSysInfo::folders();
+                echo Helper::folders();
 
                 break;
 
             case 'behaviours':
                 // Récupération des behaviours enregistrées
-                echo libSysInfo::behaviours();
+                echo Helper::behaviours();
 
                 break;
 
             case 'urlhandlers':
                 // Récupération des types d'URL enregistrées
-                echo libSysInfo::URLHandlers();
+                echo Helper::URLHandlers();
 
                 break;
 
             case 'adminurls':
                 // Récupération de la liste des URLs d'admin enregistrées
-                echo libSysInfo::adminURLs();
+                echo Helper::adminURLs();
 
                 break;
 
             case 'phpinfo':
                 // Get PHP Infos
-                echo libSysInfo::phpInfo();
+                echo Helper::phpInfo();
 
                 break;
 
             case 'templates':
                 // Get list of compiled template's files
-                echo libSysInfo::templates();
+                echo Helper::templates();
 
                 break;
 
             case 'tplpaths':
                 // Get list of template's paths
-                echo libSysInfo::tplPaths();
+                echo Helper::tplPaths();
 
                 break;
 
             case 'sc':
                 // Get list of existing cache files
-                echo libSysInfo::staticCache();
+                echo Helper::staticCache();
 
                 break;
 
             case 'dcrepo-plugins':
             case 'dcrepo-plugins-cache':
                 // Get list of available plugins
-                echo libSysInfo::repoPlugins(dcCore::app()->admin->checklist === 'dcrepo-plugins-cache');
+                echo Helper::repoPlugins(dcCore::app()->admin->checklist === 'dcrepo-plugins-cache');
 
                 break;
 
             case 'dcrepo-themes':
             case 'dcrepo-themes-cache':
                 // Get list of available themes
-                echo libSysInfo::repoThemes(dcCore::app()->admin->checklist === 'dcrepo-themes-cache');
+                echo Helper::repoThemes(dcCore::app()->admin->checklist === 'dcrepo-themes-cache');
 
                 break;
 
             case 'versions':
                 // Get list of module's versions
-                echo libSysInfo::versions();
+                echo Helper::versions();
 
                 break;
 
             default:
                 // Display PHP version and DB version
-                echo libSysInfo::quoteVersions();
+                echo Helper::quoteVersions();
 
                 break;
         }
@@ -261,7 +272,3 @@ class adminSysinfo
         '</html>';
     }
 }
-
-adminSysinfo::init();
-adminSysinfo::process();
-adminSysinfo::render();

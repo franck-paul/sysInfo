@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\SysInfo;
+namespace Dotclear\Plugin\sysInfo;
 
 // PHP ns
 use Exception;
@@ -40,7 +40,7 @@ use http;
 use path;
 use template;
 
-class libSysInfo
+class Helper
 {
     /**
      * Return list of registered versions (core, plugins, themes, …)
@@ -881,10 +881,10 @@ class libSysInfo
         // Dotclear info
         $dotclear = '<details open><summary>' . __('Dotclear info') . '</summary>' .
             '<ul>' .
-            '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>' .
-            '<li>' . __('Clearbricks version: ') . '<strong>' . CLEARBRICKS_VERSION . '</strong></li>' .
-            '</ul>' .
-            '</details>';
+            '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>';
+        '<li>' . __('Clearbricks version: ') . '<strong>' . CLEARBRICKS_VERSION . '</strong></li>' .
+        '</ul>' .
+        '</details>';
 
         // Update info
 
@@ -905,6 +905,9 @@ class libSysInfo
                                 '<li>' . __('checksum: ') . '<code>' . $content['checksum'] . '</code></li>' .
                                 '<li>' . __('info: ') . '<a href="' . $content['info'] . '">' . $content['info'] . '</a></li>' .
                                 '<li>' . __('PHP min: ') . '<strong>' . $content['php'] . '</strong></li>' .
+                                (isset($content['warning']) ?
+                                    '<li>' . __('Warning: ') . '<strong>' . ($content['warning'] ? __('Yes') : __('No')) . '</strong></li>' :
+                                    '') .
                                 '</ul></li>';
                         }
                     }
