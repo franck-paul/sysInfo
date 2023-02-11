@@ -348,7 +348,7 @@ msgid "Folders"
 msgstr "Dossiers et fichiers"
 
 msgid "Globals"
-msgstr ""
+msgstr "Variables globales"
 
 msgid "URL handlers"
 msgstr "Gestionnaires d'URL"
