@@ -16,13 +16,12 @@ namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
 use dcNsProcess;
-use path;
 
 class Install extends dcNsProcess
 {
     public static function init(): bool
     {
-        $module = basename(path::real(__DIR__ . DIRECTORY_SEPARATOR . '..'));
+        $module = basename(dirname(__DIR__));
         $check  = dcCore::app()->newVersion($module, dcCore::app()->plugins->moduleInfo($module, 'version'));
 
         self::$init = defined('DC_CONTEXT_ADMIN') && $check;

@@ -206,6 +206,66 @@ class Helper
     }
 
     /**
+     * Return list of global variables
+     *
+     * @return     string
+     */
+    public static function globals(): string
+    {
+        $max_length = 1024;
+
+        $variables = array_keys($GLOBALS);
+        dcUtils::lexicalSort($variables);
+
+        $deprecated = [
+            '__autoload'     => '2.23',
+            '__parent_theme' => '2.23',
+            '__resources'    => '2.23',
+            '__smilies'      => '2.23',
+            '__theme'        => '2.23',
+            '__widgets'      => '2.23',
+
+            '_ctx'          => '2.23',
+            '_lang'         => '2.23',
+            '_menu'         => '2.23',
+            '_page_number'  => '2.23',
+            '_search'       => '2.23',
+            '_search_count' => '2.23',
+
+            'core'      => '2.23',
+            'mod_files' => '2.23',
+            'mod_ts'    => '2.23',
+            'p_url'     => '2.23',
+        ];
+
+        $str = '<table id="chk-table-result" class="sysinfo">' .
+            '<caption>' . __('Global variables') . ' (' . sprintf('%d', is_countable($variables) ? count($variables) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<thead>' .
+            '<tr>' .
+            '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
+            '<th scope="col" class="maximal">' . __('Content') . '</th>' .
+            '</tr>' .
+            '</thead>' .
+            '<tbody>';
+        foreach ($variables as $variable) {
+            $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
+            if (in_array($variable, array_keys($deprecated))) {
+                $str .= '<td class="maximal deprecated">' . sprintf(__('*** deprecated since %s ***'), $deprecated[$variable]) . '</td>';
+            } else {
+                $content = print_r($GLOBALS[$variable], true);
+                if (mb_strlen($content) > $max_length) {
+                    $content = mb_substr($content, 0, $max_length) . ' …';
+                }
+                $str .= '<td class="maximal">' . $content . '</td>';
+            }
+            $str .= '</tr>';
+        }
+        $str .= '</tbody></table>';
+
+        return $str;
+    }
+
+    /**
      * Return list of registered permissions
      *
      * @return     string
@@ -1078,9 +1138,9 @@ class Helper
     {
         // Check generic Dotclear folders
         $folders = [
-            'root'    => DC_ROOT,
-            'config'  => DC_RC_PATH,
-            'cache'   => [
+            'root'   => DC_ROOT,
+            'config' => DC_RC_PATH,
+            'cache'  => [
                 DC_TPL_CACHE,
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'cbfeed',
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . template::CACHE_FOLDER,

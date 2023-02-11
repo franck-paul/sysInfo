@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-19 15:54+0100\n"
+"POT-Creation-Date: 2023-02-11 17:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -26,6 +26,18 @@ msgstr ""
 
 msgid "(empty)"
 msgstr "(vide)"
+
+msgid "Public behaviours list"
+msgstr "Liste des behaviours publiques"
+
+msgid "Template tags list"
+msgstr "Liste des balises template"
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Values"
+msgstr "Valeurs"
 
 msgid "List of versions registered in the database"
 msgstr "Liste des versions enregistrées dans la base de données"
@@ -65,6 +77,19 @@ msgstr "Les versions sélectionnées ont été supprimées."
 
 msgid "Versions have been updated."
 msgstr "Les versions ont été mise à jour."
+
+msgid "Global variables"
+msgstr "Variables globales"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Content"
+msgstr "Contenu"
+
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "*** dépréciée depuis la %s ***"
 
 msgid "Types of permission"
 msgstr "Types de permission"
@@ -125,9 +150,6 @@ msgstr "Expression régulière"
 
 msgid "Admin registered URLs"
 msgstr "URLs d'administration enregistrées"
-
-msgid "Name"
-msgstr "Nom"
 
 msgid "URL"
 msgstr "URL"
@@ -251,19 +273,28 @@ msgid "Channel: "
 msgstr "Canal : "
 
 msgid "version: "
-msgstr ""
+msgstr "Version : "
 
 msgid "href: "
-msgstr ""
+msgstr "URL de téléchargement : "
 
 msgid "checksum: "
-msgstr ""
+msgstr "Checksum :"
 
 msgid "info: "
-msgstr ""
+msgstr "URL d'information : "
 
 msgid "PHP min: "
-msgstr ""
+msgstr "PHP min : "
+
+msgid "No"
+msgstr "Aucun"
+
+msgid "Warning: "
+msgstr "Attention : "
+
+msgid "Yes"
+msgstr "Oui"
 
 msgid "Update info"
 msgstr "Infos de mise à jour"
@@ -304,18 +335,6 @@ msgstr "Liste des fichiers du cache statique dans"
 msgid "last update:"
 msgstr "dernière mise à jour :"
 
-msgid "Public behaviours list"
-msgstr "Liste des behaviours publiques"
-
-msgid "Template tags list"
-msgstr "Liste des balises template"
-
-msgid "Blocks"
-msgstr "Blocs"
-
-msgid "Values"
-msgstr "Valeurs"
-
 msgid "System"
 msgstr "Système"
 
@@ -327,6 +346,9 @@ msgstr "Constantes DC"
 
 msgid "Folders"
 msgstr "Dossiers et fichiers"
+
+msgid "Globals"
+msgstr ""
 
 msgid "URL handlers"
 msgstr "Gestionnaires d'URL"

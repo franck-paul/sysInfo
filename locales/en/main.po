@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-19 15:57+0100\n"
+"POT-Creation-Date: 2023-02-11 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,18 @@ msgid "…"
 msgstr ""
 
 msgid "(empty)"
+msgstr ""
+
+msgid "Public behaviours list"
+msgstr ""
+
+msgid "Template tags list"
+msgstr ""
+
+msgid "Blocks"
+msgstr ""
+
+msgid "Values"
 msgstr ""
 
 msgid "List of versions registered in the database"
@@ -68,6 +80,19 @@ msgid "Selected versions have been deleted."
 msgstr ""
 
 msgid "Versions have been updated."
+msgstr ""
+
+msgid "Global variables"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Content"
+msgstr ""
+
+#, php-format
+msgid "*** deprecated since %s ***"
 msgstr ""
 
 msgid "Types of permission"
@@ -128,9 +153,6 @@ msgid "Regular expression"
 msgstr ""
 
 msgid "Admin registered URLs"
-msgstr ""
-
-msgid "Name"
 msgstr ""
 
 msgid "URL"
@@ -269,6 +291,15 @@ msgstr ""
 msgid "PHP min: "
 msgstr ""
 
+msgid "No"
+msgstr ""
+
+msgid "Warning: "
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
 msgid "Update info"
 msgstr ""
 
@@ -308,18 +339,6 @@ msgstr ""
 msgid "last update:"
 msgstr ""
 
-msgid "Public behaviours list"
-msgstr ""
-
-msgid "Template tags list"
-msgstr ""
-
-msgid "Blocks"
-msgstr ""
-
-msgid "Values"
-msgstr ""
-
 msgid "System"
 msgstr ""
 
@@ -330,6 +349,9 @@ msgid "DC Constants"
 msgstr ""
 
 msgid "Folders"
+msgstr ""
+
+msgid "Globals"
 msgstr ""
 
 msgid "URL handlers"

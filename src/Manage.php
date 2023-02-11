@@ -29,26 +29,27 @@ class Manage extends dcNsProcess
     public static function init(): bool
     {
         $checklists = [
-            __('System')        => [
+            __('System') => [
                 __('Information')  => 'default',
                 __('PHP info')     => 'phpinfo',
                 __('DC Constants') => 'constants',
                 __('Folders')      => 'folders',
+                __('Globals')      => 'globals',
             ],
 
-            __('Core')          => [
+            __('Core') => [
                 __('URL handlers')        => 'urlhandlers',
                 __('Behaviours')          => 'behaviours',
                 __('Admin URLs')          => 'adminurls',
                 __('Types of permission') => 'permissions',
             ],
 
-            __('Templates')     => [
+            __('Templates') => [
                 __('Compiled templates') => 'templates',
                 __('Template paths')     => 'tplpaths',
             ],
 
-            __('Repositories')  => [
+            __('Repositories') => [
                 __('Plugins repository (cache)') => 'dcrepo-plugins-cache',
                 __('Plugins repository')         => 'dcrepo-plugins',
                 __('Themes repository (cache)')  => 'dcrepo-themes-cache',
@@ -162,6 +163,12 @@ class Manage extends dcNsProcess
 
         // Display required information
         switch (dcCore::app()->admin->checklist) {
+            case 'globals':
+                // Affichage de la liste des variables globales
+                echo Helper::globals();
+
+                break;
+
             case 'permissions':
                 // Affichage de la liste des types de permission enregistrés
                 echo Helper::permissions();
