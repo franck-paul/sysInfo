@@ -212,13 +212,15 @@ class Helper
      */
     public static function globals(): string
     {
-        $max_length = 1024;
+        $max_length = 1024 * 4;     // 4Kb max
 
         $variables = array_keys($GLOBALS);
         dcUtils::lexicalSort($variables);
 
         $deprecated = [
             '__autoload'     => '2.23',
+            '__l10n'         => '2.24',
+            '__l10n_files'   => '2.24',
             '__parent_theme' => '2.23',
             '__resources'    => '2.23',
             '__smilies'      => '2.23',
@@ -247,18 +249,37 @@ class Helper
             '</tr>' .
             '</thead>' .
             '<tbody>';
+        // First loop for non deprecated variables
         foreach ($variables as $variable) {
-            $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
-            if (in_array($variable, array_keys($deprecated))) {
-                $str .= '<td class="maximal deprecated">' . sprintf(__('*** deprecated since %s ***'), $deprecated[$variable]) . '</td>';
-            } else {
-                $content = print_r($GLOBALS[$variable], true);
-                if (mb_strlen($content) > $max_length) {
-                    $content = mb_substr($content, 0, $max_length) . ' …';
+            if (!in_array($variable, array_keys($deprecated))) {
+                $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
+                if (is_array($GLOBALS[$variable])) {
+                    $values = $GLOBALS[$variable];
+                    dcUtils::lexicalKeySort($values);
+                    $content = '<ul>';
+                    foreach ($values as $key => $value) {
+                        $type = ' (' . gettype($value) . ')';
+                        $type = '';     // All values are string
+                        $content .= '<li><strong>' . $key . '</strong> = ' . '<code>' . print_r($value, true) . '</code>' . $type . '</li>';
+                    }
+                    $content .= '</ul>';
+                } else {
+                    $content = print_r($GLOBALS[$variable], true);
+                    if (mb_strlen($content) > $max_length) {
+                        $content = mb_substr($content, 0, $max_length) . ' …';
+                    }
                 }
                 $str .= '<td class="maximal">' . $content . '</td>';
+                $str .= '</tr>';
             }
-            $str .= '</tr>';
+        }
+        // Second loop for deprecated variables
+        foreach ($variables as $variable) {
+            if (in_array($variable, array_keys($deprecated))) {
+                $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
+                $str .= '<td class="maximal deprecated">' . sprintf(__('*** deprecated since %s ***'), $deprecated[$variable]) . '</td>';
+                $str .= '</tr>';
+            }
         }
         $str .= '</tbody></table>';
 
