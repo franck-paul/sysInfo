@@ -1030,12 +1030,12 @@ class Helper
             dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme;
         }
         if (!dcCore::app()->themes->moduleExists(dcCore::app()->public->theme)) {
-            dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme = 'default';
+            dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme = DC_DEFAULT_THEME;
         }
         $tplset                             = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'tplset');
         dcCore::app()->public->parent_theme = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'parent');
         if (dcCore::app()->public->parent_theme && !dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
-            dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme = 'default';
+            dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme = DC_DEFAULT_THEME;
             dcCore::app()->public->parent_theme = null;
         }
         $tpl_path = [
