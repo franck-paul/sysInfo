@@ -51,7 +51,7 @@ class Helper
     {
         $versions    = dcCore::app()->getVersions();
         $distributed = explode(',', DC_DISTRIB_PLUGINS);
-        $paths       = explode(':', DC_PLUGINS_ROOT);
+        $paths       = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
 
         // Some plugins may have registered their version with a different case reprensetation of their name
         // which is not a very good idea, but we need to cope with legacy code ;-)
@@ -1050,7 +1050,7 @@ class Helper
         if (empty($tplset)) {
             $tplset = DC_DEFAULT_TPLSET;
         }
-        $main_plugins_root = explode(':', DC_PLUGINS_ROOT);
+        $main_plugins_root = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
         dcCore::app()->tpl->setPath(
             $tpl_path,
             $main_plugins_root[0] . '/../inc/public' . '/' . dcPublic::TPL_ROOT . '/' . $tplset,
@@ -1170,7 +1170,7 @@ class Helper
             ],
             'digest'  => DC_DIGESTS,
             'l10n'    => DC_L10N_ROOT,
-            'plugins' => explode(':', DC_PLUGINS_ROOT),
+            'plugins' => explode(PATH_SEPARATOR, DC_PLUGINS_ROOT),
             'public'  => dcCore::app()->blog->public_path,
             'themes'  => dcCore::app()->blog->themes_path,
             'var'     => DC_VAR,
