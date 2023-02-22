@@ -367,20 +367,38 @@ class Helper
         // Affichage de la liste des plugins (et de leurs propriétés)
         $plugins = dcCore::app()->plugins->getModules();
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Plugins (in loading order)') . ' (' . sprintf('%d', is_countable($plugins) ? count($plugins) : 0) . ')' . '</caption>' .  // @phpstan-ignore-line
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Plugin id') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Properties') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
+        $count = count($plugins) ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
+
+        $str = '<h3>' . __('Plugins (in loading order)') . $count . '</h3>';
+        $str .= '<details id="expand-all"><summary>' . __('Plugin id') . __(' (priority, name)') . '</summary></details>';
         foreach ($plugins as $id => $m) {
-            $str .= '<tr><td class="nowrap">' . $id . '</td><td class="maximal">';
-            $str .= '<pre class="sysinfo">' . print_r($m, true) . '</pre></td></tr>';
+            $info = sprintf(' (%d, %s)', $m['priority'] ?? 1000, $m['name'] ?? $id);
+            $str .= '<details id="p-' . $id . '"><summary>' . $id . $info . '</summary>';
+            $str .= '<ul>';
+            foreach ($m as $key => $val) {
+                $value = print_r($val, true);
+                if (in_array($key, ['requires','implies','cannot_enable','cannot_disable'])) {
+                    if (count($val) > 0) {
+                        $value = [];
+                        foreach ($val as $module) {
+                            if (is_array($module)) {
+                                $version = ' (' . $module[1] . ')';
+                                $module  = $module[0];
+                            } else {
+                                $version = '';
+                            }
+                            $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '"/>' . $module . '</a>') : 'Dotclear' . $version;
+                        }
+                        $value = implode(', ', $value);
+                    }
+                } elseif (in_array($key, ['support','details','repository'])) {
+                    $value = '<a href="' . $value . '"/>' . $value . '</a>';
+                }
+                $str .= '<li>' . $key . ' = ' . $value . '</li>';
+            }
+            $str .= '</ul>';
+            $str .= '</details>';
         }
-        $str .= '</tbody></table>';
 
         return $str;
     }
