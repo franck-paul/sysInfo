@@ -103,6 +103,7 @@ l10n::$locales['PHP min: '] = 'PHP min : ';
 l10n::$locales['No'] = 'Aucun';
 l10n::$locales['Warning: '] = 'Attention : ';
 l10n::$locales['Yes'] = 'Oui';
+l10n::$locales['(from versions cache)'] = '(depuis les versions en cache))';
 l10n::$locales['Update info'] = 'Infos de mise à jour';
 l10n::$locales['(see inc/config.php)'] = '(voir fichier inc/config.php)';
 l10n::$locales['seconds'] = 'secondes';

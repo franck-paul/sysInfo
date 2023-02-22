@@ -1022,7 +1022,7 @@ class Helper
             }
         }
         if ($versions !== '') {
-            $versions = '<details open><summary>' . __('Update info') . '</summary><ul>' . $versions . '</ul></details>';
+            $versions = '<details open><summary>' . __('Update info') . ' ' . __('(from versions cache)') . '</summary><ul>' . $versions . '</ul></details>';
         }
 
         return $server . $dotclear . $versions;

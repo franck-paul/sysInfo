@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 13:19+0100\n"
+"POT-Creation-Date: 2023-02-22 13:23+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -295,6 +295,9 @@ msgstr "Attention : "
 
 msgid "Yes"
 msgstr "Oui"
+
+msgid "(from versions cache)"
+msgstr "(depuis les versions en cache))"
 
 msgid "Update info"
 msgstr "Infos de mise à jour"
