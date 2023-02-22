@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 17:12+0100\n"
+"POT-Creation-Date: 2023-02-22 13:19+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -109,11 +109,11 @@ msgstr "Fonction de rappel"
 msgid "Plugins (in loading order)"
 msgstr "Plugins (dans l'ordre de chargement)"
 
+msgid " (priority, name)"
+msgstr " (priorité, nom)"
+
 msgid "Plugin id"
 msgstr "Identifiant du plugin"
-
-msgid "Properties"
-msgstr "Propriétés"
 
 msgid "Editors and their supported syntaxes"
 msgstr "Éditeurs et syntaxes supportées"
