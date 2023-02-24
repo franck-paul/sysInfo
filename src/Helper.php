@@ -1290,11 +1290,13 @@ class Helper
                 $filename = DC_ROOT . '/' . $m[2];
                 $count    = 0;
 
+                $md5_std    = '';
+                $md5_exp    = '';
+                $std_status = '';
+                $exp_status = '';
+
                 if (!is_readable($filename)) {
-                    $md5_std    = __('Not readable');
-                    $md5_exp    = '';
-                    $std_status = '';
-                    $exp_status = '';
+                    $md5_std = __('Not readable');
                 } else {
                     // Direct
                     $md5_std = md5_file($filename);
