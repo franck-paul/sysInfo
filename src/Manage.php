@@ -33,8 +33,9 @@ class Manage extends dcNsProcess
                 __('Information')  => 'default',
                 __('PHP info')     => 'phpinfo',
                 __('DC Constants') => 'constants',
-                __('Folders')      => 'folders',
                 __('Globals')      => 'globals',
+                __('Folders')      => 'folders',
+                __('Integrity')    => 'integrity',
             ],
 
             __('Core') => [
@@ -202,6 +203,12 @@ class Manage extends dcNsProcess
             case 'folders':
                 // Affichage des dossiers remarquables de Dotclear
                 echo Helper::folders();
+
+                break;
+
+            case 'integrity':
+                // Affichage du contrôle d'intégrité
+                echo Helper::integrity();
 
                 break;
 

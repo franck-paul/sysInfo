@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 13:23+0100\n"
+"POT-Creation-Date: 2023-02-24 16:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -324,6 +324,30 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
+msgid "Dotclear digest integrity"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "digest"
+msgstr ""
+
+msgid "md5"
+msgstr ""
+
+msgid "md5 (experimental)"
+msgstr ""
+
+msgid "Not readable"
+msgstr ""
+
+msgid "Everything is fine."
+msgstr ""
+
+msgid "Unable to read digests file."
+msgstr ""
+
 msgid "Static cache directory does not exists"
 msgstr ""
 
@@ -351,10 +375,13 @@ msgstr ""
 msgid "DC Constants"
 msgstr ""
 
+msgid "Globals"
+msgstr ""
+
 msgid "Folders"
 msgstr ""
 
-msgid "Globals"
+msgid "Integrity"
 msgstr ""
 
 msgid "URL handlers"
