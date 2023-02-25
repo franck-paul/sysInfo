@@ -372,8 +372,8 @@ class Helper
         $str = '<h3>' . __('Plugins (in loading order)') . $count . '</h3>';
         $str .= '<details id="expand-all"><summary>' . __('Plugin id') . __(' (priority, name)') . '</summary></details>';
         foreach ($plugins as $id => $m) {
-            $info = sprintf(' (%d, %s)', $m['priority'] ?? 1000, $m['name'] ?? $id);
-            $str .= '<details id="p-' . $id . '"><summary>' . $id . $info . '</summary>';
+            $info = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
+            $str .= '<details id="p-' . $id . '"><summary><strong>' . $id . '</strong>' . $info . '</summary>';
             $str .= '<ul>';
             foreach ($m as $key => $val) {
                 $value = print_r($val, true);
