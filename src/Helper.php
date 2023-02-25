@@ -1280,6 +1280,7 @@ class Helper
         if (is_readable($digests_file)) {
             $opts     = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
             $contents = file($digests_file, $opts);
+            $count    = 0;
 
             foreach ($contents as $digest) {
                 if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
@@ -1288,7 +1289,6 @@ class Helper
 
                 $md5      = $m[1];
                 $filename = DC_ROOT . '/' . $m[2];
-                $count    = 0;
 
                 $md5_std    = '';
                 $md5_exp    = '';
