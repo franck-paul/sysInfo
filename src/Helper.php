@@ -117,9 +117,13 @@ class Helper
                 $fp = fopen($file, 'wt');
 
                 // Begin HTML Document
+                $report = html::decodeEntities($_POST['htmlreport']);
+                $report = str_replace('<img src="images/check-on.png" />', '✅', $report, $count);
+                $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
+                $report = str_replace(DC_ROOT, '<code>DC_ROOT</code> ', $report);
                 fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
                     '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . dcCore::app()->blog->id . '</title></head><body>');
-                fwrite($fp, html::decodeEntities($_POST['htmlreport']));
+                fwrite($fp, html::decodeEntities($report));
                 fwrite($fp, '</body></html>');
                 fclose($fp);
 
@@ -1182,8 +1186,8 @@ class Helper
         );
 
         // Looking for dcPublic::TPL_ROOT in each plugin's dir
-        $plugins = dcCore::app()->plugins->getModules();
-        foreach ($plugins as $k => $v) {
+        $plugins = array_keys(dcCore::app()->plugins->getModules());
+        foreach ($plugins as $k) {
             $plugin_root = dcCore::app()->plugins->moduleInfo($k, 'root');
             if ($plugin_root) {
                 dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
