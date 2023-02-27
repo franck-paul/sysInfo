@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-24 16:00+0100\n"
+"POT-Creation-Date: 2023-02-27 09:05+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -38,6 +38,15 @@ msgstr "Blocs"
 
 msgid "Values"
 msgstr "Valeurs"
+
+msgid "Report"
+msgstr "Rapport"
+
+msgid "Download report"
+msgstr "Télécharger le rapport"
+
+msgid "Report empty"
+msgstr "Rapport vide"
 
 msgid "List of versions registered in the database"
 msgstr "Liste des versions enregistrées dans la base de données"
@@ -424,6 +433,9 @@ msgstr "Éditeurs et syntaxes"
 
 msgid "Versions"
 msgstr "Versions"
+
+msgid "Full report"
+msgstr "Rapport complet"
 
 msgid "3rd party"
 msgstr "Plugins tiers"

@@ -35,6 +35,7 @@ use formCheckbox;
 use formInput;
 use formSubmit;
 use form;
+use formHidden;
 use html;
 use http;
 use path;
@@ -42,6 +43,108 @@ use template;
 
 class Helper
 {
+    /**
+     * Display full report in a textarea, ready to copy'n'paste
+     *
+     * @return     string
+     */
+    public static function report(): string
+    {
+        // Capture everything
+        ob_start();
+
+        echo self::quoteVersions(false);
+
+        echo self::dcConstants();
+        echo self::folders();
+        echo self::globals();
+
+        echo self::URLHandlers();
+
+        echo self::tplPaths();
+
+        echo self::plugins();
+
+        // Get capture content
+        $buffer = ob_get_clean();
+
+        // Transform HTML to text
+
+        $form = '<h3>' . __('Report') . '</h3>' .
+
+        '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="report">' .
+        (new formSubmit('getreport', __('Download report')))->render() .
+        (new formHidden('htmlreport', html::escapeHTML($buffer)))->render() .
+        dcCore::app()->formNonce() .
+        '</form>' .
+
+        '<pre>' . $buffer . '</pre>';
+
+        return $form;
+    }
+
+    /**
+     * Cope with form versions action.
+     *
+     * @param      string     $checklist  The checklist
+     *
+     * @throws     Exception
+     *
+     * @return  string
+     */
+    public static function doReport(string $checklist): string
+    {
+        $nextlist = $checklist;
+        if (!empty($_POST['getreport'])) {
+            // Cope with report download
+            try {
+                if (empty($_POST['htmlreport'])) {
+                    throw new Exception(__('Report empty'));
+                }
+                $path = path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']));
+                if (!is_dir($path)) {
+                    files::makeDir($path, true);
+                }
+
+                $filename  = date('Y-m-d') . '-' . dcCore::app()->blog->id . '-report';
+                $extension = '.html';
+                $file      = implode(DIRECTORY_SEPARATOR, [$path, $filename . $extension]);
+
+                // Prepare report
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+                $fp = fopen($file, 'wt');
+
+                // Begin HTML Document
+                fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
+                    '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . dcCore::app()->blog->id . '</title></head><body>');
+                fwrite($fp, html::decodeEntities($_POST['htmlreport']));
+                fwrite($fp, '</body></html>');
+                fclose($fp);
+
+                // Download zip report
+                $zip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.zip']);
+                if (file_exists($zip)) {
+                    unlink($zip);
+                }
+                $a = new \PharData($zip, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::ZIP);
+                $a->addFile($file, $filename . $extension);
+
+                header('Content-Disposition: attachment;filename=' . $filename . '.zip');
+                header('Content-Type: application/x-zip');
+                readfile($zip);
+                unset($zip);
+                exit;
+            } catch (Exception $e) {
+                $checklist = 'report';
+                dcCore::app()->error->add($e->getMessage());
+            }
+        }
+
+        return $nextlist;
+    }
+
     /**
      * Return list of registered versions (core, plugins, themes, …)
      *
@@ -934,9 +1037,11 @@ class Helper
     /**
      * Return a quote and PHP and DB driver version
      *
+     * @param   bool    $quote include quote
+     *
      * @return     string
      */
-    public static function quoteVersions(): string
+    public static function quoteVersions(bool $quote = true): string
     {
         // Display a quote and PHP and DB version
         $quotes = [
@@ -972,7 +1077,7 @@ class Helper
         }
 
         // Server info
-        $server = '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' .
+        $server = ($quote ? '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' : '') .
             '<details open><summary>' . __('System info') . '</summary>' .
             '<ul>' .
             '<li>' . __('PHP Version: ') . '<strong>' . phpversion() . '</strong></li>' .
@@ -988,10 +1093,10 @@ class Helper
         // Dotclear info
         $dotclear = '<details open><summary>' . __('Dotclear info') . '</summary>' .
             '<ul>' .
-            '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>';
-        '<li>' . __('Clearbricks version: ') . '<strong>' . CLEARBRICKS_VERSION . '</strong></li>' .
-        '</ul>' .
-        '</details>';
+            '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>' .
+            '<li>' . __('Clearbricks version: ') . '<strong>' . CLEARBRICKS_VERSION . '</strong></li>' .
+            '</ul>' .
+            '</details>';
 
         // Update info
 
@@ -1015,7 +1120,8 @@ class Helper
                                 (isset($content['warning']) ?
                                     '<li>' . __('Warning: ') . '<strong>' . ($content['warning'] ? __('Yes') : __('No')) . '</strong></li>' :
                                     '') .
-                                '</ul></li>';
+                                '</ul>' .
+                                '</li>';
                         }
                     }
                 }

@@ -63,6 +63,10 @@ class Manage extends dcNsProcess
                 __('REST methods')         => 'rest',
                 __('Versions')             => 'versions',
             ],
+
+            __('Report') => [
+                __('Full report') => 'report',
+            ],
         ];
 
         if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR') && dcStaticCacheControl::cacheCurrentBlog()) {
@@ -79,6 +83,7 @@ class Manage extends dcNsProcess
         $checklist = Helper::doCheckVersions($checklist);
         $checklist = Helper::doCheckTemplates($checklist);
         $checklist = Helper::doCheckStaticCache($checklist);
+        $checklist = Helper::doReport($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
 
@@ -271,6 +276,11 @@ class Manage extends dcNsProcess
             case 'versions':
                 // Get list of module's versions
                 echo Helper::versions();
+
+                break;
+
+            case 'report':
+                echo Helper::report();
 
                 break;
 
