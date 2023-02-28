@@ -101,7 +101,7 @@ class Helper
                 if (empty($_POST['htmlreport'])) {
                     throw new Exception(__('Report empty'));
                 }
-                $path = path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']));
+                $path = path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']), false);
                 if (!is_dir($path)) {
                     files::makeDir($path, true);
                 }
