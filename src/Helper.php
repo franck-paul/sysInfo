@@ -28,14 +28,14 @@ use dcTemplate;
 use dcThemes;
 use dcUpdateStatement;
 use dcUtils;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Hidden;
+use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Submit;
 
 // Clearbricks ns
 use files;
-use formCheckbox;
-use formInput;
-use formSubmit;
-use form;
-use formHidden;
 use html;
 use http;
 use path;
@@ -72,11 +72,16 @@ class Helper
 
         $form = '<h3>' . __('Report') . '</h3>' .
 
-        '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="report">' .
-        (new formSubmit('getreport', __('Download report')))->render() .
-        (new formHidden('htmlreport', html::escapeHTML($buffer)))->render() .
-        dcCore::app()->formNonce() .
-        '</form>' .
+        (new Form('report'))
+            ->action(dcCore::app()->admin->getPageURL())
+            ->method('post')
+            ->fields([
+                (new Submit(['getreport']))
+                    ->value(__('Download report')),
+                (new Hidden(['htmlreport']))
+                    ->value(html::escapeHTML($buffer)),
+                dcCore::app()->formNonce(false),
+            ])->render() .
 
         '<pre>' . $buffer . '</pre>';
 
@@ -128,17 +133,24 @@ class Helper
                 fclose($fp);
 
                 // Download zip report
-                $zip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.zip']);
-                if (file_exists($zip)) {
-                    unlink($zip);
+                $gzip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar.gz']);
+                if (file_exists($gzip)) {
+                    unlink($gzip);
                 }
-                $a = new \PharData($zip, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::ZIP);
+                $tar = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar']);
+                if (file_exists($tar)) {
+                    unlink($tar);
+                }
+                $a = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
                 $a->addFile($file, $filename . $extension);
+                $a->compress(\Phar::GZ);
+                unlink($tar);
+                unlink($file);
 
-                header('Content-Disposition: attachment;filename=' . $filename . '.zip');
-                header('Content-Type: application/x-zip');
-                readfile($zip);
-                unset($zip);
+                header('Content-Disposition: attachment;filename=' . $filename . '.tar.gz');
+                header('Content-Type: application/x-gzip');
+                readfile($gzip);
+
                 exit;
             } catch (Exception $e) {
                 $checklist = 'report';
@@ -184,8 +196,8 @@ class Helper
             $status   = [];
             $class    = [];
             $name     = $module;
-            $checkbox = (new formCheckbox(['ver[]'], false))->value($module);
-            $input    = (new formInput(['m[' . $module . ']']))->value($version);
+            $checkbox = (new Checkbox(['ver[]'], false))->value($module);
+            $input    = (new Input(['m[' . $module . ']']))->value($version);
 
             if ($module === 'core') {
                 $class[]  = 'version-core';
@@ -236,8 +248,8 @@ class Helper
             '<p class="col checkboxes-helpers"></p>' .
             '<p class="col right">' .
             dcCore::app()->formNonce() .
-            (new formSubmit('updveraction', __('Update versions')))->render() . ' ' .
-            (new formSubmit('delveraction', __('Delete selected versions')))->class('delete')->render() .
+            (new Submit('updveraction', __('Update versions')))->render() . ' ' .
+            (new Submit('delveraction', __('Delete selected versions')))->class('delete')->render() .
             '</p>' .
             '</div>' .
             '</form>';
@@ -833,7 +845,7 @@ class Helper
                             '<td class="nowrap">' . $file . '</td>' .
                             '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                             '<td class="nowrap">' .
-                            form::checkbox(
+                            \form::checkbox(
                                 ['tpl[]'],
                                 $cache_file,
                                 false,
@@ -1523,7 +1535,7 @@ class Helper
         // Add a static cache URL convertor
         $str = '<p class="fieldset">' .
             '<label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
-            form::field('sccalc_url', 50, 255, html::escapeHTML(dcCore::app()->blog->url)) . ' ' .
+            \form::field('sccalc_url', 50, 255, html::escapeHTML(dcCore::app()->blog->url)) . ' ' .
             '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '" />' .
             ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
             '</p>';

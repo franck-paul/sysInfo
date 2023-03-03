@@ -18,8 +18,11 @@ use dcCore;
 use dcNsProcess;
 use dcPage;
 use dcStaticCacheControl;
-
-use form;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Select;
+use Dotclear\Helper\Html\Form\Submit;
 
 class Manage extends dcNsProcess
 {
@@ -126,11 +129,7 @@ class Manage extends dcNsProcess
         $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
         $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
 
-        echo
-        '<html>' .
-        '<head>' .
-        '<title>' . __('System Information') . '</title>' .
-        dcPage::cssModuleLoad('sysInfo/css/sysinfo.css', 'screen', dcCore::app()->getVersion('sysInfo')) .
+        $head = dcPage::cssModuleLoad('sysInfo/css/sysinfo.css', 'screen', dcCore::app()->getVersion('sysInfo')) .
         dcPage::jsJson('sysinfo', [
             'colorsyntax'       => $user_ui_colorsyntax,
             'colorsyntax_theme' => $user_ui_colorsyntax_theme,
@@ -145,14 +144,12 @@ class Manage extends dcNsProcess
         dcPage::jsModal() .
         dcPage::jsModuleLoad('sysInfo/js/sysinfo.js', dcCore::app()->getVersion('sysInfo'));
         if ($user_ui_colorsyntax) {
-            echo
-            dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
+            $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
 
-        echo
-        '</head>' .
-        '<body>' .
-        dcPage::breadcrumb(
+        dcPage::openModule(__('System Information'), $head);
+
+        echo dcPage::breadcrumb(
             [
                 __('System')             => '',
                 __('System Information') => '',
@@ -161,11 +158,25 @@ class Manage extends dcNsProcess
         dcPage::notices();
 
         echo
-            '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-            '<p class="field"><label for="checklist">' . __('Select a checklist:') . '</label> ' .
-            form::combo('checklist', dcCore::app()->admin->checklists, dcCore::app()->admin->checklist) . ' ' .
-            dcCore::app()->formNonce() . '<input type="submit" value="' . __('Check') . '" /></p>' .
-            '</form>';
+        (new Form('frmchecklist'))
+            ->action(dcCore::app()->admin->getPageURL())
+            ->method('post')
+            ->fields([
+                (new Para())
+                    ->separator(' ')
+                    ->class('field')
+                    ->items([
+                        (new Label(__('Select a checklist:')))
+                            ->for('checklist'),
+                        (new Select('checklist'))
+                            ->items(dcCore::app()->admin->checklists)
+                            ->default(dcCore::app()->admin->checklist),
+                        (new Submit(['frmsubmit']))
+                            ->value(__('Check')),
+                        dcCore::app()->formNonce(false),
+                    ]),
+            ])
+            ->render();
 
         // Display required information
         switch (dcCore::app()->admin->checklist) {
@@ -291,8 +302,6 @@ class Manage extends dcNsProcess
                 break;
         }
 
-        echo
-        '</body>' .
-        '</html>';
+        dcPage::closeModule();
     }
 }
