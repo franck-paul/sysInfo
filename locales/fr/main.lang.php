@@ -94,6 +94,7 @@ l10n::$locales['version'] = 'version';
 l10n::$locales['using <strong>%s</strong> syntax'] = 'avec la syntaxe <strong>%s</strong>';
 l10n::$locales['Error reporting: '] = 'Niveau de rapport d\'erreur PHP : ';
 l10n::$locales['PHP Cache: '] = 'Cache PHP : ';
+l10n::$locales['Temporary folder: '] = 'Dossier temporaire : ';
 l10n::$locales['Dotclear info'] = 'Infos Dotclear';
 l10n::$locales['Dotclear version: '] = 'Version de Dotclear : ';
 l10n::$locales['Clearbricks version: '] = 'Version de Clearbricks : ';

@@ -1103,6 +1103,7 @@ class Helper
                 sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
             '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
             '<li>' . __('PHP Cache: ') . '<strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
+            '<li>' . __('Temporary folder: ') . '<strong>' . sys_get_temp_dir() . '</strong></li>' .
             '</ul>' .
             '</details>';
 
