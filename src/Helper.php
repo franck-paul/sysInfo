@@ -486,7 +486,7 @@ class Helper
         // Affichage de la liste des plugins (et de leurs propriétés)
         $plugins = dcCore::app()->plugins->getModules();
 
-        $count = count($plugins) ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
+        $count = count($plugins) ? ' (' . sprintf('%d', is_countable($plugins) ? count($plugins) : 0) . ')' : '';
 
         $str = '<h3>' . __('Plugins (in loading order)') . $count . '</h3>';
         $str .= '<details id="expand-all"><summary>' . __('Plugin id') . __(' (priority, name)') . '</summary></details>';
@@ -497,7 +497,7 @@ class Helper
             foreach ($m as $key => $val) {
                 $value = print_r($val, true);
                 if (in_array($key, ['requires','implies','cannot_enable','cannot_disable'])) {
-                    if (count($val) > 0) {
+                    if ((is_countable($val) ? count($val) : 0) > 0) {
                         $value = [];
                         foreach ($val as $module) {
                             if (is_array($module)) {
