@@ -490,9 +490,9 @@ class Helper
             $info = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
             $str .= '<details id="p-' . $id . '"><summary><strong>' . $id . '</strong>' . $info . '</summary>';
             $str .= '<ul>';
-            foreach ($m as $key => $val) {
+            foreach ($m as $key => $val) {  // @phpstan-ignore-line
                 $value = print_r($val, true);
-                if (in_array($key, ['requires','implies','cannot_enable','cannot_disable'])) {
+                if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'])) {
                     if ((is_countable($val) ? count($val) : 0) > 0) {
                         $value = [];
                         foreach ($val as $module) {
@@ -506,7 +506,7 @@ class Helper
                         }
                         $value = implode(', ', $value);
                     }
-                } elseif (in_array($key, ['support','details','repository'])) {
+                } elseif (in_array($key, ['support', 'details', 'repository'])) {
                     $value = '<a href="' . $value . '"/>' . $value . '</a>';
                 }
                 $str .= '<li>' . $key . ' = ' . $value . '</li>';
