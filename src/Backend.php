@@ -24,17 +24,17 @@ class Backend extends dcNsProcess
 {
     public static function init(): bool
     {
-        self::$init = defined('DC_CONTEXT_ADMIN');
+        static::$init = defined('DC_CONTEXT_ADMIN');
 
         // dead but useful code, in order to have translations
         __('sysInfo') . __('System Information');
 
-        return self::$init;
+        return static::$init;
     }
 
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 

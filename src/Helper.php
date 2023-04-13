@@ -14,32 +14,28 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-// PHP ns
-use Exception;
-
-// Dotclear ns
 use dcCore;
-use dcDeleteStatement;
+use dcModuleDefine;
 use dcPage;
 use dcPublic;
 use dcStaticCache;
 use dcStoreReader;
 use dcTemplate;
 use dcThemes;
-use dcUpdateStatement;
 use dcUtils;
-
-// Clearbricks ns
-use files;
-use formCheckbox;
-use formInput;
-use formSubmit;
-use form;
-use formHidden;
-use html;
-use http;
-use path;
-use template;
+use Dotclear\Database\Statement\DeleteStatement;
+use Dotclear\Database\Statement\UpdateStatement;
+use Dotclear\Helper\File\Files;
+use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Hidden;
+use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Html\Template\Template;
+use Dotclear\Helper\Network\Http;
+use Exception;
 
 class Helper
 {
@@ -72,11 +68,16 @@ class Helper
 
         $form = '<h3>' . __('Report') . '</h3>' .
 
-        '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="report">' .
-        (new formSubmit('getreport', __('Download report')))->render() .
-        (new formHidden('htmlreport', html::escapeHTML($buffer)))->render() .
-        dcCore::app()->formNonce() .
-        '</form>' .
+        (new Form('report'))
+            ->action(dcCore::app()->admin->getPageURL())
+            ->method('post')
+            ->fields([
+                (new Submit(['getreport']))
+                    ->value(__('Download report')),
+                (new Hidden(['htmlreport']))
+                    ->value(Html::escapeHTML($buffer)),
+                dcCore::app()->formNonce(false),
+            ])->render() .
 
         '<pre>' . $buffer . '</pre>';
 
@@ -101,9 +102,9 @@ class Helper
                 if (empty($_POST['htmlreport'])) {
                     throw new Exception(__('Report empty'));
                 }
-                $path = path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']), false);
+                $path = Path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']), false);
                 if (!is_dir($path)) {
-                    files::makeDir($path, true);
+                    Files::makeDir($path, true);
                 }
 
                 $filename  = date('Y-m-d') . '-' . dcCore::app()->blog->id . '-report';
@@ -117,28 +118,35 @@ class Helper
                 $fp = fopen($file, 'wt');
 
                 // Begin HTML Document
-                $report = html::decodeEntities($_POST['htmlreport']);
+                $report = Html::decodeEntities($_POST['htmlreport']);
                 $report = str_replace('<img src="images/check-on.png" />', '✅', $report, $count);
                 $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
                 $report = str_replace(DC_ROOT, '<code>DC_ROOT</code> ', $report);
                 fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
                     '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . dcCore::app()->blog->id . '</title></head><body>');
-                fwrite($fp, html::decodeEntities($report));
+                fwrite($fp, Html::decodeEntities($report));
                 fwrite($fp, '</body></html>');
                 fclose($fp);
 
                 // Download zip report
-                $zip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.zip']);
-                if (file_exists($zip)) {
-                    unlink($zip);
+                $gzip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar.gz']);
+                if (file_exists($gzip)) {
+                    unlink($gzip);
                 }
-                $a = new \PharData($zip, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::ZIP);
+                $tar = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar']);
+                if (file_exists($tar)) {
+                    unlink($tar);
+                }
+                $a = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
                 $a->addFile($file, $filename . $extension);
+                $a->compress(\Phar::GZ);
+                unlink($tar);
+                unlink($file);
 
-                header('Content-Disposition: attachment;filename=' . $filename . '.zip');
-                header('Content-Type: application/x-zip');
-                readfile($zip);
-                unset($zip);
+                header('Content-Disposition: attachment;filename=' . $filename . '.tar.gz');
+                header('Content-Type: application/x-gzip');
+                readfile($gzip);
+
                 exit;
             } catch (Exception $e) {
                 $checklist = 'report';
@@ -184,8 +192,8 @@ class Helper
             $status   = [];
             $class    = [];
             $name     = $module;
-            $checkbox = (new formCheckbox(['ver[]'], false))->value($module);
-            $input    = (new formInput(['m[' . $module . ']']))->value($version);
+            $checkbox = (new Checkbox(['ver[]'], false))->value($module);
+            $input    = (new Input(['m[' . $module . ']']))->value($version);
 
             if ($module === 'core') {
                 $class[]  = 'version-core';
@@ -236,8 +244,8 @@ class Helper
             '<p class="col checkboxes-helpers"></p>' .
             '<p class="col right">' .
             dcCore::app()->formNonce() .
-            (new formSubmit('updveraction', __('Update versions')))->render() . ' ' .
-            (new formSubmit('delveraction', __('Delete selected versions')))->class('delete')->render() .
+            (new Submit('updveraction', __('Update versions')))->render() . ' ' .
+            (new Submit('delveraction', __('Delete selected versions')))->class('delete')->render() .
             '</p>' .
             '</div>' .
             '</form>';
@@ -267,7 +275,7 @@ class Helper
                 foreach ($_POST['ver'] as $v) {
                     $list[] = $v;
                 }
-                $sql = new dcDeleteStatement();
+                $sql = new DeleteStatement();
                 $sql
                     ->from(dcCore::app()->prefix . dcCore::VERSION_TABLE_NAME)
                     ->where('module' . $sql->in($list));
@@ -278,14 +286,14 @@ class Helper
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected versions have been deleted.'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
             }
         }
 
         if (!empty($_POST['updveraction'])) {
             // Cope with versions update
             try {
-                $sql = new dcUpdateStatement();
+                $sql = new UpdateStatement();
                 $sql
                     ->ref(dcCore::app()->prefix . dcCore::VERSION_TABLE_NAME);
                 foreach ($_POST['m'] as $module => $version) {
@@ -300,7 +308,7 @@ class Helper
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Versions have been updated.'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
             }
         }
 
@@ -472,7 +480,7 @@ class Helper
     public static function plugins(): string
     {
         // Affichage de la liste des plugins (et de leurs propriétés)
-        $plugins = dcCore::app()->plugins->getModules();
+        $plugins = dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true);
 
         $count = count($plugins) ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
 
@@ -482,10 +490,10 @@ class Helper
             $info = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
             $str .= '<details id="p-' . $id . '"><summary><strong>' . $id . '</strong>' . $info . '</summary>';
             $str .= '<ul>';
-            foreach ($m as $key => $val) {
+            foreach ($m as $key => $val) {  // @phpstan-ignore-line
                 $value = print_r($val, true);
-                if (in_array($key, ['requires','implies','cannot_enable','cannot_disable'])) {
-                    if (count($val) > 0) {
+                if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'])) {
+                    if ((is_countable($val) ? count($val) : 0) > 0) {
                         $value = [];
                         foreach ($val as $module) {
                             if (is_array($module)) {
@@ -498,7 +506,7 @@ class Helper
                         }
                         $value = implode(', ', $value);
                     }
-                } elseif (in_array($key, ['support','details','repository'])) {
+                } elseif (in_array($key, ['support', 'details', 'repository'])) {
                     $value = '<a href="' . $value . '"/>' . $value . '</a>';
                 }
                 $str .= '<li>' . $key . ' = ' . $value . '</li>';
@@ -769,7 +777,7 @@ class Helper
         $tplset = self::publicPrepend();
 
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
-        $cache_path    = path::real(DC_TPL_CACHE);
+        $cache_path    = Path::real(DC_TPL_CACHE);
         if (substr($cache_path, 0, strlen($document_root)) == $document_root) {
             $cache_path = substr($cache_path, strlen($document_root));
         } elseif (substr($cache_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
@@ -788,7 +796,7 @@ class Helper
 
         $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="tplform">' .
             '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . '</caption>' .
+            '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Template path') . '</th>' .
@@ -803,7 +811,7 @@ class Helper
         $stack = [];
         // Loop on template paths
         foreach ($paths as $path) {
-            $sub_path = path::real($path, false);
+            $sub_path = Path::real($path, false);
             if (substr($sub_path, 0, strlen($document_root)) == $document_root) {
                 $sub_path = substr($sub_path, strlen($document_root));
                 if (substr($sub_path, 0, 1) == '/') {
@@ -817,15 +825,15 @@ class Helper
             }
             $path_displayed = false;
             // Don't know exactly why but need to cope with */dcPublic::TPL_ROOT !
-            $md5_path = (!strstr($path, '/' . dcPublic::TPL_ROOT . '/' . $tplset) ? $path : path::real($path));
-            $files    = files::scandir($path);
+            $md5_path = (!strstr($path, '/' . dcPublic::TPL_ROOT . '/' . $tplset) ? $path : Path::real($path));
+            $files    = Files::scandir($path);
             if (is_array($files)) {
                 foreach ($files as $file) {
                     if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
                         $stack[]        = $file;
                         $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
                         $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
-                        $cache_fullpath = path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
+                        $cache_fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
                         $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                         $file_exists    = file_exists($file_check);
                         $str .= '<tr>' .
@@ -833,7 +841,7 @@ class Helper
                             '<td class="nowrap">' . $file . '</td>' .
                             '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                             '<td class="nowrap">' .
-                            form::checkbox(
+                            \form::checkbox(
                                 ['tpl[]'],
                                 $cache_file,
                                 false,
@@ -880,7 +888,7 @@ class Helper
                 if (empty($_POST['tpl'])) {
                     throw new Exception(__('No cache file selected'));
                 }
-                $root_cache = path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
+                $root_cache = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
                 foreach ($_POST['tpl'] as $v) {
                     $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($v, 0, 2), substr($v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
                     if (file_exists($cache_file)) {
@@ -893,7 +901,7 @@ class Helper
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&tpl=1');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&tpl=1');
             }
         }
 
@@ -925,7 +933,7 @@ class Helper
             '</thead>' .
             '<tbody>';
         foreach ($paths as $path) {
-            $sub_path = path::real($path, false);
+            $sub_path = Path::real($path, false);
             if (substr($sub_path, 0, strlen($document_root)) == $document_root) {
                 $sub_path = substr($sub_path, strlen($document_root));
                 if (substr($sub_path, 0, 1) == '/') {
@@ -958,7 +966,7 @@ class Helper
      */
     private static function repoModules(bool $use_cache, string $url, string $title, string $label): string
     {
-        $cache_path = path::real(DC_TPL_CACHE);
+        $cache_path = Path::real(DC_TPL_CACHE);
         $xml_url    = $url;
         $in_cache   = false;
 
@@ -1091,6 +1099,7 @@ class Helper
                 sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
             '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
             '<li>' . __('PHP Cache: ') . '<strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
+            '<li>' . __('Temporary folder: ') . '<strong>' . sys_get_temp_dir() . '</strong></li>' .
             '</ul>' .
             '</details>';
 
@@ -1105,7 +1114,7 @@ class Helper
         // Update info
 
         $versions = '';
-        $path     = path::real(DC_TPL_CACHE . '/versions');
+        $path     = Path::real(DC_TPL_CACHE . '/versions');
         if ($path && is_dir($path)) {
             $channels = ['stable', 'testing', 'unstable'];
             foreach ($channels as $channel) {
@@ -1252,6 +1261,7 @@ class Helper
             'DC_PLUGINS_ROOT'         => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
             'DC_QUERY_TIMEOUT'        => defined('DC_QUERY_TIMEOUT') ? DC_QUERY_TIMEOUT . ' ' . __('seconds') : $undefined,
             'DC_RC_PATH'              => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
+            'DC_REST_SERVICES'        => defined('DC_REST_SERVICES') ? (DC_REST_SERVICES ? 'true' : 'false') : $undefined,
             'DC_ROOT'                 => defined('DC_ROOT') ? DC_ROOT : $undefined,
             'DC_SESSION_NAME'         => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
             'DC_SESSION_TTL'          => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
@@ -1260,6 +1270,7 @@ class Helper
             'DC_TPL_CACHE'            => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
             'DC_UPDATE_URL'           => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
             'DC_UPDATE_VERSION'       => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
+            'DC_UPGRADE'              => defined('DC_UPGRADE') ? DC_UPGRADE : $undefined,
             'DC_VAR'                  => defined('DC_VAR') ? DC_VAR : $undefined,
             'DC_VENDOR_NAME'          => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
             'DC_VERSION'              => defined('DC_VERSION') ? DC_VERSION : $undefined,
@@ -1292,7 +1303,7 @@ class Helper
             'cache'  => [
                 DC_TPL_CACHE,
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'cbfeed',
-                DC_TPL_CACHE . DIRECTORY_SEPARATOR . template::CACHE_FOLDER,
+                DC_TPL_CACHE . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER,
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'dcrepo',
                 DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'versions',
             ],
@@ -1320,7 +1331,7 @@ class Helper
             }
             foreach ($subfolder as $folder) {
                 $err = '';
-                if ($path = path::real($folder)) {
+                if ($path = Path::real($folder)) {
                     $writable = is_writable($path);
                     $touch    = true;
                     if ($writable && is_dir($path)) {
@@ -1330,9 +1341,9 @@ class Helper
                         try {
                             $void  = $path . (substr($path, -1) === DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . 'tmp-' . str_shuffle(MD5(microtime()));
                             $touch = false;
-                            files::putContent($void, '');
+                            Files::putContent($void, '');
                             if (file_exists($void)) {
-                                files::inheritChmod($void);
+                                Files::inheritChmod($void);
                                 unlink($void);
                                 $touch = true;
                             }
@@ -1505,8 +1516,8 @@ class Helper
         if (substr($blog_host, -1) != '/') {
             $blog_host .= '/';
         }
-        $cache_dir = path::real(DC_SC_CACHE_DIR, false);
-        $cache_key = md5(http::getHostFromURL($blog_host));
+        $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
+        $cache_key = md5(Http::getHostFromURL($blog_host));
         $cache     = new dcStaticCache(DC_SC_CACHE_DIR, $cache_key);
         $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
@@ -1523,7 +1534,7 @@ class Helper
         // Add a static cache URL convertor
         $str = '<p class="fieldset">' .
             '<label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
-            form::field('sccalc_url', 50, 255, html::escapeHTML(dcCore::app()->blog->url)) . ' ' .
+            \form::field('sccalc_url', 50, 255, Html::escapeHTML(dcCore::app()->blog->url)) . ' ' .
             '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '" />' .
             ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
             '</p>';
@@ -1542,7 +1553,7 @@ class Helper
             '</thead>';
         $str .= '<tbody>';
 
-        $files = files::scandir($cache_dir);
+        $files = Files::scandir($cache_dir);
         if (is_array($files)) {
             foreach ($files as $file) {
                 if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
@@ -1600,7 +1611,7 @@ class Helper
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&sc=1');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&sc=1');
             }
         }
 

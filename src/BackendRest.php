@@ -15,14 +15,13 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
-
-use files;
+use Dotclear\Helper\File\Files;
+use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Html\Template\Template;
+use Dotclear\Helper\Html\XmlTag;
+use Dotclear\Helper\Network\Http;
 use form;
-use html;
-use http;
-use path;
-use template;
-use xmlTag;
 
 class BackendRest
 {
@@ -30,14 +29,14 @@ class BackendRest
     {
         // Return compiled template file content
         $file    = !empty($get['file']) ? $get['file'] : '';
-        $rsp     = new xmlTag('sysinfo');
+        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
 
         if ($file != '') {
             // Load content of compiled template file (if exist and if is readable)
             $subpath  = sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($file, 0, 2), substr($file, 2, 2));
-            $fullpath = path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
+            $fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
             if (file_exists($fullpath) && is_readable($fullpath)) {
                 $content = file_get_contents($fullpath);
                 $ret     = true;
@@ -48,7 +47,7 @@ class BackendRest
         // Escape file content (in order to avoid further parsing error)
         // JSON encode to preserve UTF-8 encoding
         // Base 64 encoding to preserve line breaks
-        $rsp->msg = base64_encode(json_encode(html::escapeHTML($content), JSON_THROW_ON_ERROR));
+        $rsp->msg = base64_encode(json_encode(Html::escapeHTML($content), JSON_THROW_ON_ERROR));
 
         return $rsp;
     }
@@ -57,7 +56,7 @@ class BackendRest
     {
         // Return list of folders in a given cache folder
         $root    = !empty($get['root']) ? $get['root'] : '';
-        $rsp     = new xmlTag('sysinfo');
+        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
@@ -67,14 +66,14 @@ class BackendRest
             if (substr($blog_host, -1) != '/') {
                 $blog_host .= '/';
             }
-            $cache_dir = path::real(DC_SC_CACHE_DIR, false);
-            $cache_key = md5(http::getHostFromURL($blog_host));
+            $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
+            $cache_key = md5(Http::getHostFromURL($blog_host));
 
             $k         = str_split($cache_key, 2);
             $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
             if (is_dir($cache_dir) && is_readable($cache_dir)) {
-                $files = files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
+                $files = Files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
                 if (is_array($files)) {
                     foreach ($files as $file) {
                         if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
@@ -106,7 +105,7 @@ class BackendRest
     {
         // Return list of folders and files in a given folder
         $root    = !empty($get['root']) ? $get['root'] : '';
-        $rsp     = new xmlTag('sysinfo');
+        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
@@ -116,8 +115,8 @@ class BackendRest
             if (substr($blog_host, -1) != '/') {
                 $blog_host .= '/';
             }
-            $cache_dir = path::real(DC_SC_CACHE_DIR, false);
-            $cache_key = md5(http::getHostFromURL($blog_host));
+            $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
+            $cache_key = md5(Http::getHostFromURL($blog_host));
 
             if (is_dir($cache_dir) && is_readable($cache_dir)) {
                 $k         = str_split($cache_key, 2);
@@ -126,7 +125,7 @@ class BackendRest
                 $dirs = [$cache_dir . DIRECTORY_SEPARATOR . $root];
                 do {
                     $dir   = array_shift($dirs);
-                    $files = files::scandir($dir);
+                    $files = Files::scandir($dir);
                     if (is_array($files)) {
                         foreach ($files as $file) {
                             if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
@@ -175,7 +174,7 @@ class BackendRest
     {
         // Return static cache filename from a given URL
         $url     = !empty($get['url']) ? $get['url'] : '';
-        $rsp     = new xmlTag('sysinfo');
+        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
 
@@ -200,7 +199,7 @@ class BackendRest
     {
         // Return compiled static cache file content
         $file    = !empty($get['file']) ? $get['file'] : '';
-        $rsp     = new xmlTag('sysinfo');
+        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
 
@@ -213,7 +212,7 @@ class BackendRest
         // Escape file content (in order to avoid further parsing error)
         // JSON encode to preserve UTF-8 encoding
         // Base 64 encoding to preserve line breaks
-        $rsp->msg = base64_encode(json_encode(html::escapeHTML($content), JSON_THROW_ON_ERROR));
+        $rsp->msg = base64_encode(json_encode(Html::escapeHTML($content), JSON_THROW_ON_ERROR));
 
         return $rsp;
     }
