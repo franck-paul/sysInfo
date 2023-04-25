@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-13 18:27+0200\n"
+"POT-Creation-Date: 2023-04-25 16:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,24 @@ msgstr ""
 msgid "Report empty"
 msgstr ""
 
+msgid "Properties:"
+msgstr ""
+
+msgid "Empty"
+msgstr ""
+
+msgid "Root prefix:"
+msgstr ""
+
+msgid "Root basedir:"
+msgstr ""
+
+msgid "Namespaces"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
 msgid "List of versions registered in the database"
 msgstr ""
 
@@ -92,9 +110,6 @@ msgid "Versions have been updated."
 msgstr ""
 
 msgid "Global variables"
-msgstr ""
-
-msgid "Name"
 msgstr ""
 
 msgid "Content"
@@ -394,6 +409,9 @@ msgid "Folders"
 msgstr ""
 
 msgid "Integrity"
+msgstr ""
+
+msgid "Autoloader"
 msgstr ""
 
 msgid "URL handlers"

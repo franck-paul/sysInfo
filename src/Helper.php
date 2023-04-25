@@ -23,6 +23,7 @@ use dcStoreReader;
 use dcTemplate;
 use dcThemes;
 use dcUtils;
+use Dotclear\App;
 use Dotclear\Database\Statement\DeleteStatement;
 use Dotclear\Database\Statement\UpdateStatement;
 use Dotclear\Helper\File\Files;
@@ -155,6 +156,42 @@ class Helper
         }
 
         return $nextlist;
+    }
+
+    /**
+     * Return autoloader infos
+     *
+     * @return     string  ( description_of_the_return_value )
+     */
+    public static function autoloader(): string
+    {
+        $autoloader = App::autoload();
+        $ns         = array_keys($autoloader->getNamespaces());
+
+        $str = '<p>' . __('Properties:') . '</p>' .
+            '<ul>' .
+            '<li>' . __('Root prefix:') . ' ' . ($autoloader->getRootPrefix() !== '' ? $autoloader->getRootPrefix() : __('Empty')) . '</li>' .
+            '<li>' . __('Root basedir:') . ' ' . ($autoloader->getRootBaseDir() !== '' ? $autoloader->getRootBaseDir() : __('Empty')) . '</li>' .
+            '</ul>';
+
+        $str .= '<table id="chk-table-result" class="sysinfo">' .
+            '<caption>' . __('Namespaces') . ' (' . sprintf('%d', is_countable($ns) ? count($ns) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<thead>' .
+            '<tr>' .
+            '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
+            '</tr>' .
+            '</thead>' .
+            '<tbody>';
+
+        // Second loop for deprecated variables
+        foreach ($ns as $n) {
+            $str .= '<tr>' . '<td class="nowrap">' . $n . '</td>';
+            $str .= '</tr>';
+        }
+
+        $str .= '</tbody></table>';
+
+        return $str;
     }
 
     /**

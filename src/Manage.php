@@ -39,6 +39,7 @@ class Manage extends dcNsProcess
                 __('Globals')      => 'globals',
                 __('Folders')      => 'folders',
                 __('Integrity')    => 'integrity',
+                __('Autoloader')   => 'autoloader',
             ],
 
             __('Core') => [
@@ -180,6 +181,12 @@ class Manage extends dcNsProcess
 
         // Display required information
         switch (dcCore::app()->admin->checklist) {
+            case 'autoloader':
+                // Affichage des informations relatives à l'autoloader
+                echo Helper::autoloader();
+
+                break;
+
             case 'globals':
                 // Affichage de la liste des variables globales
                 echo Helper::globals();
