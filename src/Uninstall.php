@@ -33,7 +33,7 @@ class Uninstall extends dcNsProcess
             return false;
         }
 
-        $module = basename(dirname(__DIR__));
+        $module = My::id();
 
         Uninstaller::instance()
 

@@ -21,10 +21,9 @@ class Install extends dcNsProcess
 {
     public static function init(): bool
     {
-        $module = basename(dirname(__DIR__));
-        $check  = dcCore::app()->newVersion($module, dcCore::app()->plugins->moduleInfo($module, 'version'));
-
-        static::$init = defined('DC_CONTEXT_ADMIN') && $check;
+        static::$init = defined('DC_CONTEXT_ADMIN')
+            && My::phpCompliant()
+            && dcCore::app()->newVersion(My::id(), dcCore::app()->plugins->moduleInfo(My::id(), 'version'));
 
         return static::$init;
     }
@@ -35,7 +34,8 @@ class Install extends dcNsProcess
             return false;
         }
 
-        dcCore::app()->blog->settings->sysinfo->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
+        $s = dcCore::app()->blog->settings->get(My::id());
+        $s->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
 
         return true;
     }
