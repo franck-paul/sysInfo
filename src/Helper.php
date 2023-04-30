@@ -214,7 +214,7 @@ class Helper
 
         $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', is_countable($versions) ? count($versions) : 0) . ')' . '</caption>' .   // @phpstan-ignore-line
+            '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .   // @phpstan-ignore-line
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="">' . __('Module') . '</th>' .
@@ -393,7 +393,7 @@ class Helper
         ];
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Global variables') . ' (' . sprintf('%d', is_countable($variables) ? count($variables) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
@@ -448,7 +448,7 @@ class Helper
         $permissions = dcCore::app()->auth->getPermissionsTypes();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Types of permission') . ' (' . sprintf('%d', is_countable($permissions) ? count($permissions) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Type') . '</th>' .
@@ -477,7 +477,7 @@ class Helper
         $methods = dcCore::app()->rest->functions;
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('REST methods') . ' (' . sprintf('%d', is_countable($methods) ? count($methods) : 0) . ')' . '</caption>' .    // @phpstan-ignore-line
+            '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .    // @phpstan-ignore-line
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Method') . '</th>' .
@@ -693,7 +693,7 @@ class Helper
         //$excluded = ['xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
         $excluded = [];
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . ' (' . sprintf('%d', is_countable($urls) ? count($urls) : 0) . ')' . '</caption>' .    // @phpstan-ignore-line
+        $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .    // @phpstan-ignore-line
             '<thead><tr><th scope="col">' . __('Type') . '</th>' .
             '<th scope="col">' . __('base URL') . '</th>' .
             '<th scope="col">' . __('Regular expression') . '</th>' .
@@ -746,7 +746,7 @@ class Helper
         // Récupération de la liste des URLs d'admin enregistrées
         $urls = dcCore::app()->adminurl->dumpUrls();
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', is_countable($urls) ? count($urls) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
             '<th scope="col">' . __('URL') . '</th>' .
             '<th scope="col" class="maximal">' . __('Query string') . '</th></tr></thead>' .
@@ -864,36 +864,34 @@ class Helper
             // Don't know exactly why but need to cope with */dcPublic::TPL_ROOT !
             $md5_path = (!strstr($path, '/' . dcPublic::TPL_ROOT . '/' . $tplset) ? $path : Path::real($path));
             $files    = Files::scandir($path);
-            if (is_array($files)) {
-                foreach ($files as $file) {
-                    if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
-                        $stack[]        = $file;
-                        $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
-                        $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
-                        $cache_fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
-                        $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
-                        $file_exists    = file_exists($file_check);
-                        $str .= '<tr>' .
-                            '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
-                            '<td class="nowrap">' . $file . '</td>' .
-                            '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
-                            '<td class="nowrap">' .
-                            \form::checkbox(
-                                ['tpl[]'],
-                                $cache_file,
-                                false,
-                                ($file_exists) ? 'tpl_compiled' : '',
-                                '',
-                                !($file_exists)
-                            ) . ' ' .
-                            '<label class="classic">' .
-                            ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
-                            $cache_file .
-                            ($file_exists ? '</a>' : '') .
-                            '</label></td>' .
-                            '</tr>';
-                        $path_displayed = true;
-                    }
+            foreach ($files as $file) {
+                if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
+                    $stack[]        = $file;
+                    $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
+                    $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
+                    $cache_fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
+                    $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
+                    $file_exists    = file_exists($file_check);
+                    $str .= '<tr>' .
+                        '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
+                        '<td class="nowrap">' . $file . '</td>' .
+                        '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
+                        '<td class="nowrap">' .
+                        \form::checkbox(
+                            ['tpl[]'],
+                            $cache_file,
+                            false,
+                            ($file_exists) ? 'tpl_compiled' : '',
+                            '',
+                            !($file_exists)
+                        ) . ' ' .
+                        '<label class="classic">' .
+                        ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
+                        $cache_file .
+                        ($file_exists ? '</a>' : '') .
+                        '</label></td>' .
+                        '</tr>';
+                    $path_displayed = true;
                 }
             }
         }
@@ -962,7 +960,7 @@ class Helper
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of template paths') . ' (' . sprintf('%d', is_countable($paths) ? count($paths) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Path') . '</th>' .
@@ -1025,7 +1023,7 @@ class Helper
         $raw_datas = !$parser ? [] : $parser->getModules();     // @phpstan-ignore-line
         dcUtils::lexicalKeySort($raw_datas, dcUtils::ADMIN_LOCALE);
 
-        $count = $parser ? ' (' . sprintf('%d', is_countable($raw_datas) ? count($raw_datas) : 0) . ')' : '';
+        $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
         $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . $count . '</h3>';
         if (!$parser) {     // @phpstan-ignore-line
@@ -1591,20 +1589,18 @@ class Helper
         $str .= '<tbody>';
 
         $files = Files::scandir($cache_dir);
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                    $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
-                    if (is_dir($cache_fullpath)) {
-                        $str .= '<tr>' .
-                            '<td class="nowrap">' .
-                            '<a class="sc_dir" href="#">' . $file . '</a>' .
-                            '</td>' .                                     // 1st level
-                            '<td class="nowrap">' . __('…') . '</td>' . // 2nd level (loaded via getStaticCacheDir REST)
-                            '<td class="nowrap"></td>' .                  // 3rd level (loaded via getStaticCacheList REST)
-                            '<td class="nowrap maximal"></td>' .          // cache file (loaded via getStaticCacheList REST too)
-                            '</tr>' . "\n";
-                    }
+        foreach ($files as $file) {
+            if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
+                if (is_dir($cache_fullpath)) {
+                    $str .= '<tr>' .
+                        '<td class="nowrap">' .
+                        '<a class="sc_dir" href="#">' . $file . '</a>' .
+                        '</td>' .                                     // 1st level
+                        '<td class="nowrap">' . __('…') . '</td>' . // 2nd level (loaded via getStaticCacheDir REST)
+                        '<td class="nowrap"></td>' .                  // 3rd level (loaded via getStaticCacheList REST)
+                        '<td class="nowrap maximal"></td>' .          // cache file (loaded via getStaticCacheList REST too)
+                        '</tr>' . "\n";
                 }
             }
         }

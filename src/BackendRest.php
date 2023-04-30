@@ -74,20 +74,18 @@ class BackendRest
 
             if (is_dir($cache_dir) && is_readable($cache_dir)) {
                 $files = Files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
-                if (is_array($files)) {
-                    foreach ($files as $file) {
-                        if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                            $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
-                            if (is_dir($cache_fullpath)) {
-                                $content .= '<tr>' .
-                                '<td class="nowrap">' . $root . '</td>' . // 1st level
-                                '<td class="nowrap">' .
-                                '<a class="sc_subdir" href="#">' . $file . '</a>' .
-                                '</td>' .                                     // 2nd level
-                                '<td class="nowrap">' . __('…') . '</td>' . // 3rd level
-                                '<td class="nowrap maximal"></td>' .          // cache file
-                                '</tr>' . "\n";
-                            }
+                foreach ($files as $file) {
+                    if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                        $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
+                        if (is_dir($cache_fullpath)) {
+                            $content .= '<tr>' .
+                            '<td class="nowrap">' . $root . '</td>' . // 1st level
+                            '<td class="nowrap">' .
+                            '<a class="sc_subdir" href="#">' . $file . '</a>' .
+                            '</td>' .                                     // 2nd level
+                            '<td class="nowrap">' . __('…') . '</td>' . // 3rd level
+                            '<td class="nowrap maximal"></td>' .          // cache file
+                            '</tr>' . "\n";
                         }
                     }
                 }
@@ -126,26 +124,24 @@ class BackendRest
                 do {
                     $dir   = array_shift($dirs);
                     $files = Files::scandir($dir);
-                    if (is_array($files)) {
-                        foreach ($files as $file) {
-                            if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                                $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
-                                if (is_file($cache_fullpath)) {
-                                    $k = str_split($file, 2);
-                                    $content .= '<tr>' .
-                                    '<td class="nowrap">' . $k[0] . '</td>' . // 1st level
-                                    '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
-                                    '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
-                                    '<td class="nowrap maximal">' .
-                                    form::checkbox(['sc[]'], $cache_fullpath, false) . ' ' .
-                                    '<label class="classic">' .
-                                    '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
-                                    '</label>' .
-                                    '</td>' . // cache file
-                                    '</tr>' . "\n";
-                                } else {
-                                    $dirs[] = $dir . DIRECTORY_SEPARATOR . $file;
-                                }
+                    foreach ($files as $file) {
+                        if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                            $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
+                            if (is_file($cache_fullpath)) {
+                                $k = str_split($file, 2);
+                                $content .= '<tr>' .
+                                '<td class="nowrap">' . $k[0] . '</td>' . // 1st level
+                                '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
+                                '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
+                                '<td class="nowrap maximal">' .
+                                form::checkbox(['sc[]'], $cache_fullpath, false) . ' ' .
+                                '<label class="classic">' .
+                                '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
+                                '</label>' .
+                                '</td>' . // cache file
+                                '</tr>' . "\n";
+                            } else {
+                                $dirs[] = $dir . DIRECTORY_SEPARATOR . $file;
                             }
                         }
                     }
