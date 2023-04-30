@@ -209,8 +209,8 @@ class Helper
         // which is not a very good idea, but we need to cope with legacy code ;-)
         // Ex: dcRevisions store it as 'dcrevisions'
         // So we will check by ignoring case
-        $plugins  = array_map(fn ($name): string => mb_strtolower($name), array_values(array_keys(dcCore::app()->plugins->getModules())));
-        $disabled = array_map(fn ($name): string => mb_strtolower($name), array_values(array_keys(dcCore::app()->plugins->getDisabledModules())));
+        $plugins  = array_map(fn ($name): string => mb_strtolower($name), array_values(array_keys(dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true))));
+        $disabled = array_map(fn ($name): string => mb_strtolower($name), array_values(array_keys(dcCore::app()->plugins->getDefines(['state' => '!' . dcModuleDefine::STATE_ENABLED], true))));
 
         $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
