@@ -31,6 +31,23 @@ class Manage extends dcNsProcess
      */
     public static function init(): bool
     {
+        // Manageable only by super-admin
+        static::$init = defined('DC_CONTEXT_ADMIN')
+            && dcCore::app()->auth->isSuperAdmin()
+            && My::phpCompliant();
+
+        return static::$init;
+    }
+
+    /**
+     * Processes the request(s).
+     */
+    public static function process(): bool
+    {
+        if (!static::$init) {
+            return false;
+        }
+
         $checklists = [
             __('System') => [
                 __('Information')  => 'default',
@@ -90,22 +107,6 @@ class Manage extends dcNsProcess
         $checklist = Helper::doReport($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
-
-        static::$init = true;
-
-        return static::$init;
-    }
-
-    /**
-     * Processes the request(s).
-     */
-    public static function process(): bool
-    {
-        if (!static::$init) {
-            return false;
-        }
-
-        $checklist = dcCore::app()->admin->checklist;
 
         // Cope with form submit
         $checklist = Helper::doFormVersions($checklist);

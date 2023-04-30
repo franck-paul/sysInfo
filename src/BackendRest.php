@@ -17,11 +17,11 @@ namespace Dotclear\Plugin\sysInfo;
 use dcCore;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Html\Template\Template;
 use Dotclear\Helper\Html\XmlTag;
 use Dotclear\Helper\Network\Http;
-use form;
 
 class BackendRest
 {
@@ -134,7 +134,7 @@ class BackendRest
                                 '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
                                 '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
                                 '<td class="nowrap maximal">' .
-                                form::checkbox(['sc[]'], $cache_fullpath, false) . ' ' .
+                                (new Checkbox(['sc[]'], false))->value($cache_fullpath)->render() . ' ' .
                                 '<label class="classic">' .
                                 '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
                                 '</label>' .
