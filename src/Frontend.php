@@ -40,7 +40,7 @@ class Frontend extends dcNsProcess
                 }
             },
             'urlHandlerBeforeGetData' => function (context $ctx) {
-                $ctx->http_cache = (bool) dcCore::app()->blog->settings->sysinfo->http_cache;
+                $ctx->http_cache = (bool) dcCore::app()->blog->settings->get(My::id())->http_cache;
             },
         ]);
 
