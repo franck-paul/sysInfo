@@ -131,7 +131,7 @@ class Manage extends dcNsProcess
         $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
         $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
 
-        $head = dcPage::cssModuleLoad('sysInfo/css/sysinfo.css', 'screen', dcCore::app()->getVersion('sysInfo')) .
+        $head = dcPage::cssModuleLoad(My::id() . '/css/sysinfo.css', 'screen', dcCore::app()->getVersion(My::id())) .
         dcPage::jsJson('sysinfo', [
             'colorsyntax'       => $user_ui_colorsyntax,
             'colorsyntax_theme' => $user_ui_colorsyntax_theme,
@@ -144,7 +144,7 @@ class Manage extends dcNsProcess
             ],
         ]) .
         dcPage::jsModal() .
-        dcPage::jsModuleLoad('sysInfo/js/sysinfo.js', dcCore::app()->getVersion('sysInfo'));
+        dcPage::jsModuleLoad(My::id() . '/js/sysinfo.js', dcCore::app()->getVersion(My::id()));
         if ($user_ui_colorsyntax) {
             $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
