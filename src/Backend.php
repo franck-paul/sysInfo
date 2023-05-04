@@ -48,7 +48,7 @@ class Backend extends dcNsProcess
 
         /* Register favorite */
         dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $favs) {
-            $favs->register(My::id() . '', [
+            $favs->register('sysInfo' . '', [
                 'title'      => __('System Information'),
                 'url'        => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
                 'small-icon' => [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
