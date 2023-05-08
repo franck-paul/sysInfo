@@ -5,7 +5,7 @@
  * @package Dotclear
  * @subpackage Plugins
  *
- * @author Franck Paul
+ * @author Franck Paul and contributors
  *
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
@@ -35,34 +35,87 @@ class Uninstall extends dcNsProcess
 
         $module = My::id();
 
-        Uninstaller::instance()
+        $ns = My::id(); // Namespace for blog settings
+        // $ws = My::id(); // Workspace for user preferences
 
-            // User actions
+        // $cache = My::id(); // Cache sub-folder
+        // $var   = My::id(); // Var sub-folder
 
-            ->addUserAction('caches', 'empty', $module)
-            ->addUserAction('caches', 'delete', $module)
+        // Database table name
+        // $table = dcCore::app()->prefix . 'sysInfo';
 
-            //->addUserAction('vars', 'delete', implode(DIRECTORY_SEPARATOR, ['plugins', $module]))   // No var
+        $user_actions = [
 
-            //->addUserAction('settings', 'delete_local', 'sysinfo')    // No settings
-            //->addUserAction('settings', 'delete_global', 'sysinfo')   // No settings
-            //->addUserAction('settings', 'delete_all', 'sysinfo')      // No settings
+            // Cache
+            'caches' => [
+                // ['empty', $cache],  // Empty cache folder
+                // ['delete', $cache], // Delete cache folder
+            ],
 
-            ->addUserAction('versions', 'delete', $module)
+            // Var
+            'vars' => [
+                // ['delete', implode(DIRECTORY_SEPARATOR, ['plugins', $var])],    // Delete var plugin folder
+                // ['delete', implode(DIRECTORY_SEPARATOR, ['themes', $var])],     // Delete var theme folder
+            ],
 
-            //->addUserAction('tables', 'empty', 'dc_sysinfo')    // No table
-            //->addUserAction('tables', 'delete', 'dc_sysinfo')   // No table
+            // Blog settings
+            'settings' => [
+                ['delete_local', $ns],      // Delete local settings
+                ['delete_global', $ns],     // Delete global settings
+                ['delete_all', $ns],        // Delete all settings
 
-            ->addUserAction('plugins', 'delete', $module) // Same as Delete button
+                // ['delete_related', 'ns:id;ns:id;'], // Delete specific setting(s)
+            ],
 
-            //->addUserAction('themes', 'delete', $module) // Same as Delete button
+            // User preferences
+            'preferences' => [
+                // ['delete_local', $ws],      // Delete user preferences
+                // ['delete_global', $ws],     // Delete global preferences
+                // ['delete_all', $ws],        // Delete all preferences
 
-            // Direct actions — warning: will delete without user confirmation !!!
+                // ['delete_related', 'ns:id;ns:id;'], // Delete specific preference(s)
+            ],
 
-            //->addDirectAction('plugins', 'delete', $module)
-            //->addDirectAction('versions', 'delete', $module)
+            // Version (module)
+            'versions' => [
+                ['delete', $module],    // Delete module version
+            ],
 
-        ;
+            // Table (database)
+            'tables' => [
+                // ['empty', $table],      // Empty table
+                // ['delete', $table],     // Delete table
+            ],
+
+            // Plugin or Theme
+            (dcCore::app()->plugins->getDefines(['id' => $module]) ? 'plugins' : 'themes') => [
+                ['delete', $module],    // Same as plugin/theme Delete button in plugin/theme management
+            ],
+
+            // Logs
+            'logs' => [
+                // ['delete_all', $module],    // Empty log table
+            ],
+
+        ];
+
+        foreach ($user_actions as $cleaner => $task) {
+            foreach ($task as $action) {
+                Uninstaller::instance()->addUserAction($cleaner, $action[0], $action[1]);
+            }
+        }
+
+        // Direct actions — WARNING: will delete without user confirmation !!!
+        // Copy action from above
+
+        $direct_actions = [
+        ];
+
+        foreach ($direct_actions as $cleaner => $task) {
+            foreach ($task as $action) {
+                Uninstaller::instance()->addDirectAction($cleaner, $action[0], $action[1]);
+            }
+        }
 
         return true;
     }
