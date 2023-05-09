@@ -24,7 +24,7 @@ class Backend extends dcNsProcess
 {
     public static function init(): bool
     {
-        static::$init = defined('DC_CONTEXT_ADMIN');
+        static::$init = My::checkContext(My::BACKEND);
 
         // dead but useful code, in order to have translations
         __('sysInfo') . __('System Information');
@@ -43,7 +43,7 @@ class Backend extends dcNsProcess
             dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
             [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
             preg_match('/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.sysInfo')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
-            dcCore::app()->auth->isSuperAdmin()
+            My::checkContext(My::MENU)
         );
 
         /* Register favorite */
