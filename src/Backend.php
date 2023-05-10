@@ -18,7 +18,6 @@ use dcAdmin;
 use dcCore;
 use dcFavorites;
 use dcNsProcess;
-use dcPage;
 
 class Backend extends dcNsProcess
 {
@@ -40,9 +39,9 @@ class Backend extends dcNsProcess
 
         dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
             __('System info'),
-            dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
-            [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
-            preg_match('/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.sysInfo')) . '(&.*)?$/', $_SERVER['REQUEST_URI']),
+            My::makeUrl(),
+            My::icons(),
+            preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
             My::checkContext(My::MENU)
         );
 
@@ -50,9 +49,9 @@ class Backend extends dcNsProcess
         dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $favs) {
             $favs->register('sysInfo' . '', [
                 'title'      => __('System Information'),
-                'url'        => dcCore::app()->adminurl->get('admin.plugin.sysInfo'),
-                'small-icon' => [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
-                'large-icon' => [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
+                'url'        => My::makeUrl(),
+                'small-icon' => My::icons(),
+                'large-icon' => My::icons(),
             ]);
         });
 
