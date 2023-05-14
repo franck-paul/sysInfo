@@ -570,6 +570,7 @@ class Helper
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Editor') . '</th>' .
+            '<th scope="col">' . __('Code') . '</th>' .
             '<th scope="col" class="maximal">' . __('Syntax') . '</th>' .
             '</tr>' .
             '</thead>' .
@@ -579,7 +580,8 @@ class Helper
             $newline = false;
             if (is_array($s)) {
                 foreach ($s as $f) {
-                    $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal">' . $f . '</td>';
+                    $l = dcCore::app()->getFormaterName($f);
+                    $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td>' . $f . '</td><td class="maximal">' . $l . '</td>' ;
                     $newline = true;
                 }
             }
