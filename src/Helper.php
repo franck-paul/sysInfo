@@ -18,7 +18,6 @@ use dcCore;
 use dcModuleDefine;
 use dcPage;
 use dcPublic;
-use dcStaticCache;
 use dcStoreReader;
 use dcTemplate;
 use dcThemes;
@@ -1555,7 +1554,7 @@ class Helper
         }
         $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
         $cache_key = md5(Http::getHostFromURL($blog_host));
-        $cache     = new dcStaticCache(DC_SC_CACHE_DIR, $cache_key);
+        $cache     = new \Dotclear\Plugin\staticCache\StaticCache(DC_SC_CACHE_DIR, $cache_key);
         $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if (!is_dir($cache_dir)) {

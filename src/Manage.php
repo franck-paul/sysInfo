@@ -17,7 +17,6 @@ namespace Dotclear\Plugin\sysInfo;
 use dcCore;
 use dcNsProcess;
 use dcPage;
-use dcStaticCacheControl;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Para;
@@ -87,7 +86,7 @@ class Manage extends dcNsProcess
             ],
         ];
 
-        if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR') && dcStaticCacheControl::cacheCurrentBlog()) {
+        if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR')) {
             $checklists[__('3rd party')] = [
                 __('Static cache') => 'sc',
             ];
