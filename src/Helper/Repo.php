@@ -51,10 +51,14 @@ class Repo
                 $in_cache = true;
             }
         }
-        $parser    = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE, !$in_cache);
-        $raw_datas = !$parser ? [] : $parser->getModules();     // @phpstan-ignore-line
-        dcUtils::lexicalKeySort($raw_datas, dcUtils::ADMIN_LOCALE);
+        $parser = dcStoreReader::quickParse($xml_url, DC_TPL_CACHE, !$in_cache);
 
+        $defines   = !$parser ? [] : $parser->getDefines();     // @phpstan-ignore-line
+        $raw_datas = [];
+        foreach ($defines as $define) {
+            $raw_datas[$define->getId()] = $define;
+        }
+        dcUtils::lexicalKeySort($raw_datas, dcUtils::ADMIN_LOCALE);
         $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
         $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $xml_url) . $count . '</h3>';
@@ -63,12 +67,19 @@ class Repo
         } else {
             $str .= '<details id="expand-all"><summary>' . $label . '</summary></details>';
             $url_fmt = '<a href="%1$s">%1$s</a>';
-            dcUtils::lexicalKeySort($raw_datas);
-            foreach ($raw_datas as $id => $infos) {
+            foreach ($raw_datas as $id => $define) {
+                $infos = $define->dump();
                 $str .= '<details><summary>' . $id . '</summary>';
                 $str .= '<ul>';
                 foreach ($infos as $key => $value) {
-                    $val = (in_array($key, ['file', 'details', 'support', 'sshot']) && $value ? sprintf($url_fmt, $value) : $value);
+                    if (in_array($key, ['file', 'details', 'support', 'sshot'])) {
+                        $val = $value ? sprintf($url_fmt, $value) : $value;
+                    } elseif (in_array($key, ['requires', 'settings', 'implies', 'cannot_enable', 'cannot_disable'])) {
+                        //$value = $define->get($key);
+                        $val = $value ? var_export($value, true) : $value;
+                    } else {
+                        $val = $value;
+                    }
                     $str .= '<li>' . $key . ' = ' . $val . '</li>';
                 }
                 $str .= '</ul>';
