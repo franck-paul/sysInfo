@@ -22,6 +22,25 @@ use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
+use Dotclear\Plugin\sysInfo\Helper\Autoloader;
+use Dotclear\Plugin\sysInfo\Helper\Behaviors;
+use Dotclear\Plugin\sysInfo\Helper\Constants;
+use Dotclear\Plugin\sysInfo\Helper\Folders;
+use Dotclear\Plugin\sysInfo\Helper\Formaters;
+use Dotclear\Plugin\sysInfo\Helper\Globals;
+use Dotclear\Plugin\sysInfo\Helper\Integrity;
+use Dotclear\Plugin\sysInfo\Helper\Permissions;
+use Dotclear\Plugin\sysInfo\Helper\PhpInfo;
+use Dotclear\Plugin\sysInfo\Helper\Plugins;
+use Dotclear\Plugin\sysInfo\Helper\Repo;
+use Dotclear\Plugin\sysInfo\Helper\Rest;
+use Dotclear\Plugin\sysInfo\Helper\StaticCache;
+use Dotclear\Plugin\sysInfo\Helper\System;
+use Dotclear\Plugin\sysInfo\Helper\Templates;
+use Dotclear\Plugin\sysInfo\Helper\TplPaths;
+use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
+use Dotclear\Plugin\sysInfo\Helper\Versions;
 
 class Manage extends dcNsProcess
 {
@@ -97,17 +116,18 @@ class Manage extends dcNsProcess
         $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
 
         // Cope with form submit return
-        $checklist = Helper::doCheckVersions($checklist);
-        $checklist = Helper::doCheckTemplates($checklist);
-        $checklist = Helper::doCheckStaticCache($checklist);
-        $checklist = Helper::doReport($checklist);
+        $checklist = Versions::check($checklist);
+        $checklist = Templates::check($checklist);
+        $checklist = StaticCache::check($checklist);
+
+        $checklist = Helper::downloadReport($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
 
         // Cope with form submit
-        $checklist = Helper::doFormVersions($checklist);
-        $checklist = Helper::doFormTemplates($checklist);
-        $checklist = Helper::doFormStaticCache($checklist);
+        $checklist = Versions::process($checklist);
+        $checklist = Templates::process($checklist);
+        $checklist = StaticCache::process($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
 
@@ -180,128 +200,128 @@ class Manage extends dcNsProcess
         switch (dcCore::app()->admin->checklist) {
             case 'autoloader':
                 // Affichage des informations relatives à l'autoloader
-                echo Helper::autoloader();
+                echo Autoloader::render();
 
                 break;
 
             case 'globals':
                 // Affichage de la liste des variables globales
-                echo Helper::globals();
+                echo Globals::render();
 
                 break;
 
             case 'permissions':
                 // Affichage de la liste des types de permission enregistrés
-                echo Helper::permissions();
+                echo Permissions::render();
 
                 break;
 
             case 'rest':
                 // Affichage de la liste des méthodes REST
-                echo Helper::restMethods();
+                echo Rest::render();
 
                 break;
 
             case 'plugins':
                 // Affichage de la liste des plugins (et de leurs propriétés)
-                echo Helper::plugins();
+                echo Plugins::render();
 
                 break;
 
             case 'formaters':
                 // Affichage de la liste des éditeurs et des syntaxes par éditeur
-                echo Helper::formaters();
+                echo Formaters::render();
 
                 break;
 
             case 'constants':
                 // Affichage des constantes remarquables de Dotclear
-                echo Helper::dcConstants();
+                echo Constants::render();
 
                 break;
 
             case 'folders':
                 // Affichage des dossiers remarquables de Dotclear
-                echo Helper::folders();
+                echo Folders::render();
 
                 break;
 
             case 'integrity':
                 // Affichage du contrôle d'intégrité
-                echo Helper::integrity();
+                echo Integrity::render();
 
                 break;
 
             case 'behaviours':
                 // Récupération des behaviours enregistrées
-                echo Helper::behaviours();
+                echo Behaviors::render();
 
                 break;
 
             case 'urlhandlers':
                 // Récupération des types d'URL enregistrées
-                echo Helper::URLHandlers();
+                echo UrlHandlers::render();
 
                 break;
 
             case 'adminurls':
                 // Récupération de la liste des URLs d'admin enregistrées
-                echo Helper::adminURLs();
+                echo AdminUrls::render();
 
                 break;
 
             case 'phpinfo':
                 // Get PHP Infos
-                echo Helper::phpInfo();
+                echo PhpInfo::render();
 
                 break;
 
             case 'templates':
                 // Get list of compiled template's files
-                echo Helper::templates();
+                echo Templates::render();
 
                 break;
 
             case 'tplpaths':
                 // Get list of template's paths
-                echo Helper::tplPaths();
+                echo TplPaths::render();
 
                 break;
 
             case 'sc':
                 // Get list of existing cache files
-                echo Helper::staticCache();
+                echo StaticCache::render();
 
                 break;
 
             case 'dcrepo-plugins':
             case 'dcrepo-plugins-cache':
                 // Get list of available plugins
-                echo Helper::repoPlugins(dcCore::app()->admin->checklist === 'dcrepo-plugins-cache');
+                echo Repo::renderPlugins(dcCore::app()->admin->checklist === 'dcrepo-plugins-cache');
 
                 break;
 
             case 'dcrepo-themes':
             case 'dcrepo-themes-cache':
                 // Get list of available themes
-                echo Helper::repoThemes(dcCore::app()->admin->checklist === 'dcrepo-themes-cache');
+                echo Repo::renderThemes(dcCore::app()->admin->checklist === 'dcrepo-themes-cache');
 
                 break;
 
             case 'versions':
                 // Get list of module's versions
-                echo Helper::versions();
+                echo Versions::render();
 
                 break;
 
             case 'report':
-                echo Helper::report();
+                echo Helper::renderReport();
 
                 break;
 
             default:
                 // Display PHP version and DB version
-                echo Helper::quoteVersions();
+                echo System::render();
 
                 break;
         }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 18:09+0200\n"
+"POT-Creation-Date: 2023-05-15 10:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,18 @@ msgstr ""
 msgid "Report empty"
 msgstr ""
 
+msgid "Admin registered URLs"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Query string"
+msgstr ""
+
 msgid "Properties:"
 msgstr ""
 
@@ -67,46 +79,55 @@ msgstr ""
 msgid "Namespaces"
 msgstr ""
 
-msgid "Name"
+msgid "Behaviours list"
 msgstr ""
 
-msgid "List of versions registered in the database"
+msgid "Behavior"
 msgstr ""
 
-msgid "Module"
+msgid "Callback"
 msgstr ""
 
-msgid "Version"
+msgid "Display public behaviours"
+msgstr ""
+
+msgid "Dotclear constants"
+msgstr ""
+
+msgid "Constant"
+msgstr ""
+
+msgid "(see inc/config.php)"
+msgstr ""
+
+msgid "seconds"
+msgstr ""
+
+msgid "Dotclear folders and files"
+msgstr ""
+
+msgid "Path"
 msgstr ""
 
 msgid "Status"
 msgstr ""
 
-msgid "Core"
+msgid "Writable"
 msgstr ""
 
-msgid "Distributed"
+msgid "Readonly"
 msgstr ""
 
-msgid "Disabled"
+msgid "Unknown"
 msgstr ""
 
-msgid "Not found but may exist"
+msgid "Editors and their supported syntaxes"
 msgstr ""
 
-msgid "Update versions"
+msgid "Editor"
 msgstr ""
 
-msgid "Delete selected versions"
-msgstr ""
-
-msgid "No version selected"
-msgstr ""
-
-msgid "Selected versions have been deleted."
-msgstr ""
-
-msgid "Versions have been updated."
+msgid "Syntax"
 msgstr ""
 
 msgid "Global variables"
@@ -119,19 +140,34 @@ msgstr ""
 msgid "*** deprecated since %s ***"
 msgstr ""
 
+msgid "Dotclear digest integrity"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "digest"
+msgstr ""
+
+msgid "md5"
+msgstr ""
+
+msgid "md5 (experimental)"
+msgstr ""
+
+msgid "Not readable"
+msgstr ""
+
+msgid "Everything is fine."
+msgstr ""
+
+msgid "Unable to read digests file."
+msgstr ""
+
 msgid "Types of permission"
 msgstr ""
 
 msgid "Type"
-msgstr ""
-
-msgid "REST methods"
-msgstr ""
-
-msgid "Method"
-msgstr ""
-
-msgid "Callback"
 msgstr ""
 
 msgid "Plugins (in loading order)"
@@ -141,81 +177,6 @@ msgid " (priority, name)"
 msgstr ""
 
 msgid "Plugin id"
-msgstr ""
-
-msgid "Editors and their supported syntaxes"
-msgstr ""
-
-msgid "Editor"
-msgstr ""
-
-msgid "Syntax"
-msgstr ""
-
-msgid "Dotclear constants"
-msgstr ""
-
-msgid "Constant"
-msgstr ""
-
-msgid "Behaviours list"
-msgstr ""
-
-msgid "Behavior"
-msgstr ""
-
-msgid "Display public behaviours"
-msgstr ""
-
-msgid "List of known URLs"
-msgstr ""
-
-msgid "base URL"
-msgstr ""
-
-msgid "Regular expression"
-msgstr ""
-
-msgid "Admin registered URLs"
-msgstr ""
-
-msgid "URL"
-msgstr ""
-
-msgid "Query string"
-msgstr ""
-
-msgid "List of compiled templates in cache"
-msgstr ""
-
-msgid "Template path"
-msgstr ""
-
-msgid "Template file"
-msgstr ""
-
-msgid "Cache subpath"
-msgstr ""
-
-msgid "Cache file"
-msgstr ""
-
-msgid "Delete selected cache files"
-msgstr ""
-
-msgid "No cache file selected"
-msgstr ""
-
-msgid "Selected cache files have been deleted."
-msgstr ""
-
-msgid "List of template paths"
-msgstr ""
-
-msgid "Path"
-msgstr ""
-
-msgid "Display template tags"
 msgstr ""
 
 msgid " from: "
@@ -237,6 +198,45 @@ msgid "Repository themes list"
 msgstr ""
 
 msgid "Theme ID"
+msgstr ""
+
+msgid "REST methods"
+msgstr ""
+
+msgid "Method"
+msgstr ""
+
+msgid "Static cache directory does not exists"
+msgstr ""
+
+msgid "Static cache directory is not readable"
+msgstr ""
+
+msgid "URL:"
+msgstr ""
+
+msgid " → "
+msgstr ""
+
+msgid "List of static cache files in"
+msgstr ""
+
+msgid "last update:"
+msgstr ""
+
+msgid "Cache subpath"
+msgstr ""
+
+msgid "Cache file"
+msgstr ""
+
+msgid "Delete selected cache files"
+msgstr ""
+
+msgid "No cache file selected"
+msgstr ""
+
+msgid "Selected cache files have been deleted."
 msgstr ""
 
 msgid "Live long and prosper."
@@ -333,64 +333,64 @@ msgstr ""
 msgid "Update info"
 msgstr ""
 
-msgid "(see inc/config.php)"
+msgid "List of compiled templates in cache"
 msgstr ""
 
-msgid "seconds"
+msgid "Template path"
 msgstr ""
 
-msgid "Dotclear folders and files"
+msgid "Template file"
 msgstr ""
 
-msgid "Writable"
+msgid "List of template paths"
 msgstr ""
 
-msgid "Readonly"
+msgid "Display template tags"
 msgstr ""
 
-msgid "Unknown"
+msgid "List of known URLs"
 msgstr ""
 
-msgid "Dotclear digest integrity"
+msgid "base URL"
 msgstr ""
 
-msgid "File"
+msgid "Regular expression"
 msgstr ""
 
-msgid "digest"
+msgid "List of versions registered in the database"
 msgstr ""
 
-msgid "md5"
+msgid "Module"
 msgstr ""
 
-msgid "md5 (experimental)"
+msgid "Version"
 msgstr ""
 
-msgid "Not readable"
+msgid "Core"
 msgstr ""
 
-msgid "Everything is fine."
+msgid "Distributed"
 msgstr ""
 
-msgid "Unable to read digests file."
+msgid "Disabled"
 msgstr ""
 
-msgid "Static cache directory does not exists"
+msgid "Not found but may exist"
 msgstr ""
 
-msgid "Static cache directory is not readable"
+msgid "Update versions"
 msgstr ""
 
-msgid "URL:"
+msgid "Delete selected versions"
 msgstr ""
 
-msgid " → "
+msgid "No version selected"
 msgstr ""
 
-msgid "List of static cache files in"
+msgid "Selected versions have been deleted."
 msgstr ""
 
-msgid "last update:"
+msgid "Versions have been updated."
 msgstr ""
 
 msgid "System"
