@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-15 10:42+0200\n"
+"POT-Creation-Date: 2023-05-31 12:52+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -301,8 +301,9 @@ msgstr "Infos Dotclear"
 msgid "Dotclear version: "
 msgstr "Version de Dotclear : "
 
-msgid "Clearbricks version: "
-msgstr "Version de Clearbricks : "
+#, fuzzy
+msgid "Update channel: "
+msgstr "Canal : "
 
 msgid "Channel: "
 msgstr "Canal : "
@@ -492,3 +493,6 @@ msgstr "Sélectionnez une liste :"
 
 msgid "Check"
 msgstr "Obtenir"
+
+#~ msgid "Clearbricks version: "
+#~ msgstr "Version de Clearbricks : "

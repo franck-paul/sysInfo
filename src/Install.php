@@ -32,8 +32,8 @@ class Install extends dcNsProcess
             return false;
         }
 
-        $s = dcCore::app()->blog->settings->get(My::id());
-        $s->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
 
         return true;
     }

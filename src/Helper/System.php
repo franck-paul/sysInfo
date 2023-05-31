@@ -80,7 +80,7 @@ class System
         $dotclear = '<details open><summary>' . __('Dotclear info') . '</summary>' .
             '<ul>' .
             '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>' .
-            '<li>' . __('Clearbricks version: ') . '<strong>' . CLEARBRICKS_VERSION . '</strong></li>' .
+            '<li>' . __('Update channel: ') . '<strong>' . DC_UPDATE_VERSION . '</strong></li>' .
             '</ul>' .
             '</details>';
 
