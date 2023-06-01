@@ -74,11 +74,8 @@ class Repo
                 foreach ($infos as $key => $value) {
                     if (in_array($key, ['file', 'details', 'support', 'sshot'])) {
                         $val = $value ? sprintf($url_fmt, $value) : $value;
-                    } elseif (in_array($key, ['requires', 'settings', 'implies', 'cannot_enable', 'cannot_disable'])) {
-                        //$value = $define->get($key);
-                        $val = $value ? var_export($value, true) : $value;
                     } else {
-                        $val = $value;
+                        $val = is_array($value) ? var_export($value, true) : $value;
                     }
                     $str .= '<li>' . $key . ' = ' . $val . '</li>';
                 }
