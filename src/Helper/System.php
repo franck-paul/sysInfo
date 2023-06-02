@@ -65,14 +65,16 @@ class System
         $server = ($quote ? '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' : '') .
             '<details open><summary>' . __('System info') . '</summary>' .
             '<ul>' .
-            '<li>' . __('PHP Version: ') . '<strong>' . phpversion() . '</strong></li>' .
+            '<li>' . __('PHP Version: ') . ' <strong>' . phpversion() . '</strong></li>' .
             '<li>' .
-                __('DB driver: ') . '<strong>' . dcCore::app()->con->driver() . '</strong> ' .
+                __('DB driver: ') . ' <strong>' . dcCore::app()->con->driver() . '</strong> ' .
                 __('version') . ' <strong>' . dcCore::app()->con->version() . '</strong> ' .
                 sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
-            '<li>' . __('Error reporting: ') . '<strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
-            '<li>' . __('PHP Cache: ') . '<strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
-            '<li>' . __('Temporary folder: ') . '<strong>' . sys_get_temp_dir() . '</strong></li>' .
+            '<li>' . __('Error reporting: ') . ' <strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
+            '<li>' . __('PHP Cache: ') . ' <strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
+            '<li>' . __('Temporary folder: ') . ' <strong>' . sys_get_temp_dir() . '</strong></li>' .
+            '<li>' . 'DIRECTORY_SEPARATOR :' . ' <strong><code>' . DIRECTORY_SEPARATOR . '</code></strong></li>' .
+            '<li>' . 'PATH_SEPARATOR :' . ' <strong><code>' . PATH_SEPARATOR . '</code></strong></li>' .
             '</ul>' .
             '</details>';
 
@@ -100,7 +102,7 @@ class System
                                 '<ul>' .
                                 '<li>' . __('version: ') . '<strong>' . $content['version'] . '</strong></li>' .
                                 '<li>' . __('href: ') . '<a href="' . $content['href'] . '">' . $content['href'] . '</a></li>' .
-                                '<li>' . __('checksum: ') . '<code>' . $content['checksum'] . '</code></li>' .
+                                '<li>' . __('checksum: ') . ' <code>' . $content['checksum'] . '</code></li>' .
                                 '<li>' . __('info: ') . '<a href="' . $content['info'] . '">' . $content['info'] . '</a></li>' .
                                 '<li>' . __('PHP min: ') . '<strong>' . $content['php'] . '</strong></li>' .
                                 (isset($content['warning']) ?
