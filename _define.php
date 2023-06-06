@@ -16,7 +16,10 @@ $this->registerModule(
     'Franck Paul',
     '4.7',
     [
-        'requires' => [['core', '2.26']],
+        'requires' => [
+            ['core', '2.26'],
+            ['staticCache?', '2.3'],
+        ],
         'type'     => 'plugin',
         'priority' => 99_999_999_999,
 
