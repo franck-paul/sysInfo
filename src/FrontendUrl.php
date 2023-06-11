@@ -30,18 +30,18 @@ class FrontendUrl extends dcUrlHandlers
         if ($args == 'behaviours') {
             $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
             if (!empty($tplset) && is_dir(__DIR__ . '/../' . dcPublic::TPL_ROOT . '/' . $tplset)) {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/..' . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), My::path() . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
             } else {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/..' . '/' . dcPublic::TPL_ROOT . '/' . DC_DEFAULT_TPLSET);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), My::path() . '/' . dcPublic::TPL_ROOT . '/' . DC_DEFAULT_TPLSET);
             }
             self::serveDocument('behaviours.html');
             exit;
         } elseif ($args == 'templatetags') {
             $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
             if (!empty($tplset) && is_dir(__DIR__ . '/../' . dcPublic::TPL_ROOT . '/' . $tplset)) {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/..' . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), My::path() . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
             } else {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/..' . '/' . dcPublic::TPL_ROOT . '/' . DC_DEFAULT_TPLSET);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), My::path() . '/' . dcPublic::TPL_ROOT . '/' . DC_DEFAULT_TPLSET);
             }
             self::serveDocument('templatetags.html');
             exit;
