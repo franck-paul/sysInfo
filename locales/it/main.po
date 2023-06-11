@@ -1,0 +1,497 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Franck Paul <carnet.franck.paul@gmail.com>, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 sysInfo module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-31 12:52+0200\n"
+"PO-Revision-Date: 2023-04-11 08:13+0000\n"
+"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
+"Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+msgid "System Information"
+msgstr "Informazioni sul sistema"
+
+msgid "sysInfo"
+msgstr "sysInfo"
+
+msgid "System info"
+msgstr "Informazioni sul sistema"
+
+msgid "…"
+msgstr "..."
+
+msgid "(empty)"
+msgstr "(vuoto)"
+
+msgid "Public behaviours list"
+msgstr "Elenco dei comportamenti pubblici"
+
+msgid "Template tags list"
+msgstr "Elenco dei tag del modello"
+
+msgid "Blocks"
+msgstr "Blocchi"
+
+msgid "Values"
+msgstr "Valori"
+
+msgid "Report"
+msgstr "Rapporto"
+
+msgid "Download report"
+msgstr "Scarica il rapporto"
+
+msgid "Report empty"
+msgstr "Rapporto vuoto"
+
+msgid "Admin registered URLs"
+msgstr "URL registrati dall'amministratore"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Query string"
+msgstr "Stringa di query"
+
+msgid "Properties:"
+msgstr "Proprietà:"
+
+msgid "Empty"
+msgstr "Vuoto"
+
+msgid "Root prefix:"
+msgstr "Prefisso radice:"
+
+msgid "Root basedir:"
+msgstr "Baseir della radice:"
+
+msgid "Namespaces"
+msgstr "Spazi dei nomi"
+
+msgid "Behaviours list"
+msgstr "Elenco dei comportamenti"
+
+msgid "Behavior"
+msgstr "Comportamento"
+
+msgid "Callback"
+msgstr "Richiamo"
+
+msgid "Display public behaviours"
+msgstr "Mostrare comportamenti pubblici"
+
+msgid "Dotclear constants"
+msgstr "Costanti Dotclear"
+
+msgid "Constant"
+msgstr "Costante"
+
+msgid "(see inc/config.php)"
+msgstr "(vedere inc/config.php)"
+
+msgid "seconds"
+msgstr "secondi"
+
+msgid "Dotclear folders and files"
+msgstr "Cartelle e file Dotclear"
+
+msgid "Path"
+msgstr "Percorso"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Writable"
+msgstr "Scrivibile"
+
+msgid "Readonly"
+msgstr "In sola lettura"
+
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+msgid "Editors and their supported syntaxes"
+msgstr "Gli editor e le loro sintassi supportate"
+
+msgid "Editor"
+msgstr "Editore"
+
+msgid "Syntax"
+msgstr "Sintassi"
+
+msgid "Global variables"
+msgstr "Variabili globali"
+
+msgid "Content"
+msgstr "Contenuto"
+
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "*** deprecato da %s ***"
+
+msgid "Dotclear digest integrity"
+msgstr "Integrità del digest Dotclear"
+
+msgid "File"
+msgstr "File"
+
+msgid "digest"
+msgstr "digest"
+
+msgid "md5"
+msgstr "md5"
+
+msgid "md5 (experimental)"
+msgstr "md5 (sperimentale)"
+
+msgid "Not readable"
+msgstr "Non leggibile"
+
+msgid "Everything is fine."
+msgstr "Tutto va bene."
+
+msgid "Unable to read digests file."
+msgstr "Impossibile leggere il file dei digest."
+
+msgid "Types of permission"
+msgstr "Tipi di autorizzazione"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Plugins (in loading order)"
+msgstr "Plugin (in ordine di caricamento)"
+
+msgid " (priority, name)"
+msgstr " (priorità, nome)"
+
+msgid "Plugin id"
+msgstr "Id del plugin"
+
+msgid " from: "
+msgstr " da: "
+
+msgid "cache"
+msgstr "cache"
+
+msgid "Repository is unreachable"
+msgstr "Il repository non è raggiungibile"
+
+msgid "Repository plugins list"
+msgstr "Elenco dei plugin del repository"
+
+msgid "Plugin ID"
+msgstr "ID del plugin"
+
+msgid "Repository themes list"
+msgstr "Elenco dei temi del repository"
+
+msgid "Theme ID"
+msgstr "ID tema"
+
+msgid "REST methods"
+msgstr "Metodi REST"
+
+msgid "Method"
+msgstr "Metodo"
+
+msgid "Static cache directory does not exists"
+msgstr "La directory statica della cache non esiste"
+
+msgid "Static cache directory is not readable"
+msgstr "La directory statica della cache non è leggibile"
+
+msgid "URL:"
+msgstr "URL:"
+
+msgid " → "
+msgstr " → "
+
+msgid "List of static cache files in"
+msgstr "Elenco dei file statici della cache in"
+
+msgid "last update:"
+msgstr "ultimo aggiornamento:"
+
+msgid "Cache subpath"
+msgstr "Percorso secondario della cache"
+
+msgid "Cache file"
+msgstr "File cache"
+
+msgid "Delete selected cache files"
+msgstr "Eliminare i file di cache selezionati"
+
+msgid "No cache file selected"
+msgstr "Non è stato selezionato alcun file di cache"
+
+msgid "Selected cache files have been deleted."
+msgstr "I file di cache selezionati sono stati eliminati."
+
+msgid "Live long and prosper."
+msgstr "Vivere a lungo e prosperare."
+
+msgid "To infinity and beyond."
+msgstr "All'infinito e oltre."
+
+msgid "So long, and thanks for all the fish."
+msgstr "A presto e grazie per tutto il pesce."
+
+msgid "Find a needle in a haystack."
+msgstr "Trovare un ago in un pagliaio."
+
+msgid "A clever person solves a problem. A wise person avoids it."
+msgstr ""
+"Una persona intelligente risolve un problema. Una persona saggia lo evita."
+
+msgid "I'm sorry, Dave. I'm afraid I can't do that."
+msgstr "Mi dispiace, Dave. Temo di non poterlo fare."
+
+msgid "With great power there must also come great responsibility."
+msgstr "Da un grande potere deve derivare anche una grande responsabilità."
+
+msgid "It's great, we have to do it all over again!"
+msgstr "È fantastico, dobbiamo rifare tutto da capo!"
+
+msgid "Have You Tried Turning It Off And On Again?"
+msgstr "Avete provato a spegnerlo e riaccenderlo?"
+
+msgid "None"
+msgstr "Nessuno"
+
+msgid "PHP Version: "
+msgstr "Versione PHP: "
+
+msgid "DB driver: "
+msgstr "Driver DB: "
+
+msgid "version"
+msgstr "versione"
+
+#, php-format
+msgid "using <strong>%s</strong> syntax"
+msgstr "utilizzando <strong>%s</strong> sintassi"
+
+msgid "Error reporting: "
+msgstr "Segnalazione di errori: "
+
+msgid "PHP Cache: "
+msgstr "PHP Cache: "
+
+msgid "Temporary folder: "
+msgstr "Cartella temporanea: "
+
+msgid "Dotclear info"
+msgstr "Informazioni su Dotclear"
+
+msgid "Dotclear version: "
+msgstr "Versione Dotclear: "
+
+msgid "Update channel: "
+msgstr "Canale di aggiornamento: "
+
+msgid "Channel: "
+msgstr "Canale: "
+
+msgid "version: "
+msgstr "versione: "
+
+msgid "href: "
+msgstr "href: "
+
+msgid "checksum: "
+msgstr "checksum: "
+
+msgid "info: "
+msgstr "info: "
+
+msgid "PHP min: "
+msgstr "PHP min: "
+
+msgid "No"
+msgstr "No"
+
+msgid "Warning: "
+msgstr "Attenzione: "
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "(from versions cache)"
+msgstr "(dalla cache delle versioni)"
+
+msgid "Update info"
+msgstr "Aggiornamento info"
+
+msgid "List of compiled templates in cache"
+msgstr "Elenco dei modelli compilati nella cache"
+
+msgid "Template path"
+msgstr "Percorso del modello"
+
+msgid "Template file"
+msgstr "File modello"
+
+msgid "List of template paths"
+msgstr "Elenco dei percorsi dei modelli"
+
+msgid "Display template tags"
+msgstr "Visualizzazione dei tag del modello"
+
+msgid "List of known URLs"
+msgstr "Elenco degli URL noti"
+
+msgid "base URL"
+msgstr "URL di base"
+
+msgid "Regular expression"
+msgstr "Espressione regolare"
+
+msgid "List of versions registered in the database"
+msgstr "Elenco delle versioni registrate nel database"
+
+msgid "Module"
+msgstr "Modulo"
+
+msgid "Version"
+msgstr "Versione"
+
+msgid "Core"
+msgstr "Nucleo"
+
+msgid "Distributed"
+msgstr "Distribuito"
+
+msgid "Disabled"
+msgstr "Disabili"
+
+msgid "Not found but may exist"
+msgstr "Non trovato ma potrebbe esistere"
+
+msgid "Update versions"
+msgstr "Aggiornamento delle versioni"
+
+msgid "Delete selected versions"
+msgstr "Cancellare le versioni selezionate"
+
+msgid "No version selected"
+msgstr "Nessuna versione selezionata"
+
+msgid "Selected versions have been deleted."
+msgstr "Le versioni selezionate sono state eliminate."
+
+msgid "Versions have been updated."
+msgstr "Le versioni sono state aggiornate."
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "PHP info"
+msgstr "Info PHP"
+
+msgid "DC Constants"
+msgstr "Costanti CC"
+
+msgid "Globals"
+msgstr "Globali"
+
+msgid "Folders"
+msgstr "Cartelle"
+
+msgid "Integrity"
+msgstr "Integrità"
+
+msgid "Autoloader"
+msgstr "Caricatore automatico"
+
+msgid "URL handlers"
+msgstr "Gestori di URL"
+
+msgid "Behaviours"
+msgstr "Comportamenti"
+
+msgid "Admin URLs"
+msgstr "URL amministratore"
+
+msgid "Templates"
+msgstr "Modelli"
+
+msgid "Compiled templates"
+msgstr "Modelli compilati"
+
+msgid "Template paths"
+msgstr "Percorsi modello"
+
+msgid "Repositories"
+msgstr "Repository"
+
+msgid "Plugins repository (cache)"
+msgstr "Repository dei plugin (cache)"
+
+msgid "Plugins repository"
+msgstr "Repository dei plugin"
+
+msgid "Themes repository (cache)"
+msgstr "Repository dei temi (cache)"
+
+msgid "Themes repository"
+msgstr "Archivio temi"
+
+msgid "Miscellaneous"
+msgstr "Varie"
+
+msgid "Plugins"
+msgstr "Plugin"
+
+msgid "Editors and Syntaxes"
+msgstr "Editori e sintassi"
+
+msgid "Versions"
+msgstr "Versioni"
+
+msgid "Full report"
+msgstr "Rapporto completo"
+
+msgid "3rd party"
+msgstr "Terza parte"
+
+msgid "Static cache"
+msgstr "Cache statica"
+
+msgid "Are you sure you want to remove selected template cache files?"
+msgstr ""
+"Siete sicuri di voler rimuovere i file di cache dei modelli selezionati?"
+
+msgid "Are you sure you want to remove selected versions from database?"
+msgstr "Siete sicuri di voler rimuovere le versioni selezionate dal database?"
+
+msgid "Are you sure you want to remove selected static cache files?"
+msgstr ""
+"Siete sicuri di voler rimuovere i file statici della cache selezionati?"
+
+msgid "Compiled template file not found or unreadable"
+msgstr "File modello compilato non trovato o non leggibile"
+
+msgid "Static cache file not found or unreadable"
+msgstr "File statico della cache non trovato o non leggibile"
+
+msgid "Select a checklist:"
+msgstr "Selezionare una lista di controllo:"
+
+msgid "Check"
+msgstr "Controllo"
