@@ -405,7 +405,7 @@ msgid "PHP info"
 msgstr "Información PHP"
 
 msgid "DC Constants"
-msgstr "Constantes CC"
+msgstr "Constantes DC"
 
 msgid "Globals"
 msgstr "Globales"
