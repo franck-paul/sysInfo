@@ -1,0 +1,494 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Franck Paul <carnet.franck.paul@gmail.com>, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 sysInfo module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-31 12:52+0200\n"
+"PO-Revision-Date: 2023-04-11 08:13+0000\n"
+"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "System Information"
+msgstr "系统信息"
+
+msgid "sysInfo"
+msgstr "sysInfo"
+
+msgid "System info"
+msgstr "系统信息"
+
+msgid "…"
+msgstr "..."
+
+msgid "(empty)"
+msgstr "(空)"
+
+msgid "Public behaviours list"
+msgstr "公共行为清单"
+
+msgid "Template tags list"
+msgstr "模板标签列表"
+
+msgid "Blocks"
+msgstr "块状物"
+
+msgid "Values"
+msgstr "价值观"
+
+msgid "Report"
+msgstr "报告"
+
+msgid "Download report"
+msgstr "下载报告"
+
+msgid "Report empty"
+msgstr "报告为空"
+
+msgid "Admin registered URLs"
+msgstr "管理员注册的URL"
+
+msgid "Name"
+msgstr "命名"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Query string"
+msgstr "查询字符串"
+
+msgid "Properties:"
+msgstr "属性："
+
+msgid "Empty"
+msgstr "空的"
+
+msgid "Root prefix:"
+msgstr "根部前缀："
+
+msgid "Root basedir:"
+msgstr "以根为基础："
+
+msgid "Namespaces"
+msgstr "命名空间"
+
+msgid "Behaviours list"
+msgstr "行为列表"
+
+msgid "Behavior"
+msgstr "行为习惯"
+
+msgid "Callback"
+msgstr "回调"
+
+msgid "Display public behaviours"
+msgstr "显示公共行为"
+
+msgid "Dotclear constants"
+msgstr "点晴常数"
+
+msgid "Constant"
+msgstr "恒定"
+
+msgid "(see inc/config.php)"
+msgstr "(见inc/config.php)"
+
+msgid "seconds"
+msgstr "秒"
+
+msgid "Dotclear folders and files"
+msgstr "Dotclear 文件夹和文件"
+
+msgid "Path"
+msgstr "路径"
+
+msgid "Status"
+msgstr "状况"
+
+msgid "Writable"
+msgstr "可写"
+
+msgid "Readonly"
+msgstr "只读"
+
+msgid "Unknown"
+msgstr "不详"
+
+msgid "Editors and their supported syntaxes"
+msgstr "编辑器和它们支持的语法"
+
+msgid "Editor"
+msgstr "编辑"
+
+msgid "Syntax"
+msgstr "语法"
+
+msgid "Global variables"
+msgstr "全球变量"
+
+msgid "Content"
+msgstr "内容"
+
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "***自%s 起被废弃 ***"
+
+msgid "Dotclear digest integrity"
+msgstr "Dotclear摘要的完整性"
+
+msgid "File"
+msgstr "文件"
+
+msgid "digest"
+msgstr "摘要"
+
+msgid "md5"
+msgstr "md5"
+
+msgid "md5 (experimental)"
+msgstr "md5 (实验性)"
+
+msgid "Not readable"
+msgstr "无法阅读"
+
+msgid "Everything is fine."
+msgstr "一切都很好。"
+
+msgid "Unable to read digests file."
+msgstr "无法读取摘要文件。"
+
+msgid "Types of permission"
+msgstr "许可的类型"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Plugins (in loading order)"
+msgstr "插件（按加载顺序排列）"
+
+msgid " (priority, name)"
+msgstr "(优先级，名称)"
+
+msgid "Plugin id"
+msgstr "插件ID"
+
+msgid " from: "
+msgstr "从： "
+
+msgid "cache"
+msgstr "缓存"
+
+msgid "Repository is unreachable"
+msgstr "存储库无法访问"
+
+msgid "Repository plugins list"
+msgstr "存储库插件列表"
+
+msgid "Plugin ID"
+msgstr "插件ID"
+
+msgid "Repository themes list"
+msgstr "存储库主题列表"
+
+msgid "Theme ID"
+msgstr "主题标识"
+
+msgid "REST methods"
+msgstr "REST方法"
+
+msgid "Method"
+msgstr "方法"
+
+msgid "Static cache directory does not exists"
+msgstr "静态缓存目录不存在"
+
+msgid "Static cache directory is not readable"
+msgstr "静态缓存目录不可读"
+
+msgid "URL:"
+msgstr "URL："
+
+msgid " → "
+msgstr "→ "
+
+msgid "List of static cache files in"
+msgstr "中的静态缓存文件列表。"
+
+msgid "last update:"
+msgstr "最后更新："
+
+msgid "Cache subpath"
+msgstr "缓存子路径"
+
+msgid "Cache file"
+msgstr "缓存文件"
+
+msgid "Delete selected cache files"
+msgstr "删除选定的高速缓存文件"
+
+msgid "No cache file selected"
+msgstr "没有选择缓存文件"
+
+msgid "Selected cache files have been deleted."
+msgstr "选定的缓存文件已被删除。"
+
+msgid "Live long and prosper."
+msgstr "长寿和繁荣。"
+
+msgid "To infinity and beyond."
+msgstr "到无限大，甚至更远。"
+
+msgid "So long, and thanks for all the fish."
+msgstr "再见了，感谢所有的鱼。"
+
+msgid "Find a needle in a haystack."
+msgstr "在干草堆中找一根针。"
+
+msgid "A clever person solves a problem. A wise person avoids it."
+msgstr "聪明的人解决了一个问题。聪明的人避免了问题。"
+
+msgid "I'm sorry, Dave. I'm afraid I can't do that."
+msgstr "我很抱歉，戴夫。恐怕我不能这样做。"
+
+msgid "With great power there must also come great responsibility."
+msgstr "有了巨大的权力，也必须有巨大的责任。"
+
+msgid "It's great, we have to do it all over again!"
+msgstr "这很好，我们必须重新做一遍！\"！"
+
+msgid "Have You Tried Turning It Off And On Again?"
+msgstr "你是否尝试过将其关闭并重新打开？"
+
+msgid "None"
+msgstr "无"
+
+msgid "PHP Version: "
+msgstr "PHP版本： "
+
+msgid "DB driver: "
+msgstr "DB驱动： "
+
+msgid "version"
+msgstr "版本"
+
+#, php-format
+msgid "using <strong>%s</strong> syntax"
+msgstr "使用 <strong>%s</strong>语法"
+
+msgid "Error reporting: "
+msgstr "错误报告： "
+
+msgid "PHP Cache: "
+msgstr "PHP 缓存： "
+
+msgid "Temporary folder: "
+msgstr "临时文件夹： "
+
+msgid "Dotclear info"
+msgstr "Dotclear信息"
+
+msgid "Dotclear version: "
+msgstr "Dotclear版本： "
+
+msgid "Update channel: "
+msgstr "更新渠道： "
+
+msgid "Channel: "
+msgstr "频道： "
+
+msgid "version: "
+msgstr "版本： "
+
+msgid "href: "
+msgstr "囟门： "
+
+msgid "checksum: "
+msgstr "检查和： "
+
+msgid "info: "
+msgstr "信息： "
+
+msgid "PHP min: "
+msgstr "PHP最小： "
+
+msgid "No"
+msgstr "没有"
+
+msgid "Warning: "
+msgstr "警告： "
+
+msgid "Yes"
+msgstr "是"
+
+msgid "(from versions cache)"
+msgstr "(来自版本缓存)"
+
+msgid "Update info"
+msgstr "更新信息"
+
+msgid "List of compiled templates in cache"
+msgstr "缓存中的编译模板列表"
+
+msgid "Template path"
+msgstr "模板路径"
+
+msgid "Template file"
+msgstr "模板文件"
+
+msgid "List of template paths"
+msgstr "模板路径列表"
+
+msgid "Display template tags"
+msgstr "显示模板标签"
+
+msgid "List of known URLs"
+msgstr "已知的URL列表"
+
+msgid "base URL"
+msgstr "基准网址"
+
+msgid "Regular expression"
+msgstr "正则表达式"
+
+msgid "List of versions registered in the database"
+msgstr "在数据库中注册的版本列表"
+
+msgid "Module"
+msgstr "模块"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Core"
+msgstr "核心"
+
+msgid "Distributed"
+msgstr "分布式"
+
+msgid "Disabled"
+msgstr "失能"
+
+msgid "Not found but may exist"
+msgstr "未发现但可能存在"
+
+msgid "Update versions"
+msgstr "更新版本"
+
+msgid "Delete selected versions"
+msgstr "删除选定的版本"
+
+msgid "No version selected"
+msgstr "未选择版本"
+
+msgid "Selected versions have been deleted."
+msgstr "部分版本已被删除。"
+
+msgid "Versions have been updated."
+msgstr "版本已经更新。"
+
+msgid "System"
+msgstr "系统"
+
+msgid "PHP info"
+msgstr "PHP信息"
+
+msgid "DC Constants"
+msgstr "直流常数"
+
+msgid "Globals"
+msgstr "全球性的"
+
+msgid "Folders"
+msgstr "文件夹"
+
+msgid "Integrity"
+msgstr "诚信"
+
+msgid "Autoloader"
+msgstr "自动装载机"
+
+msgid "URL handlers"
+msgstr "URL处理程序"
+
+msgid "Behaviours"
+msgstr "行为方式"
+
+msgid "Admin URLs"
+msgstr "管理员网址"
+
+msgid "Templates"
+msgstr "模板"
+
+msgid "Compiled templates"
+msgstr "编译的模板"
+
+msgid "Template paths"
+msgstr "模板路径"
+
+msgid "Repositories"
+msgstr "储存库"
+
+msgid "Plugins repository (cache)"
+msgstr "插件库(缓存)"
+
+msgid "Plugins repository"
+msgstr "插件库"
+
+msgid "Themes repository (cache)"
+msgstr "主题库（缓存）"
+
+msgid "Themes repository"
+msgstr "主题库"
+
+msgid "Miscellaneous"
+msgstr "杂项"
+
+msgid "Plugins"
+msgstr "插件"
+
+msgid "Editors and Syntaxes"
+msgstr "编辑器和句法"
+
+msgid "Versions"
+msgstr "版本"
+
+msgid "Full report"
+msgstr "报告全文"
+
+msgid "3rd party"
+msgstr "第三方"
+
+msgid "Static cache"
+msgstr "静态缓存"
+
+msgid "Are you sure you want to remove selected template cache files?"
+msgstr "你确定你要删除选定的模板缓存文件吗？"
+
+msgid "Are you sure you want to remove selected versions from database?"
+msgstr "你确定要从数据库中删除选定的版本吗？"
+
+msgid "Are you sure you want to remove selected static cache files?"
+msgstr "你确定你要删除选定的静态缓存文件吗？"
+
+msgid "Compiled template file not found or unreadable"
+msgstr "未找到编译的模板文件或无法读取"
+
+msgid "Static cache file not found or unreadable"
+msgstr "未找到静态缓存文件或无法读取静态缓存文件"
+
+msgid "Select a checklist:"
+msgstr "选择一个检查表："
+
+msgid "Check"
+msgstr "检查"
