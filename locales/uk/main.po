@@ -1,0 +1,494 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Franck Paul <carnet.franck.paul@gmail.com>, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 sysInfo module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-31 12:52+0200\n"
+"PO-Revision-Date: 2023-04-11 08:13+0000\n"
+"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
+"Language-Team: Ukrainian (https://app.transifex.com/open-time/teams/109573/uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "System Information"
+msgstr "Інформація про систему"
+
+msgid "sysInfo"
+msgstr "sysInfo"
+
+msgid "System info"
+msgstr "Інформація про систему"
+
+msgid "…"
+msgstr "..."
+
+msgid "(empty)"
+msgstr "(порожньо)"
+
+msgid "Public behaviours list"
+msgstr "Перелік видів поведінки в громадських місцях"
+
+msgid "Template tags list"
+msgstr "Список тегів шаблону"
+
+msgid "Blocks"
+msgstr "Блоки"
+
+msgid "Values"
+msgstr "Цінності"
+
+msgid "Report"
+msgstr "Звіт"
+
+msgid "Download report"
+msgstr "Завантажити звіт"
+
+msgid "Report empty"
+msgstr "Звіт порожній"
+
+msgid "Admin registered URLs"
+msgstr "Зареєстровані адміністратором URL-адреси"
+
+msgid "Name"
+msgstr "Ім'я"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Query string"
+msgstr "Рядок запиту"
+
+msgid "Properties:"
+msgstr "Власність:"
+
+msgid "Empty"
+msgstr "Порожньо."
+
+msgid "Root prefix:"
+msgstr "Кореневий префікс:"
+
+msgid "Root basedir:"
+msgstr "Root basedir:"
+
+msgid "Namespaces"
+msgstr "Простори імен"
+
+msgid "Behaviours list"
+msgstr "Перелік моделей поведінки"
+
+msgid "Behavior"
+msgstr "Поведінка"
+
+msgid "Callback"
+msgstr "Зворотній дзвінок"
+
+msgid "Display public behaviours"
+msgstr "Відображати публічну поведінку"
+
+msgid "Dotclear constants"
+msgstr "Константи Dotclear"
+
+msgid "Constant"
+msgstr "Постійна"
+
+msgid "(see inc/config.php)"
+msgstr "(див. inc/config.php)"
+
+msgid "seconds"
+msgstr "секунди"
+
+msgid "Dotclear folders and files"
+msgstr "Очищення папок і файлів"
+
+msgid "Path"
+msgstr "Шлях"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Writable"
+msgstr "Можна писати"
+
+msgid "Readonly"
+msgstr "Тільки для читання"
+
+msgid "Unknown"
+msgstr "Невідомо"
+
+msgid "Editors and their supported syntaxes"
+msgstr "Редактори та підтримувані ними синтаксиси"
+
+msgid "Editor"
+msgstr "Редактор"
+
+msgid "Syntax"
+msgstr "Синтаксис"
+
+msgid "Global variables"
+msgstr "Глобальні змінні"
+
+msgid "Content"
+msgstr "Зміст"
+
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "*** застаріла з %s ***"
+
+msgid "Dotclear digest integrity"
+msgstr "Цілісність дайджесту Dotclear"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "digest"
+msgstr "дайджест"
+
+msgid "md5"
+msgstr "md5"
+
+msgid "md5 (experimental)"
+msgstr "md5 (експериментальний)"
+
+msgid "Not readable"
+msgstr "Не читається"
+
+msgid "Everything is fine."
+msgstr "Усе гаразд."
+
+msgid "Unable to read digests file."
+msgstr "Неможливо прочитати файл дайджестів."
+
+msgid "Types of permission"
+msgstr "Типи дозволів"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Plugins (in loading order)"
+msgstr "Плагіни (у порядку завантаження)"
+
+msgid " (priority, name)"
+msgstr " (пріоритет, ім'я)"
+
+msgid "Plugin id"
+msgstr "Ідентифікатор плагіна"
+
+msgid " from: "
+msgstr " з якого: "
+
+msgid "cache"
+msgstr "кеш"
+
+msgid "Repository is unreachable"
+msgstr "Сховище недоступне"
+
+msgid "Repository plugins list"
+msgstr "Список плагінів сховища"
+
+msgid "Plugin ID"
+msgstr "Ідентифікатор плагіна"
+
+msgid "Repository themes list"
+msgstr "Список тем репозиторію"
+
+msgid "Theme ID"
+msgstr "Ідентифікатор теми"
+
+msgid "REST methods"
+msgstr "Методи REST"
+
+msgid "Method"
+msgstr "Метод"
+
+msgid "Static cache directory does not exists"
+msgstr "Каталог статичного кешу не існує"
+
+msgid "Static cache directory is not readable"
+msgstr "Каталог статичного кешу не читається"
+
+msgid "URL:"
+msgstr "URL:"
+
+msgid " → "
+msgstr " → "
+
+msgid "List of static cache files in"
+msgstr "Список файлів статичного кешу в"
+
+msgid "last update:"
+msgstr "останнє оновлення:"
+
+msgid "Cache subpath"
+msgstr "Підшлях до кешу"
+
+msgid "Cache file"
+msgstr "Файл кешу"
+
+msgid "Delete selected cache files"
+msgstr "Видалення вибраних файлів кешу"
+
+msgid "No cache file selected"
+msgstr "Не вибрано файл кешу"
+
+msgid "Selected cache files have been deleted."
+msgstr "Видалено вибрані файли кешу."
+
+msgid "Live long and prosper."
+msgstr "Живіть довго і процвітайте."
+
+msgid "To infinity and beyond."
+msgstr "До нескінченності і далі."
+
+msgid "So long, and thanks for all the fish."
+msgstr "Бувайте, і дякуємо за рибу."
+
+msgid "Find a needle in a haystack."
+msgstr "Знайдіть голку в копиці сіна."
+
+msgid "A clever person solves a problem. A wise person avoids it."
+msgstr "Розумна людина вирішує проблему. Мудра людина уникає її."
+
+msgid "I'm sorry, Dave. I'm afraid I can't do that."
+msgstr "Вибач, Дейве. Боюся, я не можу цього зробити."
+
+msgid "With great power there must also come great responsibility."
+msgstr "З великою владою має прийти і велика відповідальність."
+
+msgid "It's great, we have to do it all over again!"
+msgstr "Це чудово, ми повинні зробити це знову і знову!"
+
+msgid "Have You Tried Turning It Off And On Again?"
+msgstr "Ви пробували вимикати і вмикати його знову?"
+
+msgid "None"
+msgstr "Ні."
+
+msgid "PHP Version: "
+msgstr "Версія PHP: "
+
+msgid "DB driver: "
+msgstr "Драйвер БД: "
+
+msgid "version"
+msgstr "версія"
+
+#, php-format
+msgid "using <strong>%s</strong> syntax"
+msgstr "використовуючи <strong>%s</strong> синтаксис"
+
+msgid "Error reporting: "
+msgstr "Повідомлення про помилки: "
+
+msgid "PHP Cache: "
+msgstr "Кеш PHP: "
+
+msgid "Temporary folder: "
+msgstr "Тимчасова папка: "
+
+msgid "Dotclear info"
+msgstr "Точна інформація"
+
+msgid "Dotclear version: "
+msgstr "Абсолютно чітка версія: "
+
+msgid "Update channel: "
+msgstr "Оновити канал: "
+
+msgid "Channel: "
+msgstr "Канал: "
+
+msgid "version: "
+msgstr "версію: "
+
+msgid "href: "
+msgstr "href: "
+
+msgid "checksum: "
+msgstr "контрольну суму: "
+
+msgid "info: "
+msgstr "інформація: "
+
+msgid "PHP min: "
+msgstr "PHP хв: "
+
+msgid "No"
+msgstr "Ні."
+
+msgid "Warning: "
+msgstr "Обережно: "
+
+msgid "Yes"
+msgstr "Так."
+
+msgid "(from versions cache)"
+msgstr "(з кешу версій)"
+
+msgid "Update info"
+msgstr "Оновлення інформації"
+
+msgid "List of compiled templates in cache"
+msgstr "Список скомпільованих шаблонів у кеші"
+
+msgid "Template path"
+msgstr "Шлях до шаблону"
+
+msgid "Template file"
+msgstr "Файл шаблону"
+
+msgid "List of template paths"
+msgstr "Список шляхів до шаблонів"
+
+msgid "Display template tags"
+msgstr "Показати теги шаблону"
+
+msgid "List of known URLs"
+msgstr "Список відомих URL-адрес"
+
+msgid "base URL"
+msgstr "базова URL-адреса"
+
+msgid "Regular expression"
+msgstr "Регулярний вираз"
+
+msgid "List of versions registered in the database"
+msgstr "Список версій, зареєстрованих у базі даних"
+
+msgid "Module"
+msgstr "Модуль"
+
+msgid "Version"
+msgstr "Версія"
+
+msgid "Core"
+msgstr "Ядро"
+
+msgid "Distributed"
+msgstr "Розповсюджено"
+
+msgid "Disabled"
+msgstr "Інваліди"
+
+msgid "Not found but may exist"
+msgstr "Не знайдено, але може існувати"
+
+msgid "Update versions"
+msgstr "Оновлення версій"
+
+msgid "Delete selected versions"
+msgstr "Видалити вибрані версії"
+
+msgid "No version selected"
+msgstr "Не вибрано версію"
+
+msgid "Selected versions have been deleted."
+msgstr "Вибрані версії були видалені."
+
+msgid "Versions have been updated."
+msgstr "Версії були оновлені."
+
+msgid "System"
+msgstr "Система"
+
+msgid "PHP info"
+msgstr "Інформація про PHP"
+
+msgid "DC Constants"
+msgstr "Константи постійного струму"
+
+msgid "Globals"
+msgstr "Глобали"
+
+msgid "Folders"
+msgstr "Папки"
+
+msgid "Integrity"
+msgstr "Доброчесність"
+
+msgid "Autoloader"
+msgstr "Автозавантаження"
+
+msgid "URL handlers"
+msgstr "Обробники URL-адрес"
+
+msgid "Behaviours"
+msgstr "Поведінка"
+
+msgid "Admin URLs"
+msgstr "URL-адреси адміністратора"
+
+msgid "Templates"
+msgstr "Шаблони"
+
+msgid "Compiled templates"
+msgstr "Скомпільовані шаблони"
+
+msgid "Template paths"
+msgstr "Шляхи до шаблонів"
+
+msgid "Repositories"
+msgstr "Сховища"
+
+msgid "Plugins repository (cache)"
+msgstr "Репозиторій плагінів (кеш)"
+
+msgid "Plugins repository"
+msgstr "Репозиторій плагінів"
+
+msgid "Themes repository (cache)"
+msgstr "Репозиторій тем (кеш)"
+
+msgid "Themes repository"
+msgstr "Репозиторій тем"
+
+msgid "Miscellaneous"
+msgstr "Різне"
+
+msgid "Plugins"
+msgstr "Плагіни"
+
+msgid "Editors and Syntaxes"
+msgstr "Редактори та синтаксис"
+
+msgid "Versions"
+msgstr "Версії"
+
+msgid "Full report"
+msgstr "Повний звіт"
+
+msgid "3rd party"
+msgstr "Третя сторона"
+
+msgid "Static cache"
+msgstr "Статичний кеш"
+
+msgid "Are you sure you want to remove selected template cache files?"
+msgstr "Ви впевнені, що хочете видалити вибрані файли кешу шаблонів?"
+
+msgid "Are you sure you want to remove selected versions from database?"
+msgstr "Ви впевнені, що хочете видалити вибрані версії з бази даних?"
+
+msgid "Are you sure you want to remove selected static cache files?"
+msgstr "Ви впевнені, що хочете видалити вибрані файли статичного кешу?"
+
+msgid "Compiled template file not found or unreadable"
+msgstr "Скомпільований файл шаблону не знайдено або не читається"
+
+msgid "Static cache file not found or unreadable"
+msgstr "Файл статичного кешу не знайдено або не читається"
+
+msgid "Select a checklist:"
+msgstr "Виберіть контрольний список:"
+
+msgid "Check"
+msgstr "Перевірка."
