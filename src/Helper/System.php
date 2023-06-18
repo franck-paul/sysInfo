@@ -61,10 +61,17 @@ class System
             $caches[] = __('None');
         }
 
+        $server = '';
+        if (isset($_SERVER['SERVER_SOFTWARE'])) {
+            $info   = explode(' ', $_SERVER['SERVER_SOFTWARE']);
+            $server = '<li>' . __('Server software: ') . ' <strong>' . $info[0] . '</strong></li>';
+        }
+
         // Server info
         $server = ($quote ? '<blockquote class="sysinfo"><p>' . $quotes[$q] . '</p></blockquote>' : '') .
             '<details open><summary>' . __('System info') . '</summary>' .
             '<ul>' .
+            $server .
             '<li>' . __('PHP Version: ') . ' <strong>' . phpversion() . '</strong></li>' .
             '<li>' .
                 __('DB driver: ') . ' <strong>' . dcCore::app()->con->driver() . '</strong> ' .
