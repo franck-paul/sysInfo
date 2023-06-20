@@ -20,6 +20,7 @@ use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Http;
+use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
 class StaticCache
@@ -128,7 +129,9 @@ class StaticCache
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&sc=1');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'sc' => 1,
+                ]);
             }
         }
 

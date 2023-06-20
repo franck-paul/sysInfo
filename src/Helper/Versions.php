@@ -23,7 +23,7 @@ use Dotclear\Database\Statement\UpdateStatement;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Submit;
-use Dotclear\Helper\Network\Http;
+use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
 class Versions
@@ -157,7 +157,9 @@ class Versions
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected versions have been deleted.'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'ver' => 1,
+                ]);
             }
         }
 
@@ -179,7 +181,9 @@ class Versions
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Versions have been updated.'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&ver=1');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'ver' => 1,
+                ]);
             }
         }
 

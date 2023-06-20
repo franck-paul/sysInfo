@@ -20,8 +20,8 @@ use dcPublic;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Template\Template;
-use Dotclear\Helper\Network\Http;
 use Dotclear\Plugin\sysInfo\Helper;
+use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
 class Templates
@@ -158,7 +158,9 @@ class Templates
             }
             if (!dcCore::app()->error->flag()) {
                 dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&tpl=1');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'tpl' => 1,
+                ]);
             }
         }
 
