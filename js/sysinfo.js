@@ -6,35 +6,29 @@ $(() => {
 
   const dotclearAjax = (method, args, fn, msg = '') => {
     let content = null;
-    const params = {
-      xd_check: dotclear.nonce,
-      f: method,
-    };
-    $.extend(params, args);
-    const promise = $.ajax({
-      url: 'services.php',
-      data: params,
-      dataType: 'xml',
-    });
-    promise.done((data) => {
-      if ($('rsp[status=failed]', data).length > 0) {
-        // For debugging purpose only:
-        // console.log($('rsp',data).attr('message'));
-        window.console.log('Dotclear REST server error');
-        return;
-      }
-      // ret -> status (true/false)
-      // msg -> REST method return value
-      const ret = Number($('rsp>sysinfo', data).attr('ret'));
-      content = $('rsp>sysinfo', data).attr('msg');
-      if (ret && fn !== undefined && typeof fn === 'function') {
-        // Call callback function with returned value
-        fn(content);
-      }
-      if (!ret && msg !== '') {
-        window.alert(msg);
-      }
-    });
+    dotclear.servicesGet(
+      method,
+      (data) => {
+        if ($('rsp[status=failed]', data).length > 0) {
+          // For debugging purpose only:
+          // console.log($('rsp',data).attr('message'));
+          window.console.log('Dotclear REST server error');
+          return;
+        }
+        // ret -> status (true/false)
+        // msg -> REST method return value
+        const ret = Number($('sysinfo', data).attr('ret'));
+        content = $('sysinfo', data).attr('msg');
+        if (ret && fn !== undefined && typeof fn === 'function') {
+          // Call callback function with returned value
+          fn(content);
+        }
+        if (!ret && msg !== '') {
+          window.alert(msg);
+        }
+      },
+      args,
+    );
   };
 
   const getStaticCacheFilename = (url, fn) => dotclearAjax('getStaticCacheName', { url }, fn, '');
