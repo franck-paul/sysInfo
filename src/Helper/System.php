@@ -126,7 +126,28 @@ class System
             $versions = '<details open><summary>' . __('Update info') . ' ' . __('(from versions cache)') . '</summary><ul>' . $versions . '</ul></details>';
         }
 
-        return $server . $dotclear . $versions;
+        $release      = '';
+        $release_file = DC_ROOT . DIRECTORY_SEPARATOR . 'release.json';
+        if (file_exists($release_file)) {
+            // Add a section with the content of release.json file
+            $content = json_decode(file_get_contents($release_file), true);
+            foreach ($content as $key => $value) {
+                if (is_array($value)) {
+                    $release .= '<li>' . $key . ' = <ul>';
+                    foreach ($value as $subkey => $subvalue) {
+                        $release .= '<li>' . $subkey . ' = <strong>' . $subvalue . '</strong></li>';
+                    }
+                    $release .= '</ul></li>';
+                } else {
+                    $release .= '<li>' . $key . ' = <strong>' . $value . '</strong></li>';
+                }
+            }
+            if ($release) {
+                $release = '<details open><summary>' . __('Release info') . '</summary><ul>' . $release . '</ul></details>';
+            }
+        }
+
+        return $server . $dotclear . $versions . $release;
     }
 
     /**

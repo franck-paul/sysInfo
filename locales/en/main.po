@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 12:52+0200\n"
+"POT-Creation-Date: 2023-06-25 10:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -269,6 +269,9 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+msgid "Server software: "
+msgstr ""
+
 msgid "PHP Version: "
 msgstr ""
 
@@ -331,6 +334,9 @@ msgid "(from versions cache)"
 msgstr ""
 
 msgid "Update info"
+msgstr ""
+
+msgid "Release info"
 msgstr ""
 
 msgid "List of compiled templates in cache"

@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # Franck Paul <carnet.franck.paul@gmail.com>, 2023
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 12:52+0200\n"
+"POT-Creation-Date: 2023-06-25 10:26+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Greek (https://app.transifex.com/open-time/teams/109573/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "System Information"
@@ -273,6 +273,9 @@ msgstr "Δοκιμάσατε να το απενεργοποιήσετε και �
 msgid "None"
 msgstr "Κανένα"
 
+msgid "Server software: "
+msgstr ""
+
 msgid "PHP Version: "
 msgstr "Έκδοση PHP: "
 
@@ -336,6 +339,10 @@ msgstr "(από τις εκδόσεις cache)"
 
 msgid "Update info"
 msgstr "Ενημέρωση πληροφοριών"
+
+#, fuzzy
+msgid "Release info"
+msgstr "Πληροφορίες Dotclear"
 
 msgid "List of compiled templates in cache"
 msgstr "Λίστα των μεταγλωττισμένων προτύπων στην κρυφή μνήμη"
@@ -473,28 +480,19 @@ msgid "Static cache"
 msgstr "Στατική κρυφή μνήμη"
 
 msgid "Are you sure you want to remove selected template cache files?"
-msgstr ""
-"Είστε σίγουροι ότι θέλετε να αφαιρέσετε επιλεγμένα αρχεία προσωρινής "
-"αποθήκευσης προτύπων;"
+msgstr "Είστε σίγουροι ότι θέλετε να αφαιρέσετε επιλεγμένα αρχεία προσωρινής αποθήκευσης προτύπων;"
 
 msgid "Are you sure you want to remove selected versions from database?"
-msgstr ""
-"Είστε σίγουροι ότι θέλετε να αφαιρέσετε τις επιλεγμένες εκδόσεις από τη βάση"
-" δεδομένων;"
+msgstr "Είστε σίγουροι ότι θέλετε να αφαιρέσετε τις επιλεγμένες εκδόσεις από τη βάση δεδομένων;"
 
 msgid "Are you sure you want to remove selected static cache files?"
-msgstr ""
-"Είστε σίγουροι ότι θέλετε να αφαιρέσετε επιλεγμένα αρχεία στατικής "
-"προσωρινής αποθήκευσης;"
+msgstr "Είστε σίγουροι ότι θέλετε να αφαιρέσετε επιλεγμένα αρχεία στατικής προσωρινής αποθήκευσης;"
 
 msgid "Compiled template file not found or unreadable"
-msgstr ""
-"Το αρχείο προτύπου που έχει μεταγλωττιστεί δεν βρέθηκε ή δεν είναι "
-"αναγνώσιμο"
+msgstr "Το αρχείο προτύπου που έχει μεταγλωττιστεί δεν βρέθηκε ή δεν είναι αναγνώσιμο"
 
 msgid "Static cache file not found or unreadable"
-msgstr ""
-"Το αρχείο στατικής προσωρινής μνήμης δεν βρέθηκε ή δεν είναι αναγνώσιμο"
+msgstr "Το αρχείο στατικής προσωρινής μνήμης δεν βρέθηκε ή δεν είναι αναγνώσιμο"
 
 msgid "Select a checklist:"
 msgstr "Επιλέξτε μια λίστα ελέγχου:"
