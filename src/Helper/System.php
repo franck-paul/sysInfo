@@ -123,7 +123,7 @@ class System
             }
         }
         if ($versions !== '') {
-            $versions = '<details open><summary>' . __('Update info') . ' ' . __('(from versions cache)') . '</summary><ul>' . $versions . '</ul></details>';
+            $versions = '<details><summary>' . __('Update info') . ' ' . __('(from versions cache)') . '</summary><ul>' . $versions . '</ul></details>';
         }
 
         $release      = '';
@@ -135,15 +135,15 @@ class System
                 if (is_array($value)) {
                     $release .= '<li>' . $key . ' = <ul>';
                     foreach ($value as $subkey => $subvalue) {
-                        $release .= '<li>' . $subkey . ' = <strong>' . $subvalue . '</strong></li>';
+                        $release .= '<li>' . $subkey . ' = <strong>' . (string) $subvalue . '</strong></li>';
                     }
                     $release .= '</ul></li>';
                 } else {
-                    $release .= '<li>' . $key . ' = <strong>' . $value . '</strong></li>';
+                    $release .= '<li>' . $key . ' = <strong>' . (string) $value . '</strong></li>';
                 }
             }
             if ($release) {
-                $release = '<details open><summary>' . __('Release info') . '</summary><ul>' . $release . '</ul></details>';
+                $release = '<details><summary>' . __('Release info') . '</summary><ul>' . $release . '</ul></details>';
             }
         }
 
