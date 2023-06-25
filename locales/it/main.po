@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
 # Franck Paul <carnet.franck.paul@gmail.com>, 2023
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 10:26+0200\n"
+"POT-Creation-Date: 2023-06-25 10:25+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "System Information"
@@ -256,7 +256,8 @@ msgid "Find a needle in a haystack."
 msgstr "Trovare un ago in un pagliaio."
 
 msgid "A clever person solves a problem. A wise person avoids it."
-msgstr "Una persona intelligente risolve un problema. Una persona saggia lo evita."
+msgstr ""
+"Una persona intelligente risolve un problema. Una persona saggia lo evita."
 
 msgid "I'm sorry, Dave. I'm afraid I can't do that."
 msgstr "Mi dispiace, Dave. Temo di non poterlo fare."
@@ -274,7 +275,7 @@ msgid "None"
 msgstr "Nessuno"
 
 msgid "Server software: "
-msgstr ""
+msgstr "Software del server: "
 
 msgid "PHP Version: "
 msgstr "Versione PHP: "
@@ -340,9 +341,8 @@ msgstr "(dalla cache delle versioni)"
 msgid "Update info"
 msgstr "Aggiornamento info"
 
-#, fuzzy
 msgid "Release info"
-msgstr "Informazioni su Dotclear"
+msgstr "Informazioni sul rilascio"
 
 msgid "List of compiled templates in cache"
 msgstr "Elenco dei modelli compilati nella cache"
@@ -480,13 +480,15 @@ msgid "Static cache"
 msgstr "Cache statica"
 
 msgid "Are you sure you want to remove selected template cache files?"
-msgstr "Siete sicuri di voler rimuovere i file di cache dei modelli selezionati?"
+msgstr ""
+"Siete sicuri di voler rimuovere i file di cache dei modelli selezionati?"
 
 msgid "Are you sure you want to remove selected versions from database?"
 msgstr "Siete sicuri di voler rimuovere le versioni selezionate dal database?"
 
 msgid "Are you sure you want to remove selected static cache files?"
-msgstr "Siete sicuri di voler rimuovere i file statici della cache selezionati?"
+msgstr ""
+"Siete sicuri di voler rimuovere i file statici della cache selezionati?"
 
 msgid "Compiled template file not found or unreadable"
 msgstr "File modello compilato non trovato o non leggibile"
