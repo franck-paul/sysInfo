@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 10:25+0200\n"
+"POT-Creation-Date: 2023-06-26 18:58+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Ukrainian (https://app.transifex.com/open-time/teams/109573/uk/)\n"
@@ -35,6 +35,15 @@ msgstr "..."
 msgid "(empty)"
 msgstr "(порожньо)"
 
+msgid "Report"
+msgstr "Звіт"
+
+msgid "Download report"
+msgstr "Завантажити звіт"
+
+msgid "Report empty"
+msgstr "Звіт порожній"
+
 msgid "Public behaviours list"
 msgstr "Перелік видів поведінки в громадських місцях"
 
@@ -46,15 +55,6 @@ msgstr "Блоки"
 
 msgid "Values"
 msgstr "Цінності"
-
-msgid "Report"
-msgstr "Звіт"
-
-msgid "Download report"
-msgstr "Завантажити звіт"
-
-msgid "Report empty"
-msgstr "Звіт порожній"
 
 msgid "Admin registered URLs"
 msgstr "Зареєстровані адміністратором URL-адреси"
@@ -384,6 +384,9 @@ msgstr "Розповсюджено"
 
 msgid "Disabled"
 msgstr "Інваліди"
+
+msgid "Obsolete"
+msgstr "Застарілий"
 
 msgid "Not found but may exist"
 msgstr "Не знайдено, але може існувати"
