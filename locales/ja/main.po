@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 10:25+0200\n"
+"POT-Creation-Date: 2023-06-26 18:58+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -35,6 +35,15 @@ msgstr "..."
 msgid "(empty)"
 msgstr "(空)"
 
+msgid "Report"
+msgstr "報告書"
+
+msgid "Download report"
+msgstr "レポートダウンロード"
+
+msgid "Report empty"
+msgstr "レポートエンプティ"
+
 msgid "Public behaviours list"
 msgstr "公開行動一覧"
 
@@ -46,15 +55,6 @@ msgstr "ブロック"
 
 msgid "Values"
 msgstr "価値観"
-
-msgid "Report"
-msgstr "報告書"
-
-msgid "Download report"
-msgstr "レポートダウンロード"
-
-msgid "Report empty"
-msgstr "レポートエンプティ"
 
 msgid "Admin registered URLs"
 msgstr "管理者登録URL"
@@ -384,6 +384,9 @@ msgstr "分散型"
 
 msgid "Disabled"
 msgstr "使用不可"
+
+msgid "Obsolete"
+msgstr "廃止"
 
 msgid "Not found but may exist"
 msgstr "見つからないが、存在する可能性がある"
