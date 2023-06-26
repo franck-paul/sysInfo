@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcUtils;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Globals
 {
@@ -73,11 +74,11 @@ class Globals
                     foreach ($values as $key => $value) {
                         $type = ' (' . gettype($value) . ')';
                         $type = '';     // All values are string
-                        $content .= '<li><strong>' . $key . '</strong> = ' . '<code>' . print_r($value, true) . '</code>' . $type . '</li>';
+                        $content .= '<li><strong>' . $key . '</strong> = ' . '<code>' . CoreHelper::simplifyFilename(print_r($value, true)) . '</code>' . $type . '</li>';
                     }
                     $content .= '</ul>';
                 } else {
-                    $content = print_r($GLOBALS[$variable], true);
+                    $content = CoreHelper::simplifyFilename(print_r($GLOBALS[$variable], true));
                     if (mb_strlen($content) > $max_length) {
                         $content = mb_substr($content, 0, $max_length) . ' …';
                     }

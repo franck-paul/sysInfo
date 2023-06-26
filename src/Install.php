@@ -34,6 +34,7 @@ class Install extends dcNsProcess
 
         $settings = dcCore::app()->blog->settings->get(My::id());
         $settings->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
+        $settings->put('redact', '', 'string', '', false, true);
 
         return true;
     }

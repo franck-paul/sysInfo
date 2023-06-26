@@ -35,6 +35,8 @@ use Exception;
 
 class CoreHelper
 {
+    public static $redact;
+
     /**
      * Display full report in a textarea, ready to copy'n'paste
      *
@@ -222,6 +224,11 @@ class CoreHelper
      */
     public static function simplifyFilename(string $file, bool $real = false): string
     {
+        if (is_null(static::$redact)) {
+            $settings       = dcCore::app()->blog->settings->get(My::id());
+            static::$redact = $settings->redact ?? '';
+        }
+
         $bases = array_map(fn ($path) => Path::real($path), [
             DC_ROOT,                                        // Core
             dcCore::app()->blog->themes_path,               // Theme
@@ -238,8 +245,12 @@ class CoreHelper
         foreach ($bases as $index => $base) {
             // Filter bases (beginning of path) of file
             if (strstr($file, $base)) {
-                return $prefixes[min($index, 2)] . substr($file, strlen($base));
+                $file = str_replace($base, $prefixes[min($index, 2)], $file);
             }
+        }
+
+        if (static::$redact !== '') {
+            $file = str_replace(static::$redact, '[***]', $file);
         }
 
         return $file;

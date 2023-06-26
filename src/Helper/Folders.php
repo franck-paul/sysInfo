@@ -18,6 +18,7 @@ use dcCore;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Template\Template;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 use Exception;
 
 class Folders
@@ -100,7 +101,7 @@ class Folders
 
                 $str .= '<tr>' .
                 '<td class="nowrap">' . $name . '</td>' .
-                '<td class="maximal">' . $folder . '</td>' .
+                '<td class="maximal">' . CoreHelper::simplifyFilename($folder) . '</td>' .
                 '<td class="nowrap">' . $status . '</td>' .
                 '</tr>';
 

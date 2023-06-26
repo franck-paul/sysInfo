@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
+use Dotclear\Plugin\sysInfo\CoreHelper;
+
 class PhpInfo
 {
     /**
@@ -45,9 +47,9 @@ class PhpInfo
                 if (is_array($val)) {
                     $str .= "<tr><td>$key</td><td>$val[0]</td><td>$val[1]</td></tr>\n";
                 } elseif (is_string($key)) {
-                    $str .= "<tr><td>$key</td><td>$val</td></tr>\n";
+                    $str .= "<tr><td>$key</td><td>" . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
                 } else {
-                    $str .= "<tr><td>$val</td></tr>\n";
+                    $str .= '<tr><td>' . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
                 }
             }
             $str .= "</table>\n";
