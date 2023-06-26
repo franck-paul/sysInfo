@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 10:25+0200\n"
+"POT-Creation-Date: 2023-06-26 18:58+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -35,6 +35,15 @@ msgstr "..."
 msgid "(empty)"
 msgstr "(빈)"
 
+msgid "Report"
+msgstr "보고서"
+
+msgid "Download report"
+msgstr "보고서 다운로드"
+
+msgid "Report empty"
+msgstr "비어있는 신고"
+
 msgid "Public behaviours list"
 msgstr "공개 행동 목록"
 
@@ -46,15 +55,6 @@ msgstr "블록"
 
 msgid "Values"
 msgstr "값"
-
-msgid "Report"
-msgstr "보고서"
-
-msgid "Download report"
-msgstr "보고서 다운로드"
-
-msgid "Report empty"
-msgstr "비어있는 신고"
 
 msgid "Admin registered URLs"
 msgstr "관리자 등록 URL"
@@ -384,6 +384,9 @@ msgstr "배포"
 
 msgid "Disabled"
 msgstr "장애인"
+
+msgid "Obsolete"
+msgstr "사용되지 않음"
 
 msgid "Not found but may exist"
 msgstr "찾을 수 없지만 존재할 수 있음"
