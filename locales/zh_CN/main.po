@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 10:25+0200\n"
+"POT-Creation-Date: 2023-06-26 18:58+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -35,6 +35,15 @@ msgstr "..."
 msgid "(empty)"
 msgstr "(空)"
 
+msgid "Report"
+msgstr "报告"
+
+msgid "Download report"
+msgstr "下载报告"
+
+msgid "Report empty"
+msgstr "报告为空"
+
 msgid "Public behaviours list"
 msgstr "公共行为清单"
 
@@ -46,15 +55,6 @@ msgstr "块状物"
 
 msgid "Values"
 msgstr "价值观"
-
-msgid "Report"
-msgstr "报告"
-
-msgid "Download report"
-msgstr "下载报告"
-
-msgid "Report empty"
-msgstr "报告为空"
 
 msgid "Admin registered URLs"
 msgstr "管理员注册的URL"
@@ -384,6 +384,9 @@ msgstr "分布式"
 
 msgid "Disabled"
 msgstr "失能"
+
+msgid "Obsolete"
+msgstr "已过时的"
 
 msgid "Not found but may exist"
 msgstr "未发现但可能存在"
