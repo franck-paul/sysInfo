@@ -20,7 +20,7 @@ use dcPublic;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Template\Template;
-use Dotclear\Plugin\sysInfo\Helper;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
@@ -33,7 +33,7 @@ class Templates
      */
     public static function render(): string
     {
-        $tplset = Helper::publicPrepend();
+        $tplset = CoreHelper::publicPrepend();
 
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
         $cache_path    = Path::real(DC_TPL_CACHE);
@@ -95,7 +95,7 @@ class Templates
                     $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                     $file_exists    = file_exists($file_check);
                     $str .= '<tr>' .
-                        '<td>' . ($path_displayed ? '' : $sub_path) . '</td>' .
+                        '<td>' . ($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)) . '</td>' .
                         '<td class="nowrap">' . $file . '</td>' .
                         '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                         '<td class="nowrap">' .

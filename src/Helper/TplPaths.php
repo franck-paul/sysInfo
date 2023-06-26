@@ -16,7 +16,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use Dotclear\Helper\File\Path;
-use Dotclear\Plugin\sysInfo\Helper;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class TplPaths
 {
@@ -27,7 +27,7 @@ class TplPaths
      */
     public static function render(): string
     {
-        Helper::publicPrepend();
+        CoreHelper::publicPrepend();
         $paths         = dcCore::app()->tpl->getPath();
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 
@@ -52,7 +52,7 @@ class TplPaths
                     $sub_path = substr($sub_path, 1);
                 }
             }
-            $str .= '<tr><td>' . $sub_path . '</td><tr>';
+            $str .= '<tr><td>' . CoreHelper::simplifyFilename($sub_path) . '</td><tr>';
         }
         $str .= '</tbody></table>';
 

@@ -120,7 +120,7 @@ class Manage extends dcNsProcess
         $checklist = Templates::check($checklist);
         $checklist = StaticCache::check($checklist);
 
-        $checklist = Helper::downloadReport($checklist);
+        $checklist = CoreHelper::downloadReport($checklist);
 
         dcCore::app()->admin->checklist = $checklist;
 
@@ -315,7 +315,7 @@ class Manage extends dcNsProcess
                 break;
 
             case 'report':
-                echo Helper::renderReport();
+                echo CoreHelper::renderReport();
 
                 break;
 

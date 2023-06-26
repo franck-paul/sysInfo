@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcUtils;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Constants
 {
@@ -44,6 +45,9 @@ class Constants
                 '<img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .
                 '<td class="maximal">';
             if ($v != $undefined) {
+                if (is_string($v)) {
+                    $v = CoreHelper::simplifyFilename($v);
+                }
                 $str .= $v;
             }
             $str .= '</td></tr>';

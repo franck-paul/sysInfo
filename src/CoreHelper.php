@@ -33,7 +33,7 @@ use Dotclear\Plugin\sysInfo\Helper\TplPaths;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
 use Exception;
 
-class Helper
+class CoreHelper
 {
     /**
      * Display full report in a textarea, ready to copy'n'paste
@@ -210,5 +210,38 @@ class Helper
         }
 
         return $tplset;
+    }
+
+    /**
+     * Simplify filename
+     *
+     * @param      string        $file   The file
+     * @param      bool          $real   Compute the real path if possible
+     *
+     * @return     string
+     */
+    public static function simplifyFilename(string $file, bool $real = false): string
+    {
+        $bases = array_map(fn ($path) => Path::real($path), [
+            DC_ROOT,                                        // Core
+            dcCore::app()->blog->themes_path,               // Theme
+            ...explode(PATH_SEPARATOR, DC_PLUGINS_ROOT),    // Plugins
+        ]);
+        $prefixes = ['[core]', '[theme]', '[plugin]'];
+
+        if ($real) {
+            if ($new = Path::real($file)) {
+                $file = $new;
+            }
+        }
+
+        foreach ($bases as $index => $base) {
+            // Filter bases (beginning of path) of file
+            if (strstr($file, $base)) {
+                return $prefixes[min($index, 2)] . substr($file, strlen($base));
+            }
+        }
+
+        return $file;
     }
 }

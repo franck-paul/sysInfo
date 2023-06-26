@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcModuleDefine;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Plugins
 {
@@ -55,6 +56,8 @@ class Plugins
                     }
                 } elseif (in_array($key, ['support', 'details', 'repository'])) {
                     $value = '<a href="' . $value . '"/>' . $value . '</a>';
+                } elseif (in_array($key, ['root'])) {
+                    $value = CoreHelper::simplifyFilename($value, true);
                 }
                 $str .= '<li>' . $key . ' = ' . $value . '</li>';
             }

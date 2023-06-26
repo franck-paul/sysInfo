@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
+use Dotclear\Plugin\sysInfo\CoreHelper;
+
 class Integrity
 {
     /**
@@ -81,7 +83,7 @@ class Integrity
                 if ($std_status) {
                     $count++;
                     $str .= '<tr>' .
-                    '<td class="maximal">' . $filename . '</td>' .
+                    '<td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
                     '<td>' . $md5 . '</td>' .
                     '<td' . $std_status . '>' . $md5_std . '</td>' .
                     '<td' . $exp_status . '>' . $md5_exp . '</td>' .
