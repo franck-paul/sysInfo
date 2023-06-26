@@ -20,6 +20,11 @@
   background: var(--msg-success-background);
 }
 
+.sysinfo .version-obsolete {
+  color: var(--msg-color);
+  background: var(--msg-background);
+}
+
 .sysinfo .version-core {
   color: var(--msg-info-color);
   background: var(--msg-info-background);

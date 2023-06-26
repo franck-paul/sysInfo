@@ -38,6 +38,14 @@ class Versions
         $versions    = dcCore::app()->getVersions();
         $distributed = explode(',', DC_DISTRIB_PLUGINS);
         $paths       = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
+        $obsoletes   = [
+            'blowupConfig',
+            'daInstaller',
+            'formatting-markdown',
+            'magnific-popup',
+            'dcrevisions',
+            'contactme',
+        ];
 
         // Some plugins may have registered their version with a different case reprensetation of their name
         // which is not a very good idea, but we need to cope with legacy code ;-)
@@ -98,6 +106,9 @@ class Versions
                     if ($exists) {
                         $class[]  = 'version-disabled';
                         $status[] = __('Disabled');
+                    } elseif (in_array($module, $obsoletes, true)) {
+                        $class[]  = 'version-obsolete';
+                        $status[] = __('Obsolete');
                     } else {
                         $class[]  = 'version-unknown';
                         $status[] = __('Not found but may exist');
