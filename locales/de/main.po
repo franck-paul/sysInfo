@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 10:25+0200\n"
+"POT-Creation-Date: 2023-06-26 18:58+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: German (https://app.transifex.com/open-time/teams/109573/de/)\n"
@@ -35,6 +35,15 @@ msgstr "..."
 msgid "(empty)"
 msgstr "(leer)"
 
+msgid "Report"
+msgstr "Bericht"
+
+msgid "Download report"
+msgstr "Bericht herunterladen"
+
+msgid "Report empty"
+msgstr "Bericht leer"
+
 msgid "Public behaviours list"
 msgstr "Liste der öffentlichen Verhaltensweisen"
 
@@ -46,15 +55,6 @@ msgstr "Blöcke"
 
 msgid "Values"
 msgstr "Werte"
-
-msgid "Report"
-msgstr "Bericht"
-
-msgid "Download report"
-msgstr "Bericht herunterladen"
-
-msgid "Report empty"
-msgstr "Bericht leer"
 
 msgid "Admin registered URLs"
 msgstr "Von der Verwaltung registrierte URLs"
@@ -384,6 +384,9 @@ msgstr "Verteilt"
 
 msgid "Disabled"
 msgstr "Behinderte"
+
+msgid "Obsolete"
+msgstr "Veraltet"
 
 msgid "Not found but may exist"
 msgstr "Nicht gefunden, aber möglicherweise vorhanden"
