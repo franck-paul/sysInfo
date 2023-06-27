@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
+use dcUtils;
 
 class AdminUrls
 {
@@ -27,17 +28,19 @@ class AdminUrls
     {
         // Récupération de la liste des URLs d'admin enregistrées
         $urls = dcCore::app()->adminurl->dumpUrls();
+        $urls = $urls->getArrayCopy();
+        dcUtils::lexicalKeySort($urls);
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
             '<th scope="col">' . __('URL') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Query string') . '</th></tr></thead>' .
+            '<th scope="col">' . __('Query string') . '</th></tr></thead>' .
             '<tbody>';
         foreach ($urls as $name => $url) {
             $str .= '<tr>' .
                 '<td scope="row" class="nowrap">' . $name . '</td>' .
                 '<td><code>' . $url['url'] . '</code></td>' .
-                '<td class="maximal"><code>' . http_build_query($url['qs']) . '</code></td>' .
+                '<td><code>' . http_build_query($url['qs']) . '</code></td>' .
                 '</tr>';
         }
         $str .= '</tbody>' .

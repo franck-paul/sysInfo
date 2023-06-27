@@ -27,6 +27,7 @@ class Autoloader
     {
         $autoloader = App::autoload();
         $ns         = array_keys($autoloader->getNamespaces());
+        sort($ns);
 
         $str = '<p>' . __('Properties:') . '</p>' .
             '<ul>' .
