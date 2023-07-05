@@ -29,7 +29,9 @@ class Behaviors
         // Affichage de la liste des behaviours inscrits
         $bl = dcCore::app()->getBehaviors('');
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
+        $str = '<p><a id="sysinfo-preview" href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
+
+        $str .= '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Behaviours list') . ' (' . sprintf('%d', is_countable($bl) ? count($bl) : 0) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
@@ -68,8 +70,6 @@ class Behaviors
             $str .= '</tr>';
         }
         $str .= '</tbody></table>';
-
-        $str .= '<p><a id="sysinfo-preview" href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
 
         return $str;
     }
