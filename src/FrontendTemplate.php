@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
+use ReflectionFunction;
 
 class FrontendTemplate
 {
@@ -56,7 +57,9 @@ class FrontendTemplate
                             $code .= $fi[0] . '::' . $fi[1] . '()';
                         }
                     } elseif ($fi instanceof \Closure) {
-                        $code .= '__Closure__';
+                        $r  = new ReflectionFunction($fi);
+                        $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                        $code .= $ns . '__closure__' . '()';
                     } else {
                         $code .= $fi . '()';
                     }

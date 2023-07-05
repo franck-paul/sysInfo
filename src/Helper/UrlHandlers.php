@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
+use ReflectionFunction;
 
 class UrlHandlers
 {
@@ -56,7 +57,9 @@ class UrlHandlers
                     }
                 } else {
                     if ($fi instanceof \Closure) {
-                        $handler = '__closure__';
+                        $r       = new ReflectionFunction($fi);
+                        $ns      = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                        $handler = $ns . '__closure__';
                     } else {
                         $handler = $fi;
                     }

@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcUtils;
+use ReflectionFunction;
 
 class Behaviors
 {
@@ -56,7 +57,9 @@ class Behaviors
                         }
                     } else {
                         if ($fi instanceof \Closure) {
-                            $str .= '__closure__';
+                            $r  = new ReflectionFunction($fi);
+                            $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                            $str .= $ns . '__closure__';
                         } else {
                             $str .= $fi;
                         }
