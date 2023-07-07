@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 18:58+0200\n"
+"POT-Creation-Date: 2023-07-07 08:23+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Greek (https://app.transifex.com/open-time/teams/109573/el/)\n"
@@ -83,6 +83,9 @@ msgstr "Root basedir:"
 msgid "Namespaces"
 msgstr "Χώροι ονομάτων"
 
+msgid "Display public behaviours"
+msgstr "Εμφάνιση δημόσιων συμπεριφορών"
+
 msgid "Behaviours list"
 msgstr "Κατάλογος συμπεριφορών"
 
@@ -91,9 +94,6 @@ msgstr "Συμπεριφορά"
 
 msgid "Callback"
 msgstr "Callback"
-
-msgid "Display public behaviours"
-msgstr "Εμφάνιση δημόσιων συμπεριφορών"
 
 msgid "Dotclear constants"
 msgstr "Σταθερές Dotclear"
@@ -192,6 +192,15 @@ msgstr "cache"
 msgid "Repository is unreachable"
 msgstr "Το αποθετήριο δεν είναι προσβάσιμο"
 
+msgid "Repositories"
+msgstr "Αποθετήρια"
+
+msgid "in cache"
+msgstr "στη μνήμη cache"
+
+msgid "Repository content"
+msgstr "Περιεχόμενο αποθετηρίου"
+
 msgid "Repository plugins list"
 msgstr "Λίστα πρόσθετων αποθετηρίου"
 
@@ -203,6 +212,12 @@ msgstr "Λίστα θεμάτων αποθετηρίου"
 
 msgid "Theme ID"
 msgstr "Αναγνωριστικό θέματος"
+
+msgid "Repository plugins list (alternate repositories)"
+msgstr "Λίστα πρόσθετων αποθετηρίων (εναλλακτικά αποθετήρια)"
+
+msgid "Repository themes list (alternate repositories)"
+msgstr "Λίστα θεμάτων αποθετηρίου (εναλλακτικά αποθετήρια)"
 
 msgid "REST methods"
 msgstr "Μέθοδοι REST"
@@ -445,20 +460,23 @@ msgstr "Μεταγλωττισμένα πρότυπα"
 msgid "Template paths"
 msgstr "Μονοπάτια προτύπων"
 
-msgid "Repositories"
-msgstr "Αποθετήρια"
-
 msgid "Plugins repository (cache)"
 msgstr "Αποθετήριο πρόσθετων (cache)"
 
 msgid "Plugins repository"
 msgstr "Αποθετήριο πρόσθετων"
 
+msgid "Plugins repository (alternate repositories)"
+msgstr "Αποθετήριο πρόσθετων (εναλλακτικά αποθετήρια)"
+
 msgid "Themes repository (cache)"
 msgstr "Αποθετήριο θεμάτων (cache)"
 
 msgid "Themes repository"
 msgstr "Αποθετήριο θεμάτων"
+
+msgid "Themes repository (alternate repositories)"
+msgstr "Αποθετήριο θεμάτων (εναλλακτικά αποθετήρια)"
 
 msgid "Miscellaneous"
 msgstr "Διάφορα"
