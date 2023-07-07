@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 18:58+0200\n"
+"POT-Creation-Date: 2023-07-07 08:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,6 +79,9 @@ msgstr ""
 msgid "Namespaces"
 msgstr ""
 
+msgid "Display public behaviours"
+msgstr ""
+
 msgid "Behaviours list"
 msgstr ""
 
@@ -86,9 +89,6 @@ msgid "Behavior"
 msgstr ""
 
 msgid "Callback"
-msgstr ""
-
-msgid "Display public behaviours"
 msgstr ""
 
 msgid "Dotclear constants"
@@ -188,6 +188,15 @@ msgstr ""
 msgid "Repository is unreachable"
 msgstr ""
 
+msgid "Repositories"
+msgstr ""
+
+msgid "in cache"
+msgstr ""
+
+msgid "Repository content"
+msgstr ""
+
 msgid "Repository plugins list"
 msgstr ""
 
@@ -198,6 +207,12 @@ msgid "Repository themes list"
 msgstr ""
 
 msgid "Theme ID"
+msgstr ""
+
+msgid "Repository plugins list (alternate repositories)"
+msgstr ""
+
+msgid "Repository themes list (alternate repositories)"
 msgstr ""
 
 msgid "REST methods"
@@ -441,19 +456,22 @@ msgstr ""
 msgid "Template paths"
 msgstr ""
 
-msgid "Repositories"
-msgstr ""
-
 msgid "Plugins repository (cache)"
 msgstr ""
 
 msgid "Plugins repository"
 msgstr ""
 
+msgid "Plugins repository (alternate repositories)"
+msgstr ""
+
 msgid "Themes repository (cache)"
 msgstr ""
 
 msgid "Themes repository"
+msgstr ""
+
+msgid "Themes repository (alternate repositories)"
 msgstr ""
 
 msgid "Miscellaneous"

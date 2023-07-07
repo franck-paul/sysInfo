@@ -88,10 +88,12 @@ class Manage extends dcNsProcess
             ],
 
             __('Repositories') => [
-                __('Plugins repository (cache)') => 'dcrepo-plugins-cache',
-                __('Plugins repository')         => 'dcrepo-plugins',
-                __('Themes repository (cache)')  => 'dcrepo-themes-cache',
-                __('Themes repository')          => 'dcrepo-themes',
+                __('Plugins repository (cache)')                  => 'dcrepo-plugins-cache',
+                __('Plugins repository')                          => 'dcrepo-plugins',
+                __('Plugins repository (alternate repositories)') => 'dcrepo-plugins-alt',
+                __('Themes repository (cache)')                   => 'dcrepo-themes-cache',
+                __('Themes repository')                           => 'dcrepo-themes',
+                __('Themes repository (alternate repositories)')  => 'dcrepo-themes-alt',
             ],
 
             __('Miscellaneous') => [
@@ -302,10 +304,22 @@ class Manage extends dcNsProcess
 
                 break;
 
+            case 'dcrepo-plugins-alt':
+                // Get list of available plugins (alternate repositories)
+                echo Repo::renderAltPlugins();
+
+                break;
+
             case 'dcrepo-themes':
             case 'dcrepo-themes-cache':
                 // Get list of available themes
                 echo Repo::renderThemes(dcCore::app()->admin->checklist === 'dcrepo-themes-cache');
+
+                break;
+
+            case 'dcrepo-themes-alt':
+                // Get list of available themes (alternate repositories)
+                echo Repo::renderAltThemes();
 
                 break;
 
