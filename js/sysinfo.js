@@ -60,23 +60,24 @@ $(() => {
       },
       callbacks: {
         open: () => {
-          if (dotclear.colorsyntax) {
-            // Popup opened, format textarea with codemirror
-            const options = {
-              mode: 'text/html', // 'application/x-httpd-php',
-              tabMode: 'indent',
-              lineWrapping: 'true',
-              lineNumbers: 'true',
-              matchBrackets: 'true',
-              autoCloseBrackets: 'true',
-              readOnly: 'true',
-            };
-            if (dotclear.colorsyntax_theme !== '') {
-              options.theme = dotclear.colorsyntax_theme;
-            }
-            const textarea = document.getElementById(`${prefix}_source`);
-            cm_editor = CodeMirror.fromTextArea(textarea, options);
+          if (!dotclear.colorsyntax) {
+            return;
           }
+          // Popup opened, format textarea with codemirror
+          const options = {
+            mode: 'text/html', // 'application/x-httpd-php',
+            tabMode: 'indent',
+            lineWrapping: 'true',
+            lineNumbers: 'true',
+            matchBrackets: 'true',
+            autoCloseBrackets: 'true',
+            readOnly: 'true',
+          };
+          if (dotclear.colorsyntax_theme !== '') {
+            options.theme = dotclear.colorsyntax_theme;
+          }
+          const textarea = document.getElementById(`${prefix}_source`);
+          cm_editor = CodeMirror.fromTextArea(textarea, options);
         },
         close: () => {
           if (cm_editor != null) {
