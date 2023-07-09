@@ -44,7 +44,9 @@ use Dotclear\Plugin\sysInfo\Helper\Versions;
 
 class Manage extends dcNsProcess
 {
-    protected static $init = false; /** @deprecated since 2.27 */
+    private static array $checklists = [];
+    private static string $checklist = '';
+    protected static $init           = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
@@ -64,7 +66,7 @@ class Manage extends dcNsProcess
             return false;
         }
 
-        $checklists = [
+        self::$checklists = [
             __('System') => [
                 __('Information')  => 'default',
                 __('PHP info')     => 'phpinfo',
@@ -109,30 +111,24 @@ class Manage extends dcNsProcess
         ];
 
         if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR')) {
-            $checklists[__('3rd party')] = [
+            self::$checklists[__('3rd party')] = [
                 __('Static cache') => 'sc',
             ];
         }
 
-        dcCore::app()->admin->checklists = $checklists;
-
-        $checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
+        self::$checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
 
         // Cope with form submit return
-        $checklist = Versions::check($checklist);
-        $checklist = Templates::check($checklist);
-        $checklist = StaticCache::check($checklist);
+        self::$checklist = Versions::check(self::$checklist);
+        self::$checklist = Templates::check(self::$checklist);
+        self::$checklist = StaticCache::check(self::$checklist);
 
-        $checklist = CoreHelper::downloadReport($checklist);
-
-        dcCore::app()->admin->checklist = $checklist;
+        self::$checklist = CoreHelper::downloadReport(self::$checklist);
 
         // Cope with form submit
-        $checklist = Versions::process($checklist);
-        $checklist = Templates::process($checklist);
-        $checklist = StaticCache::process($checklist);
-
-        dcCore::app()->admin->checklist = $checklist;
+        self::$checklist = Versions::process(self::$checklist);
+        self::$checklist = Templates::process(self::$checklist);
+        self::$checklist = StaticCache::process(self::$checklist);
 
         return true;
     }
@@ -190,8 +186,8 @@ class Manage extends dcNsProcess
                         (new Label(__('Select a checklist:')))
                             ->for('checklist'),
                         (new Select('checklist'))
-                            ->items(dcCore::app()->admin->checklists)
-                            ->default(dcCore::app()->admin->checklist),
+                            ->items(self::$checklists)
+                            ->default(self::$checklist),
                         (new Submit(['frmsubmit']))
                             ->value(__('Check')),
                         dcCore::app()->formNonce(false),
@@ -200,7 +196,7 @@ class Manage extends dcNsProcess
             ->render();
 
         // Display required information
-        switch (dcCore::app()->admin->checklist) {
+        switch (self::$checklist) {
             case 'autoloader':
                 // Affichage des informations relatives à l'autoloader
                 echo Autoloader::render();
@@ -300,7 +296,7 @@ class Manage extends dcNsProcess
             case 'dcrepo-plugins':
             case 'dcrepo-plugins-cache':
                 // Get list of available plugins
-                echo Repo::renderPlugins(dcCore::app()->admin->checklist === 'dcrepo-plugins-cache');
+                echo Repo::renderPlugins(self::$checklist === 'dcrepo-plugins-cache');
 
                 break;
 
@@ -313,7 +309,7 @@ class Manage extends dcNsProcess
             case 'dcrepo-themes':
             case 'dcrepo-themes-cache':
                 // Get list of available themes
-                echo Repo::renderThemes(dcCore::app()->admin->checklist === 'dcrepo-themes-cache');
+                echo Repo::renderThemes(self::$checklist === 'dcrepo-themes-cache');
 
                 break;
 
