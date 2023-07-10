@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 18:58+0200\n"
+"POT-Creation-Date: 2023-07-07 08:23+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -83,6 +83,9 @@ msgstr "ルートベーストアです："
 msgid "Namespaces"
 msgstr "名前空間"
 
+msgid "Display public behaviours"
+msgstr "公開行動を表示する"
+
 msgid "Behaviours list"
 msgstr "ビヘイビアリスト"
 
@@ -91,9 +94,6 @@ msgstr "ビヘイビア"
 
 msgid "Callback"
 msgstr "コールバック"
-
-msgid "Display public behaviours"
-msgstr "公開行動を表示する"
 
 msgid "Dotclear constants"
 msgstr "ドットクリアー定数"
@@ -192,6 +192,15 @@ msgstr "キャッシュ"
 msgid "Repository is unreachable"
 msgstr "リポジトリにアクセスできない"
 
+msgid "Repositories"
+msgstr "リポジトリ"
+
+msgid "in cache"
+msgstr "キャッシュ内"
+
+msgid "Repository content"
+msgstr "リポジトリの内容"
+
 msgid "Repository plugins list"
 msgstr "リポジトリ・プラグイン一覧"
 
@@ -203,6 +212,12 @@ msgstr "リポジトリテーマ一覧"
 
 msgid "Theme ID"
 msgstr "テーマID"
+
+msgid "Repository plugins list (alternate repositories)"
+msgstr "リポジトリプラグインリスト（代替リポジトリ）"
+
+msgid "Repository themes list (alternate repositories)"
+msgstr "リポジトリテーマ一覧（代替リポジトリ）"
 
 msgid "REST methods"
 msgstr "RESTメソッド"
@@ -445,20 +460,23 @@ msgstr "コンパイルされたテンプレート"
 msgid "Template paths"
 msgstr "テンプレートパス"
 
-msgid "Repositories"
-msgstr "リポジトリ"
-
 msgid "Plugins repository (cache)"
 msgstr "プラグインリポジトリ（キャッシュ）"
 
 msgid "Plugins repository"
 msgstr "プラグインリポジトリ"
 
+msgid "Plugins repository (alternate repositories)"
+msgstr "プラグインリポジトリ（代替リポジトリ）"
+
 msgid "Themes repository (cache)"
 msgstr "テーマリポジトリ（キャッシュ）"
 
 msgid "Themes repository"
 msgstr "テーマ別リポジトリ"
+
+msgid "Themes repository (alternate repositories)"
+msgstr "テーマリポジトリ（代替リポジトリ）"
 
 msgid "Miscellaneous"
 msgstr "その他"
