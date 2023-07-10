@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 18:58+0200\n"
+"POT-Creation-Date: 2023-07-07 08:23+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -83,6 +83,9 @@ msgstr "루트 기반:"
 msgid "Namespaces"
 msgstr "네임스페이스"
 
+msgid "Display public behaviours"
+msgstr "공개 행동 표시"
+
 msgid "Behaviours list"
 msgstr "동작 목록"
 
@@ -91,9 +94,6 @@ msgstr "행동"
 
 msgid "Callback"
 msgstr "콜백"
-
-msgid "Display public behaviours"
-msgstr "공개 행동 표시"
 
 msgid "Dotclear constants"
 msgstr "도트 클리어 상수"
@@ -192,6 +192,15 @@ msgstr "캐시"
 msgid "Repository is unreachable"
 msgstr "리포지토리에 연결할 수 없습니다."
 
+msgid "Repositories"
+msgstr "리포지토리"
+
+msgid "in cache"
+msgstr "캐시"
+
+msgid "Repository content"
+msgstr "리포지토리 콘텐츠"
+
 msgid "Repository plugins list"
 msgstr "리포지토리 플러그인 목록"
 
@@ -203,6 +212,12 @@ msgstr "리포지토리 테마 목록"
 
 msgid "Theme ID"
 msgstr "테마 ID"
+
+msgid "Repository plugins list (alternate repositories)"
+msgstr "리포지토리 플러그인 목록(대체 리포지토리)"
+
+msgid "Repository themes list (alternate repositories)"
+msgstr "리포지토리 테마 목록(대체 리포지토리)"
 
 msgid "REST methods"
 msgstr "REST 메서드"
@@ -445,20 +460,23 @@ msgstr "컴파일된 템플릿"
 msgid "Template paths"
 msgstr "템플릿 경로"
 
-msgid "Repositories"
-msgstr "리포지토리"
-
 msgid "Plugins repository (cache)"
 msgstr "플러그인 저장소(캐시)"
 
 msgid "Plugins repository"
 msgstr "플러그인 저장소"
 
+msgid "Plugins repository (alternate repositories)"
+msgstr "플러그인 리포지토리(대체 리포지토리)"
+
 msgid "Themes repository (cache)"
 msgstr "테마 저장소(캐시)"
 
 msgid "Themes repository"
 msgstr "테마 저장소"
+
+msgid "Themes repository (alternate repositories)"
+msgstr "테마 저장소(대체 저장소)"
 
 msgid "Miscellaneous"
 msgstr "기타"
