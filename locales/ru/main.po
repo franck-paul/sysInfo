@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 18:58+0200\n"
+"POT-Creation-Date: 2023-07-07 08:23+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/open-time/teams/109573/ru/)\n"
@@ -83,6 +83,9 @@ msgstr "Корневой базис:"
 msgid "Namespaces"
 msgstr "Пространства имен"
 
+msgid "Display public behaviours"
+msgstr "Проявлять публичное поведение"
+
 msgid "Behaviours list"
 msgstr "Список поведенческих моделей"
 
@@ -91,9 +94,6 @@ msgstr "Поведение"
 
 msgid "Callback"
 msgstr "Обратный звонок"
-
-msgid "Display public behaviours"
-msgstr "Проявлять публичное поведение"
 
 msgid "Dotclear constants"
 msgstr "Константы Dotclear"
@@ -192,6 +192,15 @@ msgstr "кэш"
 msgid "Repository is unreachable"
 msgstr "Хранилище недоступно"
 
+msgid "Repositories"
+msgstr "Репозитории"
+
+msgid "in cache"
+msgstr "в кэше"
+
+msgid "Repository content"
+msgstr "Содержание репозитория"
+
 msgid "Repository plugins list"
 msgstr "Список плагинов репозитория"
 
@@ -203,6 +212,12 @@ msgstr "Список тем репозитория"
 
 msgid "Theme ID"
 msgstr "Идентификатор темы"
+
+msgid "Repository plugins list (alternate repositories)"
+msgstr "Список плагинов репозитория (альтернативные репозитории)"
+
+msgid "Repository themes list (alternate repositories)"
+msgstr "Список тем репозиториев (альтернативные репозитории)"
 
 msgid "REST methods"
 msgstr "REST-методы"
@@ -445,20 +460,23 @@ msgstr "Скомпилированные шаблоны"
 msgid "Template paths"
 msgstr "Шаблонные пути"
 
-msgid "Repositories"
-msgstr "Репозитории"
-
 msgid "Plugins repository (cache)"
 msgstr "Репозиторий плагинов (кэш)"
 
 msgid "Plugins repository"
 msgstr "Репозиторий плагинов"
 
+msgid "Plugins repository (alternate repositories)"
+msgstr "Репозиторий плагинов (альтернативные репозитории)"
+
 msgid "Themes repository (cache)"
 msgstr "Хранилище тем (кэш)"
 
 msgid "Themes repository"
 msgstr "Хранилище тем"
+
+msgid "Themes repository (alternate repositories)"
+msgstr "Репозиторий тем (альтернативные репозитории)"
 
 msgid "Miscellaneous"
 msgstr "Разное"
