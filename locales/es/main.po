@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 18:58+0200\n"
+"POT-Creation-Date: 2023-07-07 08:23+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/open-time/teams/109573/es/)\n"
@@ -83,6 +83,9 @@ msgstr "Root basedir:"
 msgid "Namespaces"
 msgstr "Espacios de nombres"
 
+msgid "Display public behaviours"
+msgstr "Mostrar comportamientos públicos"
+
 msgid "Behaviours list"
 msgstr "Lista de comportamientos"
 
@@ -91,9 +94,6 @@ msgstr "Comportamiento"
 
 msgid "Callback"
 msgstr "Devolución de llamada"
-
-msgid "Display public behaviours"
-msgstr "Mostrar comportamientos públicos"
 
 msgid "Dotclear constants"
 msgstr "Constantes Dotclear"
@@ -192,6 +192,15 @@ msgstr "caché"
 msgid "Repository is unreachable"
 msgstr "No se puede acceder al repositorio"
 
+msgid "Repositories"
+msgstr "Repositorios"
+
+msgid "in cache"
+msgstr "en caché"
+
+msgid "Repository content"
+msgstr "Contenido del repositorio"
+
 msgid "Repository plugins list"
 msgstr "Lista de plugins del repositorio"
 
@@ -203,6 +212,12 @@ msgstr "Lista de temas del repositorio"
 
 msgid "Theme ID"
 msgstr "Tema ID"
+
+msgid "Repository plugins list (alternate repositories)"
+msgstr "Lista de plugins del repositorio (repositorios alternativos)"
+
+msgid "Repository themes list (alternate repositories)"
+msgstr "Lista de temas de los repositorios (repositorios alternativos)"
 
 msgid "REST methods"
 msgstr "Métodos REST"
@@ -446,20 +461,23 @@ msgstr "Plantillas compiladas"
 msgid "Template paths"
 msgstr "Plantillas"
 
-msgid "Repositories"
-msgstr "Repositorios"
-
 msgid "Plugins repository (cache)"
 msgstr "Repositorio de plugins (caché)"
 
 msgid "Plugins repository"
 msgstr "Repositorio de plugins"
 
+msgid "Plugins repository (alternate repositories)"
+msgstr "Repositorio de plugins (repositorios alternativos)"
+
 msgid "Themes repository (cache)"
 msgstr "Repositorio de temas (caché)"
 
 msgid "Themes repository"
 msgstr "Repositorio de temas"
+
+msgid "Themes repository (alternate repositories)"
+msgstr "Repositorio de temas (repositorios alternativos)"
 
 msgid "Miscellaneous"
 msgstr "Varios"
