@@ -213,6 +213,7 @@ class Repo
     public static function renderAltPlugins(): string
     {
         $plugins = dcCore::app()->plugins->getDefines();
+        uasort($plugins, fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $plugins,
@@ -233,6 +234,7 @@ class Repo
             dcCore::app()->themes->loadModules((string) dcCore::app()->blog?->themes_path, null);
         }
         $themes = dcCore::app()->themes->getDefines();
+        uasort($themes, fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $themes,
