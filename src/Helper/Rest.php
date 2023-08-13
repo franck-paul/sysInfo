@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcUtils;
+use ReflectionFunction;
 
 class Rest
 {
@@ -52,7 +53,13 @@ class Rest
                     $str .= $callback[0];
                 }
             } else {
-                $str .= $callback;
+                if ($callback instanceof \Closure) {
+                    $r  = new ReflectionFunction($callback);
+                    $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                    $str .= $ns . '__closure__';
+                } else {
+                    $str .= $callback;
+                }
             }
             $str .= '()</code></td></tr>';
         }
