@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use Dotclear\App;
+use Autoloader;
 
-class Autoloader
+class Autoload
 {
     /**
      * Return autoloader infos
@@ -25,7 +25,7 @@ class Autoloader
      */
     public static function render(): string
     {
-        $autoloader = App::autoload();
+        $autoloader = Autoloader::me();
         $ns         = array_keys($autoloader->getNamespaces());
         sort($ns);
 

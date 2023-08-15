@@ -14,43 +14,35 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcAdmin;
 use dcCore;
-use dcFavorites;
-use dcNsProcess;
+use Dotclear\Core\Backend\Favorites;
+use Dotclear\Core\Backend\Menus;
+use Dotclear\Core\Process;
 
-class Backend extends dcNsProcess
+class Backend extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::BACKEND);
-
         // dead but useful code, in order to have translations
         __('sysInfo') . __('System Information');
 
-        return static::$init;
+        return self::status(My::checkContext(My::BACKEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
-        dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
-            __('System info'),
-            My::makeUrl(),
-            My::icons(),
-            preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
-            My::checkContext(My::MENU)
-        );
+        // Register menu
+        My::addBackendMenuItem(Menus::MENU_SYSTEM);
 
         /* Register favorite */
-        dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (dcFavorites $favs) {
+        dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (Favorites $favs) {
             $favs->register('sysInfo', [
-                'title'      => __('System Information'),
-                'url'        => My::makeUrl(),
+                'title'      => My::name(),
+                'url'        => My::manageUrl(),
                 'small-icon' => My::icons(),
                 'large-icon' => My::icons(),
             ]);

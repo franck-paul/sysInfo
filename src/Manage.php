@@ -15,15 +15,16 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
-use dcNsProcess;
-use dcPage;
+use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
-use Dotclear\Plugin\sysInfo\Helper\Autoloader;
+use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
@@ -42,19 +43,17 @@ use Dotclear\Plugin\sysInfo\Helper\TplPaths;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
 use Dotclear\Plugin\sysInfo\Helper\Versions;
 
-class Manage extends dcNsProcess
+class Manage extends Process
 {
     private static array $checklists = [];
     private static string $checklist = '';
-    protected static $init           = false; /** @deprecated since 2.27 */
+
     /**
      * Initializes the page.
      */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::MANAGE);
-
-        return static::$init;
+        return self::status(My::checkContext(My::MANAGE));
     }
 
     /**
@@ -62,7 +61,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -138,7 +137,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 
@@ -146,8 +145,8 @@ class Manage extends dcNsProcess
         $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
         $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
 
-        $head = dcPage::cssModuleLoad(My::id() . '/css/sysinfo.css', 'screen', dcCore::app()->getVersion(My::id())) .
-        dcPage::jsJson('sysinfo', [
+        $head = My::cssLoad('sysinfo.css') .
+        Page::jsJson('sysinfo', [
             'colorsyntax'       => $user_ui_colorsyntax,
             'colorsyntax_theme' => $user_ui_colorsyntax_theme,
             'msg'               => [
@@ -158,21 +157,22 @@ class Manage extends dcNsProcess
                 'sc_not_found'    => __('Static cache file not found or unreadable'),
             ],
         ]) .
-        dcPage::jsModal() .
-        dcPage::jsModuleLoad(My::id() . '/js/sysinfo.js', dcCore::app()->getVersion(My::id()));
+        Page::jsModal() .
+        My::jsLoad('sysinfo.js');
+
         if ($user_ui_colorsyntax) {
-            $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
+            $head .= Page::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
 
-        dcPage::openModule(__('System Information'), $head);
+        Page::openModule(__('System Information'), $head);
 
-        echo dcPage::breadcrumb(
+        echo Page::breadcrumb(
             [
                 __('System')             => '',
                 __('System Information') => '',
             ]
         ) .
-        dcPage::notices();
+        Notices::getNotices();
 
         echo
         (new Form('frmchecklist'))
@@ -199,7 +199,7 @@ class Manage extends dcNsProcess
         switch (self::$checklist) {
             case 'autoloader':
                 // Affichage des informations relatives à l'autoloader
-                echo Autoloader::render();
+                echo Autoload::render();
 
                 break;
 
@@ -337,6 +337,6 @@ class Manage extends dcNsProcess
                 break;
         }
 
-        dcPage::closeModule();
+        Page::closeModule();
     }
 }

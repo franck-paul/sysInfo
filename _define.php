@@ -14,11 +14,12 @@ $this->registerModule(
     'sysInfo',
     'System Information',
     'Franck Paul',
-    '4.25.1',
+    '4.26',
     [
         'requires' => [
-            ['core', '2.26'],
-            // ['staticCache?', '2.3'], to be uncomment for 2.27 (mi-august)
+            ['core', '2.27'],
+            ['php', '8.1'],
+            ['staticCache?', '2.3'],
         ],
         'type'     => 'plugin',
         'priority' => 99_999_999_999,

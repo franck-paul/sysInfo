@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
-use dcPage;
-use dcPublic;
+use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Template\Template;
@@ -83,8 +83,8 @@ class Templates
                 }
             }
             $path_displayed = false;
-            // Don't know exactly why but need to cope with */dcPublic::TPL_ROOT !
-            $md5_path = (!strstr($path, '/' . dcPublic::TPL_ROOT . '/' . $tplset) ? $path : Path::real($path));
+            // Don't know exactly why but need to cope with */Utility::TPL_ROOT !
+            $md5_path = (!strstr($path, '/' . Utility::TPL_ROOT . '/' . $tplset) ? $path : Path::real($path));
             $files    = Files::scandir($path);
             foreach ($files as $file) {
                 if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
@@ -157,8 +157,8 @@ class Templates
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
-                dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
+                My::redirect([
                     'tpl' => 1,
                 ]);
             }

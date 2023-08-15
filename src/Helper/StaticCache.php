@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
-use dcPage;
+use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Html;
@@ -128,8 +128,8 @@ class StaticCache
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
-                dcPage::addSuccessNotice(__('Selected cache files have been deleted.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
+                My::redirect([
                     'sc' => 1,
                 ]);
             }

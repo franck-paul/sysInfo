@@ -15,9 +15,10 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
-use dcPublic;
+use dcModuleDefine;
 use dcTemplate;
 use dcThemes;
+use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Form;
@@ -164,7 +165,7 @@ class CoreHelper
     {
         // Emulate public prepend
         define('DC_CONTEXT_PUBLIC', true);
-        dcCore::app()->public = new dcPublic();
+        dcCore::app()->public = new Utility();
 
         dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
         dcCore::app()->themes = new dcThemes();
@@ -196,18 +197,18 @@ class CoreHelper
         $main_plugins_root = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
         dcCore::app()->tpl->setPath(
             $tpl_path,
-            $main_plugins_root[0] . '/../inc/public' . '/' . dcPublic::TPL_ROOT . '/' . $tplset,
+            $main_plugins_root[0] . '/../inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset,
             dcCore::app()->tpl->getPath()
         );
 
-        // Looking for dcPublic::TPL_ROOT in each plugin's dir
-        $plugins = array_keys(dcCore::app()->plugins->getModules());
+        // Looking for Utility::TPL_ROOT in each plugin's dir
+        $plugins = array_keys(dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true));
         foreach ($plugins as $k) {
             $plugin_root = dcCore::app()->plugins->moduleInfo($k, 'root');
             if ($plugin_root) {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . Utility::TPL_ROOT . '/' . $tplset);
                 // To be exhaustive add also direct directory (without templateset)
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . dcPublic::TPL_ROOT);
+                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . Utility::TPL_ROOT);
             }
         }
 

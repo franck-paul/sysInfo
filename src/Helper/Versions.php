@@ -16,8 +16,8 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcModuleDefine;
-use dcPage;
 use dcUtils;
+use Dotclear\Core\Backend\Notices;
 use Dotclear\Database\Statement\DeleteStatement;
 use Dotclear\Database\Statement\UpdateStatement;
 use Dotclear\Helper\Html\Form\Checkbox;
@@ -167,8 +167,8 @@ class Versions
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
-                dcPage::addSuccessNotice(__('Selected versions have been deleted.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('Selected versions have been deleted.'));
+                My::redirect([
                     'ver' => 1,
                 ]);
             }
@@ -191,8 +191,8 @@ class Versions
                 dcCore::app()->error->add($e->getMessage());
             }
             if (!dcCore::app()->error->flag()) {
-                dcPage::addSuccessNotice(__('Versions have been updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('Versions have been updated.'));
+                My::redirect([
                     'ver' => 1,
                 ]);
             }

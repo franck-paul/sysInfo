@@ -27,7 +27,7 @@ class AdminUrls
     public static function render(): string
     {
         // Récupération de la liste des URLs d'admin enregistrées
-        $urls = dcCore::app()->adminurl->dumpUrls();
+        $urls = dcCore::app()->admin->url->dumpUrls();
         $urls = $urls->getArrayCopy();
         dcUtils::lexicalKeySort($urls);
 
