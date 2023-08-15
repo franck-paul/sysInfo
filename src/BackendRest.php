@@ -25,7 +25,7 @@ use Dotclear\Helper\Network\Http;
 
 class BackendRest
 {
-    public static function getCompiledTemplate($core, $get)
+    public static function getCompiledTemplate($unused, $get)
     {
         // Return compiled template file content
         $file    = !empty($get['file']) ? $get['file'] : '';
@@ -52,7 +52,7 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheDir($core, $get)
+    public static function getStaticCacheDir($unused, $get)
     {
         // Return list of folders in a given cache folder
         $root    = !empty($get['root']) ? $get['root'] : '';
@@ -99,7 +99,7 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheList($core, $get)
+    public static function getStaticCacheList($unused, $get)
     {
         // Return list of folders and files in a given folder
         $root    = !empty($get['root']) ? $get['root'] : '';
@@ -166,7 +166,7 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheName($core, $get)
+    public static function getStaticCacheName($unused, $get)
     {
         // Return static cache filename from a given URL
         $url     = !empty($get['url']) ? $get['url'] : '';
@@ -191,7 +191,7 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheFile($core, $get)
+    public static function getStaticCacheFile($unused, $get)
     {
         // Return compiled static cache file content
         $file    = !empty($get['file']) ? $get['file'] : '';

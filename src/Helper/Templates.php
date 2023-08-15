@@ -19,6 +19,7 @@ use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Template\Template;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 use Dotclear\Plugin\sysInfo\My;
@@ -99,14 +100,11 @@ class Templates
                         '<td class="nowrap">' . $file . '</td>' .
                         '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                         '<td class="nowrap">' .
-                        \form::checkbox(
-                            ['tpl[]'],
-                            $cache_file,
-                            false,
-                            ($file_exists) ? 'tpl_compiled' : '',
-                            '',
-                            !($file_exists)
-                        ) . ' ' .
+                        (new Checkbox(['tpl[]'], false))
+                            ->value($cache_file)
+                            ->class(($file_exists) ? 'tpl_compiled' : '')
+                            ->disabled(!($file_exists))
+                            ->render() . ' ' .
                         '<label class="classic">' .
                         ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
                         $cache_file .
