@@ -59,6 +59,11 @@ class Behaviors
                         if ($fi instanceof \Closure) {
                             $r  = new ReflectionFunction($fi);
                             $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                            if ($ns === '') {
+                                // Cope with class::method(...) forms
+                                $c  = $r->getClosureScopeClass();
+                                $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                            }
                             $str .= $ns . '__closure__';
                         } else {
                             $str .= $fi;

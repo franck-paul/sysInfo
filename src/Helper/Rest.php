@@ -56,6 +56,11 @@ class Rest
                 if ($callback instanceof \Closure) {
                     $r  = new ReflectionFunction($callback);
                     $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                    if ($ns === '') {
+                        // Cope with class::method(...) forms
+                        $c  = $r->getClosureScopeClass();
+                        $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                    }
                     $str .= $ns . '__closure__';
                 } else {
                     $str .= $callback;
