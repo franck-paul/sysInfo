@@ -30,7 +30,7 @@ class Prepend extends Process
             return false;
         }
 
-        dcCore::app()->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', [FrontendUrl::class, 'sysInfo']);
+        dcCore::app()->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', FrontendUrl::sysInfo(...));
 
         return true;
     }
