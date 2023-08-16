@@ -49,11 +49,11 @@ class Backend extends Process
         });
 
         // Register REST methods
-        dcCore::app()->rest->addFunction('getCompiledTemplate', [BackendRest::class, 'getCompiledTemplate']);
-        dcCore::app()->rest->addFunction('getStaticCacheFile', [BackendRest::class, 'getStaticCacheFile']);
-        dcCore::app()->rest->addFunction('getStaticCacheDir', [BackendRest::class, 'getStaticCacheDir']);
-        dcCore::app()->rest->addFunction('getStaticCacheList', [BackendRest::class, 'getStaticCacheList']);
-        dcCore::app()->rest->addFunction('getStaticCacheName', [BackendRest::class, 'getStaticCacheName']);
+        dcCore::app()->rest->addFunction('getCompiledTemplate', BackendRest::getCompiledTemplate(...));
+        dcCore::app()->rest->addFunction('getStaticCacheFile', BackendRest::getStaticCacheFile(...));
+        dcCore::app()->rest->addFunction('getStaticCacheDir', BackendRest::getStaticCacheDir(...));
+        dcCore::app()->rest->addFunction('getStaticCacheList', BackendRest::getStaticCacheList(...));
+        dcCore::app()->rest->addFunction('getStaticCacheName', BackendRest::getStaticCacheName(...));
 
         return true;
     }
