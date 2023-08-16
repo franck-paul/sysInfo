@@ -59,12 +59,13 @@ class UrlHandlers
                     if ($fi instanceof \Closure) {
                         $r  = new ReflectionFunction($fi);
                         $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                        $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
                         if ($ns === '') {
                             // Cope with class::method(...) forms
                             $c  = $r->getClosureScopeClass();
                             $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
                         }
-                        $handler = $ns . '__closure__';
+                        $handler = $ns . $fn;
                     } else {
                         $handler = $fi;
                     }

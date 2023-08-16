@@ -59,12 +59,13 @@ class FrontendTemplate
                     } elseif ($fi instanceof \Closure) {
                         $r  = new ReflectionFunction($fi);
                         $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+                        $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
                         if ($ns === '') {
                             // Cope with class::method(...) forms
                             $c  = $r->getClosureScopeClass();
                             $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
                         }
-                        $code .= $ns . '__closure__' . '()';
+                        $code .= $ns . $fn;
                     } else {
                         $code .= $fi . '()';
                     }
