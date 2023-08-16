@@ -19,7 +19,7 @@ use ReflectionFunction;
 
 class FrontendTemplate
 {
-    public static function SysInfoPageTitle()
+    public static function sysInfoPageTitle()
     {
         $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
         if (empty($tplset)) {
@@ -29,7 +29,7 @@ class FrontendTemplate
         return '<?php echo \'<span class="dc-tpl-' . $tplset . '">' . __('System Information') . '</span>\'; ?>';
     }
 
-    public static function SysInfoBehaviours()
+    public static function sysInfoBehaviours()
     {
         $bl = dcCore::app()->getBehaviors('');
 
@@ -82,7 +82,7 @@ class FrontendTemplate
         return $code;
     }
 
-    public static function SysInfoTemplatetags()
+    public static function sysInfoTemplatetags()
     {
         $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
         $code .= '<?php echo ' . self::class . '::publicTemplatetagsList(); ?>';

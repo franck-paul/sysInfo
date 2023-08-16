@@ -72,8 +72,7 @@ class Globals
                     dcUtils::lexicalKeySort($values);
                     $content = '<ul>';
                     foreach ($values as $key => $value) {
-                        $type = ' (' . gettype($value) . ')';
-                        $type = '';     // All values are string
+                        $type = '';
                         $content .= '<li><strong>' . $key . '</strong> = ' . '<code>' . CoreHelper::simplifyFilename(print_r($value, true)) . '</code>' . $type . '</li>';
                     }
                     $content .= '</ul>';

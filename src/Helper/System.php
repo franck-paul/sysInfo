@@ -57,7 +57,7 @@ class System
                 $caches[] = 'Memcache';
             }
         }
-        if (count($caches) === 0) {
+        if (empty($caches)) {
             $caches[] = __('None');
         }
 
@@ -101,24 +101,20 @@ class System
             $channels = ['stable', 'testing', 'unstable'];
             foreach ($channels as $channel) {
                 $file = $path . '/dotclear-' . $channel;
-                if (file_exists($file)) {
-                    if ($content = @unserialize(@file_get_contents($file))) {
-                        if (is_array($content)) {
-                            $versions .= '<li>' . __('Channel: ') . '<strong>' . $channel . '</strong>' .
-                                ' (' . date(DATE_ATOM, filemtime($file)) . ')' .
-                                '<ul>' .
-                                '<li>' . __('version: ') . '<strong>' . $content['version'] . '</strong></li>' .
-                                '<li>' . __('href: ') . '<a href="' . $content['href'] . '">' . $content['href'] . '</a></li>' .
-                                '<li>' . __('checksum: ') . ' <code>' . $content['checksum'] . '</code></li>' .
-                                '<li>' . __('info: ') . '<a href="' . $content['info'] . '">' . $content['info'] . '</a></li>' .
-                                '<li>' . __('PHP min: ') . '<strong>' . $content['php'] . '</strong></li>' .
-                                (isset($content['warning']) ?
-                                    '<li>' . __('Warning: ') . '<strong>' . ($content['warning'] ? __('Yes') : __('No')) . '</strong></li>' :
-                                    '') .
-                                '</ul>' .
-                                '</li>';
-                        }
-                    }
+                if (file_exists($file) && ($content = @unserialize(@file_get_contents($file))) && (is_array($content))) {
+                    $versions .= '<li>' . __('Channel: ') . '<strong>' . $channel . '</strong>' .
+                        ' (' . date(DATE_ATOM, filemtime($file)) . ')' .
+                        '<ul>' .
+                        '<li>' . __('version: ') . '<strong>' . $content['version'] . '</strong></li>' .
+                        '<li>' . __('href: ') . '<a href="' . $content['href'] . '">' . $content['href'] . '</a></li>' .
+                        '<li>' . __('checksum: ') . ' <code>' . $content['checksum'] . '</code></li>' .
+                        '<li>' . __('info: ') . '<a href="' . $content['info'] . '">' . $content['info'] . '</a></li>' .
+                        '<li>' . __('PHP min: ') . '<strong>' . $content['php'] . '</strong></li>' .
+                        (isset($content['warning']) ?
+                            '<li>' . __('Warning: ') . '<strong>' . ($content['warning'] ? __('Yes') : __('No')) . '</strong></li>' :
+                            '') .
+                        '</ul>' .
+                        '</li>';
                 }
             }
         }

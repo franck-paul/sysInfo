@@ -42,9 +42,9 @@ class Frontend extends Process
             },
         ]);
 
-        dcCore::app()->tpl->addValue('SysInfoPageTitle', FrontendTemplate::SysInfoPageTitle(...));
-        dcCore::app()->tpl->addValue('SysInfoBehaviours', FrontendTemplate::SysInfoBehaviours(...));
-        dcCore::app()->tpl->addValue('SysInfoTemplatetags', FrontendTemplate::SysInfoTemplatetags(...));
+        dcCore::app()->tpl->addValue('SysInfoPageTitle', FrontendTemplate::sysInfoPageTitle(...));
+        dcCore::app()->tpl->addValue('SysInfoBehaviours', FrontendTemplate::sysInfoBehaviours(...));
+        dcCore::app()->tpl->addValue('SysInfoTemplatetags', FrontendTemplate::sysInfoTemplatetags(...));
 
         return true;
     }

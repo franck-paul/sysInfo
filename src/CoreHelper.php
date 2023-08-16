@@ -65,7 +65,7 @@ class CoreHelper
 
         // Transform HTML to text
 
-        $form = '<h3>' . __('Report') . '</h3>' .
+        return '<h3>' . __('Report') . '</h3>' .
 
         (new Form('report'))
             ->action(dcCore::app()->admin->getPageURL())
@@ -79,8 +79,6 @@ class CoreHelper
             ])->render() .
 
         '<pre>' . $buffer . '</pre>';
-
-        return $form;
     }
 
     /**
@@ -237,10 +235,8 @@ class CoreHelper
         ]);
         $prefixes = ['[core]', '[theme]', '[plugin]'];
 
-        if ($real) {
-            if ($new = Path::real($file)) {
-                $file = $new;
-            }
+        if ($real && ($new = Path::real($file))) {
+            $file = $new;
         }
 
         foreach ($bases as $index => $base) {

@@ -196,146 +196,76 @@ class Manage extends Process
             ->render();
 
         // Display required information
-        switch (self::$checklist) {
-            case 'autoloader':
-                // Affichage des informations relatives à l'autoloader
-                echo Autoload::render();
+        echo match (self::$checklist) {
+            // Affichage des informations relatives à l'autoloader
+            'autoloader' => Autoload::render(),
 
-                break;
+            // Affichage de la liste des variables globales
+            'globals' => Globals::render(),
 
-            case 'globals':
-                // Affichage de la liste des variables globales
-                echo Globals::render();
+            // Affichage de la liste des types de permission enregistrés
+            'permissions' => Permissions::render(),
 
-                break;
+            // Affichage de la liste des méthodes REST
+            'rest' => Rest::render(),
 
-            case 'permissions':
-                // Affichage de la liste des types de permission enregistrés
-                echo Permissions::render();
+            // Affichage de la liste des plugins (et de leurs propriétés)
+            'plugins' => Plugins::render(),
 
-                break;
+            // Affichage de la liste des éditeurs et des syntaxes par éditeur
+            'formaters' => Formaters::render(),
 
-            case 'rest':
-                // Affichage de la liste des méthodes REST
-                echo Rest::render();
+            // Affichage des constantes remarquables de Dotclear
+            'constants' => Constants::render(),
 
-                break;
+            // Affichage des dossiers remarquables de Dotclear
+            'folders' => Folders::render(),
 
-            case 'plugins':
-                // Affichage de la liste des plugins (et de leurs propriétés)
-                echo Plugins::render();
+            // Affichage du contrôle d'intégrité
+            'integrity' => Integrity::render(),
 
-                break;
+            // Récupération des behaviours enregistrées
+            'behaviours' => Behaviors::render(),
 
-            case 'formaters':
-                // Affichage de la liste des éditeurs et des syntaxes par éditeur
-                echo Formaters::render();
+            // Récupération des types d'URL enregistrées
+            'urlhandlers' => UrlHandlers::render(),
 
-                break;
+            // Récupération de la liste des URLs d'admin enregistrées
+            'adminurls' => AdminUrls::render(),
 
-            case 'constants':
-                // Affichage des constantes remarquables de Dotclear
-                echo Constants::render();
+            // Get PHP Infos
+            'phpinfo' => PhpInfo::render(),
 
-                break;
+            // Get list of compiled template's files
+            'templates' => Templates::render(),
 
-            case 'folders':
-                // Affichage des dossiers remarquables de Dotclear
-                echo Folders::render();
+            // Get list of template's paths
+            'tplpaths' => TplPaths::render(),
 
-                break;
+            // Get list of existing cache files
+            'sc' => StaticCache::render(),
 
-            case 'integrity':
-                // Affichage du contrôle d'intégrité
-                echo Integrity::render();
+            // Get list of available plugins
+            'dcrepo-plugins', 'dcrepo-plugins-cache' => Repo::renderPlugins(self::$checklist === 'dcrepo-plugins-cache'),
 
-                break;
+            // Get list of available plugins (alternate repositories)
+            'dcrepo-plugins-alt' => Repo::renderAltPlugins(),
 
-            case 'behaviours':
-                // Récupération des behaviours enregistrées
-                echo Behaviors::render();
+            // Get list of available themes
+            'dcrepo-themes', 'dcrepo-themes-cache' => Repo::renderThemes(self::$checklist === 'dcrepo-themes-cache'),
 
-                break;
+            // Get list of available themes (alternate repositories)
+            'dcrepo-themes-alt' => Repo::renderAltThemes(),
 
-            case 'urlhandlers':
-                // Récupération des types d'URL enregistrées
-                echo UrlHandlers::render();
+            // Get list of module's versions
+            'versions' => Versions::render(),
 
-                break;
+            // Report
+            'report' => CoreHelper::renderReport(),
 
-            case 'adminurls':
-                // Récupération de la liste des URLs d'admin enregistrées
-                echo AdminUrls::render();
-
-                break;
-
-            case 'phpinfo':
-                // Get PHP Infos
-                echo PhpInfo::render();
-
-                break;
-
-            case 'templates':
-                // Get list of compiled template's files
-                echo Templates::render();
-
-                break;
-
-            case 'tplpaths':
-                // Get list of template's paths
-                echo TplPaths::render();
-
-                break;
-
-            case 'sc':
-                // Get list of existing cache files
-                echo StaticCache::render();
-
-                break;
-
-            case 'dcrepo-plugins':
-            case 'dcrepo-plugins-cache':
-                // Get list of available plugins
-                echo Repo::renderPlugins(self::$checklist === 'dcrepo-plugins-cache');
-
-                break;
-
-            case 'dcrepo-plugins-alt':
-                // Get list of available plugins (alternate repositories)
-                echo Repo::renderAltPlugins();
-
-                break;
-
-            case 'dcrepo-themes':
-            case 'dcrepo-themes-cache':
-                // Get list of available themes
-                echo Repo::renderThemes(self::$checklist === 'dcrepo-themes-cache');
-
-                break;
-
-            case 'dcrepo-themes-alt':
-                // Get list of available themes (alternate repositories)
-                echo Repo::renderAltThemes();
-
-                break;
-
-            case 'versions':
-                // Get list of module's versions
-                echo Versions::render();
-
-                break;
-
-            case 'report':
-                echo CoreHelper::renderReport();
-
-                break;
-
-            default:
-                // Display PHP version and DB version
-                echo System::render();
-
-                break;
-        }
+            // Display PHP version and DB version
+            default => System::render()
+        };
 
         Page::closeModule();
     }
