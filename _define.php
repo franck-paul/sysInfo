@@ -14,7 +14,7 @@ $this->registerModule(
     'sysInfo',
     'System Information',
     'Franck Paul',
-    '5.2',
+    '6.0',
     [
         'requires' => [
             ['core', '2.27'],
