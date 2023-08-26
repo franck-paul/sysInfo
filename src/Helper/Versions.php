@@ -125,7 +125,7 @@ class Versions
             '<div class="two-cols">' .
             '<p class="col checkboxes-helpers"></p>' .
             '<p class="col right">' .
-            dcCore::app()->formNonce() .
+            My::parsedHiddenFields() .
             (new Submit('updveraction', __('Update versions')))->render() . ' ' .
             (new Submit('delveraction', __('Delete selected versions')))->class('delete')->render() .
             '</p>' .

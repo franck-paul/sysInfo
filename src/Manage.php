@@ -164,7 +164,7 @@ class Manage extends Process
             $head .= Page::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
 
-        Page::openModule(__('System Information'), $head);
+        Page::openModule(My::name(), $head);
 
         echo Page::breadcrumb(
             [
@@ -190,7 +190,7 @@ class Manage extends Process
                             ->default(self::$checklist),
                         (new Submit(['frmsubmit']))
                             ->value(__('Check')),
-                        dcCore::app()->formNonce(false),
+                        ... My::hiddenFields(),
                     ]),
             ])
             ->render();

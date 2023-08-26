@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
 use Dotclear\Core\Process;
 
 class Install extends Process
@@ -30,7 +29,7 @@ class Install extends Process
             return false;
         }
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         $settings->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
         $settings->put('redact', '', 'string', '', false, true);
 

@@ -118,7 +118,7 @@ class Templates
         $str .= '</tbody></table>' .
             '<div class="two-cols">' .
             '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' . dcCore::app()->formNonce() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
+            '<p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
             '</div>' .
             '</form>';
 

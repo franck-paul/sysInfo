@@ -75,7 +75,7 @@ class CoreHelper
                     ->value(__('Download report')),
                 (new Hidden(['htmlreport']))
                     ->value(Html::escapeHTML($buffer)),
-                dcCore::app()->formNonce(false),
+                ... My::hiddenFields(),
             ])->render() .
 
         '<pre>' . $buffer . '</pre>';
@@ -224,7 +224,7 @@ class CoreHelper
     public static function simplifyFilename(string $file, bool $real = false): string
     {
         if (is_null(static::$redact)) {
-            $settings       = dcCore::app()->blog->settings->get(My::id());
+            $settings       = My::settings();
             static::$redact = $settings->redact ?? '';
         }
 

@@ -93,7 +93,7 @@ class StaticCache
         $str .= '</tbody></table>';
         $str .= '<div class="two-cols">' .
             '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' . dcCore::app()->formNonce() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
+            '<p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
             '</div>' .
             '</form>';
 
