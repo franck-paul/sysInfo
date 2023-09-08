@@ -38,7 +38,7 @@ class Frontend extends Process
                 }
             },
             'urlHandlerBeforeGetData' => function (context $ctx) {
-                $ctx->http_cache = (bool) My::settings()?->http_cache;
+                $ctx->http_cache = (bool) My::settings()->http_cache;
             },
         ]);
 

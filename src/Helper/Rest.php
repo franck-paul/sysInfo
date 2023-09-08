@@ -27,7 +27,7 @@ class Rest
      */
     public static function render(): string
     {
-        $methods = dcCore::app()->rest->functions;
+        $methods = dcCore::app()->rest->functions;  // @phpstan-ignore-line
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .    // @phpstan-ignore-line
