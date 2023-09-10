@@ -82,6 +82,7 @@ class System
             '<li>' . __('Temporary folder: ') . ' <strong>' . sys_get_temp_dir() . '</strong></li>' .
             '<li>' . 'DIRECTORY_SEPARATOR :' . ' <strong><code>' . DIRECTORY_SEPARATOR . '</code></strong></li>' .
             '<li>' . 'PATH_SEPARATOR :' . ' <strong><code>' . PATH_SEPARATOR . '</code></strong></li>' .
+            (session_id() ? '<li>' . 'session_id() :' . ' <strong><code>' . session_id() . '</code></strong>' . '</li>' : '') .
             '</ul>' .
             '</details>';
 
