@@ -17,8 +17,7 @@ $this->registerModule(
     '6.0',
     [
         'requires' => [
-            ['core', '2.27'],
-            ['php', '8.1'],
+            ['core', '2.27'], ['php', '8.1'],
             ['staticCache?', '2.3'],
         ],
         'type'     => 'plugin',

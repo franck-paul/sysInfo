@@ -18,6 +18,7 @@ use dcCore;
 use dcModuleDefine;
 use dcTemplate;
 use dcThemes;
+use Dotclear\App;
 use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
@@ -163,6 +164,11 @@ class CoreHelper
     {
         // Emulate public prepend
         define('DC_CONTEXT_PUBLIC', true);
+
+        if (version_compare(DC_VERSION, '2.28-dev', '>=')) {
+            App::task()->addContext('FRONTEND');
+        }
+
         dcCore::app()->public = new Utility();
 
         dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
