@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-07 08:23+0200\n"
+"POT-Creation-Date: 2023-10-04 19:27+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
@@ -25,9 +25,6 @@ msgstr "Informazioni sul sistema"
 
 msgid "sysInfo"
 msgstr "sysInfo"
-
-msgid "System info"
-msgstr "Informazioni sul sistema"
 
 msgid "…"
 msgstr "..."
@@ -106,6 +103,9 @@ msgstr "(vedere inc/config.php)"
 
 msgid "seconds"
 msgstr "secondi"
+
+msgid "Registered Exceptions"
+msgstr "Eccezioni registrate"
 
 msgid "Dotclear folders and files"
 msgstr "Cartelle e file Dotclear"
@@ -291,6 +291,9 @@ msgstr "Nessuno"
 
 msgid "Server software: "
 msgstr "Software del server: "
+
+msgid "System info"
+msgstr "Informazioni sul sistema"
 
 msgid "PHP Version: "
 msgstr "Versione PHP: "
@@ -488,11 +491,11 @@ msgstr "Plugin"
 msgid "Editors and Syntaxes"
 msgstr "Editori e sintassi"
 
-msgid "Versions"
-msgstr "Versioni"
-
 msgid "Full report"
 msgstr "Rapporto completo"
+
+msgid "Exceptions"
+msgstr "Eccezioni"
 
 msgid "3rd party"
 msgstr "Terza parte"
