@@ -27,6 +27,7 @@ use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
 use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
+use Dotclear\Plugin\sysInfo\Helper\Exceptions;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
 use Dotclear\Plugin\sysInfo\Helper\Formaters;
 use Dotclear\Plugin\sysInfo\Helper\Globals;
@@ -108,6 +109,10 @@ class Manage extends Process
                 __('Full report') => 'report',
             ],
         ];
+
+        if (class_exists('\\Dotclear\\Exception\\ExceptionEnum')) {
+            self::$checklists[__('Miscellaneous')][__('Exceptions')] = 'exceptions';
+        }
 
         if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR')) {
             self::$checklists[__('3rd party')] = [
@@ -262,6 +267,9 @@ class Manage extends Process
 
             // Report
             'report' => CoreHelper::renderReport(),
+
+            // Get list of exceptions
+            'exceptions' => Exceptions::render(),
 
             // Display PHP version and DB version
             default => System::render()
