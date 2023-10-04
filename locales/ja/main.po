@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-07 08:23+0200\n"
+"POT-Creation-Date: 2023-10-04 19:27+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -25,9 +25,6 @@ msgstr "システム情報"
 
 msgid "sysInfo"
 msgstr "シスインフォ"
-
-msgid "System info"
-msgstr "システム情報"
 
 msgid "…"
 msgstr "..."
@@ -106,6 +103,9 @@ msgstr "(inc/config.phpを参照)"
 
 msgid "seconds"
 msgstr "お代わり"
+
+msgid "Registered Exceptions"
+msgstr "登録された例外"
 
 msgid "Dotclear folders and files"
 msgstr "ドットクリアフォルダ・ファイル"
@@ -290,6 +290,9 @@ msgstr "なし"
 
 msgid "Server software: "
 msgstr "サーバーソフトウェア： "
+
+msgid "System info"
+msgstr "システム情報"
 
 msgid "PHP Version: "
 msgstr "PHPバージョンです： "
@@ -487,11 +490,11 @@ msgstr "プラグイン"
 msgid "Editors and Syntaxes"
 msgstr "エディターとシンタックス"
 
-msgid "Versions"
-msgstr "バージョン"
-
 msgid "Full report"
 msgstr "全文表示"
+
+msgid "Exceptions"
+msgstr "例外"
 
 msgid "3rd party"
 msgstr "サードパーティ"

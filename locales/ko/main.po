@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-07 08:23+0200\n"
+"POT-Creation-Date: 2023-10-04 19:27+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -25,9 +25,6 @@ msgstr "시스템 정보"
 
 msgid "sysInfo"
 msgstr "sysInfo"
-
-msgid "System info"
-msgstr "시스템 정보"
 
 msgid "…"
 msgstr "..."
@@ -106,6 +103,9 @@ msgstr "(inc/config.php 참조)"
 
 msgid "seconds"
 msgstr "초"
+
+msgid "Registered Exceptions"
+msgstr "등록 예외"
 
 msgid "Dotclear folders and files"
 msgstr "폴더 및 파일 지우기"
@@ -290,6 +290,9 @@ msgstr "없음"
 
 msgid "Server software: "
 msgstr "서버 소프트웨어: "
+
+msgid "System info"
+msgstr "시스템 정보"
 
 msgid "PHP Version: "
 msgstr "PHP 버전: "
@@ -487,11 +490,11 @@ msgstr "플러그인"
 msgid "Editors and Syntaxes"
 msgstr "편집기 및 구문"
 
-msgid "Versions"
-msgstr "버전"
-
 msgid "Full report"
 msgstr "전체 보고서"
+
+msgid "Exceptions"
+msgstr "예외"
 
 msgid "3rd party"
 msgstr "타사"
