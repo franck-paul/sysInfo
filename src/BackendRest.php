@@ -25,7 +25,15 @@ use Dotclear\Helper\Network\Http;
 
 class BackendRest
 {
-    public static function getCompiledTemplate($unused, $get)
+    /**
+     * Gets the compiled template.
+     *
+     * @param      mixed                    $unused  The unused
+     * @param      array<string, string>    $get     The get
+     *
+     * @return     XmlTag
+     */
+    public static function getCompiledTemplate(mixed $unused, array $get): XmlTag
     {
         // Return compiled template file content
         $file    = !empty($get['file']) ? $get['file'] : '';
@@ -52,7 +60,15 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheDir($unused, $get)
+    /**
+     * Gets the static cache dir.
+     *
+     * @param      mixed                    $unused  The unused
+     * @param      array<string, string>    $get     The get
+     *
+     * @return     XmlTag
+     */
+    public static function getStaticCacheDir(mixed $unused, array $get): XmlTag
     {
         // Return list of folders in a given cache folder
         $root    = !empty($get['root']) ? $get['root'] : '';
@@ -99,7 +115,15 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheList($unused, $get)
+    /**
+     * Gets the static cache list.
+     *
+     * @param      mixed                    $unused  The unused
+     * @param      array<string, string>    $get     The get
+     *
+     * @return     XmlTag
+     */
+    public static function getStaticCacheList(mixed $unused, array $get): XmlTag
     {
         // Return list of folders and files in a given folder
         $root    = !empty($get['root']) ? $get['root'] : '';
@@ -166,7 +190,15 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheName($unused, $get)
+    /**
+     * Gets the static cache name.
+     *
+     * @param      mixed                    $unused  The unused
+     * @param      array<string, string>    $get     The get
+     *
+     * @return     XmlTag
+     */
+    public static function getStaticCacheName(mixed $unused, array $get): XmlTag
     {
         // Return static cache filename from a given URL
         $url     = !empty($get['url']) ? $get['url'] : '';
@@ -191,7 +223,15 @@ class BackendRest
         return $rsp;
     }
 
-    public static function getStaticCacheFile($unused, $get)
+    /**
+     * Gets the static cache file.
+     *
+     * @param      mixed                    $unused  The unused
+     * @param      array<string, string>    $get     The get
+     *
+     * @return     XmlTag
+     */
+    public static function getStaticCacheFile(mixed $unused, array $get): XmlTag
     {
         // Return compiled static cache file content
         $file    = !empty($get['file']) ? $get['file'] : '';

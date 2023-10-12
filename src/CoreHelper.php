@@ -37,7 +37,7 @@ use Exception;
 
 class CoreHelper
 {
-    public static $redact;
+    public static string $redact;
 
     /**
      * Display full report in a textarea, ready to copy'n'paste
@@ -229,7 +229,7 @@ class CoreHelper
      */
     public static function simplifyFilename(string $file, bool $real = false): string
     {
-        if (is_null(static::$redact)) {
+        if (!isset(static::$redact)) {
             $settings       = My::settings();
             static::$redact = $settings->redact ?? '';
         }

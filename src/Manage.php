@@ -46,7 +46,11 @@ use Dotclear\Plugin\sysInfo\Helper\Versions;
 
 class Manage extends Process
 {
+    /**
+     * @var array<string, array<string, string>>
+     */
     private static array $checklists = [];
+
     private static string $checklist = '';
 
     /**

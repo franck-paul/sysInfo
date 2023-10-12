@@ -64,9 +64,9 @@ class Repo
     /**
      * Return list of available modules (from alternate repositories)
      *
-     * @param      array   $modules    The modules
-     * @param      bool    $use_cache  The use cache
-     * @param      string  $title      The title
+     * @param      array<int|string, mixed>     $modules    The modules
+     * @param      bool                         $use_cache  The use cache
+     * @param      string                       $title      The title
      *
      * @return     string
      */
@@ -119,7 +119,7 @@ class Repo
      * @param      string          $id      The identifier
      * @param      dcModuleDefine  $define  The define
      *
-     * @return     string          ( description_of_the_return_value )
+     * @return     string
      */
     private static function renderModule(string $id, dcModuleDefine $define): string
     {

@@ -25,7 +25,7 @@ class FrontendUrl extends dcUrlHandlers
      *
      * @param      null|string  $args   The arguments
      */
-    public static function sysInfo(?string $args)
+    public static function sysInfo(?string $args): void
     {
         if ($args == 'behaviours') {
             $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');

@@ -31,7 +31,7 @@ class Constants
 
         // Affichage des constantes remarquables de Dotclear
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Dotclear constants') . ' (' . sprintf('%d', is_countable($constants) ? count($constants) : 0) . ')' . '</caption>' .
+            '<caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Constant') . '</th>' .
@@ -60,7 +60,7 @@ class Constants
     /**
      * Get current list of Dotclear constants and their values
      *
-     * @return     array  array[0] = undefined value, array[1] = list of constants
+     * @return     array{0: string, array<string, string>}  array[0] = undefined value, array[1] = list of constants
      */
     private static function getConstants(): array
     {
