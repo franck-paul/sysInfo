@@ -16,11 +16,12 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcModuleDefine;
-use dcStoreReader;
 use dcThemes;
 use dcUtils;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
+use Dotclear\Module\StoreParser;
+use Dotclear\Module\StoreReader;
 
 class Repo
 {
@@ -146,9 +147,9 @@ class Repo
      * @param      bool    $use_cache  The use cache
      * @param      string  $url        The url
      *
-     * @return     mixed
+     * @return     false
      */
-    private static function parseRepo(bool $use_cache, string $url, bool &$in_cache)
+    private static function parseRepo(bool $use_cache, string $url, bool &$in_cache): bool|StoreParser
     {
         $cache_path = Path::real(DC_TPL_CACHE);
         $in_cache   = false;
@@ -168,7 +169,7 @@ class Repo
             }
         }
 
-        return dcStoreReader::quickParse($url, DC_TPL_CACHE, !$in_cache);
+        return StoreReader::quickParse($url, DC_TPL_CACHE, !$in_cache);
     }
 
     /**
