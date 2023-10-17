@@ -62,7 +62,7 @@ class CoreHelper
         echo Plugins::render();
 
         // Get capture content
-        $buffer = ob_get_clean();
+        $buffer = (string) ob_get_clean();
 
         // Transform HTML to text
 
@@ -101,51 +101,54 @@ class CoreHelper
                     throw new Exception(__('Report empty'));
                 }
                 $path = Path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']), false);
-                if (!is_dir($path)) {
-                    Files::makeDir($path, true);
-                }
+                if ($path !== false) {
+                    if (!is_dir($path)) {
+                        Files::makeDir($path, true);
+                    }
 
-                $filename  = date('Y-m-d') . '-' . dcCore::app()->blog->id . '-report';
-                $extension = '.html';
-                $file      = implode(DIRECTORY_SEPARATOR, [$path, $filename . $extension]);
+                    $filename  = date('Y-m-d') . '-' . dcCore::app()->blog->id . '-report';
+                    $extension = '.html';
+                    $file      = implode(DIRECTORY_SEPARATOR, [$path, $filename . $extension]);
 
-                // Prepare report
-                if (file_exists($file)) {
-                    unlink($file);
-                }
-                $fp = fopen($file, 'wt');
+                    // Prepare report
+                    if (file_exists($file)) {
+                        unlink($file);
+                    }
 
-                // Begin HTML Document
-                $report = Html::decodeEntities($_POST['htmlreport']);
-                $report = str_replace('<img src="images/check-on.png" />', '✅', $report, $count);
-                $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
-                $report = str_replace(DC_ROOT, '<code>DC_ROOT</code> ', $report);
-                fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
-                    '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . dcCore::app()->blog->id . '</title></head><body>');
-                fwrite($fp, Html::decodeEntities($report));
-                fwrite($fp, '</body></html>');
-                fclose($fp);
+                    if ($fp = fopen($file, 'wt')) {
+                        // Begin HTML Document
+                        $report = Html::decodeEntities($_POST['htmlreport']);
+                        $report = str_replace('<img src="images/check-on.png" />', '✅', $report, $count);
+                        $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
+                        $report = str_replace(DC_ROOT, '<code>DC_ROOT</code> ', $report);
+                        fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
+                            '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . dcCore::app()->blog->id . '</title></head><body>');
+                        fwrite($fp, Html::decodeEntities($report));
+                        fwrite($fp, '</body></html>');
+                        fclose($fp);
+                    }
 
-                // Download zip report
-                $gzip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar.gz']);
-                if (file_exists($gzip)) {
-                    unlink($gzip);
-                }
-                $tar = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar']);
-                if (file_exists($tar)) {
+                    // Download zip report
+                    $gzip = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar.gz']);
+                    if (file_exists($gzip)) {
+                        unlink($gzip);
+                    }
+                    $tar = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar']);
+                    if (file_exists($tar)) {
+                        unlink($tar);
+                    }
+                    $a = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
+                    $a->addFile($file, $filename . $extension);
+                    $a->compress(\Phar::GZ);
                     unlink($tar);
+                    unlink($file);
+
+                    header('Content-Disposition: attachment;filename=' . $filename . '.tar.gz');
+                    header('Content-Type: application/x-gzip');
+                    readfile($gzip);
+
+                    exit;
                 }
-                $a = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
-                $a->addFile($file, $filename . $extension);
-                $a->compress(\Phar::GZ);
-                unlink($tar);
-                unlink($file);
-
-                header('Content-Disposition: attachment;filename=' . $filename . '.tar.gz');
-                header('Content-Type: application/x-gzip');
-                readfile($gzip);
-
-                exit;
             } catch (Exception $e) {
                 $checklist = 'report';
                 dcCore::app()->error->add($e->getMessage());
@@ -208,7 +211,7 @@ class CoreHelper
         // Looking for Utility::TPL_ROOT in each plugin's dir
         $plugins = array_keys(dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true));
         foreach ($plugins as $k) {
-            $plugin_root = dcCore::app()->plugins->moduleInfo($k, 'root');
+            $plugin_root = dcCore::app()->plugins->moduleInfo((string) $k, 'root');
             if ($plugin_root) {
                 dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . Utility::TPL_ROOT . '/' . $tplset);
                 // To be exhaustive add also direct directory (without templateset)
@@ -247,8 +250,8 @@ class CoreHelper
 
         foreach ($bases as $index => $base) {
             // Filter bases (beginning of path) of file
-            if (strstr($file, $base)) {
-                $file = str_replace($base, $prefixes[min($index, 2)], $file);
+            if (strstr($file, (string) $base)) {
+                $file = str_replace((string) $base, $prefixes[min($index, 2)], $file);
             }
         }
 

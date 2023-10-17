@@ -40,7 +40,7 @@ class TplPaths
             '</thead>' .
             '<tbody>';
         foreach ($paths as $path) {
-            $sub_path = Path::real($path, false);
+            $sub_path = (string) Path::real($path, false);
             if (substr($sub_path, 0, strlen($document_root)) == $document_root) {
                 $sub_path = substr($sub_path, strlen($document_root));
                 if (substr($sub_path, 0, 1) == '/') {

@@ -36,7 +36,7 @@ class StaticCache
         if (substr($blog_host, -1) != '/') {
             $blog_host .= '/';
         }
-        $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
+        $cache_dir = (string) Path::real(DC_SC_CACHE_DIR, false);
         $cache_key = md5(Http::getHostFromURL($blog_host));
         $cache     = new \Dotclear\Plugin\staticCache\StaticCache(DC_SC_CACHE_DIR, $cache_key);
         $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
@@ -64,7 +64,7 @@ class StaticCache
 
         $str .= '<table id="chk-table-result" class="sysinfo">';
         $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root)) .
-           ', ' . __('last update:') . ' ' . date('Y-m-d H:i:s', $cache->getMtime()) . '</caption>';
+           ', ' . __('last update:') . ' ' . date('Y-m-d H:i:s', (int) $cache->getMtime()) . '</caption>';
         $str .= '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap" colspan="3">' . __('Cache subpath') . '</th>' .

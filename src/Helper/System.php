@@ -102,9 +102,9 @@ class System
             $channels = ['stable', 'testing', 'unstable'];
             foreach ($channels as $channel) {
                 $file = $path . '/dotclear-' . $channel;
-                if (file_exists($file) && ($content = @unserialize(@file_get_contents($file))) && (is_array($content))) {
+                if (file_exists($file) && ($content = @unserialize((string) @file_get_contents($file))) && (is_array($content))) {
                     $versions .= '<li>' . __('Channel: ') . '<strong>' . $channel . '</strong>' .
-                        ' (' . date(DATE_ATOM, filemtime($file)) . ')' .
+                        ' (' . date(DATE_ATOM, (int) filemtime($file)) . ')' .
                         '<ul>' .
                         '<li>' . __('version: ') . '<strong>' . $content['version'] . '</strong></li>' .
                         '<li>' . __('href: ') . '<a href="' . $content['href'] . '">' . $content['href'] . '</a></li>' .
@@ -127,7 +127,7 @@ class System
         $release_file = DC_ROOT . DIRECTORY_SEPARATOR . 'release.json';
         if (file_exists($release_file)) {
             // Add a section with the content of release.json file
-            $content = json_decode(file_get_contents($release_file), true);
+            $content = json_decode((string) file_get_contents($release_file), true);
             foreach ($content as $key => $value) {
                 if (is_array($value)) {
                     $release .= '<li>' . $key . ' = <ul>';

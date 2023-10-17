@@ -37,7 +37,7 @@ class Templates
         $tplset = CoreHelper::publicPrepend();
 
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
-        $cache_path    = Path::real(DC_TPL_CACHE);
+        $cache_path    = (string) Path::real(DC_TPL_CACHE);
         if (substr($cache_path, 0, strlen($document_root)) == $document_root) {
             $cache_path = substr($cache_path, strlen($document_root));
         } elseif (substr($cache_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
@@ -71,7 +71,7 @@ class Templates
         $stack = [];
         // Loop on template paths
         foreach ($paths as $path) {
-            $sub_path = Path::real($path, false);
+            $sub_path = (string) Path::real($path, false);
             if (substr($sub_path, 0, strlen($document_root)) == $document_root) {
                 $sub_path = substr($sub_path, strlen($document_root));
                 if (substr($sub_path, 0, 1) == '/') {

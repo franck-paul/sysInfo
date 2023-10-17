@@ -46,7 +46,7 @@ class BackendRest
             $subpath  = sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($file, 0, 2), substr($file, 2, 2));
             $fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
             if (file_exists($fullpath) && is_readable($fullpath)) {
-                $content = file_get_contents($fullpath);
+                $content = (string) file_get_contents($fullpath);
                 $ret     = true;
             }
         }
@@ -140,7 +140,7 @@ class BackendRest
             $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
             $cache_key = md5(Http::getHostFromURL($blog_host));
 
-            if (is_dir($cache_dir) && is_readable($cache_dir)) {
+            if ($cache_dir !== false && is_dir($cache_dir) && is_readable($cache_dir)) {
                 $k         = str_split($cache_key, 2);
                 $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
@@ -240,7 +240,7 @@ class BackendRest
         $content = '';
 
         if ($file != '' && file_exists($file) && is_readable($file)) {
-            $content = file_get_contents($file);
+            $content = (string) file_get_contents($file);
             $ret     = true;
         }
 

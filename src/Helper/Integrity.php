@@ -40,58 +40,62 @@ class Integrity
             $contents = file($digests_file, $opts);
             $count    = 0;
 
-            foreach ($contents as $digest) {
-                if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
-                    continue;
-                }
+            if ($contents !== false) {
+                foreach ($contents as $digest) {
+                    if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
+                        continue;
+                    }
 
-                $md5      = $m[1];
-                $filename = DC_ROOT . '/' . $m[2];
+                    $md5      = $m[1];
+                    $filename = DC_ROOT . '/' . $m[2];
 
-                $md5_std    = '';
-                $md5_exp    = '';
-                $std_status = '';
-                $exp_status = '';
+                    $md5_std    = '';
+                    $md5_exp    = '';
+                    $std_status = '';
+                    $exp_status = '';
 
-                if (!is_readable($filename)) {
-                    $md5_std = __('Not readable');
-                } else {
-                    // Direct
-                    $md5_std = md5_file($filename);
+                    if (!is_readable($filename)) {
+                        $md5_std = __('Not readable');
+                    } else {
+                        // Direct
+                        $md5_std = md5_file($filename);
 
-                    if ($md5_std !== $md5) {
+                        if ($md5_std !== $md5) {
+                            // Remove EOL
+                            $filecontent = (string) file_get_contents($filename);
+                            $filecontent = str_replace("\r\n", "\n", $filecontent);
+                            $filecontent = str_replace("\r", "\n", $filecontent);
+
+                            $md5_std    = md5($filecontent);
+                            $std_status = $md5_std === $md5 ? '' : ' class="version-disabled"';
+                        }
+
+                        // Experimental
                         // Remove EOL
-                        $filecontent = file_get_contents($filename);
-                        $filecontent = str_replace("\r\n", "\n", $filecontent);
-                        $filecontent = str_replace("\r", "\n", $filecontent);
+                        $filecontent = (string) file_get_contents($filename);
+                        $filecontent = preg_replace('/(*BSR_ANYCRLF)\R/', '\n', $filecontent);
 
-                        $md5_std    = md5($filecontent);
-                        $std_status = $md5_std === $md5 ? '' : ' class="version-disabled"';
+                        if ($filecontent) {
+                            $md5_exp    = md5($filecontent);
+                            $exp_status = $md5_exp === $md5 ? '' : ' class="version-disabled"';
+                        }
                     }
 
-                    // Experimental
-                    // Remove EOL
-                    $filecontent = file_get_contents($filename);
-                    $filecontent = preg_replace('/(*BSR_ANYCRLF)\R/', '\n', $filecontent);
-
-                    if ($filecontent) {
-                        $md5_exp    = md5($filecontent);
-                        $exp_status = $md5_exp === $md5 ? '' : ' class="version-disabled"';
+                    if ($std_status) {
+                        $count++;
+                        $str .= '<tr>' .
+                        '<td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
+                        '<td>' . $md5 . '</td>' .
+                        '<td' . $std_status . '>' . $md5_std . '</td>' .
+                        '<td' . $exp_status . '>' . $md5_exp . '</td>' .
+                        '</tr>';
                     }
                 }
-
-                if ($std_status) {
-                    $count++;
-                    $str .= '<tr>' .
-                    '<td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
-                    '<td>' . $md5 . '</td>' .
-                    '<td' . $std_status . '>' . $md5_std . '</td>' .
-                    '<td' . $exp_status . '>' . $md5_exp . '</td>' .
-                    '</tr>';
+                if (!$count) {
+                    $str .= '<tr><td>' . __('Everything is fine.') . '</td></tr>';
                 }
-            }
-            if (!$count) {
-                $str .= '<tr><td>' . __('Everything is fine.') . '</td></tr>';
+            } else {
+                $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
             }
         } else {
             $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
