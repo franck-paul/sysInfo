@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Template\Template;
@@ -44,8 +44,8 @@ class Folders
             'digest'  => DC_DIGESTS,
             'l10n'    => DC_L10N_ROOT,
             'plugins' => explode(PATH_SEPARATOR, DC_PLUGINS_ROOT),
-            'public'  => dcCore::app()->blog->public_path,
-            'themes'  => dcCore::app()->blog->themes_path,
+            'public'  => App::blog()->publicPath(),
+            'themes'  => App::blog()->themesPath(),
             'var'     => DC_VAR,
         ];
 

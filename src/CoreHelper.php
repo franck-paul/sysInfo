@@ -106,7 +106,7 @@ class CoreHelper
                         Files::makeDir($path, true);
                     }
 
-                    $filename  = date('Y-m-d') . '-' . dcCore::app()->blog->id . '-report';
+                    $filename  = date('Y-m-d') . '-' . App::blog()->id() . '-report';
                     $extension = '.html';
                     $file      = implode(DIRECTORY_SEPARATOR, [$path, $filename . $extension]);
 
@@ -122,7 +122,7 @@ class CoreHelper
                         $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
                         $report = str_replace(DC_ROOT, '<code>DC_ROOT</code> ', $report);
                         fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
-                            '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . dcCore::app()->blog->id . '</title></head><body>');
+                            '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . App::blog()->id() . '</title></head><body>');
                         fwrite($fp, Html::decodeEntities($report));
                         fwrite($fp, '</body></html>');
                         fclose($fp);
@@ -176,24 +176,24 @@ class CoreHelper
 
         dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
         dcCore::app()->themes = new dcThemes();
-        dcCore::app()->themes->loadModules(dcCore::app()->blog->themes_path);
+        dcCore::app()->themes->loadModules(App::blog()->themesPath());
         if (!isset(dcCore::app()->public->theme)) {     // @phpstan-ignore-line
-            dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme;
+            dcCore::app()->public->theme = App::blog()->settings()->system->theme;
         }
         if (!dcCore::app()->themes->moduleExists(dcCore::app()->public->theme)) {
-            dcCore::app()->public->theme = dcCore::app()->blog->settings->system->theme = DC_DEFAULT_THEME;
+            dcCore::app()->public->theme = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
         }
         $tplset                             = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'tplset');
         dcCore::app()->public->parent_theme = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'parent');
         if (dcCore::app()->public->parent_theme && !dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
-            dcCore::app()->public->theme        = dcCore::app()->blog->settings->system->theme = DC_DEFAULT_THEME;
+            dcCore::app()->public->theme        = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
             dcCore::app()->public->parent_theme = null;
         }
         $tpl_path = [
-            dcCore::app()->blog->themes_path . '/' . dcCore::app()->public->theme . '/tpl',
+            App::blog()->themesPath() . '/' . dcCore::app()->public->theme . '/tpl',
         ];
         if (dcCore::app()->public->parent_theme) {
-            $tpl_path[] = dcCore::app()->blog->themes_path . '/' . dcCore::app()->public->parent_theme . '/tpl';
+            $tpl_path[] = App::blog()->themesPath() . '/' . dcCore::app()->public->parent_theme . '/tpl';
             if (empty($tplset)) {
                 $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->public->parent_theme, 'tplset');
             }
@@ -239,7 +239,7 @@ class CoreHelper
 
         $bases = array_map(fn ($path) => Path::real($path), [
             DC_ROOT,                                        // Core
-            dcCore::app()->blog->themes_path,               // Theme
+            App::blog()->themesPath(),                      // Theme
             ...explode(PATH_SEPARATOR, DC_PLUGINS_ROOT),    // Plugins
         ]);
         $prefixes = ['[core]', '[theme]', '[plugin]'];

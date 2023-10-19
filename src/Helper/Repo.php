@@ -18,6 +18,7 @@ use dcCore;
 use dcModuleDefine;
 use dcThemes;
 use dcUtils;
+use Dotclear\App;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Module\StoreParser;
@@ -183,7 +184,7 @@ class Repo
     {
         return self::renderModules(
             $use_cache,
-            dcCore::app()->blog->settings->system->store_plugin_url,
+            App::blog()->settings()->system->store_plugin_url,
             __('Repository plugins list'),
             __('Plugin ID')
         );
@@ -200,7 +201,7 @@ class Repo
     {
         return self::renderModules(
             $use_cache,
-            dcCore::app()->blog->settings->system->store_theme_url,
+            App::blog()->settings()->system->store_theme_url,
             __('Repository themes list'),
             __('Theme ID')
         );

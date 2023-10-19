@@ -62,8 +62,10 @@ class UrlHandlers
                         $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
                         if ($ns === '') {
                             // Cope with class::method(...) forms
-                            $c  = $r->getClosureScopeClass();
-                            $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                            $c = $r->getClosureScopeClass();
+                            if (!is_null($c)) {
+                                $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                            }
                         }
                         $handler = $ns . $fn;
                     } else {

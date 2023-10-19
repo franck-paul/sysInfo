@@ -15,13 +15,14 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use dcCore;
+use Dotclear\App;
 use ReflectionFunction;
 
 class FrontendTemplate
 {
     public static function sysInfoPageTitle(): string
     {
-        $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
+        $tplset = dcCore::app()->themes->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
         if (empty($tplset)) {
             $tplset = DC_DEFAULT_TPLSET . '-default';
         }
@@ -62,8 +63,10 @@ class FrontendTemplate
                         $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
                         if ($ns === '') {
                             // Cope with class::method(...) forms
-                            $c  = $r->getClosureScopeClass();
-                            $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                            $c = $r->getClosureScopeClass();
+                            if (!is_null($c)) {
+                                $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                            }
                         }
                         $code .= $ns . $fn;
                     } else {

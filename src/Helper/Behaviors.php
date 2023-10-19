@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
 use dcUtils;
+use Dotclear\App;
 use ReflectionFunction;
 
 class Behaviors
@@ -30,7 +31,7 @@ class Behaviors
         // Affichage de la liste des behaviours inscrits
         $bl = dcCore::app()->getBehaviors('');
 
-        $str = '<p><a id="sysinfo-preview" href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
+        $str = '<p><a id="sysinfo-preview" href="' . App::blog()->url() . dcCore::app()->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
 
         $str .= '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Behaviours list') . ' (' . sprintf('%d', is_countable($bl) ? count($bl) : 0) . ')' . '</caption>' .
@@ -62,8 +63,10 @@ class Behaviors
                             $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
                             if ($ns === '') {
                                 // Cope with class::method(...) forms
-                                $c  = $r->getClosureScopeClass();
-                                $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                                $c = $r->getClosureScopeClass();
+                                if (!is_null($c)) {
+                                    $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                                }
                             }
                             $str .= $ns . $fn;
                         } else {

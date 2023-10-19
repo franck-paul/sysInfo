@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\File\Path;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
@@ -56,7 +57,7 @@ class TplPaths
         }
         $str .= '</tbody></table>';
 
-        $str .= '<p><a id="sysinfo-preview" href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
+        $str .= '<p><a id="sysinfo-preview" href="' . App::blog()->url() . dcCore::app()->url->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
 
         return $str;
     }

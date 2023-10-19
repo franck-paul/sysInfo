@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
@@ -43,11 +44,11 @@ class Templates
         } elseif (substr($cache_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
             $cache_path = substr($cache_path, strlen(DC_ROOT));
         }
-        $blog_host = dcCore::app()->blog->host;
+        $blog_host = App::blog()->host();
         if (substr($blog_host, -1) != '/') {
             $blog_host .= '/';
         }
-        $blog_url = dcCore::app()->blog->url;
+        $blog_url = App::blog()->url();
         if (substr($blog_url, 0, strlen($blog_host)) == $blog_host) {
             $blog_url = substr($blog_url, strlen($blog_host));
         }

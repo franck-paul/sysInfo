@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
@@ -78,7 +78,7 @@ class BackendRest
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if ($root != '') {
-            $blog_host = dcCore::app()->blog->host;
+            $blog_host = App::blog()->host();
             if (substr($blog_host, -1) != '/') {
                 $blog_host .= '/';
             }
@@ -133,7 +133,7 @@ class BackendRest
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if ($root != '') {
-            $blog_host = dcCore::app()->blog->host;
+            $blog_host = App::blog()->host();
             if (substr($blog_host, -1) != '/') {
                 $blog_host .= '/';
             }
@@ -207,7 +207,7 @@ class BackendRest
         $content = '';
 
         // Extract REQUEST_URI from URL if possible
-        $blog_host = dcCore::app()->blog->host;
+        $blog_host = App::blog()->host();
         if (substr($url, 0, strlen($blog_host)) == $blog_host) {
             $url = substr($url, strlen($blog_host));
         }
