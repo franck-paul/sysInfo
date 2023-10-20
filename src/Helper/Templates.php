@@ -37,11 +37,11 @@ class Templates
         $tplset = CoreHelper::publicPrepend();
 
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
-        $cache_path    = (string) Path::real(DC_TPL_CACHE);
+        $cache_path    = (string) Path::real(App::config()->cacheRoot());
         if (substr($cache_path, 0, strlen($document_root)) == $document_root) {
             $cache_path = substr($cache_path, strlen($document_root));
-        } elseif (substr($cache_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
-            $cache_path = substr($cache_path, strlen(DC_ROOT));
+        } elseif (substr($cache_path, 0, strlen(App::config()->dotclearRoot())) == App::config()->dotclearRoot()) {
+            $cache_path = substr($cache_path, strlen(App::config()->dotclearRoot()));
         }
         $blog_host = App::blog()->host();
         if (substr($blog_host, -1) != '/') {
@@ -77,8 +77,8 @@ class Templates
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (substr($sub_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
-                $sub_path = substr($sub_path, strlen(DC_ROOT));
+            } elseif (substr($sub_path, 0, strlen(App::config()->dotclearRoot())) == App::config()->dotclearRoot()) {
+                $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
@@ -92,7 +92,7 @@ class Templates
                     $stack[]        = $file;
                     $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
                     $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
-                    $cache_fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
+                    $cache_fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
                     $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                     $file_exists    = file_exists($file_check);
                     $str .= '<tr>' .
@@ -143,7 +143,7 @@ class Templates
                 if (empty($_POST['tpl'])) {
                     throw new Exception(__('No cache file selected'));
                 }
-                $root_cache = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
+                $root_cache = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
                 foreach ($_POST['tpl'] as $v) {
                     $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($v, 0, 2), substr($v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
                     if (file_exists($cache_file)) {

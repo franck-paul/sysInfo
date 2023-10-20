@@ -46,8 +46,8 @@ class TplPaths
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (substr($sub_path, 0, strlen(DC_ROOT)) == DC_ROOT) {
-                $sub_path = substr($sub_path, strlen(DC_ROOT));
+            } elseif (substr($sub_path, 0, strlen(App::config()->dotclearRoot())) == App::config()->dotclearRoot()) {
+                $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
                 if (substr($sub_path, 0, 1) == '/') {
                     $sub_path = substr($sub_path, 1);
                 }

@@ -89,15 +89,15 @@ class System
         // Dotclear info
         $dotclear = '<details open><summary>' . __('Dotclear info') . '</summary>' .
             '<ul>' .
-            '<li>' . __('Dotclear version: ') . '<strong>' . DC_VERSION . '</strong></li>' .
-            '<li>' . __('Update channel: ') . '<strong>' . DC_UPDATE_VERSION . '</strong></li>' .
+            '<li>' . __('Dotclear version: ') . '<strong>' . App::config()->dotclearVersion() . '</strong></li>' .
+            '<li>' . __('Update channel: ') . '<strong>' . App::config()->coreUpdateCanal() . '</strong></li>' .
             '</ul>' .
             '</details>';
 
         // Update info
 
         $versions = '';
-        $path     = Path::real(DC_TPL_CACHE . '/versions');
+        $path     = Path::real(App::config()->cacheRoot() . '/versions');
         if ($path && is_dir($path)) {
             $channels = ['stable', 'testing', 'unstable'];
             foreach ($channels as $channel) {
@@ -124,7 +124,7 @@ class System
         }
 
         $release      = '';
-        $release_file = DC_ROOT . DIRECTORY_SEPARATOR . 'release.json';
+        $release_file = App::config()->dotclearRoot() . DIRECTORY_SEPARATOR . 'release.json';
         if (file_exists($release_file)) {
             // Add a section with the content of release.json file
             $content = json_decode((string) file_get_contents($release_file), true);

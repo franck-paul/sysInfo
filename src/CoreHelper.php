@@ -97,7 +97,7 @@ class CoreHelper
                 if (empty($_POST['htmlreport'])) {
                     throw new Exception(__('Report empty'));
                 }
-                $path = Path::real(implode(DIRECTORY_SEPARATOR, [DC_TPL_CACHE, 'sysinfo']), false);
+                $path = Path::real(implode(DIRECTORY_SEPARATOR, [App::config()->cacheRoot(), 'sysinfo']), false);
                 if ($path !== false) {
                     if (!is_dir($path)) {
                         Files::makeDir($path, true);
@@ -117,7 +117,7 @@ class CoreHelper
                         $report = Html::decodeEntities($_POST['htmlreport']);
                         $report = str_replace('<img src="images/check-on.png" />', '✅', $report, $count);
                         $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
-                        $report = str_replace(DC_ROOT, '<code>DC_ROOT</code> ', $report);
+                        $report = str_replace(App::config()->dotclearRoot(), '<code>DC_ROOT</code> ', $report);
                         fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
                             '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . App::blog()->id() . '</title></head><body>');
                         fwrite($fp, Html::decodeEntities($report));
@@ -165,7 +165,7 @@ class CoreHelper
         // Emulate public prepend
         define('DC_CONTEXT_PUBLIC', true);
 
-        if (version_compare(DC_VERSION, '2.28-dev', '>=')) {
+        if (version_compare(App::config()->dotclearVersion(), '2.28-dev', '>=')) {
             App::task()->addContext('FRONTEND');
         }
 
@@ -176,12 +176,12 @@ class CoreHelper
             App::frontend()->theme = App::blog()->settings()->system->theme;
         }
         if (!App::themes()->moduleExists(App::frontend()->theme)) {
-            App::frontend()->theme = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
+            App::frontend()->theme = App::blog()->settings()->system->theme = App::config()->defaultTheme();
         }
         $tplset                       = App::themes()->moduleInfo(App::frontend()->theme, 'tplset');
         App::frontend()->parent_theme = App::themes()->moduleInfo(App::frontend()->theme, 'parent');
         if (App::frontend()->parent_theme && !App::themes()->moduleExists(App::frontend()->parent_theme)) {
-            App::frontend()->theme        = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
+            App::frontend()->theme        = App::blog()->settings()->system->theme = App::config()->defaultTheme();
             App::frontend()->parent_theme = null;
         }
         $tpl_path = [
@@ -194,9 +194,9 @@ class CoreHelper
             }
         }
         if (empty($tplset)) {
-            $tplset = DC_DEFAULT_TPLSET;
+            $tplset = App::config()->defaultTplset();
         }
-        $main_plugins_root = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
+        $main_plugins_root = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
         App::frontend()->template()->setPath(
             $tpl_path,
             $main_plugins_root[0] . '/../inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset,
@@ -233,9 +233,9 @@ class CoreHelper
         }
 
         $bases = array_map(fn ($path) => Path::real($path), [
-            DC_ROOT,                                        // Core
+            App::config()->dotclearRoot(),                  // Core
             App::blog()->themesPath(),                      // Theme
-            ...explode(PATH_SEPARATOR, DC_PLUGINS_ROOT),    // Plugins
+            ...explode(PATH_SEPARATOR, App::config()->pluginsRoot()),    // Plugins
         ]);
         $prefixes = ['[core]', '[theme]', '[plugin]'];
 

@@ -75,7 +75,7 @@ class Repo
     {
         $lines = '<table><caption>' . $title . '</caption><thead><tr><th>' . __('Repositories') . '</th></tr></thead><tbody>';
         foreach ($modules as $module) {
-            if ($module->get('repository') != '' && DC_ALLOW_REPOSITORIES) {
+            if ($module->get('repository') != '' && App::config()->allowRepositories()) {
                 $url      = substr($module->get('repository'), -12, 12) == '/dcstore.xml' ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
                 $in_cache = false;
                 $parser   = self::parseRepo($use_cache, $url, $in_cache);
@@ -151,7 +151,7 @@ class Repo
      */
     private static function parseRepo(bool $use_cache, string $url, bool &$in_cache): bool|StoreParser
     {
-        $cache_path = Path::real(DC_TPL_CACHE);
+        $cache_path = Path::real(App::config()->cacheRoot());
         $in_cache   = false;
 
         if ($use_cache) {
@@ -169,7 +169,7 @@ class Repo
             }
         }
 
-        return StoreReader::quickParse($url, DC_TPL_CACHE, !$in_cache);
+        return StoreReader::quickParse($url, App::config()->cacheRoot(), !$in_cache);
     }
 
     /**

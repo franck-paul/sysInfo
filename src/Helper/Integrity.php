@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
+use Dotclear\App;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Integrity
@@ -34,7 +35,7 @@ class Integrity
             '</tr></thead>' .
             '<tbody>';
 
-        $digests_file = implode(DIRECTORY_SEPARATOR, [DC_ROOT, 'inc', 'digests']);
+        $digests_file = implode(DIRECTORY_SEPARATOR, [App::config()->dotclearRoot(), 'inc', 'digests']);
         if (is_readable($digests_file)) {
             $opts     = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
             $contents = file($digests_file, $opts);
@@ -47,7 +48,7 @@ class Integrity
                     }
 
                     $md5      = $m[1];
-                    $filename = DC_ROOT . '/' . $m[2];
+                    $filename = App::config()->dotclearRoot() . '/' . $m[2];
 
                     $md5_std    = '';
                     $md5_exp    = '';

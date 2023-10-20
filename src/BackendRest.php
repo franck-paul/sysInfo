@@ -44,7 +44,7 @@ class BackendRest
         if ($file != '') {
             // Load content of compiled template file (if exist and if is readable)
             $subpath  = sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($file, 0, 2), substr($file, 2, 2));
-            $fullpath = Path::real(DC_TPL_CACHE) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
+            $fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
             if (file_exists($fullpath) && is_readable($fullpath)) {
                 $content = (string) file_get_contents($fullpath);
                 $ret     = true;

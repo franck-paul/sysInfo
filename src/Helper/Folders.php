@@ -32,21 +32,21 @@ class Folders
     {
         // Check generic Dotclear folders
         $folders = [
-            'root'   => DC_ROOT,
-            'config' => DC_RC_PATH,
+            'root'   => App::config()->dotclearRoot(),
+            'config' => App::config()->configPath(),
             'cache'  => [
-                DC_TPL_CACHE,
-                DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'cbfeed',
-                DC_TPL_CACHE . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER,
-                DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'dcrepo',
-                DC_TPL_CACHE . DIRECTORY_SEPARATOR . 'versions',
+                App::config()->cacheRoot(),
+                App::config()->cacheRoot() . DIRECTORY_SEPARATOR . 'cbfeed',
+                App::config()->cacheRoot() . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER,
+                App::config()->cacheRoot() . DIRECTORY_SEPARATOR . 'dcrepo',
+                App::config()->cacheRoot() . DIRECTORY_SEPARATOR . 'versions',
             ],
-            'digest'  => DC_DIGESTS,
-            'l10n'    => DC_L10N_ROOT,
-            'plugins' => explode(PATH_SEPARATOR, DC_PLUGINS_ROOT),
+            'digest'  => App::config()->digestsRoot(),
+            'l10n'    => App::config()->l10nRoot(),
+            'plugins' => explode(PATH_SEPARATOR, App::config()->pluginsRoot()),
             'public'  => App::blog()->publicPath(),
             'themes'  => App::blog()->themesPath(),
-            'var'     => DC_VAR,
+            'var'     => App::config()->varRoot(),
         ];
 
         if (defined('DC_SC_CACHE_DIR')) {
@@ -95,8 +95,8 @@ class Folders
                     $status .= '<div style="display: none;"><p>' . $err . '</p></div>';
                 }
 
-                if (substr($folder, 0, strlen(DC_ROOT)) === DC_ROOT) {
-                    $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen(DC_ROOT));
+                if (substr($folder, 0, strlen(App::config()->dotclearRoot())) === App::config()->dotclearRoot()) {
+                    $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen(App::config()->dotclearRoot()));
                 }
 
                 $str .= '<tr>' .

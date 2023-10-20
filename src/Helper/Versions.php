@@ -36,8 +36,8 @@ class Versions
     public static function render(): string
     {
         $versions    = App::version()->getVersions();
-        $distributed = explode(',', DC_DISTRIB_PLUGINS);
-        $paths       = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
+        $distributed = explode(',', App::config()->distributedPlugins());
+        $paths       = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
         $obsoletes   = [
             'blowupConfig',
             'daInstaller',

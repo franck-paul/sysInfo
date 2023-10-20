@@ -23,7 +23,7 @@ class FrontendTemplate
     {
         $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
         if (empty($tplset)) {
-            $tplset = DC_DEFAULT_TPLSET . '-default';
+            $tplset = App::config()->defaultTplset() . '-default';
         }
 
         return '<?php echo \'<span class="dc-tpl-' . $tplset . '">' . __('System Information') . '</span>\'; ?>';
