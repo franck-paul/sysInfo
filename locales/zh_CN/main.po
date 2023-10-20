@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-04 19:27+0200\n"
+"POT-Creation-Date: 2023-10-20 18:15+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -92,14 +92,23 @@ msgstr "行为习惯"
 msgid "Callback"
 msgstr "回调"
 
+msgid "Dotclear release"
+msgstr "Dotclear 释放"
+
+msgid "Key"
+msgstr "钥匙"
+
+msgid "Dotclear configuration"
+msgstr "Dotclear 配置"
+
+msgid "(see inc/config.php)"
+msgstr "(见inc/config.php)"
+
 msgid "Dotclear constants"
 msgstr "点晴常数"
 
 msgid "Constant"
 msgstr "恒定"
-
-msgid "(see inc/config.php)"
-msgstr "(见inc/config.php)"
 
 msgid "seconds"
 msgstr "秒"
@@ -429,6 +438,9 @@ msgstr "系统"
 
 msgid "PHP info"
 msgstr "PHP信息"
+
+msgid "DC Configuration"
+msgstr "直流配置"
 
 msgid "DC Constants"
 msgstr "直流常数"
