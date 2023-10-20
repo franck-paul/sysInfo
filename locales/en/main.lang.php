@@ -147,6 +147,7 @@ L10n::$locales['Selected versions have been deleted.'] = '';
 L10n::$locales['Versions have been updated.'] = '';
 L10n::$locales['System'] = '';
 L10n::$locales['PHP info'] = '';
+L10n::$locales['DC Configuration'] = '';
 L10n::$locales['DC Constants'] = '';
 L10n::$locales['Globals'] = '';
 L10n::$locales['Folders'] = '';
