@@ -18,7 +18,7 @@ use Dotclear\App;
 use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-class Config
+class Configuration
 {
     /**
      * Return list of Dotclear Config values

@@ -26,7 +26,7 @@ use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
 use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
-use Dotclear\Plugin\sysInfo\Helper\Config;
+use Dotclear\Plugin\sysInfo\Helper\Configuration;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
 use Dotclear\Plugin\sysInfo\Helper\Exceptions;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
@@ -227,7 +227,7 @@ class Manage extends Process
             'formaters' => Formaters::render(),
 
             // Affichage de la configuration de Dotclear
-            'config' => Config::render(),
+            'config' => Configuration::render(),
 
             // Affichage des constantes remarquables de Dotclear
             'constants' => Constants::render(),
