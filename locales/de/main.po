@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-04 19:27+0200\n"
+"POT-Creation-Date: 2023-10-20 18:15+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: German (https://app.transifex.com/open-time/teams/109573/de/)\n"
@@ -92,14 +92,23 @@ msgstr "Verhalten"
 msgid "Callback"
 msgstr "Rückruf"
 
+msgid "Dotclear release"
+msgstr "Dotclear-Veröffentlichung"
+
+msgid "Key"
+msgstr "Schlüssel"
+
+msgid "Dotclear configuration"
+msgstr "Dotclear-Konfiguration"
+
+msgid "(see inc/config.php)"
+msgstr "(siehe inc/config.php)"
+
 msgid "Dotclear constants"
 msgstr "Dotclear Konstanten"
 
 msgid "Constant"
 msgstr "Konstante"
-
-msgid "(see inc/config.php)"
-msgstr "(siehe inc/config.php)"
 
 msgid "seconds"
 msgstr "Sekunden"
@@ -429,6 +438,9 @@ msgstr "System"
 
 msgid "PHP info"
 msgstr "PHP-Informationen"
+
+msgid "DC Configuration"
+msgstr "DC-Konfiguration"
 
 msgid "DC Constants"
 msgstr "DC-Konstanten"
