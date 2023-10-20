@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
-use dcUtils;
+use Dotclear\App;
+use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Constants
@@ -39,7 +39,7 @@ class Constants
             '</tr>' .
             '</thead>' .
             '<tbody>';
-        dcUtils::lexicalKeySort($constants);
+        App::lexical()->lexicalKeySort($constants, LexicalInterface::ADMIN_LOCALE);
         foreach ($constants as $c => $v) {
             $str .= '<tr><td class="nowrap">' .
                 '<img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .
@@ -127,7 +127,7 @@ class Constants
             'CLEARBRICKS_VERSION'     => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined,
         ];
 
-        if (dcCore::app()->plugins->moduleExists('staticCache')) {
+        if (App::plugins()->moduleExists('staticCache')) {
             $constants['DC_SC_CACHE_ENABLE']    = defined('DC_SC_CACHE_ENABLE') ? (DC_SC_CACHE_ENABLE ? 'true' : 'false') : $undefined;
             $constants['DC_SC_CACHE_DIR']       = defined('DC_SC_CACHE_DIR') ? DC_SC_CACHE_DIR : $undefined;
             $constants['DC_SC_CACHE_BLOGS_ON']  = defined('DC_SC_CACHE_BLOGS_ON') ? DC_SC_CACHE_BLOGS_ON : $undefined;

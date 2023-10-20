@@ -14,10 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
-use dcModuleDefine;
-use dcTemplate;
-use dcThemes;
 use Dotclear\App;
 use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
@@ -26,6 +22,7 @@ use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Hidden;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Html;
+use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
 use Dotclear\Plugin\sysInfo\Helper\Globals;
@@ -69,7 +66,7 @@ class CoreHelper
         return '<h3>' . __('Report') . '</h3>' .
 
         (new Form('report'))
-            ->action(dcCore::app()->admin->getPageURL())
+            ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
                 (new Submit(['getreport']))
@@ -151,7 +148,7 @@ class CoreHelper
                 }
             } catch (Exception $e) {
                 $checklist = 'report';
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -172,50 +169,48 @@ class CoreHelper
             App::task()->addContext('FRONTEND');
         }
 
-        dcCore::app()->public = new Utility();
+        new Utility();
 
-        dcCore::app()->tpl    = new dcTemplate(DC_TPL_CACHE, 'dcCore::app()->tpl');
-        dcCore::app()->themes = new dcThemes();
-        dcCore::app()->themes->loadModules(App::blog()->themesPath());
-        if (!isset(dcCore::app()->public->theme)) {     // @phpstan-ignore-line
-            dcCore::app()->public->theme = App::blog()->settings()->system->theme;
+        App::themes()->loadModules(App::blog()->themesPath());
+        if (!isset(App::frontend()->theme)) {     // @phpstan-ignore-line
+            App::frontend()->theme = App::blog()->settings()->system->theme;
         }
-        if (!dcCore::app()->themes->moduleExists(dcCore::app()->public->theme)) {
-            dcCore::app()->public->theme = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
+        if (!App::themes()->moduleExists(App::frontend()->theme)) {
+            App::frontend()->theme = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
         }
-        $tplset                             = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'tplset');
-        dcCore::app()->public->parent_theme = dcCore::app()->themes->moduleInfo(dcCore::app()->public->theme, 'parent');
-        if (dcCore::app()->public->parent_theme && !dcCore::app()->themes->moduleExists(dcCore::app()->public->parent_theme)) {
-            dcCore::app()->public->theme        = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
-            dcCore::app()->public->parent_theme = null;
+        $tplset                       = App::themes()->moduleInfo(App::frontend()->theme, 'tplset');
+        App::frontend()->parent_theme = App::themes()->moduleInfo(App::frontend()->theme, 'parent');
+        if (App::frontend()->parent_theme && !App::themes()->moduleExists(App::frontend()->parent_theme)) {
+            App::frontend()->theme        = App::blog()->settings()->system->theme = DC_DEFAULT_THEME;
+            App::frontend()->parent_theme = null;
         }
         $tpl_path = [
-            App::blog()->themesPath() . '/' . dcCore::app()->public->theme . '/tpl',
+            App::blog()->themesPath() . '/' . App::frontend()->theme . '/tpl',
         ];
-        if (dcCore::app()->public->parent_theme) {
-            $tpl_path[] = App::blog()->themesPath() . '/' . dcCore::app()->public->parent_theme . '/tpl';
+        if (App::frontend()->parent_theme) {
+            $tpl_path[] = App::blog()->themesPath() . '/' . App::frontend()->parent_theme . '/tpl';
             if (empty($tplset)) {
-                $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->public->parent_theme, 'tplset');
+                $tplset = App::themes()->moduleInfo(App::frontend()->parent_theme, 'tplset');
             }
         }
         if (empty($tplset)) {
             $tplset = DC_DEFAULT_TPLSET;
         }
         $main_plugins_root = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
-        dcCore::app()->tpl->setPath(
+        App::frontend()->template()->setPath(
             $tpl_path,
             $main_plugins_root[0] . '/../inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset,
-            dcCore::app()->tpl->getPath()
+            App::frontend()->template()->getPath()
         );
 
         // Looking for Utility::TPL_ROOT in each plugin's dir
-        $plugins = array_keys(dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true));
+        $plugins = array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true));
         foreach ($plugins as $k) {
-            $plugin_root = dcCore::app()->plugins->moduleInfo((string) $k, 'root');
+            $plugin_root = App::plugins()->moduleInfo((string) $k, 'root');
             if ($plugin_root) {
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . Utility::TPL_ROOT . '/' . $tplset);
+                App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $plugin_root . '/' . Utility::TPL_ROOT . '/' . $tplset);
                 // To be exhaustive add also direct directory (without templateset)
-                dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $plugin_root . '/' . Utility::TPL_ROOT);
+                App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $plugin_root . '/' . Utility::TPL_ROOT);
             }
         }
 

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
+use Dotclear\App;
 
 class Permissions
 {
@@ -25,7 +25,7 @@ class Permissions
      */
     public static function render(): string
     {
-        $permissions = dcCore::app()->auth->getPermissionsTypes();
+        $permissions = App::auth()->getPermissionsTypes();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' . // @phpstan-ignore-line

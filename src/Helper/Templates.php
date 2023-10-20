@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Frontend\Utility;
@@ -53,9 +52,9 @@ class Templates
             $blog_url = substr($blog_url, strlen($blog_host));
         }
 
-        $paths = dcCore::app()->tpl->getPath();
+        $paths = App::frontend()->template()->getPath();
 
-        $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="tplform">' .
+        $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="tplform">' .
             '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . '</caption>' .
             '<thead>' .
@@ -153,9 +152,9 @@ class Templates
                 }
             } catch (Exception $e) {
                 $nextlist = 'templates';
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
-            if (!dcCore::app()->error->flag()) {
+            if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
                 My::redirect([
                     'tpl' => 1,

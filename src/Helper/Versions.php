@@ -14,15 +14,15 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
-use dcModuleDefine;
-use dcUtils;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Database\Statement\DeleteStatement;
 use Dotclear\Database\Statement\UpdateStatement;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Interface\Core\LexicalInterface;
+use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
@@ -35,7 +35,7 @@ class Versions
      */
     public static function render(): string
     {
-        $versions    = dcCore::app()->getVersions();
+        $versions    = App::version()->getVersions();
         $distributed = explode(',', DC_DISTRIB_PLUGINS);
         $paths       = explode(PATH_SEPARATOR, DC_PLUGINS_ROOT);
         $obsoletes   = [
@@ -51,10 +51,10 @@ class Versions
         // which is not a very good idea, but we need to cope with legacy code ;-)
         // Ex: dcRevisions store it as 'dcrevisions'
         // So we will check by ignoring case
-        $plugins  = array_map(fn ($name): string => mb_strtolower((string) $name), array_values(array_keys(dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true))));
-        $disabled = array_map(fn ($name): string => mb_strtolower((string) $name), array_values(array_keys(dcCore::app()->plugins->getDefines(['state' => '!' . dcModuleDefine::STATE_ENABLED], true))));
+        $plugins  = array_map(fn ($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true))));
+        $disabled = array_map(fn ($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true))));
 
-        $str = '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="verform">' .
+        $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .   // @phpstan-ignore-line
             '<thead>' .
@@ -66,7 +66,7 @@ class Versions
             '</thead>' .
             '<tbody>';
 
-        dcUtils::lexicalKeySort($versions);
+        App::lexical()->lexicalKeySort($versions, LexicalInterface::ADMIN_LOCALE);
         foreach ($versions as $module => $version) {
             $status   = [];
             $class    = [];
@@ -159,14 +159,14 @@ class Versions
                 }
                 $sql = new DeleteStatement();
                 $sql
-                    ->from(dcCore::app()->prefix . dcCore::VERSION_TABLE_NAME)
+                    ->from(App::con()->prefix() . App::version()::VERSION_TABLE_NAME)
                     ->where('module' . $sql->in($list));
                 $sql->delete();
             } catch (Exception $e) {
                 $checklist = 'versions';
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
-            if (!dcCore::app()->error->flag()) {
+            if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Selected versions have been deleted.'));
                 My::redirect([
                     'ver' => 1,
@@ -179,7 +179,7 @@ class Versions
             try {
                 $sql = new UpdateStatement();
                 $sql
-                    ->ref(dcCore::app()->prefix . dcCore::VERSION_TABLE_NAME);
+                    ->ref(App::con()->prefix() . App::version()::VERSION_TABLE_NAME);
                 foreach ($_POST['m'] as $module => $version) {
                     $sql
                         ->set('version = ' . $sql->quote($version), true)   // Reset value
@@ -188,9 +188,9 @@ class Versions
                 }
             } catch (Exception $e) {
                 $nextlist = 'versions';
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
-            if (!dcCore::app()->error->flag()) {
+            if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Versions have been updated.'));
                 My::redirect([
                     'ver' => 1,

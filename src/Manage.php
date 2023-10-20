@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
@@ -118,7 +118,7 @@ class Manage extends Process
             self::$checklists[__('Miscellaneous')][__('Exceptions')] = 'exceptions';
         }
 
-        if (dcCore::app()->plugins->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR')) {
+        if (App::plugins()->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR')) {
             self::$checklists[__('3rd party')] = [
                 __('Static cache') => 'sc',
             ];
@@ -151,8 +151,8 @@ class Manage extends Process
         }
 
         # Get interface setting
-        $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
-        $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme;
+        $user_ui_colorsyntax       = App::auth()->prefs()->interface->colorsyntax;
+        $user_ui_colorsyntax_theme = App::auth()->prefs()->interface->colorsyntax_theme;
 
         $head = My::cssLoad('sysinfo.css') .
         Page::jsJson('sysinfo', [
@@ -185,7 +185,7 @@ class Manage extends Process
 
         echo
         (new Form('frmchecklist'))
-            ->action(dcCore::app()->admin->getPageURL())
+            ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
                 (new Para())

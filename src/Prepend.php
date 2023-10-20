@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Prepend extends Process
@@ -30,7 +30,7 @@ class Prepend extends Process
             return false;
         }
 
-        dcCore::app()->url->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', FrontendUrl::sysInfo(...));
+        App::url()->register('sysinfo', 'sysinfo', '^sysinfo(?:/(.+))?$', FrontendUrl::sysInfo(...));
 
         return true;
     }

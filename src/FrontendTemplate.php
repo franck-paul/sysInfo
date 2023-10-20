@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
 use Dotclear\App;
 use ReflectionFunction;
 
@@ -22,7 +21,7 @@ class FrontendTemplate
 {
     public static function sysInfoPageTitle(): string
     {
-        $tplset = dcCore::app()->themes->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
+        $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
         if (empty($tplset)) {
             $tplset = DC_DEFAULT_TPLSET . '-default';
         }
@@ -32,9 +31,9 @@ class FrontendTemplate
 
     public static function sysInfoBehaviours(): string
     {
-        $bl = dcCore::app()->getBehaviors('');
+        $bl = App::behavior()->getBehaviors();
 
-        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', is_countable($bl) ? count($bl) : 0) . ')' . '</h3>' . "\n";
+        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
         $code .= '<?php echo ' . self::class . '::publicBehavioursList(); ?>';
 
         return $code;
@@ -44,7 +43,7 @@ class FrontendTemplate
     {
         $code = '<ul>' . "\n";
 
-        $bl = dcCore::app()->getBehaviors('');
+        $bl = App::behavior()->getBehaviors();
         foreach ($bl as $b => $f) {
             $code .= '<li>' . $b . ' : ';
             if (is_array($f)) {
@@ -70,12 +69,12 @@ class FrontendTemplate
                         }
                         $code .= $ns . $fn;
                     } else {
-                        $code .= $fi . '()';
+                        $code .= $fi . '()';    // @phpstan-ignore-line
                     }
                     $code .= '</code></li>';
                 }
                 $code .= '</ul>' . "\n";
-            } else {
+            } else {    // @phpstan-ignore-line
                 $code .= $f . '()';
             }
             $code .= '</li>' . "\n";
@@ -97,8 +96,8 @@ class FrontendTemplate
     {
         $code = '<ul>' . "\n";
 
-        $tplblocks = array_values(dcCore::app()->tpl->getBlockslist());
-        $tplvalues = array_values(dcCore::app()->tpl->getValueslist());
+        $tplblocks = array_values(App::frontend()->template()->getBlockslist());
+        $tplvalues = array_values(App::frontend()->template()->getValueslist());
 
         sort($tplblocks, SORT_STRING);
         sort($tplvalues, SORT_STRING);

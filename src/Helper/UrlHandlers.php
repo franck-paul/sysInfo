@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
+use Dotclear\App;
 use ReflectionFunction;
 
 class UrlHandlers
@@ -27,7 +27,7 @@ class UrlHandlers
     public static function render(): string
     {
         // Récupération des types d'URL enregistrées
-        $urls = dcCore::app()->url->getTypes();
+        $urls = App::url()->getTypes();
 
         // Tables des URLs non gérées par le menu
         //$excluded = ['xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];

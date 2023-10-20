@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\File\Path;
 
 class System
@@ -74,9 +74,9 @@ class System
             $server .
             '<li>' . __('PHP Version: ') . ' <strong>' . phpversion() . '</strong></li>' .
             '<li>' .
-                __('DB driver: ') . ' <strong>' . dcCore::app()->con->driver() . '</strong> ' .
-                __('version') . ' <strong>' . dcCore::app()->con->version() . '</strong> ' .
-                sprintf(__('using <strong>%s</strong> syntax'), dcCore::app()->con->syntax()) . '</li>' .
+                __('DB driver: ') . ' <strong>' . App::con()->driver() . '</strong> ' .
+                __('version') . ' <strong>' . App::con()->version() . '</strong> ' .
+                sprintf(__('using <strong>%s</strong> syntax'), App::con()->syntax()) . '</li>' .
             '<li>' . __('Error reporting: ') . ' <strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
             '<li>' . __('PHP Cache: ') . ' <strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
             '<li>' . __('Temporary folder: ') . ' <strong>' . sys_get_temp_dir() . '</strong></li>' .

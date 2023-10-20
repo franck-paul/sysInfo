@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use context;
-use dcCore;
+use Dotclear\App;
+use Dotclear\Core\Frontend\Ctx;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -31,20 +31,20 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'publicBreadcrumb' => function (?string $context) {
                 if ($context == 'sysinfo') {
                     return __('System Information');
                 }
             },
-            'urlHandlerBeforeGetData' => function (context $ctx) {
+            'urlHandlerBeforeGetData' => function (Ctx $ctx) {
                 $ctx->http_cache = (bool) My::settings()->http_cache;
             },
         ]);
 
-        dcCore::app()->tpl->addValue('SysInfoPageTitle', FrontendTemplate::sysInfoPageTitle(...));
-        dcCore::app()->tpl->addValue('SysInfoBehaviours', FrontendTemplate::sysInfoBehaviours(...));
-        dcCore::app()->tpl->addValue('SysInfoTemplatetags', FrontendTemplate::sysInfoTemplatetags(...));
+        App::frontend()->template()->addValue('SysInfoPageTitle', FrontendTemplate::sysInfoPageTitle(...));
+        App::frontend()->template()->addValue('SysInfoBehaviours', FrontendTemplate::sysInfoBehaviours(...));
+        App::frontend()->template()->addValue('SysInfoTemplatetags', FrontendTemplate::sysInfoTemplatetags(...));
 
         return true;
     }

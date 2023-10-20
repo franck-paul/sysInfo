@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
-use dcModuleDefine;
+use Dotclear\App;
+use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Plugins
@@ -28,7 +28,7 @@ class Plugins
     public static function render(): string
     {
         // Affichage de la liste des plugins (et de leurs propriétés)
-        $plugins = dcCore::app()->plugins->getDefines(['state' => dcModuleDefine::STATE_ENABLED], true);
+        $plugins = App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true);
 
         $count = count($plugins) ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
 

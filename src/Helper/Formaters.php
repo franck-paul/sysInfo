@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
+use Dotclear\App;
 
 class Formaters
 {
@@ -26,7 +26,7 @@ class Formaters
     public static function render(): string
     {
         // Affichage de la liste des éditeurs et des syntaxes par éditeur
-        $formaters = dcCore::app()->getFormaters();
+        $formaters = App::formater()->getFormaters();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('Editors and their supported syntaxes') . '</caption>' .
@@ -43,7 +43,7 @@ class Formaters
             $newline = false;
             if (is_array($s)) {
                 foreach ($s as $f) {
-                    $l = dcCore::app()->getFormaterName($f);
+                    $l = App::formater()->getFormaterName($f);
                     $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td>' . $f . '</td><td class="maximal">' . $l . '</td>' ;
                     $newline = true;
                 }

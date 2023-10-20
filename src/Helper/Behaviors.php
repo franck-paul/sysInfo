@@ -14,9 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
-use dcUtils;
 use Dotclear\App;
+use Dotclear\Interface\Core\LexicalInterface;
 use ReflectionFunction;
 
 class Behaviors
@@ -24,17 +23,17 @@ class Behaviors
     /**
      * Return list of registered behaviours
      *
-     * @return     string  ( description_of_the_return_value )
+     * @return     string
      */
     public static function render(): string
     {
         // Affichage de la liste des behaviours inscrits
-        $bl = dcCore::app()->getBehaviors('');
+        $bl = App::behavior()->getBehaviors();
 
-        $str = '<p><a id="sysinfo-preview" href="' . App::blog()->url() . dcCore::app()->url->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
+        $str = '<p><a id="sysinfo-preview" href="' . App::blog()->url() . App::url()->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
 
         $str .= '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Behaviours list') . ' (' . sprintf('%d', is_countable($bl) ? count($bl) : 0) . ')' . '</caption>' .
+            '<caption>' . __('Behaviours list') . ' (' . sprintf('%d', count($bl)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Behavior') . '</th>' .
@@ -43,7 +42,7 @@ class Behaviors
             '</thead>' .
             '<tbody>';
 
-        dcUtils::lexicalKeySort($bl);
+        App::lexical()->lexicalKeySort($bl, LexicalInterface::ADMIN_LOCALE);
         foreach ($bl as $b => $f) {
             $str .= '<tr><td class="nowrap">' . $b . '</td>';
             $newline = false;

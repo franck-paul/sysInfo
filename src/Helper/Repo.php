@@ -14,15 +14,14 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
-use dcModuleDefine;
-use dcThemes;
-use dcUtils;
 use Dotclear\App;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
+use Dotclear\Interface\Core\LexicalInterface;
+use Dotclear\Module\ModuleDefine;
 use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
+use Dotclear\Module\Themes;
 
 class Repo
 {
@@ -46,7 +45,7 @@ class Repo
         foreach ($defines as $define) {
             $raw_datas[$define->getId()] = $define;
         }
-        dcUtils::lexicalKeySort($raw_datas, dcUtils::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($raw_datas, LexicalInterface::ADMIN_LOCALE);
         $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
         $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $url) . $count . '</h3>';
@@ -86,7 +85,7 @@ class Repo
                 foreach ($defines as $define) {
                     $raw_datas[$define->getId()] = $define;
                 }
-                dcUtils::lexicalKeySort($raw_datas, dcUtils::ADMIN_LOCALE);
+                App::lexical()->lexicalKeySort($raw_datas, LexicalInterface::ADMIN_LOCALE);
                 $count = $parser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
                 $str   = '';
@@ -119,11 +118,11 @@ class Repo
      * Render content for a single module
      *
      * @param      string          $id      The identifier
-     * @param      dcModuleDefine  $define  The define
+     * @param      ModuleDefine    $define  The define
      *
      * @return     string
      */
-    private static function renderModule(string $id, dcModuleDefine $define): string
+    private static function renderModule(string $id, ModuleDefine $define): string
     {
         $infos = $define->dump();
         $str   = '<details><summary>' . $id . '</summary>';
@@ -214,7 +213,7 @@ class Repo
      */
     public static function renderAltPlugins(): string
     {
-        $plugins = dcCore::app()->plugins->getDefines();
+        $plugins = App::plugins()->getDefines();
         uasort($plugins, fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
@@ -231,11 +230,10 @@ class Repo
      */
     public static function renderAltThemes(): string
     {
-        if (!(dcCore::app()->themes instanceof dcThemes)) {
-            dcCore::app()->themes = new dcThemes();
-            dcCore::app()->themes->loadModules((string) dcCore::app()->blog?->themes_path, null);
+        if (!(App::themes() instanceof Themes)) {
+            App::themes()->loadModules((string) App::blog()->themes_path, null);
         }
-        $themes = dcCore::app()->themes->getDefines();
+        $themes = App::themes()->getDefines();
         uasort($themes, fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(

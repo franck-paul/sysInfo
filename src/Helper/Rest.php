@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
-use dcUtils;
+use Dotclear\App;
+use Dotclear\Interface\Core\LexicalInterface;
 use ReflectionFunction;
 
 class Rest
@@ -27,7 +27,7 @@ class Rest
      */
     public static function render(): string
     {
-        $methods = dcCore::app()->rest->functions;  // @phpstan-ignore-line
+        $methods = App::rest()->functions;  // @phpstan-ignore-line
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
             '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .    // @phpstan-ignore-line
@@ -39,7 +39,7 @@ class Rest
             '</thead>' .
             '<tbody>';
 
-        dcUtils::lexicalKeySort($methods);
+        App::lexical()->lexicalKeySort($methods, LexicalInterface::ADMIN_LOCALE);
         foreach ($methods as $method => $callback) {
             $str .= '<tr><td class="nowrap">' . $method . '</td><td class="maximal"><code>';
             if (is_array($callback)) {

@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
-use dcCore;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
@@ -23,6 +22,7 @@ use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
+use form;
 
 class StaticCache
 {
@@ -55,13 +55,13 @@ class StaticCache
         // Add a static cache URL convertor
         $str = '<p class="fieldset">' .
             '<label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
-            \form::field('sccalc_url', 50, 255, Html::escapeHTML(App::blog()->url())) . ' ' .
+            form::field('sccalc_url', 50, 255, Html::escapeHTML(App::blog()->url())) . ' ' .
             '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '" />' .
             ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
             '</p>';
 
         // List of existing cache files
-        $str .= '<form action="' . dcCore::app()->admin->getPageURL() . '" method="post" id="scform">';
+        $str .= '<form action="' . App::backend()->getPageURL() . '" method="post" id="scform">';
 
         $str .= '<table id="chk-table-result" class="sysinfo">';
         $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root)) .
@@ -126,9 +126,9 @@ class StaticCache
                 }
             } catch (Exception $e) {
                 $nextlist = 'sc';
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
-            if (!dcCore::app()->error->flag()) {
+            if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
                 My::redirect([
                     'sc' => 1,

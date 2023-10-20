@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Favorites;
 use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
@@ -39,7 +39,7 @@ class Backend extends Process
         My::addBackendMenuItem(Menus::MENU_SYSTEM);
 
         /* Register favorite */
-        dcCore::app()->addBehavior('adminDashboardFavoritesV2', function (Favorites $favs) {
+        App::behavior()->addBehavior('adminDashboardFavoritesV2', function (Favorites $favs) {
             $favs->register('sysInfo', [
                 'title'      => My::name(),
                 'url'        => My::manageUrl(),
@@ -49,11 +49,11 @@ class Backend extends Process
         });
 
         // Register REST methods
-        dcCore::app()->rest->addFunction('getCompiledTemplate', BackendRest::getCompiledTemplate(...));
-        dcCore::app()->rest->addFunction('getStaticCacheFile', BackendRest::getStaticCacheFile(...));
-        dcCore::app()->rest->addFunction('getStaticCacheDir', BackendRest::getStaticCacheDir(...));
-        dcCore::app()->rest->addFunction('getStaticCacheList', BackendRest::getStaticCacheList(...));
-        dcCore::app()->rest->addFunction('getStaticCacheName', BackendRest::getStaticCacheName(...));
+        App::rest()->addFunction('getCompiledTemplate', BackendRest::getCompiledTemplate(...));
+        App::rest()->addFunction('getStaticCacheFile', BackendRest::getStaticCacheFile(...));
+        App::rest()->addFunction('getStaticCacheDir', BackendRest::getStaticCacheDir(...));
+        App::rest()->addFunction('getStaticCacheList', BackendRest::getStaticCacheList(...));
+        App::rest()->addFunction('getStaticCacheName', BackendRest::getStaticCacheName(...));
 
         return true;
     }

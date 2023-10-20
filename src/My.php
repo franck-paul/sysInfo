@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Module\MyPlugin;
 
 /**
@@ -27,15 +27,17 @@ class My extends MyPlugin
      *
      * @param      int   $context  The context
      *
-     * @return     bool  true if allowed, else false, null if undefined here
+     * @return     bool  true if allowed, else false
      */
-    protected static function checkCustomContext(int $context): ?bool
+    public static function checkCustomContext(int $context): ?bool
     {
         return match ($context) {
-            self::BACKEND,
             self::MANAGE,
-            self::MENU => defined('DC_CONTEXT_ADMIN') && dcCore::app()->auth->isSuperAdmin(),
-            default    => null,
+            self::CONFIG,
+            self::MENU,
+            self::WIDGETS => !App::task()->checkContext('FRONTEND') && App::auth()->isSuperAdmin(),   // Super-admin only
+
+            default => null
         };
     }
 }
