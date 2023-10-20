@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-04 19:27+0200\n"
+"POT-Creation-Date: 2023-10-20 18:15+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/open-time/teams/109573/ru/)\n"
@@ -92,14 +92,23 @@ msgstr "Поведение"
 msgid "Callback"
 msgstr "Обратный звонок"
 
+msgid "Dotclear release"
+msgstr "Выпуск Dotclear"
+
+msgid "Key"
+msgstr "Ключ"
+
+msgid "Dotclear configuration"
+msgstr "Конфигурация Dotclear"
+
+msgid "(see inc/config.php)"
+msgstr "(см. inc/config.php)"
+
 msgid "Dotclear constants"
 msgstr "Константы Dotclear"
 
 msgid "Constant"
 msgstr "Постоянная"
-
-msgid "(see inc/config.php)"
-msgstr "(см. inc/config.php)"
 
 msgid "seconds"
 msgstr "секунды"
@@ -429,6 +438,9 @@ msgstr "Система"
 
 msgid "PHP info"
 msgstr "Информация о PHP"
+
+msgid "DC Configuration"
+msgstr "Конфигурация постоянного тока"
 
 msgid "DC Constants"
 msgstr "Константы постоянного тока"
