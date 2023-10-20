@@ -26,6 +26,7 @@ use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
 use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
+use Dotclear\Plugin\sysInfo\Helper\Config;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
 use Dotclear\Plugin\sysInfo\Helper\Exceptions;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
@@ -72,13 +73,14 @@ class Manage extends Process
 
         self::$checklists = [
             __('System') => [
-                __('Information')  => 'default',
-                __('PHP info')     => 'phpinfo',
-                __('DC Constants') => 'constants',
-                __('Globals')      => 'globals',
-                __('Folders')      => 'folders',
-                __('Integrity')    => 'integrity',
-                __('Autoloader')   => 'autoloader',
+                __('Information')      => 'default',
+                __('PHP info')         => 'phpinfo',
+                __('DC Configuration') => 'config',
+                __('DC Constants')     => 'constants',
+                __('Globals')          => 'globals',
+                __('Folders')          => 'folders',
+                __('Integrity')        => 'integrity',
+                __('Autoloader')       => 'autoloader',
             ],
 
             __('Core') => [
@@ -223,6 +225,9 @@ class Manage extends Process
 
             // Affichage de la liste des éditeurs et des syntaxes par éditeur
             'formaters' => Formaters::render(),
+
+            // Affichage de la configuration de Dotclear
+            'config' => Config::render(),
 
             // Affichage des constantes remarquables de Dotclear
             'constants' => Constants::render(),
