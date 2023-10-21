@@ -44,11 +44,12 @@ class Plugins
                     if ((is_countable($val) ? count($val) : 0) > 0) {
                         $value = [];
                         foreach ($val as $module) {
+                            $version = '';
                             if (is_array($module)) {
-                                $version = ' (' . $module[1] . ')';
-                                $module  = $module[0];
-                            } else {
-                                $version = '';
+                                if (isset($module[1])) {
+                                    $version = ' (' . $module[1] . ')';
+                                }
+                                $module = $module[0];
                             }
                             $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '"/>' . $module . '</a>') : 'Dotclear' . $version;
                         }
