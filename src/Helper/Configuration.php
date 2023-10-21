@@ -52,14 +52,18 @@ class Configuration
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Key') . '</th>' .
+            '<th scope="col">' . __('Type') . '</th>' .
             '<th scope="col" class="maximal">' . __('Value') . '</th>' .
             '</tr>' .
             '</thead>' .
             '<tbody>';
         App::lexical()->lexicalKeySort($config, LexicalInterface::ADMIN_LOCALE);
         foreach ($config as $c => $v) {
-            $str .= '<tr><td class="nowrap">' . '<code>' . $c . '</code></td>';
-            $str .= '<td class="maximal">' . (is_string($v) ? CoreHelper::simplifyFilename($v) : var_export($v, true)) . '</td></tr>';
+            $str .= '<tr>';
+            $str .= '<td class="nowrap">' . '<code>' . $c . '</code></td>';
+            $str .= '<td>' . gettype($v) . '</td>';
+            $str .= '<td class="maximal">' . (is_string($v) ? CoreHelper::simplifyFilename($v) : var_export($v, true)) . '</td>';
+            $str .= '</tr>';
         }
         $str .= '</tbody></table>';
 
