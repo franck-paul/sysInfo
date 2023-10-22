@@ -51,7 +51,7 @@ class Plugins
                                 }
                                 $module = $module[0];
                             }
-                            $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '"/>' . $module . '</a>') : 'Dotclear' . $version;
+                            $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '"/>' . $module . '</a>' . $version) : 'Dotclear' . $version;
                         }
                         $value = implode(', ', $value);
                     }
