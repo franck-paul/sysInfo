@@ -120,7 +120,7 @@ class Manage extends Process
             self::$checklists[__('Miscellaneous')][__('Exceptions')] = 'exceptions';
         }
 
-        if (App::plugins()->moduleExists('staticCache') && defined('DC_SC_CACHE_ENABLE') && DC_SC_CACHE_ENABLE && defined('DC_SC_CACHE_DIR')) {
+        if (App::plugins()->moduleExists('staticCache') && defined('DC_SC_CACHE_DIR')) {
             self::$checklists[__('3rd party')] = [
                 __('Static cache') => 'sc',
             ];
