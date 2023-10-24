@@ -164,10 +164,7 @@ class CoreHelper
     {
         // Emulate public prepend
         define('DC_CONTEXT_PUBLIC', true);
-
-        if (version_compare(App::config()->dotclearVersion(), '2.28-dev', '>=')) {
-            App::task()->addContext('FRONTEND');
-        }
+        App::task()->addContext('FRONTEND');
 
         new Utility();
 
