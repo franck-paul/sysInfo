@@ -21,7 +21,6 @@ use Dotclear\Database\Statement\UpdateStatement;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Submit;
-use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
@@ -66,7 +65,7 @@ class Versions
             '</thead>' .
             '<tbody>';
 
-        App::lexical()->lexicalKeySort($versions, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($versions, App::lexical()::ADMIN_LOCALE);
         foreach ($versions as $module => $version) {
             $status   = [];
             $class    = [];

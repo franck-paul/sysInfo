@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Constants
@@ -39,7 +38,7 @@ class Constants
             '</tr>' .
             '</thead>' .
             '<tbody>';
-        App::lexical()->lexicalKeySort($constants, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($constants, App::lexical()::ADMIN_LOCALE);
         foreach ($constants as $c => $v) {
             $str .= '<tr><td class="nowrap">' .
                 '<img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .

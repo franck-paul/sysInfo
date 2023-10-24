@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 use ReflectionFunction;
 
 class Behaviors
@@ -42,7 +41,7 @@ class Behaviors
             '</thead>' .
             '<tbody>';
 
-        App::lexical()->lexicalKeySort($bl, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($bl, App::lexical()::ADMIN_LOCALE);
         foreach ($bl as $b => $f) {
             $str .= '<tr><td class="nowrap">' . $b . '</td>';
             $newline = false;

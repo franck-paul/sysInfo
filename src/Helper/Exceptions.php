@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 
 class Exceptions
 {
@@ -35,7 +34,7 @@ class Exceptions
                 'label' => $enum->label(),
             ];
         }
-        App::lexical()->lexicalKeySort($list, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($list, App::lexical()::ADMIN_LOCALE);
 
         $str = '<table id="exceptions" class="sysinfo"><caption>' . __('Registered Exceptions') . ' (' . sprintf('%d', count($list)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .

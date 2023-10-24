@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 use ReflectionFunction;
 
 class Rest
@@ -39,7 +38,7 @@ class Rest
             '</thead>' .
             '<tbody>';
 
-        App::lexical()->lexicalKeySort($methods, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($methods, App::lexical()::ADMIN_LOCALE);
         foreach ($methods as $method => $callback) {
             $str .= '<tr><td class="nowrap">' . $method . '</td><td class="maximal"><code>';
             if (is_array($callback)) {

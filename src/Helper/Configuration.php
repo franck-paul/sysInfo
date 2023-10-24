@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Configuration
@@ -39,7 +38,7 @@ class Configuration
             '</tr>' .
             '</thead>' .
             '<tbody>';
-        App::lexical()->lexicalKeySort($release, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($release, App::lexical()::ADMIN_LOCALE);
         foreach ($release as $c => $v) {
             $str .= '<tr><td class="nowrap">' . '<code>' . $c . '</code></td>';
             $str .= '<td class="maximal">' . (is_string($v) ? CoreHelper::simplifyFilename($v) : $v) . '</td></tr>';
@@ -57,7 +56,7 @@ class Configuration
             '</tr>' .
             '</thead>' .
             '<tbody>';
-        App::lexical()->lexicalKeySort($config, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($config, App::lexical()::ADMIN_LOCALE);
         foreach ($config as $c => $v) {
             $str .= '<tr>';
             $str .= '<td class="nowrap">' . '<code>' . $c . '</code></td>';

@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Globals
@@ -30,7 +29,7 @@ class Globals
         $max_length = 1024 * 4;     // 4Kb max
 
         $variables = array_keys($GLOBALS);
-        App::lexical()->lexicalSort($variables, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalSort($variables, App::lexical()::ADMIN_LOCALE);
 
         $deprecated = [
             '__autoload'     => '2.23',
@@ -70,7 +69,7 @@ class Globals
                 $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
                 if (is_array($GLOBALS[$variable])) {
                     $values = $GLOBALS[$variable];
-                    App::lexical()->lexicalKeySort($values, LexicalInterface::ADMIN_LOCALE);
+                    App::lexical()->lexicalKeySort($values, App::lexical()::ADMIN_LOCALE);
                     $content = '<ul>';
                     foreach ($values as $key => $value) {
                         $type = '';

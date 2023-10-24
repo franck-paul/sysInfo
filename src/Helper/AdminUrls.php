@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Interface\Core\LexicalInterface;
 
 class AdminUrls
 {
@@ -29,7 +28,7 @@ class AdminUrls
         // Récupération de la liste des URLs d'admin enregistrées
         $urls = App::backend()->url()->dumpUrls();
         $urls = $urls->getArrayCopy();
-        App::lexical()->lexicalKeySort($urls, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($urls, App::lexical()::ADMIN_LOCALE);
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' . // @phpstan-ignore-line
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .

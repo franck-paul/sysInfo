@@ -17,7 +17,6 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 use Dotclear\App;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
-use Dotclear\Interface\Core\LexicalInterface;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
@@ -45,7 +44,7 @@ class Repo
         foreach ($defines as $define) {
             $raw_datas[$define->getId()] = $define;
         }
-        App::lexical()->lexicalKeySort($raw_datas, LexicalInterface::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
         $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
         $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $url) . $count . '</h3>';
@@ -85,7 +84,7 @@ class Repo
                 foreach ($defines as $define) {
                     $raw_datas[$define->getId()] = $define;
                 }
-                App::lexical()->lexicalKeySort($raw_datas, LexicalInterface::ADMIN_LOCALE);
+                App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
                 $count = $parser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
                 $str   = '';
