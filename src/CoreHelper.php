@@ -208,9 +208,9 @@ class CoreHelper
         foreach ($plugins as $k) {
             $plugin_root = App::plugins()->moduleInfo((string) $k, 'root');
             if ($plugin_root) {
-                App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $plugin_root . '/' . Utility::TPL_ROOT . '/' . $tplset);
+                App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [$plugin_root, Utility::TPL_ROOT, $tplset]));
                 // To be exhaustive add also direct directory (without templateset)
-                App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $plugin_root . '/' . Utility::TPL_ROOT);
+                App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [$plugin_root, Utility::TPL_ROOT]));
             }
         }
 
