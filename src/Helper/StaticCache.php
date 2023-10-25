@@ -37,6 +37,11 @@ class StaticCache
         if (substr($blog_host, -1) != '/') {
             $blog_host .= '/';
         }
+
+        if (!defined('DC_SC_CACHE_DIR')) {
+            return '<p>' . __('Static cache directory does not exists') . '</p>';
+        }
+
         $cache_dir = (string) Path::real(DC_SC_CACHE_DIR, false);
         $cache_key = md5(Http::getHostFromURL($blog_host));
         $cache     = new \Dotclear\Plugin\staticCache\StaticCache(DC_SC_CACHE_DIR, $cache_key);

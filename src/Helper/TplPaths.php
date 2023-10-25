@@ -32,7 +32,7 @@ class TplPaths
         $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Path') . '</th>' .

@@ -31,6 +31,7 @@ use Dotclear\Plugin\sysInfo\Helper\System;
 use Dotclear\Plugin\sysInfo\Helper\TplPaths;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
 use Exception;
+use ReflectionFunction;
 
 class CoreHelper
 {
@@ -169,7 +170,7 @@ class CoreHelper
         new Utility();
 
         App::themes()->loadModules(App::blog()->themesPath());
-        if (!isset(App::frontend()->theme)) {     // @phpstan-ignore-line
+        if (!isset(App::frontend()->theme)) {
             App::frontend()->theme = App::blog()->settings()->system->theme;
         }
         if (!App::themes()->moduleExists(App::frontend()->theme)) {
@@ -252,5 +253,46 @@ class CoreHelper
         }
 
         return $file;
+    }
+
+    /**
+     * Return a string representation of a callable (usually callback)
+     *
+     * @param      mixed   $callable  The callable
+     *
+     * @return     string
+     */
+    public static function callableName(mixed $callable): string
+    {
+        $name = '';
+        if (is_string($callable)) {
+            // Simple function name (no namespace)
+            $name = $callable;
+        } elseif (is_array($callable)) {
+            // Class, method
+            if (is_object($callable[0])) {
+                $name = get_class($callable[0]) . '-&gt;' . $callable[1];
+            } else {
+                $name = $callable[0] . '::' . $callable[1];
+            }
+        } elseif ($callable instanceof \Closure) {
+            // Closure
+            $r  = new ReflectionFunction($callable);
+            $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+            $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
+            if ($ns === '') {
+                // Cope with class::method(...) forms
+                $c = $r->getClosureScopeClass();
+                if (!is_null($c)) {
+                    $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                }
+            }
+            $name = $ns . $fn;
+        } else {
+            // Not yet managed, give simpler response
+            $name = print_r($callable, true);
+        }
+
+        return $name . '()';
     }
 }

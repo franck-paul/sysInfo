@@ -55,7 +55,7 @@ class Globals
         ];
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .

@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use Dotclear\App;
-use ReflectionFunction;
 
 class FrontendTemplate
 {
@@ -45,39 +44,12 @@ class FrontendTemplate
 
         $bl = App::behavior()->getBehaviors();
         foreach ($bl as $b => $f) {
-            $code .= '<li>' . $b . ' : ';
-            if (is_array($f)) {
-                $code .= "\n" . '<ul>';
-                foreach ($f as $fi) {
-                    $code .= '<li><code>';
-                    if (is_array($fi)) {
-                        if (is_object($fi[0])) {
-                            $code .= get_class($fi[0]) . '-&gt;' . $fi[1] . '()';
-                        } else {
-                            $code .= $fi[0] . '::' . $fi[1] . '()';
-                        }
-                    } elseif ($fi instanceof \Closure) {
-                        $r  = new ReflectionFunction($fi);
-                        $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
-                        $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
-                        if ($ns === '') {
-                            // Cope with class::method(...) forms
-                            $c = $r->getClosureScopeClass();
-                            if (!is_null($c)) {
-                                $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
-                            }
-                        }
-                        $code .= $ns . $fn;
-                    } else {
-                        $code .= $fi . '()';    // @phpstan-ignore-line
-                    }
-                    $code .= '</code></li>';
-                }
-                $code .= '</ul>' . "\n";
-            } else {    // @phpstan-ignore-line
-                $code .= $f . '()';
+            $code .= '<li>' . $b . ' : ' . "\n" . '<ul>';
+            // List of behavior's callback(s)
+            foreach ($f as $fi) {
+                $code .= '<li><code>' . CoreHelper::callableName($fi) . '</code></li>';
             }
-            $code .= '</li>' . "\n";
+            $code .= '</ul>' . "\n" . '</li>' . "\n";
         }
         $code .= '</ul>' . "\n";
 

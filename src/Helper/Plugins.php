@@ -38,7 +38,7 @@ class Plugins
             $info = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
             $str .= '<details id="p-' . $id . '"><summary><strong>' . $id . '</strong>' . $info . '</summary>';
             $str .= '<ul>';
-            foreach ($m as $key => $val) {  // @phpstan-ignore-line
+            foreach ($m as $key => $val) {
                 $value = print_r($val, true);
                 if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'])) {
                     if ((is_countable($val) ? count($val) : 0) > 0) {

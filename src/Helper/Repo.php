@@ -39,7 +39,7 @@ class Repo
         $in_cache = false;
         $parser   = self::parseRepo($use_cache, $url, $in_cache);
 
-        $defines   = !$parser ? [] : $parser->getDefines();     // @phpstan-ignore-line
+        $defines   = !$parser ? [] : $parser->getDefines();
         $raw_datas = [];
         foreach ($defines as $define) {
             $raw_datas[$define->getId()] = $define;
@@ -48,7 +48,7 @@ class Repo
         $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
         $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $url) . $count . '</h3>';
-        if (!$parser) {     // @phpstan-ignore-line
+        if (!$parser) {
             $str .= '<p>' . __('Repository is unreachable') . '</p>';
         } else {
             $str .= '<details id="expand-all"><summary>' . $label . '</summary></details>';
@@ -90,7 +90,7 @@ class Repo
                 $str   = '';
                 $label = $url . ' ' . ($in_cache ? __('in cache') : '') . $count;
                 $str .= '<tr><td>' . '<p><strong>' . $label . '</strong></p>';
-                if (!$parser) {     // @phpstan-ignore-line
+                if (!$parser) {
                     $str .= '<p>' . __('Repository is unreachable') . '</p>';
                 } else {
                     if (count($raw_datas) > 1) {

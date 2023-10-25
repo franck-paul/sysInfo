@@ -36,7 +36,7 @@ class Exceptions
         }
         App::lexical()->lexicalKeySort($list, App::lexical()::ADMIN_LOCALE);
 
-        $str = '<table id="exceptions" class="sysinfo"><caption>' . __('Registered Exceptions') . ' (' . sprintf('%d', count($list)) . ')' . '</caption>' . // @phpstan-ignore-line
+        $str = '<table id="exceptions" class="sysinfo"><caption>' . __('Registered Exceptions') . ' (' . sprintf('%d', count($list)) . ')' . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
             '<th scope="col">' . __('Value') . '</th>' .
             '<th scope="col">' . __('Code') . '</th>' .

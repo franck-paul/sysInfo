@@ -28,7 +28,7 @@ class Permissions
         $permissions = App::auth()->getPermissionsTypes();
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Type') . '</th>' .

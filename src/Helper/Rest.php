@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use ReflectionFunction;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Rest
 {
@@ -26,10 +26,14 @@ class Rest
      */
     public static function render(): string
     {
-        $methods = App::rest()->functions;  // @phpstan-ignore-line
+        /**
+         * @var        \Dotclear\Helper\RestServer
+         */
+        $rest    = App::rest();
+        $methods = $rest->functions;
 
         $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .    // @phpstan-ignore-line
+            '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Method') . '</th>' .
@@ -41,34 +45,8 @@ class Rest
         App::lexical()->lexicalKeySort($methods, App::lexical()::ADMIN_LOCALE);
         foreach ($methods as $method => $callback) {
             $str .= '<tr><td class="nowrap">' . $method . '</td><td class="maximal"><code>';
-            if (is_array($callback)) {
-                if (count($callback) > 1) {
-                    if (is_string($callback[0])) {
-                        $str .= $callback[0] . '::' . $callback[1];
-                    } else {
-                        $str .= get_class($callback[0]) . '->' . $callback[1];
-                    }
-                } else {
-                    $str .= $callback[0];
-                }
-            } else {
-                if ($callback instanceof \Closure) {
-                    $r  = new ReflectionFunction($callback);
-                    $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
-                    $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
-                    if ($ns === '') {
-                        // Cope with class::method(...) forms
-                        $c = $r->getClosureScopeClass();
-                        if (!is_null($c)) {
-                            $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
-                        }
-                    }
-                    $str .= $ns . $fn;
-                } else {
-                    $str .= $callback;
-                }
-            }
-            $str .= '()</code></td></tr>';
+            $str .= CoreHelper::callableName($callback);
+            $str .= '</code></td></tr>';
         }
         $str .= '</tbody></table>';
 

@@ -55,7 +55,7 @@ class Versions
 
         $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .   // @phpstan-ignore-line
+            '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="">' . __('Module') . '</th>' .

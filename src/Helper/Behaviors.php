@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use ReflectionFunction;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Behaviors
 {
@@ -47,31 +47,7 @@ class Behaviors
             $newline = false;
             if (is_array($f)) {
                 foreach ($f as $fi) {
-                    $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal"><code>';
-                    if (is_array($fi)) {
-                        if (is_object($fi[0])) {
-                            $str .= get_class($fi[0]) . '-&gt;' . $fi[1];
-                        } else {
-                            $str .= $fi[0] . '::' . $fi[1];
-                        }
-                    } else {
-                        if ($fi instanceof \Closure) {
-                            $r  = new ReflectionFunction($fi);
-                            $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
-                            $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
-                            if ($ns === '') {
-                                // Cope with class::method(...) forms
-                                $c = $r->getClosureScopeClass();
-                                if (!is_null($c)) {
-                                    $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
-                                }
-                            }
-                            $str .= $ns . $fn;
-                        } else {
-                            $str .= $fi;
-                        }
-                    }
-                    $str .= '()</code></td>';
+                    $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td class="maximal"><code>' . CoreHelper::callableName($fi) . '</code></td>';
                     $newline = true;
                 }
             } else {

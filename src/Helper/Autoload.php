@@ -36,7 +36,7 @@ class Autoload
             '</ul>';
 
         $str .= '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Namespaces') . ' (' . sprintf('%d', is_countable($ns) ? count($ns) : 0) . ')' . '</caption>' . // @phpstan-ignore-line
+            '<caption>' . __('Namespaces') . ' (' . sprintf('%d', count($ns)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .

@@ -30,7 +30,7 @@ class AdminUrls
         $urls = $urls->getArrayCopy();
         App::lexical()->lexicalKeySort($urls, App::lexical()::ADMIN_LOCALE);
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' . // @phpstan-ignore-line
+        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
             '<th scope="col">' . __('URL') . '</th>' .
             '<th scope="col">' . __('Query string') . '</th></tr></thead>' .
