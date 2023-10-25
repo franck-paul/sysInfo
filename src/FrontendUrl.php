@@ -16,7 +16,6 @@ namespace Dotclear\Plugin\sysInfo;
 
 use Dotclear\App;
 use Dotclear\Core\Frontend\Url;
-use Dotclear\Core\Frontend\Utility;
 
 class FrontendUrl extends Url
 {
@@ -28,21 +27,11 @@ class FrontendUrl extends Url
     public static function sysInfo(?string $args): void
     {
         if ($args == 'behaviours') {
-            $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
-            if (!empty($tplset) && is_dir(implode(DIRECTORY_SEPARATOR, [My::path(), Utility::TPL_ROOT, $tplset]))) {
-                App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [My::path(), Utility::TPL_ROOT, $tplset]));
-            } else {
-                App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [My::path(), Utility::TPL_ROOT, App::config()->defaultTplset()]));
-            }
+            App::frontend()->template()->appendPath(My::tplPath());
             self::serveDocument('behaviours.html');
             exit;
         } elseif ($args == 'templatetags') {
-            $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
-            if (!empty($tplset) && is_dir(implode(DIRECTORY_SEPARATOR, [My::path(), Utility::TPL_ROOT, $tplset]))) {
-                App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [My::path(), Utility::TPL_ROOT, $tplset]));
-            } else {
-                App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [My::path(), Utility::TPL_ROOT, App::config()->defaultTplset()]));
-            }
+            App::frontend()->template()->appendPath(My::tplPath());
             self::serveDocument('templatetags.html');
             exit;
         }
