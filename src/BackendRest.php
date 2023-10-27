@@ -36,7 +36,7 @@ class BackendRest
     public static function getCompiledTemplate(mixed $unused, array $get): XmlTag
     {
         // Return compiled template file content
-        $file    = !empty($get['file']) ? $get['file'] : '';
+        $file    = empty($get['file']) ? '' : $get['file'];
         $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
@@ -71,43 +71,40 @@ class BackendRest
     public static function getStaticCacheDir(mixed $unused, array $get): XmlTag
     {
         // Return list of folders in a given cache folder
-        $root    = !empty($get['root']) ? $get['root'] : '';
+        $root    = empty($get['root']) ? '' : $get['root'];
         $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
-        if (defined('DC_SC_CACHE_DIR')) {
-            if ($root != '') {
-                $blog_host = App::blog()->host();
-                if (substr($blog_host, -1) != '/') {
-                    $blog_host .= '/';
-                }
-                $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
-                $cache_key = md5(Http::getHostFromURL($blog_host));
+        if (defined('DC_SC_CACHE_DIR') && $root != '') {
+            $blog_host = App::blog()->host();
+            if (!str_ends_with($blog_host, '/')) {
+                $blog_host .= '/';
+            }
 
-                $k         = str_split($cache_key, 2);
-                $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
-
-                if (is_dir($cache_dir) && is_readable($cache_dir)) {
-                    $files = Files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
-                    foreach ($files as $file) {
-                        if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                            $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
-                            if (is_dir($cache_fullpath)) {
-                                $content .= '<tr>' .
-                                '<td class="nowrap">' . $root . '</td>' . // 1st level
-                                '<td class="nowrap">' .
-                                '<a class="sc_subdir" href="#">' . $file . '</a>' .
-                                '</td>' .                                     // 2nd level
-                                '<td class="nowrap">' . __('…') . '</td>' . // 3rd level
-                                '<td class="nowrap maximal"></td>' .          // cache file
-                                '</tr>' . "\n";
-                            }
+            $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
+            $cache_key = md5(Http::getHostFromURL($blog_host));
+            $k         = str_split($cache_key, 2);
+            $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+            if (is_dir($cache_dir) && is_readable($cache_dir)) {
+                $files = Files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
+                foreach ($files as $file) {
+                    if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                        $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
+                        if (is_dir($cache_fullpath)) {
+                            $content .= '<tr><td class="nowrap">' . $root . '</td>' . // 1st level
+                            '<td class="nowrap">' .
+                            '<a class="sc_subdir" href="#">' . $file . '</a>' .
+                            '</td>' .                                     // 2nd level
+                            '<td class="nowrap">' . __('…') . '</td>' . // 3rd level
+                            '<td class="nowrap maximal"></td>' .          // cache file
+                            '</tr>' . "\n";
                         }
                     }
-                    $ret = true;
                 }
+
+                $ret = true;
             }
         }
 
@@ -128,63 +125,61 @@ class BackendRest
     public static function getStaticCacheList(mixed $unused, array $get): XmlTag
     {
         // Return list of folders and files in a given folder
-        $root    = !empty($get['root']) ? $get['root'] : '';
+        $root    = empty($get['root']) ? '' : $get['root'];
         $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
-        if (defined('DC_SC_CACHE_DIR')) {
-            if ($root != '') {
-                $blog_host = App::blog()->host();
-                if (substr($blog_host, -1) != '/') {
-                    $blog_host .= '/';
-                }
-                $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
-                $cache_key = md5(Http::getHostFromURL($blog_host));
+        if (defined('DC_SC_CACHE_DIR') && $root != '') {
+            $blog_host = App::blog()->host();
+            if (!str_ends_with($blog_host, '/')) {
+                $blog_host .= '/';
+            }
 
-                if ($cache_dir !== false && is_dir($cache_dir) && is_readable($cache_dir)) {
-                    $k         = str_split($cache_key, 2);
-                    $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+            $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
+            $cache_key = md5(Http::getHostFromURL($blog_host));
+            if ($cache_dir !== false && is_dir($cache_dir) && is_readable($cache_dir)) {
+                $k         = str_split($cache_key, 2);
+                $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
-                    $dirs = [$cache_dir . DIRECTORY_SEPARATOR . $root];
-                    do {
-                        $dir   = array_shift($dirs);
-                        $files = Files::scandir($dir);
-                        foreach ($files as $file) {
-                            if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                                $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
-                                if (is_file($cache_fullpath)) {
-                                    $k = str_split($file, 2);
-                                    $content .= '<tr>' .
-                                    '<td class="nowrap">' . $k[0] . '</td>' . // 1st level
-                                    '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
-                                    '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
-                                    '<td class="nowrap maximal">' .
-                                    (new Checkbox(['sc[]'], false))->value($cache_fullpath)->render() . ' ' .
-                                    '<label class="classic">' .
-                                    '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
-                                    '</label>' .
-                                    '</td>' . // cache file
-                                    '</tr>' . "\n";
-                                } else {
-                                    $dirs[] = $dir . DIRECTORY_SEPARATOR . $file;
-                                }
+                $dirs = [$cache_dir . DIRECTORY_SEPARATOR . $root];
+                do {
+                    $dir   = array_shift($dirs);
+                    $files = Files::scandir($dir);
+                    foreach ($files as $file) {
+                        if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                            $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
+                            if (is_file($cache_fullpath)) {
+                                $k = str_split($file, 2);
+                                $content .= '<tr><td class="nowrap">' . $k[0] . '</td>' . // 1st level
+                                '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
+                                '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
+                                '<td class="nowrap maximal">' .
+                                (new Checkbox(['sc[]'], false))->value($cache_fullpath)->render() . ' ' .
+                                '<label class="classic">' .
+                                '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
+                                '</label>' .
+                                '</td>' . // cache file
+                                '</tr>' . "\n";
+                            } else {
+                                $dirs[] = $dir . DIRECTORY_SEPARATOR . $file;
                             }
                         }
-                    } while (count($dirs));
-                    if ($content == '') {
-                        // No more dirs and files → send an empty raw
-                        $k = explode(DIRECTORY_SEPARATOR, $root);
-                        $content .= '<tr>' .
-                        '<td class="nowrap">' . $k[0] . '</td>' .         // 1st level
-                        '<td class="nowrap">' . $k[1] . '</td>' .         // 2nd level
-                        '<td class="nowrap">' . __('(empty)') . '</td>' . // 3rd level (empty)
-                        '<td class="nowrap maximal"></td>' .              // cache file (empty)
-                        '</tr>' . "\n";
                     }
-                    $ret = true;
+                } while (count($dirs));
+
+                if ($content == '') {
+                    // No more dirs and files → send an empty raw
+                    $k = explode(DIRECTORY_SEPARATOR, $root);
+                    $content .= '<tr><td class="nowrap">' . $k[0] . '</td>' .         // 1st level
+                    '<td class="nowrap">' . $k[1] . '</td>' .         // 2nd level
+                    '<td class="nowrap">' . __('(empty)') . '</td>' . // 3rd level (empty)
+                    '<td class="nowrap maximal"></td>' .              // cache file (empty)
+                    '</tr>' . "\n";
                 }
+
+                $ret = true;
             }
         }
 
@@ -205,14 +200,14 @@ class BackendRest
     public static function getStaticCacheName(mixed $unused, array $get): XmlTag
     {
         // Return static cache filename from a given URL
-        $url     = !empty($get['url']) ? $get['url'] : '';
+        $url     = empty($get['url']) ? '' : $get['url'];
         $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
 
         // Extract REQUEST_URI from URL if possible
         $blog_host = App::blog()->host();
-        if (substr($url, 0, strlen($blog_host)) == $blog_host) {
+        if (str_starts_with($url, $blog_host)) {
             $url = substr($url, strlen($blog_host));
         }
 
@@ -238,7 +233,7 @@ class BackendRest
     public static function getStaticCacheFile(mixed $unused, array $get): XmlTag
     {
         // Return compiled static cache file content
-        $file    = !empty($get['file']) ? $get['file'] : '';
+        $file    = empty($get['file']) ? '' : $get['file'];
         $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';

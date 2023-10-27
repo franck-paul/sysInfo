@@ -29,10 +29,9 @@ class TplPaths
     {
         CoreHelper::publicPrepend();
         $paths         = App::frontend()->template()->getPath();
-        $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
+        $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' .
+        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Path') . '</th>' .
@@ -41,23 +40,23 @@ class TplPaths
             '<tbody>';
         foreach ($paths as $path) {
             $sub_path = (string) Path::real($path, false);
-            if (substr($sub_path, 0, strlen($document_root)) == $document_root) {
+            if (str_starts_with($sub_path, $document_root)) {
                 $sub_path = substr($sub_path, strlen($document_root));
-                if (substr($sub_path, 0, 1) == '/') {
+                if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (substr($sub_path, 0, strlen(App::config()->dotclearRoot())) == App::config()->dotclearRoot()) {
+            } elseif (str_starts_with($sub_path, App::config()->dotclearRoot())) {
                 $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
-                if (substr($sub_path, 0, 1) == '/') {
+                if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
             }
+
             $str .= '<tr><td>' . CoreHelper::simplifyFilename($sub_path) . '</td><tr>';
         }
+
         $str .= '</tbody></table>';
 
-        $str .= '<p><a id="sysinfo-preview" href="' . App::blog()->url() . App::url()->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>';
-
-        return $str;
+        return $str . ('<p><a id="sysinfo-preview" href="' . App::blog()->url() . App::url()->getURLFor('sysinfo') . '/templatetags' . '">' . __('Display template tags') . '</a></p>');
     }
 }

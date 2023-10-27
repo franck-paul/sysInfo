@@ -29,8 +29,7 @@ class Configuration
         [$release, $config] = self::getConfig();
 
         // Affichage des valeurs de release de Dotclear
-        $str = '<table id="chk-table-result-release" class="sysinfo">' .
-            '<caption>' . __('Dotclear release') . ' (' . sprintf('%d', count($release)) . ')' . '</caption>' .
+        $str = '<table id="chk-table-result-release" class="sysinfo"><caption>' . __('Dotclear release') . ' (' . sprintf('%d', count($release)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Key') . '</th>' .
@@ -40,14 +39,14 @@ class Configuration
             '<tbody>';
         App::lexical()->lexicalKeySort($release, App::lexical()::ADMIN_LOCALE);
         foreach ($release as $c => $v) {
-            $str .= '<tr><td class="nowrap">' . '<code>' . $c . '</code></td>';
+            $str .= '<tr><td class="nowrap"><code>' . $c . '</code></td>';
             $str .= '<td class="maximal">' . (is_string($v) ? CoreHelper::simplifyFilename($v) : $v) . '</td></tr>';
         }
+
         $str .= '</tbody></table>';
 
         // Affichage des valeurs de configuration de Dotclear
-        $str .= '<table id="chk-table-result-config" class="sysinfo">' .
-            '<caption>' . __('Dotclear configuration') . ' (' . sprintf('%d', count($config)) . ')' . '</caption>' .
+        $str .= '<table id="chk-table-result-config" class="sysinfo"><caption>' . __('Dotclear configuration') . ' (' . sprintf('%d', count($config)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Key') . '</th>' .
@@ -59,14 +58,13 @@ class Configuration
         App::lexical()->lexicalKeySort($config, App::lexical()::ADMIN_LOCALE);
         foreach ($config as $c => $v) {
             $str .= '<tr>';
-            $str .= '<td class="nowrap">' . '<code>' . $c . '</code></td>';
+            $str .= '<td class="nowrap"><code>' . $c . '</code></td>';
             $str .= '<td>' . gettype($v) . '</td>';
             $str .= '<td class="maximal">' . (is_string($v) ? CoreHelper::simplifyFilename($v) : var_export($v, true)) . '</td>';
             $str .= '</tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 
     /**

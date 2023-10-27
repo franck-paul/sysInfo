@@ -50,17 +50,14 @@ class UrlHandlers
             if (!in_array($type, $excluded)) {
                 $fi      = $param['handler'];
                 $handler = CoreHelper::callableName($fi);
-                $str .= '<tr>' .
-                    '<td scope="row">' . $type . '</td>' .
+                $str .= '<tr><td scope="row">' . $type . '</td>' .
                     '<td>' . $param['url'] . '</td>' .
                     '<td><code>' . $param['representation'] . '</code></td>' .
                     '<td><code>' . $handler . '</code></td>' .
                     '</tr>';
             }
         }
-        $str .= '</tbody>' .
-            '</table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

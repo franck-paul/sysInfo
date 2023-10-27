@@ -29,8 +29,7 @@ class Constants
         [$undefined, $constants] = self::getConstants();
 
         // Affichage des constantes remarquables de Dotclear
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
+        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Constant') . '</th>' .
@@ -40,20 +39,20 @@ class Constants
             '<tbody>';
         App::lexical()->lexicalKeySort($constants, App::lexical()::ADMIN_LOCALE);
         foreach ($constants as $c => $v) {
-            $str .= '<tr><td class="nowrap">' .
-                '<img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .
+            $str .= '<tr><td class="nowrap"><img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .
                 '<td class="maximal">';
             if ($v != $undefined) {
                 if (is_string($v)) {
                     $v = CoreHelper::simplifyFilename($v);
                 }
+
                 $str .= $v;
             }
+
             $str .= '</td></tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 
     /**

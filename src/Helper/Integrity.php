@@ -82,17 +82,17 @@ class Integrity
                         }
                     }
 
-                    if ($std_status) {
-                        $count++;
-                        $str .= '<tr>' .
-                        '<td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
+                    if ($std_status !== '' && $std_status !== '0') {
+                        ++$count;
+                        $str .= '<tr><td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
                         '<td>' . $md5 . '</td>' .
                         '<td' . $std_status . '>' . $md5_std . '</td>' .
                         '<td' . $exp_status . '>' . $md5_exp . '</td>' .
                         '</tr>';
                     }
                 }
-                if (!$count) {
+
+                if ($count === 0) {
                     $str .= '<tr><td>' . __('Everything is fine.') . '</td></tr>';
                 }
             } else {
@@ -102,8 +102,6 @@ class Integrity
             $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
         }
 
-        $str .= '</tbody></table>';
-
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

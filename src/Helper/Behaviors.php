@@ -31,8 +31,7 @@ class Behaviors
 
         $str = '<p><a id="sysinfo-preview" href="' . App::blog()->url() . App::url()->getURLFor('sysinfo') . '/behaviours' . '">' . __('Display public behaviours') . '</a></p>';
 
-        $str .= '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Behaviours list') . ' (' . sprintf('%d', count($bl)) . ')' . '</caption>' .
+        $str .= '<table id="chk-table-result" class="sysinfo"><caption>' . __('Behaviours list') . ' (' . sprintf('%d', count($bl)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Behavior') . '</th>' .
@@ -53,10 +52,10 @@ class Behaviors
             } else {
                 $str .= '<td><code>' . $f . '()</code></td>';
             }
+
             $str .= '</tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

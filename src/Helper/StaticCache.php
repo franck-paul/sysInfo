@@ -34,7 +34,7 @@ class StaticCache
     public static function render()
     {
         $blog_host = App::blog()->host();
-        if (substr($blog_host, -1) != '/') {
+        if (!str_ends_with($blog_host, '/')) {
             $blog_host .= '/';
         }
 
@@ -50,16 +50,17 @@ class StaticCache
         if (!is_dir($cache_dir)) {
             return '<p>' . __('Static cache directory does not exists') . '</p>';
         }
+
         if (!is_readable($cache_dir)) {
             return '<p>' . __('Static cache directory is not readable') . '</p>';
         }
+
         $k          = str_split($cache_key, 2);
         $cache_root = $cache_dir;
         $cache_dir  = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
 
         // Add a static cache URL convertor
-        $str = '<p class="fieldset">' .
-            '<label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
+        $str = '<p class="fieldset"><label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
             form::field('sccalc_url', 50, 255, Html::escapeHTML(App::blog()->url())) . ' ' .
             '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '" />' .
             ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
@@ -71,9 +72,7 @@ class StaticCache
         $str .= '<table id="chk-table-result" class="sysinfo">';
         $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root)) .
            ', ' . __('last update:') . ' ' . date('Y-m-d H:i:s', (int) $cache->getMtime()) . '</caption>';
-        $str .= '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap" colspan="3">' . __('Cache subpath') . '</th>' .
+        $str .= '<thead><tr><th scope="col" class="nowrap" colspan="3">' . __('Cache subpath') . '</th>' .
             '<th scope="col" class="nowrap maximal">' . __('Cache file') . '</th>' .
             '</tr>' .
             '</thead>';
@@ -84,9 +83,7 @@ class StaticCache
             if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
                 $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
                 if (is_dir($cache_fullpath)) {
-                    $str .= '<tr>' .
-                        '<td class="nowrap">' .
-                        '<a class="sc_dir" href="#">' . $file . '</a>' .
+                    $str .= '<tr><td class="nowrap"><a class="sc_dir" href="#">' . $file . '</a>' .
                         '</td>' .                                     // 1st level
                         '<td class="nowrap">' . __('…') . '</td>' . // 2nd level (loaded via getStaticCacheDir REST)
                         '<td class="nowrap"></td>' .                  // 3rd level (loaded via getStaticCacheList REST)
@@ -97,13 +94,10 @@ class StaticCache
         }
 
         $str .= '</tbody></table>';
-        $str .= '<div class="two-cols">' .
-            '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
-            '</div>' .
-            '</form>';
 
-        return $str;
+        return $str . ('<div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
+            '</div>' .
+            '</form>');
     }
 
     /**
@@ -124,6 +118,7 @@ class StaticCache
                 if (empty($_POST['sc'])) {
                     throw new Exception(__('No cache file selected'));
                 }
+
                 foreach ($_POST['sc'] as $cache_file) {
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
@@ -133,6 +128,7 @@ class StaticCache
                 $nextlist = 'sc';
                 App::error()->add($e->getMessage());
             }
+
             if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
                 My::redirect([
@@ -146,6 +142,6 @@ class StaticCache
 
     public static function check(string $checklist): string
     {
-        return !empty($_GET['sc']) ? 'sc' : $checklist;
+        return empty($_GET['sc']) ? $checklist : 'sc';
     }
 }

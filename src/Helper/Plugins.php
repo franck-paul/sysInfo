@@ -30,7 +30,7 @@ class Plugins
         // Affichage de la liste des plugins (et de leurs propriétés)
         $plugins = App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true);
 
-        $count = count($plugins) ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
+        $count = count($plugins) > 0 ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
 
         $str = '<h3>' . __('Plugins (in loading order)') . $count . '</h3>';
         $str .= '<details id="expand-all"><summary>' . __('Plugin id') . __(' (priority, name)') . '</summary></details>';
@@ -49,19 +49,24 @@ class Plugins
                                 if (isset($module[1])) {
                                     $version = ' (' . $module[1] . ')';
                                 }
+
                                 $module = $module[0];
                             }
+
                             $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '"/>' . $module . '</a>' . $version) : 'Dotclear' . $version;
                         }
+
                         $value = implode(', ', $value);
                     }
                 } elseif (in_array($key, ['support', 'details', 'repository'])) {
                     $value = '<a href="' . $value . '"/>' . $value . '</a>';
-                } elseif (in_array($key, ['root'])) {
+                } elseif ($key == 'root') {
                     $value = CoreHelper::simplifyFilename($value, true);
                 }
+
                 $str .= '<li>' . $key . ' = ' . $value . '</li>';
             }
+
             $str .= '</ul>';
             $str .= '</details>';
         }

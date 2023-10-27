@@ -39,11 +39,12 @@ class Repo
         $in_cache = false;
         $parser   = self::parseRepo($use_cache, $url, $in_cache);
 
-        $defines   = !$parser ? [] : $parser->getDefines();
+        $defines   = $parser ? $parser->getDefines() : [];
         $raw_datas = [];
         foreach ($defines as $define) {
             $raw_datas[$define->getId()] = $define;
         }
+
         App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
         $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
@@ -75,42 +76,45 @@ class Repo
         $lines = '<table><caption>' . $title . '</caption><thead><tr><th>' . __('Repositories') . '</th></tr></thead><tbody>';
         foreach ($modules as $module) {
             if ($module->get('repository') != '' && App::config()->allowRepositories()) {
-                $url      = substr($module->get('repository'), -12, 12) == '/dcstore.xml' ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
+                $url      = str_ends_with($module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
                 $in_cache = false;
                 $parser   = self::parseRepo($use_cache, $url, $in_cache);
 
-                $defines   = !$parser ? [] : $parser->getDefines();
+                $defines   = $parser ? $parser->getDefines() : [];
                 $raw_datas = [];
                 foreach ($defines as $define) {
                     $raw_datas[$define->getId()] = $define;
                 }
+
                 App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
                 $count = $parser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
                 $str   = '';
                 $label = $url . ' ' . ($in_cache ? __('in cache') : '') . $count;
-                $str .= '<tr><td>' . '<p><strong>' . $label . '</strong></p>';
+                $str .= '<tr><td><p><strong>' . $label . '</strong></p>';
                 if (!$parser) {
                     $str .= '<p>' . __('Repository is unreachable') . '</p>';
                 } else {
                     if (count($raw_datas) > 1) {
                         $str .= '<details><summary>' . __('Repository content') . '</summary>';
                     }
+
                     foreach ($raw_datas as $id => $define) {
                         $str .= self::renderModule($id, $define);
                     }
+
                     if (count($raw_datas) > 1) {
                         $str .= '</details>';
                     }
                 }
+
                 $str .= '</td></tr>';
 
                 $lines .= $str;
             }
         }
-        $lines .= '</tbody></table>';
 
-        return $lines;
+        return $lines . '</tbody></table>';
     }
 
     /**
@@ -132,12 +136,13 @@ class Repo
             } else {
                 $val = is_array($value) ? var_export($value, true) : $value;
             }
+
             $str .= '<li>' . $key . ' = ' . $val . '</li>';
         }
-        $str .= '</ul>';
-        $str .= '</details>';
 
-        return $str;
+        $str .= '</ul>';
+
+        return $str . '</details>';
     }
 
     /**
@@ -213,7 +218,7 @@ class Repo
     public static function renderAltPlugins(): string
     {
         $plugins = App::plugins()->getDefines();
-        uasort($plugins, fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
+        uasort($plugins, static fn($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $plugins,
@@ -232,8 +237,9 @@ class Repo
         if (!(App::themes() instanceof Themes)) {
             App::themes()->loadModules((string) App::blog()->themes_path, null);
         }
+
         $themes = App::themes()->getDefines();
-        uasort($themes, fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
+        uasort($themes, static fn($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $themes,

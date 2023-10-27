@@ -28,8 +28,7 @@ class Formaters
         // Affichage de la liste des éditeurs et des syntaxes par éditeur
         $formaters = App::formater()->getFormaters();
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Editors and their supported syntaxes') . '</caption>' .
+        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Editors and their supported syntaxes') . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Editor') . '</th>' .
@@ -48,10 +47,10 @@ class Formaters
                     $newline = true;
                 }
             }
+
             $str .= '</tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

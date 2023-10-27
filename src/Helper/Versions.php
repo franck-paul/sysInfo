@@ -50,8 +50,8 @@ class Versions
         // which is not a very good idea, but we need to cope with legacy code ;-)
         // Ex: dcRevisions store it as 'dcrevisions'
         // So we will check by ignoring case
-        $plugins  = array_map(fn ($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true))));
-        $disabled = array_map(fn ($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true))));
+        $plugins  = array_map(static fn($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true))));
+        $disabled = array_map(static fn($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true))));
 
         $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
@@ -86,6 +86,7 @@ class Versions
                     $checkbox->disabled(true);  // Do not delete distributed module version
                     $input->disabled(true);     // Do not modify distributed module version
                 }
+
                 if (!in_array(mb_strtolower($module), $plugins)) {
                     // Not in activated plugins list
                     if (in_array(mb_strtolower($module), $disabled)) {
@@ -102,6 +103,7 @@ class Versions
                             }
                         }
                     }
+
                     if ($exists) {
                         $class[]  = 'version-disabled';
                         $status[] = __('Disabled');
@@ -114,24 +116,21 @@ class Versions
                     }
                 }
             }
+
             $str .= '<tr class="' . implode(' ', $class) . '">' .
                 '<td class="">' . $checkbox->render() . ' ' . $name . '</td>' .
                 '<td class="nowrap">' . $input->render() . '</td>' .
                 '<td class="nowrap">' . implode(', ', $status) . '</td>' .
                 '</tr>';
         }
-        $str .= '</tbody></table>' .
-            '<div class="two-cols">' .
-            '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' .
+
+        return $str . ('</tbody></table><div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' .
             My::parsedHiddenFields() .
             (new Submit('updveraction', __('Update versions')))->render() . ' ' .
             (new Submit('delveraction', __('Delete selected versions')))->class('delete')->render() .
             '</p>' .
             '</div>' .
-            '</form>';
-
-        return $str;
+            '</form>');
     }
 
     /**
@@ -152,10 +151,12 @@ class Versions
                 if (empty($_POST['ver'])) {
                     throw new Exception(__('No version selected'));
                 }
+
                 $list = [];
                 foreach ($_POST['ver'] as $v) {
                     $list[] = $v;
                 }
+
                 $sql = new DeleteStatement();
                 $sql
                     ->from(App::con()->prefix() . App::version()::VERSION_TABLE_NAME)
@@ -165,6 +166,7 @@ class Versions
                 $checklist = 'versions';
                 App::error()->add($e->getMessage());
             }
+
             if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Selected versions have been deleted.'));
                 My::redirect([
@@ -189,6 +191,7 @@ class Versions
                 $nextlist = 'versions';
                 App::error()->add($e->getMessage());
             }
+
             if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Versions have been updated.'));
                 My::redirect([
@@ -202,6 +205,6 @@ class Versions
 
     public static function check(string $checklist): string
     {
-        return !empty($_GET['ver']) ? 'versions' : $checklist;
+        return empty($_GET['ver']) ? $checklist : 'versions';
     }
 }

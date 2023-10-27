@@ -34,6 +34,7 @@ class Exceptions
                 'label' => $enum->label(),
             ];
         }
+
         App::lexical()->lexicalKeySort($list, App::lexical()::ADMIN_LOCALE);
 
         $str = '<table id="exceptions" class="sysinfo"><caption>' . __('Registered Exceptions') . ' (' . sprintf('%d', count($list)) . ')' . '</caption>' .
@@ -43,15 +44,13 @@ class Exceptions
             '<th scope="col">' . __('Label') . '</th></tr></thead>' .
             '<tbody>';
         foreach ($list as $name => $info) {
-            $str .= '<tr>' .
-                '<td scope="row" class="nowrap">' . $name . '</td>' .
+            $str .= '<tr><td scope="row" class="nowrap">' . $name . '</td>' .
                 '<td><code>' . $info['value'] . '</code></td>' .
                 '<td><code>' . $info['code'] . '</code></td>' .
                 '<td><code>' . $info['label'] . '</code></td>' .
                 '</tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

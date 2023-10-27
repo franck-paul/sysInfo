@@ -35,8 +35,7 @@ class Autoload
             '<li>' . __('Root basedir:') . ' ' . ($autoloader->getRootBaseDir() !== '' ? $autoloader->getRootBaseDir() : __('Empty')) . '</li>' .
             '</ul>';
 
-        $str .= '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Namespaces') . ' (' . sprintf('%d', count($ns)) . ')' . '</caption>' .
+        $str .= '<table id="chk-table-result" class="sysinfo"><caption>' . __('Namespaces') . ' (' . sprintf('%d', count($ns)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
@@ -46,12 +45,10 @@ class Autoload
 
         // Second loop for deprecated variables
         foreach ($ns as $n) {
-            $str .= '<tr>' . '<td class="nowrap">' . $n . '</td>';
+            $str .= '<tr><td class="nowrap">' . $n . '</td>';
             $str .= '</tr>';
         }
 
-        $str .= '</tbody></table>';
-
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

@@ -35,6 +35,7 @@ class FrontendUrl extends Url
             self::serveDocument('templatetags.html');
             exit;
         }
+
         self::p404();
     }
 }

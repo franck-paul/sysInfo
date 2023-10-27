@@ -32,10 +32,9 @@ class FrontendTemplate
     {
         $bl = App::behavior()->getBehaviors();
 
-        $code = '<h3>' . '<?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
-        $code .= '<?php echo ' . self::class . '::publicBehavioursList(); ?>';
+        $code = '<h3><?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
 
-        return $code;
+        return $code . ('<?php echo ' . self::class . '::publicBehavioursList(); ?>');
     }
 
     public static function publicBehavioursList(): string
@@ -49,19 +48,18 @@ class FrontendTemplate
             foreach ($f as $fi) {
                 $code .= '<li><code>' . CoreHelper::callableName($fi) . '</code></li>';
             }
+
             $code .= '</ul>' . "\n" . '</li>' . "\n";
         }
-        $code .= '</ul>' . "\n";
 
-        return $code;
+        return $code . ('</ul>' . "\n");
     }
 
     public static function sysInfoTemplatetags(): string
     {
-        $code = '<h3>' . '<?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
-        $code .= '<?php echo ' . self::class . '::publicTemplatetagsList(); ?>';
+        $code = '<h3><?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
 
-        return $code;
+        return $code . ('<?php echo ' . self::class . '::publicTemplatetagsList(); ?>');
     }
 
     public static function publicTemplatetagsList(): string
@@ -78,16 +76,16 @@ class FrontendTemplate
         foreach ($tplblocks as $elt) {
             $code .= '<li>' . $elt . '</li>' . "\n";
         }
+
         $code .= '</ul></li>' . "\n";
 
         $code .= '<li>' . __('Values') . '<ul>' . "\n";
         foreach ($tplvalues as $elt) {
             $code .= '<li>' . $elt . '</li>' . "\n";
         }
+
         $code .= '</ul></li>' . "\n";
 
-        $code .= '</ul>' . "\n";
-
-        return $code;
+        return $code . ('</ul>' . "\n");
     }
 }

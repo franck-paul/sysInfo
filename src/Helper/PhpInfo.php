@@ -31,7 +31,7 @@ class PhpInfo
         if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', (string) ob_get_clean(), $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 $keys = array_keys($phpinfo);
-                if (strlen($match[1])) {
+                if (strlen($match[1]) !== 0) {
                     $phpinfo[$match[1]] = [];
                 } elseif (isset($match[3])) {
                     @$phpinfo[end($keys)][$match[2]] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
@@ -40,18 +40,20 @@ class PhpInfo
                 }
             }
         }
+
         $str = '';
         foreach ($phpinfo as $name => $section) {
-            $str .= "<h3>$name</h3>\n<table class=\"sysinfo\">\n";
+            $str .= "<h3>{$name}</h3>\n<table class=\"sysinfo\">\n";
             foreach ($section as $key => $val) {
                 if (is_array($val)) {
-                    $str .= "<tr><td>$key</td><td>$val[0]</td><td>$val[1]</td></tr>\n";
+                    $str .= "<tr><td>{$key}</td><td>$val[0]</td><td>$val[1]</td></tr>\n";
                 } elseif (is_string($key)) {
-                    $str .= "<tr><td>$key</td><td>" . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
+                    $str .= sprintf('<tr><td>%s</td><td>', $key) . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
                 } else {
                     $str .= '<tr><td>' . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
                 }
             }
+
             $str .= "</table>\n";
         }
 

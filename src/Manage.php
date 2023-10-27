@@ -126,7 +126,7 @@ class Manage extends Process
             ];
         }
 
-        self::$checklist = !empty($_POST['checklist']) ? $_POST['checklist'] : '';
+        self::$checklist = empty($_POST['checklist']) ? '' : $_POST['checklist'];
 
         // Cope with form submit return
         self::$checklist = Versions::check(self::$checklist);

@@ -63,6 +63,7 @@ class Folders
             if (!is_array($subfolder)) {
                 $subfolder = [$subfolder];
             }
+
             foreach ($subfolder as $folder) {
                 $err = '';
                 if ($path = Path::real($folder)) {
@@ -85,22 +86,23 @@ class Folders
                             $err = $void . ' : ' . $e->getMessage();
                         }
                     }
+
                     $status = $writable && $touch ?
                     '<img src="images/check-on.png" alt="" /> ' . __('Writable') :
                     '<img src="images/check-wrn.png" alt="" /> ' . __('Readonly');
                 } else {
                     $status = '<img src="images/check-off.png" alt="" /> ' . __('Unknown');
                 }
+
                 if ($err !== '') {
                     $status .= '<div style="display: none;"><p>' . $err . '</p></div>';
                 }
 
-                if (substr($folder, 0, strlen(App::config()->dotclearRoot())) === App::config()->dotclearRoot()) {
+                if (str_starts_with($folder, App::config()->dotclearRoot())) {
                     $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen(App::config()->dotclearRoot()));
                 }
 
-                $str .= '<tr>' .
-                '<td class="nowrap">' . $name . '</td>' .
+                $str .= '<tr><td class="nowrap">' . $name . '</td>' .
                 '<td class="maximal">' . CoreHelper::simplifyFilename($folder) . '</td>' .
                 '<td class="nowrap">' . $status . '</td>' .
                 '</tr>';
@@ -109,9 +111,6 @@ class Folders
             }
         }
 
-        $str .= '</tbody>' .
-            '</table>';
-
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

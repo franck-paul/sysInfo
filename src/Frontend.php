@@ -32,12 +32,12 @@ class Frontend extends Process
         }
 
         App::behavior()->addBehaviors([
-            'publicBreadcrumb' => function (?string $context) {
+            'publicBreadcrumb' => static function (?string $context) {
                 if ($context == 'sysinfo') {
                     return __('System Information');
                 }
             },
-            'urlHandlerBeforeGetData' => function (Ctx $ctx) {
+            'urlHandlerBeforeGetData' => static function (Ctx $ctx) {
                 $ctx->http_cache = (bool) My::settings()->http_cache;
             },
         ]);

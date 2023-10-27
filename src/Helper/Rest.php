@@ -32,8 +32,7 @@ class Rest
         $rest    = App::rest();
         $methods = $rest->functions;
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
+        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Method') . '</th>' .
@@ -48,8 +47,7 @@ class Rest
             $str .= CoreHelper::callableName($callback);
             $str .= '</code></td></tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

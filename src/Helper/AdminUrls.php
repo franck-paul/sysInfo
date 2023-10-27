@@ -36,15 +36,12 @@ class AdminUrls
             '<th scope="col">' . __('Query string') . '</th></tr></thead>' .
             '<tbody>';
         foreach ($urls as $name => $url) {
-            $str .= '<tr>' .
-                '<td scope="row" class="nowrap">' . $name . '</td>' .
+            $str .= '<tr><td scope="row" class="nowrap">' . $name . '</td>' .
                 '<td><code>' . $url['url'] . '</code></td>' .
                 '<td><code>' . http_build_query($url['qs']) . '</code></td>' .
                 '</tr>';
         }
-        $str .= '</tbody>' .
-            '</table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

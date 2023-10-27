@@ -98,6 +98,7 @@ class CoreHelper
                 if (empty($_POST['htmlreport'])) {
                     throw new Exception(__('Report empty'));
                 }
+
                 $path = Path::real(implode(DIRECTORY_SEPARATOR, [App::config()->cacheRoot(), 'sysinfo']), false);
                 if ($path !== false) {
                     if (!is_dir($path)) {
@@ -119,8 +120,7 @@ class CoreHelper
                         $report = str_replace('<img src="images/check-on.png" />', '✅', $report, $count);
                         $report = str_replace('<img src="images/check-off.png" />', '⛔️', $report);
                         $report = str_replace(App::config()->dotclearRoot(), '<code>DC_ROOT</code> ', $report);
-                        fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' .
-                            '<title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . App::blog()->id() . '</title></head><body>');
+                        fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . App::blog()->id() . '</title></head><body>');
                         fwrite($fp, Html::decodeEntities($report));
                         fwrite($fp, '</body></html>');
                         fclose($fp);
@@ -131,10 +131,12 @@ class CoreHelper
                     if (file_exists($gzip)) {
                         unlink($gzip);
                     }
+
                     $tar = implode(DIRECTORY_SEPARATOR, [$path, $filename . '.tar']);
                     if (file_exists($tar)) {
                         unlink($tar);
                     }
+
                     $a = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
                     $a->addFile($file, $filename . $extension);
                     $a->compress(\Phar::GZ);
@@ -173,15 +175,20 @@ class CoreHelper
         if (!isset(App::frontend()->theme)) {
             App::frontend()->theme = App::blog()->settings()->system->theme;
         }
+
         if (!App::themes()->moduleExists(App::frontend()->theme)) {
-            App::frontend()->theme = App::blog()->settings()->system->theme = App::config()->defaultTheme();
+            App::frontend()->theme                 = App::config()->defaultTheme();
+            App::blog()->settings()->system->theme = App::frontend()->theme;
         }
+
         $tplset                       = App::themes()->moduleInfo(App::frontend()->theme, 'tplset');
         App::frontend()->parent_theme = App::themes()->moduleInfo(App::frontend()->theme, 'parent');
         if (App::frontend()->parent_theme && !App::themes()->moduleExists(App::frontend()->parent_theme)) {
-            App::frontend()->theme        = App::blog()->settings()->system->theme = App::config()->defaultTheme();
-            App::frontend()->parent_theme = null;
+            App::frontend()->theme                 = App::config()->defaultTheme();
+            App::blog()->settings()->system->theme = App::frontend()->theme;
+            App::frontend()->parent_theme          = null;
         }
+
         $tpl_path = [
             App::blog()->themesPath() . '/' . App::frontend()->theme . '/tpl',
         ];
@@ -191,9 +198,11 @@ class CoreHelper
                 $tplset = App::themes()->moduleInfo(App::frontend()->parent_theme, 'tplset');
             }
         }
+
         if (empty($tplset)) {
             $tplset = App::config()->defaultTplset();
         }
+
         $main_plugins_root = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
         App::frontend()->template()->setPath(
             $tpl_path,
@@ -230,7 +239,7 @@ class CoreHelper
             static::$redact = $settings->redact ?? '';
         }
 
-        $bases = array_map(fn ($path) => Path::real($path), [
+        $bases = array_map(static fn ($path) => Path::real($path), [
             App::config()->dotclearRoot(),                  // Core
             App::blog()->themesPath(),                      // Theme
             ...explode(PATH_SEPARATOR, App::config()->pluginsRoot()),    // Plugins
@@ -270,23 +279,20 @@ class CoreHelper
             $name = $callable;
         } elseif (is_array($callable)) {
             // Class, method
-            if (is_object($callable[0])) {
-                $name = get_class($callable[0]) . '-&gt;' . $callable[1];
-            } else {
-                $name = $callable[0] . '::' . $callable[1];
-            }
+            $name = is_object($callable[0]) ? get_class($callable[0]) . '-&gt;' . $callable[1] : $callable[0] . '::' . $callable[1];
         } elseif ($callable instanceof \Closure) {
             // Closure
             $r  = new ReflectionFunction($callable);
-            $ns = $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
-            $fn = $r->getShortName() ? $r->getShortName() : '__closure__';
+            $ns = $r->getNamespaceName() !== '' && $r->getNamespaceName() !== '0' ? $r->getNamespaceName() . '::' : '';
+            $fn = $r->getShortName()     !== '' && $r->getShortName() !== '0' ? $r->getShortName() : '__closure__';
             if ($ns === '') {
                 // Cope with class::method(...) forms
                 $c = $r->getClosureScopeClass();
                 if (!is_null($c)) {
-                    $ns = $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                    $ns = $c->getNamespaceName() !== '' && $c->getNamespaceName() !== '0' ? $c->getNamespaceName() . '::' : '';
                 }
             }
+
             $name = $ns . $fn;
         } else {
             // Not yet managed, give simpler response

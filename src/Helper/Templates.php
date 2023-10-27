@@ -36,19 +36,21 @@ class Templates
     {
         $tplset = CoreHelper::publicPrepend();
 
-        $document_root = (!empty($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '');
+        $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
         $cache_path    = (string) Path::real(App::config()->cacheRoot());
-        if (substr($cache_path, 0, strlen($document_root)) == $document_root) {
+        if (str_starts_with($cache_path, $document_root)) {
             $cache_path = substr($cache_path, strlen($document_root));
-        } elseif (substr($cache_path, 0, strlen(App::config()->dotclearRoot())) == App::config()->dotclearRoot()) {
+        } elseif (str_starts_with($cache_path, App::config()->dotclearRoot())) {
             $cache_path = substr($cache_path, strlen(App::config()->dotclearRoot()));
         }
+
         $blog_host = App::blog()->host();
-        if (substr($blog_host, -1) != '/') {
+        if (!str_ends_with($blog_host, '/')) {
             $blog_host .= '/';
         }
+
         $blog_url = App::blog()->url();
-        if (substr($blog_url, 0, strlen($blog_host)) == $blog_host) {
+        if (str_starts_with($blog_url, $blog_host)) {
             $blog_url = substr($blog_url, strlen($blog_host));
         }
 
@@ -72,20 +74,21 @@ class Templates
         // Loop on template paths
         foreach ($paths as $path) {
             $sub_path = (string) Path::real($path, false);
-            if (substr($sub_path, 0, strlen($document_root)) == $document_root) {
+            if (str_starts_with($sub_path, $document_root)) {
                 $sub_path = substr($sub_path, strlen($document_root));
-                if (substr($sub_path, 0, 1) == '/') {
+                if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (substr($sub_path, 0, strlen(App::config()->dotclearRoot())) == App::config()->dotclearRoot()) {
+            } elseif (str_starts_with($sub_path, App::config()->dotclearRoot())) {
                 $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
-                if (substr($sub_path, 0, 1) == '/') {
+                if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
             }
+
             $path_displayed = false;
             // Don't know exactly why but need to cope with */Utility::TPL_ROOT !
-            $md5_path = (!strstr($path, '/' . Utility::TPL_ROOT . '/' . $tplset) ? $path : Path::real($path));
+            $md5_path = (strstr($path, '/' . Utility::TPL_ROOT . '/' . $tplset) ? Path::real($path) : $path);
             $files    = Files::scandir($path);
             foreach ($files as $file) {
                 if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
@@ -95,8 +98,7 @@ class Templates
                     $cache_fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
                     $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                     $file_exists    = file_exists($file_check);
-                    $str .= '<tr>' .
-                        '<td>' . ($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)) . '</td>' .
+                    $str .= '<tr><td>' . ($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)) . '</td>' .
                         '<td class="nowrap">' . $file . '</td>' .
                         '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '" /> ' . $cache_subpath . '</td>' .
                         '<td class="nowrap">' .
@@ -106,7 +108,7 @@ class Templates
                             ->disabled(!($file_exists))
                             ->render() . ' ' .
                         '<label class="classic">' .
-                        ($file_exists ? '<a class="tpl_compiled" href="' . '#' . '">' : '') .
+                        ($file_exists ? '<a class="tpl_compiled" href="#">' : '') .
                         $cache_file .
                         ($file_exists ? '</a>' : '') .
                         '</label></td>' .
@@ -115,14 +117,10 @@ class Templates
                 }
             }
         }
-        $str .= '</tbody></table>' .
-            '<div class="two-cols">' .
-            '<p class="col checkboxes-helpers"></p>' .
-            '<p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
-            '</div>' .
-            '</form>';
 
-        return $str;
+        return $str . ('</tbody></table><div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '" /></p>' .
+            '</div>' .
+            '</form>');
     }
 
     /**
@@ -143,6 +141,7 @@ class Templates
                 if (empty($_POST['tpl'])) {
                     throw new Exception(__('No cache file selected'));
                 }
+
                 $root_cache = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
                 foreach ($_POST['tpl'] as $v) {
                     $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($v, 0, 2), substr($v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
@@ -154,6 +153,7 @@ class Templates
                 $nextlist = 'templates';
                 App::error()->add($e->getMessage());
             }
+
             if (!App::error()->flag()) {
                 Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
                 My::redirect([
@@ -167,6 +167,6 @@ class Templates
 
     public static function check(string $checklist): string
     {
-        return !empty($_GET['tpl']) ? 'templates' : $checklist;
+        return empty($_GET['tpl']) ? $checklist : 'templates';
     }
 }

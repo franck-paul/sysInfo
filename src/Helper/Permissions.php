@@ -27,8 +27,7 @@ class Permissions
     {
         $permissions = App::auth()->getPermissionsTypes();
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
+        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Type') . '</th>' .
@@ -37,13 +36,11 @@ class Permissions
             '</thead>' .
             '<tbody>';
         foreach ($permissions as $n => $l) {
-            $str .= '<tr>' .
-                '<td class="nowrap">' . $n . '</td>' .
+            $str .= '<tr><td class="nowrap">' . $n . '</td>' .
                 '<td class="maximal">' . __($l) . '</td>' .
                 '</tr>';
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

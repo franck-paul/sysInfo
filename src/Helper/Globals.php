@@ -54,8 +54,7 @@ class Globals
             'p_url'     => '2.23',
         ];
 
-        $str = '<table id="chk-table-result" class="sysinfo">' .
-            '<caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' .
+        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
@@ -66,7 +65,7 @@ class Globals
         // First loop for non deprecated variables
         foreach ($variables as $variable) {
             if (!in_array($variable, array_keys($deprecated))) {
-                $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
+                $str .= '<tr><td class="nowrap">' . $variable . '</td>';
                 if (is_array($GLOBALS[$variable])) {
                     $values = $GLOBALS[$variable];
                     App::lexical()->lexicalKeySort($values, App::lexical()::ADMIN_LOCALE);
@@ -75,6 +74,7 @@ class Globals
                         $type = '';
                         $content .= '<li><strong>' . $key . '</strong> = ' . '<code>' . CoreHelper::simplifyFilename(print_r($value, true)) . '</code>' . $type . '</li>';
                     }
+
                     $content .= '</ul>';
                 } else {
                     $content = CoreHelper::simplifyFilename(print_r($GLOBALS[$variable], true));
@@ -82,20 +82,21 @@ class Globals
                         $content = mb_substr($content, 0, $max_length) . ' …';
                     }
                 }
+
                 $str .= '<td class="maximal">' . $content . '</td>';
                 $str .= '</tr>';
             }
         }
+
         // Second loop for deprecated variables
         foreach ($variables as $variable) {
             if (in_array($variable, array_keys($deprecated))) {
-                $str .= '<tr>' . '<td class="nowrap">' . $variable . '</td>';
+                $str .= '<tr><td class="nowrap">' . $variable . '</td>';
                 $str .= '<td class="maximal deprecated">' . sprintf(__('*** deprecated since %s ***'), $deprecated[$variable]) . '</td>';
                 $str .= '</tr>';
             }
         }
-        $str .= '</tbody></table>';
 
-        return $str;
+        return $str . '</tbody></table>';
     }
 }

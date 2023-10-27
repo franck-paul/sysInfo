@@ -47,9 +47,11 @@ class System
         if (function_exists('\opcache_get_status') && is_array(\opcache_get_status())) {
             $caches[] = 'OPCache';
         }
+
         if (function_exists('\apcu_cache_info') && is_array(\apcu_cache_info())) {
             $caches[] = 'APC';
         }
+
         if (class_exists('\Memcache')) {
             $memcache     = new \Memcache();
             $isMemcacheOn = @$memcache->connect('localhost', 11211, 1);
@@ -57,7 +59,8 @@ class System
                 $caches[] = 'Memcache';
             }
         }
-        if (empty($caches)) {
+
+        if ($caches === []) {
             $caches[] = __('None');
         }
 
@@ -82,7 +85,7 @@ class System
             '<li>' . __('Temporary folder: ') . ' <strong>' . sys_get_temp_dir() . '</strong></li>' .
             '<li>' . 'DIRECTORY_SEPARATOR :' . ' <strong><code>' . DIRECTORY_SEPARATOR . '</code></strong></li>' .
             '<li>' . 'PATH_SEPARATOR :' . ' <strong><code>' . PATH_SEPARATOR . '</code></strong></li>' .
-            (session_id() ? '<li>' . 'session_id() :' . ' <strong><code>' . session_id() . '</code></strong>' . '</li>' : '') .
+            (session_id() ? '<li>session_id() : <strong><code>' . session_id() . '</code></strong>' . '</li>' : '') .
             '</ul>' .
             '</details>';
 
@@ -119,6 +122,7 @@ class System
                 }
             }
         }
+
         if ($versions !== '') {
             $versions = '<details><summary>' . __('Update info') . ' ' . __('(from versions cache)') . '</summary><ul>' . $versions . '</ul></details>';
         }
@@ -134,12 +138,14 @@ class System
                     foreach ($value as $subkey => $subvalue) {
                         $release .= '<li>' . $subkey . ' = <strong>' . (string) $subvalue . '</strong></li>';
                     }
+
                     $release .= '</ul></li>';
                 } else {
                     $release .= '<li>' . $key . ' = <strong>' . (string) $value . '</strong></li>';
                 }
             }
-            if ($release) {
+
+            if ($release !== '' && $release !== '0') {
                 $release = '<details><summary>' . __('Release info') . '</summary><ul>' . $release . '</ul></details>';
             }
         }
