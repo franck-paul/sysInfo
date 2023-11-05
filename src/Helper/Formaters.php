@@ -40,12 +40,10 @@ class Formaters
         foreach ($formaters as $e => $s) {
             $str .= '<tr><td class="nowrap">' . $e . '</td>';
             $newline = false;
-            if (is_array($s)) {
-                foreach ($s as $f) {
-                    $l = App::formater()->getFormaterName($f);
-                    $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td>' . $f . '</td><td class="maximal">' . $l . '</td>' ;
-                    $newline = true;
-                }
+            foreach ($s as $f) {
+                $l = App::formater()->getFormaterName($f);
+                $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td>' . $f . '</td><td class="maximal">' . $l . '</td>' ;
+                $newline = true;
             }
 
             $str .= '</tr>';

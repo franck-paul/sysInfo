@@ -82,7 +82,7 @@ class Integrity
                         }
                     }
 
-                    if ($std_status !== '' && $std_status !== '0') {
+                    if ($std_status !== '') {
                         ++$count;
                         $str .= '<tr><td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
                         '<td>' . $md5 . '</td>' .
