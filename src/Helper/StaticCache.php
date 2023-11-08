@@ -78,19 +78,23 @@ class StaticCache
             '</thead>';
         $str .= '<tbody>';
 
-        $files = Files::scandir($cache_dir);
-        foreach ($files as $file) {
-            if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
-                $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
-                if (is_dir($cache_fullpath)) {
-                    $str .= '<tr><td class="nowrap"><a class="sc_dir" href="#">' . $file . '</a>' .
-                        '</td>' .                                     // 1st level
-                        '<td class="nowrap">' . __('…') . '</td>' . // 2nd level (loaded via getStaticCacheDir REST)
-                        '<td class="nowrap"></td>' .                  // 3rd level (loaded via getStaticCacheList REST)
-                        '<td class="nowrap maximal"></td>' .          // cache file (loaded via getStaticCacheList REST too)
-                        '</tr>' . "\n";
+        try {
+            $files = Files::scandir($cache_dir);
+            foreach ($files as $file) {
+                if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                    $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
+                    if (is_dir($cache_fullpath)) {
+                        $str .= '<tr><td class="nowrap"><a class="sc_dir" href="#">' . $file . '</a>' .
+                            '</td>' .                                     // 1st level
+                            '<td class="nowrap">' . __('…') . '</td>' . // 2nd level (loaded via getStaticCacheDir REST)
+                            '<td class="nowrap"></td>' .                  // 3rd level (loaded via getStaticCacheList REST)
+                            '<td class="nowrap maximal"></td>' .          // cache file (loaded via getStaticCacheList REST too)
+                            '</tr>' . "\n";
+                    }
                 }
             }
+        } catch (Exception) {
+            // Unable to read the static cache directory, ignore it
         }
 
         $str .= '</tbody></table>';
