@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 18:15+0200\n"
+"POT-Creation-Date: 2023-11-08 16:43+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/open-time/teams/109573/ru/)\n"
@@ -101,6 +101,9 @@ msgstr "Ключ"
 msgid "Dotclear configuration"
 msgstr "Конфигурация Dotclear"
 
+msgid "Type"
+msgstr "Тип"
+
 msgid "(see inc/config.php)"
 msgstr "(см. inc/config.php)"
 
@@ -179,9 +182,6 @@ msgstr "Невозможно прочитать файл дайджестов."
 
 msgid "Types of permission"
 msgstr "Виды разрешений"
-
-msgid "Type"
-msgstr "Тип"
 
 msgid "Plugins (in loading order)"
 msgstr "Плагины (в порядке загрузки)"
@@ -385,6 +385,12 @@ msgstr "Список путей шаблонов"
 msgid "Display template tags"
 msgstr "Отображение тегов шаблона"
 
+msgid "Unexpected or additional files"
+msgstr "Неожиданные или дополнительные файлы"
+
+msgid "Nothing unexpected or additional found."
+msgstr "Ничего неожиданного или дополнительного не обнаружено."
+
 msgid "List of known URLs"
 msgstr "Список известных URL-адресов"
 
@@ -453,6 +459,9 @@ msgstr "Папки"
 
 msgid "Integrity"
 msgstr "Целостность"
+
+msgid "Unexpected"
+msgstr "Неожиданный"
 
 msgid "Autoloader"
 msgstr "Автозагрузка"
