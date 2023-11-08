@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 18:15+0200\n"
+"POT-Creation-Date: 2023-11-08 16:43+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
@@ -101,6 +101,9 @@ msgstr "Chiave"
 msgid "Dotclear configuration"
 msgstr "Configurazione di Dotclear"
 
+msgid "Type"
+msgstr "Tipo"
+
 msgid "(see inc/config.php)"
 msgstr "(vedere inc/config.php)"
 
@@ -179,9 +182,6 @@ msgstr "Impossibile leggere il file dei digest."
 
 msgid "Types of permission"
 msgstr "Tipi di autorizzazione"
-
-msgid "Type"
-msgstr "Tipo"
 
 msgid "Plugins (in loading order)"
 msgstr "Plugin (in ordine di caricamento)"
@@ -386,6 +386,12 @@ msgstr "Elenco dei percorsi dei modelli"
 msgid "Display template tags"
 msgstr "Visualizzazione dei tag del modello"
 
+msgid "Unexpected or additional files"
+msgstr "File inattesi o aggiuntivi"
+
+msgid "Nothing unexpected or additional found."
+msgstr "Non è stato trovato nulla di inaspettato o aggiuntivo."
+
 msgid "List of known URLs"
 msgstr "Elenco degli URL noti"
 
@@ -454,6 +460,9 @@ msgstr "Cartelle"
 
 msgid "Integrity"
 msgstr "Integrità"
+
+msgid "Unexpected"
+msgstr "Inaspettato"
 
 msgid "Autoloader"
 msgstr "Caricatore automatico"
