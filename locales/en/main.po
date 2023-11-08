@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 18:15+0200\n"
+"POT-Creation-Date: 2023-11-08 16:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,6 +97,9 @@ msgstr ""
 msgid "Dotclear configuration"
 msgstr ""
 
+msgid "Type"
+msgstr ""
+
 msgid "(see inc/config.php)"
 msgstr ""
 
@@ -174,9 +177,6 @@ msgid "Unable to read digests file."
 msgstr ""
 
 msgid "Types of permission"
-msgstr ""
-
-msgid "Type"
 msgstr ""
 
 msgid "Plugins (in loading order)"
@@ -381,6 +381,12 @@ msgstr ""
 msgid "Display template tags"
 msgstr ""
 
+msgid "Unexpected or additional files"
+msgstr ""
+
+msgid "Nothing unexpected or additional found."
+msgstr ""
+
 msgid "List of known URLs"
 msgstr ""
 
@@ -448,6 +454,9 @@ msgid "Folders"
 msgstr ""
 
 msgid "Integrity"
+msgstr ""
+
+msgid "Unexpected"
 msgstr ""
 
 msgid "Autoloader"

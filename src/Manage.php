@@ -42,6 +42,7 @@ use Dotclear\Plugin\sysInfo\Helper\StaticCache;
 use Dotclear\Plugin\sysInfo\Helper\System;
 use Dotclear\Plugin\sysInfo\Helper\Templates;
 use Dotclear\Plugin\sysInfo\Helper\TplPaths;
+use Dotclear\Plugin\sysInfo\Helper\Undigest;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
 use Dotclear\Plugin\sysInfo\Helper\Versions;
 
@@ -80,6 +81,7 @@ class Manage extends Process
                 __('Globals')          => 'globals',
                 __('Folders')          => 'folders',
                 __('Integrity')        => 'integrity',
+                __('Unexpected')       => 'undigest',
                 __('Autoloader')       => 'autoloader',
             ],
 
@@ -201,7 +203,7 @@ class Manage extends Process
                             ->default(self::$checklist),
                         (new Submit(['frmsubmit']))
                             ->value(__('Check')),
-                        ... My::hiddenFields(),
+                        ...My::hiddenFields(),
                     ]),
             ])
             ->render();
@@ -237,6 +239,9 @@ class Manage extends Process
 
             // Affichage du contrôle d'intégrité
             'integrity' => Integrity::render(),
+
+            // Affichage des fichiers non attendus
+            'undigest' => Undigest::render(),
 
             // Récupération des behaviours enregistrées
             'behaviours' => Behaviors::render(),
