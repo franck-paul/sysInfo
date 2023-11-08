@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 18:15+0200\n"
+"POT-Creation-Date: 2023-11-08 16:43+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -101,6 +101,9 @@ msgstr "キー"
 msgid "Dotclear configuration"
 msgstr "ドットクリア設定"
 
+msgid "Type"
+msgstr "タイプ"
+
 msgid "(see inc/config.php)"
 msgstr "(inc/config.phpを参照)"
 
@@ -179,9 +182,6 @@ msgstr "ダイジェストファイルを読み込むことができません。
 
 msgid "Types of permission"
 msgstr "許諾の種類"
-
-msgid "Type"
-msgstr "タイプ"
 
 msgid "Plugins (in loading order)"
 msgstr "プラグイン(読み込み順)"
@@ -385,6 +385,12 @@ msgstr "テンプレートパスの一覧"
 msgid "Display template tags"
 msgstr "テンプレートタグを表示する"
 
+msgid "Unexpected or additional files"
+msgstr "予期せぬ追加ファイル"
+
+msgid "Nothing unexpected or additional found."
+msgstr "予期せぬものや追加的なものは何も見つかっていない。"
+
 msgid "List of known URLs"
 msgstr "既知のURLの一覧"
 
@@ -453,6 +459,9 @@ msgstr "フォルダー"
 
 msgid "Integrity"
 msgstr "誠実さ"
+
+msgid "Unexpected"
+msgstr "予想外"
 
 msgid "Autoloader"
 msgstr "オートローダー"
