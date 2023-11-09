@@ -51,6 +51,29 @@ class Undigest
         $ignore = [
             'vendor',
         ];
+        $full_ext = [
+            'css',
+            'dat',
+            'gif',
+            'htaccess',
+            'html',
+            'ico',
+            'in',
+            'jpg',
+            'js',
+            'json',
+            'md',
+            'pdf',
+            'png',
+            'po',
+            'pot',
+            'scss',
+            'svg',
+            'txt',
+            'woff2',
+            'xml',
+            'xsl',
+        ];
         $ext = [
             'php',
             'tpl',
