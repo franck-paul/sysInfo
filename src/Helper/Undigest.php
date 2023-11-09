@@ -28,10 +28,11 @@ class Undigest
      */
     public static function render(): string
     {
-        $released = [];
-        $undigest = [];
-        $extra    = [];
-        $root     = App::config()->dotclearRoot();
+        $released      = [];
+        $undigest      = [];
+        $undigest_full = [];
+        $extra         = [];
+        $root          = App::config()->dotclearRoot();
 
         $folders = [
             'admin',
@@ -51,7 +52,7 @@ class Undigest
         $ignore = [
             'vendor',
         ];
-        $full_ext = [
+        $ext_full = [
             'css',
             'dat',
             'gif',
@@ -80,9 +81,9 @@ class Undigest
         ];
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Unexpected or additional files') . '</caption>' .
-            '<thead><tr>' .
-            '<th scope="col">' . __('File') . '</th>' .
-            '</tr></thead>' .
+            '<thead>' .
+            '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext) . ')' . '</th></tr>' .
+            '</thead>' .
             '<tbody>';
 
         // Get list of files in digest
@@ -98,10 +99,28 @@ class Undigest
                 }
                 if (count($released)) {
                     foreach ($folders as $folder) {
-                        $undigest = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest, $ext, $ignore);
+                        $undigest      = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest, $ext, $ignore);
+                        $undigest_full = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest_full, $ext_full, $ignore);
                     }
                     if (count($undigest)) {
                         foreach ($undigest as $filename) {
+                            if (!in_array($filename, $released)) {
+                                $extra[] = $filename;
+                            }
+                        }
+                        if (count($extra)) {
+                            foreach ($extra as $filename) {
+                                $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
+                            }
+                        } else {
+                            $str .= '<tr><td>' . __('Nothing unexpected or additional found.') . '</td></tr>';
+                        }
+                    }
+                    $extra = [];
+                    $str .= '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_full) . ')' . '</th></tr>';
+
+                    if (count($undigest_full)) {
+                        foreach ($undigest_full as $filename) {
                             if (!in_array($filename, $released)) {
                                 $extra[] = $filename;
                             }
