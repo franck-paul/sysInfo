@@ -149,8 +149,8 @@ class Undigest
      *
      * @param   string              $path   The directory path to scan
      * @param   array<int,string>   $stack  The paths stack
-     * @param   array<itn,string>   $ext    The extensions to find
-     * @param   array<itn,string>   $ignore The folders to ignore
+     * @param   array<int,string>   $ext    The extensions to find
+     * @param   array<int,string>   $ignore The folders to ignore
      *
      * @return  array<int,string>   The paths stack
      */
