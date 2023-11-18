@@ -79,6 +79,9 @@ class Undigest
             'php',
             'tpl',
         ];
+        $ignore_ext = [
+            '.lang.php',
+        ];
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Unexpected or additional files') . '</caption>' .
             '<thead>' .
@@ -99,7 +102,7 @@ class Undigest
                 }
                 if (count($released)) {
                     foreach ($folders as $folder) {
-                        $undigest      = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest, $ext, $ignore);
+                        $undigest      = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest, $ext, $ignore, $ignore_ext);
                         $undigest_full = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest_full, $ext_full, $ignore);
                     }
                     if (count($undigest)) {
@@ -147,14 +150,15 @@ class Undigest
     /**
      * Scan recursively a directory and found only some files with specific extensions.
      *
-     * @param   string              $path   The directory path to scan
-     * @param   array<int,string>   $stack  The paths stack
-     * @param   array<int,string>   $ext    The extensions to find
-     * @param   array<int,string>   $ignore The folders to ignore
+     * @param   string              $path           The directory path to scan
+     * @param   array<int,string>   $stack          The paths stack
+     * @param   array<int,string>   $ext            The extensions to find
+     * @param   array<int,string>   $ignore         The folders to ignore
+     * @param   array<int,string>   $ignore_ext     The extensions to ignore
      *
      * @return  array<int,string>   The paths stack
      */
-    private static function scanDir(string $path, array $stack = [], array $ext = [], array $ignore = []): array
+    private static function scanDir(string $path, array $stack = [], array $ext = [], array $ignore = [], array $ignore_ext = []): array
     {
         $path = Path::real($path);
         if ($path === false || !is_dir($path) || !is_readable($path)) {
@@ -177,7 +181,18 @@ class Undigest
                 $info     = pathinfo($pathname, PATHINFO_EXTENSION);
 
                 if (in_array($info, $ext)) {
-                    $stack[] = $pathname;
+                    // Check if not in extensions to ignore list
+                    $keep = true;
+                    foreach ($ignore_ext as $needle) {
+                        if (str_ends_with($file, $needle)) {
+                            $keep = false;
+
+                            break;
+                        }
+                    }
+                    if ($keep) {
+                        $stack[] = $pathname;
+                    }
                 }
             }
         }
