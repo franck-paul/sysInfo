@@ -175,7 +175,7 @@ class Undigest
                 continue;
             }
             if (is_dir($path . DIRECTORY_SEPARATOR . $file)) {
-                $stack = self::scanDir($path . DIRECTORY_SEPARATOR . $file, $stack, $ext);
+                $stack = self::scanDir($path . DIRECTORY_SEPARATOR . $file, $stack, $ext, $ignore, $ignore_ext);
             } else {
                 $pathname = implode(DIRECTORY_SEPARATOR, [$path, $file]);
                 $info     = pathinfo($pathname, PATHINFO_EXTENSION);
