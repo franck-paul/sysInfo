@@ -28,11 +28,11 @@ class Undigest
      */
     public static function render(): string
     {
-        $released      = [];
-        $undigest      = [];
-        $undigest_full = [];
-        $extra         = [];
-        $root          = App::config()->dotclearRoot();
+        $released       = [];
+        $list_primary   = [];
+        $list_secondary = [];
+        $unattended     = [];
+        $root           = App::config()->dotclearRoot();
 
         $folders = [
             'admin',
@@ -49,10 +49,22 @@ class Undigest
             $folders[] = implode(DIRECTORY_SEPARATOR, ['themes', $theme]);
         }
 
-        $ignore = [
+        $ignore_folders = [
             'vendor',
         ];
-        $ext_full = [
+
+        // Primary extensions to find
+        $ext_primary = [
+            'php',
+            'tpl',
+        ];
+        // Sub-extensions to ignore
+        $ignore_ext_primary = [
+            '.lang.php',
+        ];
+
+        // Secondary extensions to find
+        $ext_secondary = [
             'css',
             'dat',
             'gif',
@@ -75,17 +87,15 @@ class Undigest
             'xml',
             'xsl',
         ];
-        $ext = [
-            'php',
-            'tpl',
-        ];
-        $ignore_ext = [
-            '.lang.php',
+
+        // Suffixes to find for each extensions
+        $ext_suffixes = [
+            '-OLD',
         ];
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Unexpected or additional files') . '</caption>' .
             '<thead>' .
-            '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext) . ')' . '</th></tr>' .
+            '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_primary) . ')' . '</th></tr>' .
             '</thead>' .
             '<tbody>';
 
@@ -102,34 +112,47 @@ class Undigest
                 }
                 if (count($released)) {
                     foreach ($folders as $folder) {
-                        $undigest      = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest, $ext, $ignore, $ignore_ext);
-                        $undigest_full = self::scanDir(implode(DIRECTORY_SEPARATOR, [$root, $folder]), $undigest_full, $ext_full, $ignore);
+                        $list_primary = self::scanDir(
+                            implode(DIRECTORY_SEPARATOR, [$root, $folder]),
+                            $list_primary,
+                            $ext_primary,
+                            $ignore_folders,
+                            $ignore_ext_primary,
+                            $ext_suffixes
+                        );
+                        $list_secondary = self::scanDir(
+                            implode(DIRECTORY_SEPARATOR, [$root, $folder]),
+                            $list_secondary,
+                            $ext_secondary,
+                            $ignore_folders
+                        );
                     }
-                    if (count($undigest)) {
-                        foreach ($undigest as $filename) {
+                    if (count($list_primary)) {
+                        foreach ($list_primary as $filename) {
                             if (!in_array($filename, $released)) {
-                                $extra[] = $filename;
+                                $unattended[] = $filename;
                             }
                         }
-                        if (count($extra)) {
-                            foreach ($extra as $filename) {
+                        if (count($unattended)) {
+                            foreach ($unattended as $filename) {
                                 $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
                             }
                         } else {
                             $str .= '<tr><td>' . __('Nothing unexpected or additional found.') . '</td></tr>';
                         }
                     }
-                    $extra = [];
-                    $str .= '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_full) . ')' . '</th></tr>';
 
-                    if (count($undigest_full)) {
-                        foreach ($undigest_full as $filename) {
+                    // Second part
+                    $unattended = [];
+                    $str .= '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_secondary) . ')' . '</th></tr>';
+                    if (count($list_secondary)) {
+                        foreach ($list_secondary as $filename) {
                             if (!in_array($filename, $released)) {
-                                $extra[] = $filename;
+                                $unattended[] = $filename;
                             }
                         }
-                        if (count($extra)) {
-                            foreach ($extra as $filename) {
+                        if (count($unattended)) {
+                            foreach ($unattended as $filename) {
                                 $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
                             }
                         } else {
@@ -155,10 +178,11 @@ class Undigest
      * @param   array<int,string>   $ext            The extensions to find
      * @param   array<int,string>   $ignore         The folders to ignore
      * @param   array<int,string>   $ignore_ext     The extensions to ignore
+     * @param   array<int,string>   $suffixes       The suffixes to also find
      *
      * @return  array<int,string>   The paths stack
      */
-    private static function scanDir(string $path, array $stack = [], array $ext = [], array $ignore = [], array $ignore_ext = []): array
+    private static function scanDir(string $path, array $stack = [], array $ext = [], array $ignore = [], array $ignore_ext = [], array $suffixes = []): array
     {
         $path = Path::real($path);
         if ($path === false || !is_dir($path) || !is_readable($path)) {
@@ -175,7 +199,7 @@ class Undigest
                 continue;
             }
             if (is_dir($path . DIRECTORY_SEPARATOR . $file)) {
-                $stack = self::scanDir($path . DIRECTORY_SEPARATOR . $file, $stack, $ext, $ignore, $ignore_ext);
+                $stack = self::scanDir($path . DIRECTORY_SEPARATOR . $file, $stack, $ext, $ignore, $ignore_ext, $suffixes);
             } else {
                 $pathname = implode(DIRECTORY_SEPARATOR, [$path, $file]);
                 $info     = pathinfo($pathname, PATHINFO_EXTENSION);
@@ -186,6 +210,19 @@ class Undigest
                     foreach ($ignore_ext as $needle) {
                         if (str_ends_with($file, $needle)) {
                             $keep = false;
+
+                            break;
+                        }
+                    }
+                    if ($keep) {
+                        $stack[] = $pathname;
+                    }
+                } else {
+                    // Check for suffixes
+                    $keep = false;
+                    foreach ($suffixes as $suffix) {
+                        if (str_ends_with($file, $suffix)) {
+                            $keep = true;
 
                             break;
                         }
