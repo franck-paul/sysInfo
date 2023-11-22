@@ -79,7 +79,8 @@ class System
             '<li>' .
                 __('DB driver: ') . ' <strong>' . App::con()->driver() . '</strong> ' .
                 __('version') . ' <strong>' . App::con()->version() . '</strong> ' .
-                sprintf(__('using <strong>%s</strong> syntax'), App::con()->syntax()) . '</li>' .
+                sprintf(__('using <strong>%s</strong> syntax'), App::con()->syntax()) . self::getDbInfo() .
+                '</li>' .
             '<li>' . __('Error reporting: ') . ' <strong>' . error_reporting() . '</strong>' . ' = ' . self::errorLevelToString(error_reporting(), ', ') . '</li>' .
             '<li>' . __('PHP Cache: ') . ' <strong>' . implode('</strong>, <strong>', $caches) . '</strong></li>' .
             '<li>' . __('Temporary folder: ') . ' <strong>' . sys_get_temp_dir() . '</strong></li>' .
@@ -151,6 +152,15 @@ class System
         }
 
         return $server . $dotclear . $versions . $release;
+    }
+
+    private static function getDbInfo(): string
+    {
+        if (App::con()->syntax() === 'mysql') {
+            return ' - ' . sprintf(__('%s server'), (stristr(mysqli_get_server_info(App::con()->link()), 'mariadb') ? 'MariaDB' : 'MySQL'));
+        }
+
+        return '';
     }
 
     /**
