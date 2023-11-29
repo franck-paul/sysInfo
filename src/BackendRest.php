@@ -29,7 +29,7 @@ class BackendRest
      *
      * @param      array<string, string>    $get     The get
      *
-     * @return     array
+     * @return     array<string, mixed>
      */
     public static function getCompiledTemplate(array $get): array
     {
@@ -65,7 +65,7 @@ class BackendRest
      *
      * @param      array<string, string>    $get     The get
      *
-     * @return     array
+     * @return     array<string, mixed>
      */
     public static function getStaticCacheDir(array $get): array
     {
@@ -119,7 +119,7 @@ class BackendRest
      *
      * @param      array<string, string>    $get     The get
      *
-     * @return     array
+     * @return     array<string, mixed>
      */
     public static function getStaticCacheList(array $get): array
     {
@@ -192,7 +192,7 @@ class BackendRest
      *
      * @param      array<string, string>    $get     The get
      *
-     * @return     array
+     * @return     array<string, mixed>
      */
     public static function getStaticCacheName(array $get): array
     {
@@ -223,7 +223,7 @@ class BackendRest
      *
      * @param      array<string, string>    $get     The get
      *
-     * @return     array
+     * @return     array<string, mixed>
      */
     public static function getStaticCacheFile(array $get): array
     {
