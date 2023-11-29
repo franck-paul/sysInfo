@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 16:43+0100\n"
+"POT-Creation-Date: 2023-11-29 14:23+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -371,6 +371,10 @@ msgstr "Infos de mise à jour"
 msgid "Release info"
 msgstr "Infos de version"
 
+#, php-format
+msgid "%s server"
+msgstr "serveur %s"
+
 msgid "List of compiled templates in cache"
 msgstr "Liste des fichiers template compilés dans le cache"
 
@@ -439,6 +443,15 @@ msgstr "Les versions sélectionnées ont été supprimées."
 
 msgid "Versions have been updated."
 msgstr "Les versions ont été mise à jour."
+
+msgid "Empty sysInfo reports cache directory"
+msgstr "Vider le répertoire cache des rapports de sysInfo"
+
+msgid "sysInfo reports cache directory emptied."
+msgstr "Le répertoire de cache des rapports de sysInfo a été vidé."
+
+msgid "Failed to empty sysInfo reports cache directory."
+msgstr "Échec du vidage du répertoire de cache des rapports de sysInfo."
 
 msgid "System"
 msgstr "Système"
