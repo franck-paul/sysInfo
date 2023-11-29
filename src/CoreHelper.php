@@ -74,7 +74,7 @@ class CoreHelper
                     ->value(__('Download report')),
                 (new Hidden(['htmlreport']))
                     ->value(Html::escapeHTML($buffer)),
-                ... My::hiddenFields(),
+                ...My::hiddenFields(),
             ])->render() .
 
         '<pre>' . $buffer . '</pre>';
@@ -99,7 +99,7 @@ class CoreHelper
                     throw new Exception(__('Report empty'));
                 }
 
-                $path = Path::real(implode(DIRECTORY_SEPARATOR, [App::config()->cacheRoot(), 'sysinfo']), false);
+                $path = Path::real(implode(DIRECTORY_SEPARATOR, [App::config()->cacheRoot(), My::id()]), false);
                 if ($path !== false) {
                     if (!is_dir($path)) {
                         Files::makeDir($path, true);

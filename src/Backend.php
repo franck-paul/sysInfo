@@ -47,6 +47,10 @@ class Backend extends Process
             ]);
         });
 
+        App::behavior()->addBehaviors([
+            'dcMaintenanceInit' => BackendBehaviors::dcMaintenanceInit(...),
+        ]);
+
         // Register REST methods
         App::rest()->addFunction('getCompiledTemplate', BackendRest::getCompiledTemplate(...));
         App::rest()->addFunction('getStaticCacheFile', BackendRest::getStaticCacheFile(...));

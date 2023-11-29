@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 16:43+0100\n"
+"POT-Creation-Date: 2023-11-29 14:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,11 +28,11 @@ msgid "sysInfo"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/BackendRest.php:100
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:88
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:89
 msgid "…"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:177
+#: ../git-plugins/sysInfo/src/BackendRest.php:175
 msgid "(empty)"
 msgstr ""
 
@@ -222,7 +222,8 @@ msgid "Dotclear digest integrity"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Integrity.php:31
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:61
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:98
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:147
 msgid "File"
 msgstr ""
 
@@ -248,8 +249,8 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Integrity.php:99
 #: ../git-plugins/sysInfo/src/Helper/Integrity.php:102
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:96
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:99
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:164
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:167
 msgid "Unable to read digests file."
 msgstr ""
 
@@ -364,17 +365,17 @@ msgstr ""
 msgid "Cache file"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:98
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:102
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:121
 msgid "Delete selected cache files"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:119
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:123
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:142
 msgid "No cache file selected"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:133
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:137
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:158
 msgid "Selected cache files have been deleted."
 msgstr ""
@@ -444,76 +445,81 @@ msgstr ""
 msgid "using <strong>%s</strong> syntax"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:83
+#: ../git-plugins/sysInfo/src/Helper/System.php:84
 msgid "Error reporting: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:84
+#: ../git-plugins/sysInfo/src/Helper/System.php:85
 msgid "PHP Cache: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:85
+#: ../git-plugins/sysInfo/src/Helper/System.php:86
 msgid "Temporary folder: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:93
+#: ../git-plugins/sysInfo/src/Helper/System.php:94
 msgid "Dotclear info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:95
+#: ../git-plugins/sysInfo/src/Helper/System.php:96
 msgid "Dotclear version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:96
+#: ../git-plugins/sysInfo/src/Helper/System.php:97
 msgid "Update channel: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:109
+#: ../git-plugins/sysInfo/src/Helper/System.php:110
 msgid "Channel: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:112
+#: ../git-plugins/sysInfo/src/Helper/System.php:113
 msgid "version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:113
+#: ../git-plugins/sysInfo/src/Helper/System.php:114
 msgid "href: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:114
+#: ../git-plugins/sysInfo/src/Helper/System.php:115
 msgid "checksum: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:115
+#: ../git-plugins/sysInfo/src/Helper/System.php:116
 msgid "info: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:116
+#: ../git-plugins/sysInfo/src/Helper/System.php:117
 msgid "PHP min: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:118
+#: ../git-plugins/sysInfo/src/Helper/System.php:119
 msgid "No"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:118
+#: ../git-plugins/sysInfo/src/Helper/System.php:119
 msgid "Warning: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:118
+#: ../git-plugins/sysInfo/src/Helper/System.php:119
 msgid "Yes"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:127
+#: ../git-plugins/sysInfo/src/Helper/System.php:128
 msgid "(from versions cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:127
+#: ../git-plugins/sysInfo/src/Helper/System.php:128
 msgid "Update info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:149
+#: ../git-plugins/sysInfo/src/Helper/System.php:150
 msgid "Release info"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/Helper/System.php:160
+#, php-format
+msgid "%s server"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:61
@@ -536,11 +542,12 @@ msgstr ""
 msgid "Display template tags"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:59
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:96
 msgid "Unexpected or additional files"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:91
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:141
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:159
 msgid "Nothing unexpected or additional found."
 msgstr ""
 
@@ -607,6 +614,18 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Versions.php:196
 msgid "Versions have been updated."
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/MaintenanceTask/ReportCache.php:29
+msgid "Empty sysInfo reports cache directory"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/MaintenanceTask/ReportCache.php:30
+msgid "sysInfo reports cache directory emptied."
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/MaintenanceTask/ReportCache.php:31
+msgid "Failed to empty sysInfo reports cache directory."
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Manage.php:76
