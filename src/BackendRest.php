@@ -20,26 +20,25 @@ use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Html\Template\Template;
-use Dotclear\Helper\Html\XmlTag;
 use Dotclear\Helper\Network\Http;
 
 class BackendRest
 {
     /**
-     * Gets the compiled template.
+     * Gets the compiled template. (JSON)
      *
-     * @param      mixed                    $unused  The unused
      * @param      array<string, string>    $get     The get
      *
-     * @return     XmlTag
+     * @return     array
      */
-    public static function getCompiledTemplate(mixed $unused, array $get): XmlTag
+    public static function getCompiledTemplate(array $get): array
     {
         // Return compiled template file content
         $file    = empty($get['file']) ? '' : $get['file'];
-        $rsp     = new XmlTag('sysinfo');
-        $ret     = false;
         $content = '';
+        $payload = [
+            'ret' => false,
+        ];
 
         if ($file != '') {
             // Load content of compiled template file (if exist and if is readable)
@@ -47,35 +46,36 @@ class BackendRest
             $fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
             if (file_exists($fullpath) && is_readable($fullpath)) {
                 $content = (string) file_get_contents($fullpath);
-                $ret     = true;
+
+                // Escape file content (in order to avoid further parsing error)
+                // JSON encode to preserve UTF-8 encoding
+                // Base 64 encoding to preserve line breaks
+                $payload = [
+                    'ret'  => true,
+                    'html' => base64_encode(json_encode(Html::escapeHTML($content), JSON_THROW_ON_ERROR)),
+                ];
             }
         }
 
-        $rsp->ret = $ret;
-        // Escape file content (in order to avoid further parsing error)
-        // JSON encode to preserve UTF-8 encoding
-        // Base 64 encoding to preserve line breaks
-        $rsp->msg = base64_encode(json_encode(Html::escapeHTML($content), JSON_THROW_ON_ERROR));
-
-        return $rsp;
+        return $payload;
     }
 
     /**
-     * Gets the static cache dir.
+     * Gets the static cache dir. (JSON)
      *
-     * @param      mixed                    $unused  The unused
      * @param      array<string, string>    $get     The get
      *
-     * @return     XmlTag
+     * @return     array
      */
-    public static function getStaticCacheDir(mixed $unused, array $get): XmlTag
+    public static function getStaticCacheDir(array $get): array
     {
         // Return list of folders in a given cache folder
         $root    = empty($get['root']) ? '' : $get['root'];
-        $rsp     = new XmlTag('sysinfo');
-        $ret     = false;
         $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
+        $payload = [
+            'ret' => false,
+        ];
 
         if (defined('DC_SC_CACHE_DIR') && $root != '') {
             $blog_host = App::blog()->host();
@@ -104,29 +104,27 @@ class BackendRest
                     }
                 }
 
-                $ret = true;
+                $payload = [
+                    'ret'  => true,
+                    'html' => $content,
+                ];
             }
         }
 
-        $rsp->ret = $ret;
-        $rsp->msg = $content;
-
-        return $rsp;
+        return $payload;
     }
 
     /**
-     * Gets the static cache list.
+     * Gets the static cache list. (JSON)
      *
-     * @param      mixed                    $unused  The unused
      * @param      array<string, string>    $get     The get
      *
-     * @return     XmlTag
+     * @return     array
      */
-    public static function getStaticCacheList(mixed $unused, array $get): XmlTag
+    public static function getStaticCacheList(array $get): array
     {
         // Return list of folders and files in a given folder
         $root    = empty($get['root']) ? '' : $get['root'];
-        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
@@ -183,25 +181,23 @@ class BackendRest
             }
         }
 
-        $rsp->ret = $ret;
-        $rsp->msg = $content;
-
-        return $rsp;
+        return [
+            'ret'  => $ret,
+            'html' => $content,
+        ];
     }
 
     /**
-     * Gets the static cache name.
+     * Gets the static cache name. (JSON)
      *
-     * @param      mixed                    $unused  The unused
      * @param      array<string, string>    $get     The get
      *
-     * @return     XmlTag
+     * @return     array
      */
-    public static function getStaticCacheName(mixed $unused, array $get): XmlTag
+    public static function getStaticCacheName(array $get): array
     {
         // Return static cache filename from a given URL
         $url     = empty($get['url']) ? '' : $get['url'];
-        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
 
@@ -216,25 +212,23 @@ class BackendRest
             $ret     = true;
         }
 
-        $rsp->ret = $ret;
-        $rsp->msg = $content;
-
-        return $rsp;
+        return [
+            'ret'  => $ret,
+            'html' => $content,
+        ];
     }
 
     /**
-     * Gets the static cache file.
+     * Gets the static cache file. (JSON)
      *
-     * @param      mixed                    $unused  The unused
      * @param      array<string, string>    $get     The get
      *
-     * @return     XmlTag
+     * @return     array
      */
-    public static function getStaticCacheFile(mixed $unused, array $get): XmlTag
+    public static function getStaticCacheFile(array $get): array
     {
         // Return compiled static cache file content
         $file    = empty($get['file']) ? '' : $get['file'];
-        $rsp     = new XmlTag('sysinfo');
         $ret     = false;
         $content = '';
 
@@ -243,12 +237,12 @@ class BackendRest
             $ret     = true;
         }
 
-        $rsp->ret = $ret;
         // Escape file content (in order to avoid further parsing error)
         // JSON encode to preserve UTF-8 encoding
         // Base 64 encoding to preserve line breaks
-        $rsp->msg = base64_encode(json_encode(Html::escapeHTML($content), JSON_THROW_ON_ERROR));
-
-        return $rsp;
+        return [
+            'ret'  => $ret,
+            'html' => base64_encode(json_encode(Html::escapeHTML($content), JSON_THROW_ON_ERROR)),
+        ];
     }
 }

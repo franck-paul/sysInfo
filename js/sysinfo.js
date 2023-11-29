@@ -5,29 +5,16 @@ $(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('sysinfo'));
 
   const dotclearAjax = (method, args, fn, msg = '') => {
-    let content = null;
-    dotclear.servicesGet(
+    dotclear.jsonServicesGet(
       method,
-      (data) => {
-        if ($('rsp[status=failed]', data).length > 0) {
-          // For debugging purpose only:
-          // console.log($('rsp',data).attr('message'));
-          window.console.log('Dotclear REST server error');
-          return;
-        }
-        // ret -> status (true/false)
-        // msg -> REST method return value
-        const ret = Number($('sysinfo', data).attr('ret'));
-        content = $('sysinfo', data).attr('msg');
-        if (ret && fn !== undefined && typeof fn === 'function') {
-          // Call callback function with returned value
-          fn(content);
-        }
-        if (!ret && msg !== '') {
-          window.alert(msg);
-        }
+      (payload) => {
+        fn(payload.html);
       },
       args,
+      (error) => {
+        if (dotclear.debug) console.log(error);
+        window.alert(msg);
+      },
     );
   };
 
