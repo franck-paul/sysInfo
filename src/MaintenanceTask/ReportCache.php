@@ -36,7 +36,7 @@ class ReportCache extends MaintenanceTask
     public function execute()
     {
         $cache_dir = Path::real(implode(DIRECTORY_SEPARATOR, [App::config()->cacheRoot(), My::id()]), false);
-        if (is_dir($cache_dir)) {
+        if ($cache_dir !== false && is_dir($cache_dir)) {
             Files::deltree($cache_dir);
         }
 
