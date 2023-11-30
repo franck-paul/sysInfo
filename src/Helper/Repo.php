@@ -36,8 +36,7 @@ class Repo
      */
     private static function renderModules(bool $use_cache, string $url, string $title, string $label): string
     {
-        $in_cache = false;
-        $parser   = self::parseRepo($use_cache, $url, $in_cache);
+        [$parser, $in_cache] = self::parseRepo($use_cache, $url);
 
         $defines   = $parser ? $parser->getDefines() : [];
         $raw_datas = [];
@@ -76,9 +75,9 @@ class Repo
         $lines = '<table><caption>' . $title . '</caption><thead><tr><th>' . __('Repositories') . '</th></tr></thead><tbody>';
         foreach ($modules as $module) {
             if ($module->get('repository') != '' && App::config()->allowRepositories()) {
-                $url      = str_ends_with($module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
-                $in_cache = false;
-                $parser   = self::parseRepo($use_cache, $url, $in_cache);
+                $url = str_ends_with($module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
+
+                [$parser, $in_cache] = self::parseRepo($use_cache, $url);
 
                 $defines   = $parser ? $parser->getDefines() : [];
                 $raw_datas = [];
@@ -151,9 +150,9 @@ class Repo
      * @param      bool    $use_cache  The use cache
      * @param      string  $url        The url
      *
-     * @return     false
+     * @return     array{0:false|StoreParser, 1:bool}
      */
-    private static function parseRepo(bool $use_cache, string $url, bool &$in_cache): bool|StoreParser
+    private static function parseRepo(bool $use_cache, string $url): array
     {
         $cache_path = Path::real(App::config()->cacheRoot());
         $in_cache   = false;
@@ -173,7 +172,12 @@ class Repo
             }
         }
 
-        return StoreReader::quickParse($url, App::config()->cacheRoot(), !$in_cache);
+        $ret = StoreReader::quickParse($url, App::config()->cacheRoot(), !$in_cache);
+
+        return [
+            $ret,
+            $in_cache,
+        ];
     }
 
     /**
@@ -218,7 +222,7 @@ class Repo
     public static function renderAltPlugins(): string
     {
         $plugins = App::plugins()->getDefines();
-        uasort($plugins, static fn($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
+        uasort($plugins, static fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $plugins,
@@ -239,7 +243,7 @@ class Repo
         }
 
         $themes = App::themes()->getDefines();
-        uasort($themes, static fn($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
+        uasort($themes, static fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $themes,
