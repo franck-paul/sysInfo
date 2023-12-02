@@ -53,13 +53,13 @@ class Plugins
                                 $module = $module[0];
                             }
 
-                            $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '"/>' . $module . '</a>' . $version) : 'Dotclear' . $version;
+                            $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '">' . $module . '</a>' . $version) : 'Dotclear' . $version;
                         }
 
                         $value = implode(', ', $value);
                     }
                 } elseif (in_array($key, ['support', 'details', 'repository'])) {
-                    $value = '<a href="' . $value . '"/>' . $value . '</a>';
+                    $value = '<a href="' . $value . '">' . $value . '</a>';
                 } elseif ($key == 'root') {
                     $value = CoreHelper::simplifyFilename($value, true);
                 }

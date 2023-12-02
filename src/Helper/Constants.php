@@ -39,7 +39,7 @@ class Constants
             '<tbody>';
         App::lexical()->lexicalKeySort($constants, App::lexical()::ADMIN_LOCALE);
         foreach ($constants as $c => $v) {
-            $str .= '<tr><td class="nowrap"><img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '" /> <code>' . $c . '</code></td>' .
+            $str .= '<tr><td class="nowrap"><img src="images/' . ($v != $undefined ? 'check-on.png' : 'check-off.png') . '"> <code>' . $c . '</code></td>' .
                 '<td class="maximal">';
             if ($v != $undefined) {
                 if (is_string($v)) {

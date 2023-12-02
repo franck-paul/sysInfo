@@ -62,7 +62,7 @@ class StaticCache
         // Add a static cache URL convertor
         $str = '<p class="fieldset"><label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
             form::field('sccalc_url', 50, 255, Html::escapeHTML(App::blog()->url())) . ' ' .
-            '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '" />' .
+            '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '">' .
             ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
             '</p>';
 
@@ -99,7 +99,7 @@ class StaticCache
 
         $str .= '</tbody></table>';
 
-        return $str . ('<div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '" /></p>' .
+        return $str . ('<div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '"></p>' .
             '</div>' .
             '</form>');
     }

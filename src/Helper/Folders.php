@@ -88,10 +88,10 @@ class Folders
                     }
 
                     $status = $writable && $touch ?
-                    '<img src="images/check-on.png" alt="" /> ' . __('Writable') :
-                    '<img src="images/check-wrn.png" alt="" /> ' . __('Readonly');
+                    '<img src="images/check-on.png" alt=""> ' . __('Writable') :
+                    '<img src="images/check-wrn.png" alt=""> ' . __('Readonly');
                 } else {
-                    $status = '<img src="images/check-off.png" alt="" /> ' . __('Unknown');
+                    $status = '<img src="images/check-off.png" alt=""> ' . __('Unknown');
                 }
 
                 if ($err !== '') {
