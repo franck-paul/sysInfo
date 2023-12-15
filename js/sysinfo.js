@@ -1,7 +1,9 @@
 /*global $, dotclear, CodeMirror */
 'use strict';
 
-$(() => {
+window.addEventListener('load', () => {
+  // DOM ready and content loaded
+
   dotclear.mergeDeep(dotclear, dotclear.getData('sysinfo'));
 
   const dotclearAjax = (method, args, fn, msg = '') => {

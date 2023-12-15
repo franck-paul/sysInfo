@@ -121,7 +121,6 @@ class Constants
             'DC_VAR'                  => defined('DC_VAR') ? DC_VAR : $undefined,
             'DC_VENDOR_NAME'          => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
             'DC_VERSION'              => defined('DC_VERSION') ? DC_VERSION : $undefined,
-            'DC_XMLRPC_URL'           => defined('DC_XMLRPC_URL') ? DC_XMLRPC_URL : $undefined,
             'CLEARBRICKS_VERSION'     => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined,
         ];
 

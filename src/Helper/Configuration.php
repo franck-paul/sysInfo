@@ -116,7 +116,6 @@ class Configuration
             'minRequiredPgsql'   => App::config()->minRequiredPgsql(),
             'nextRequiredPhp'    => App::config()->nextRequiredPhp(),
             'vendorName'         => App::config()->vendorName(),
-            'xmlrpcUrl'          => App::config()->xmlrpcUrl(),
             'sessionTtl'         => App::config()->sessionTtl(),
             'sessionName'        => App::config()->sessionName(),
             'adminSsl'           => App::config()->adminSsl(),
