@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
     }
   };
 
-  const viewSource = (prefix, filename, content) => {
+  const viewSource = (prefix, filename, content, mode) => {
     let cm_editor; // Codemirror instance
     const src = `<div class="${prefix}_view"><h1>${filename}</h1><textarea id="${prefix}_source">${JSON.parse(
       window.atob(content),
@@ -54,7 +54,7 @@ window.addEventListener('load', () => {
           }
           // Popup opened, format textarea with codemirror
           const options = {
-            mode: 'text/html', // 'application/x-httpd-php',
+            mode: mode || 'text/html',
             tabMode: 'indent',
             lineWrapping: 'true',
             lineNumbers: 'true',
@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
     // Open template file content in a modal iframe
     if (template_file !== undefined) {
       loadServerFile(template_file, 'tpl', (content) => {
-        viewSource('tpl_compiled', template_file, content);
+        viewSource('tpl_compiled', template_file, content, 'php');
       });
     }
   });
