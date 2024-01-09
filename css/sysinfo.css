@@ -41,7 +41,7 @@ blockquote.sysinfo {
   font-style: italic;
   font-size: 1.125em;
   line-height: 1.33;
-  quotes: '\201C''\201D';
+  quotes: '\201C' '\201D';
   margin-top: 1.7777778em;
   display: grid;
   width: fit-content;
@@ -113,7 +113,13 @@ blockquote.sysinfo:after {
 .tpl_compiled_view .CodeMirror,
 .sc_compiled_view .CodeMirror {
   height: 90vh;
-  font: 1em Monaco, 'Courier New', Courier, monospace;
+}
+
+.tpl_compiled_view .CodeMirror pre.CodeMirror-line,
+.tpl_compiled_view .CodeMirror pre.CodeMirror-line-like,
+.sc_compiled_view .CodeMirror pre.CodeMirror-line,
+.sc_compiled_view .CodeMirror pre.CodeMirror-line-like {
+  font: 0.9em var(--monospace);
 }
 
 /* Static cache calculator */
