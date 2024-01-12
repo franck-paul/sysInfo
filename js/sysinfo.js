@@ -37,11 +37,11 @@ window.addEventListener('load', () => {
     }
   };
 
-  const viewSource = (prefix, filename, content, mode) => {
+  const viewSource = (prefix, filename, content, mode, title) => {
     let cm_editor; // Codemirror instance
-    const src = `<div class="${prefix}_view"><h1>${filename}</h1><textarea id="${prefix}_source">${JSON.parse(
-      window.atob(content),
-    )}</textarea></div>`;
+    const src = `<div class="${prefix}_view"><h1>${
+      title === '' ? '' : `${title} - `
+    }${filename}</h1><textarea id="${prefix}_source">${JSON.parse(window.atob(content))}</textarea></div>`;
     $.magnificPopup.open({
       items: {
         src,
@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
     // Open template file content in a modal iframe
     if (template_file !== undefined) {
       loadServerFile(template_file, 'tpl', (content) => {
-        viewSource('tpl_compiled', template_file, content, 'php');
+        viewSource('tpl_compiled', template_file, content, 'php', e.target.title);
       });
     }
   });

@@ -98,6 +98,7 @@ class Templates
                     $cache_fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
                     $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                     $file_exists    = file_exists($file_check);
+                    $title          = CoreHelper::simplifyFilename($sub_path) . DIRECTORY_SEPARATOR . $file;
                     $str .= '<tr><td>' . ($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)) . '</td>' .
                         '<td class="nowrap">' . $file . '</td>' .
                         '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '"> ' . $cache_subpath . '</td>' .
@@ -108,7 +109,7 @@ class Templates
                             ->disabled(!($file_exists))
                             ->render() . ' ' .
                         '<label class="classic">' .
-                        ($file_exists ? '<a class="tpl_compiled" href="#">' : '') .
+                        ($file_exists ? '<a class="tpl_compiled" title="' . $title . '" href="#">' : '') .
                         $cache_file .
                         ($file_exists ? '</a>' : '') .
                         '</label></td>' .
