@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
     }
   };
 
-  const viewSource = (prefix, filename, content, mode, title) => {
+  const viewSource = (prefix, filename, content, mode, title = '') => {
     let cm_editor; // Codemirror instance
     const src = `<div class="${prefix}_view"><h1>${
       title === '' ? '' : `${title} - `
