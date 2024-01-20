@@ -11,10 +11,10 @@
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 $this->registerModule(
-    'sysInfo',
+    'System Information',
     'System Information',
     'Franck Paul',
-    '8.17.1',
+    '8.18',
     [
         'requires' => [['core', '2.28']],
         'type'     => 'plugin',
