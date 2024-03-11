@@ -157,7 +157,7 @@ window.addEventListener('load', () => {
   $('#tplform .checkboxes-helpers').each(function () {
     dotclear.checkboxesHelpers(this, undefined, '#tplform td input[type=checkbox]:not(:disabled)', '#tplform #deltplaction');
   });
-  $('#tplform td input[type=checkbox]').enableShiftClick();
+  dotclear.enableShiftClick('#tplform td input[type=checkbox]');
   dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
   $('form input[type=submit][name=deltplaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_tpl));
 
@@ -165,7 +165,7 @@ window.addEventListener('load', () => {
   $('#verform .checkboxes-helpers').each(function () {
     dotclear.checkboxesHelpers(this, undefined, '#verform td input[type=checkbox]:not(:disabled)', '#verform #delveraction');
   });
-  $('#verform td input[type=checkbox]').enableShiftClick();
+  dotclear.enableShiftClick('#verform td input[type=checkbox]');
   dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
   $('form input[type=submit][name=delveraction]').on('click', () => window.confirm(dotclear.msg.confirm_del_ver));
 
@@ -173,7 +173,7 @@ window.addEventListener('load', () => {
   $('#scform .checkboxes-helpers').each(function () {
     dotclear.checkboxesHelpers(this, undefined, '#scform td input[type=checkbox]:not(:disabled)', '#scform #delscaction');
   });
-  $('#scform td input[type=checkbox]').enableShiftClick();
+  dotclear.enableShiftClick('#scform td input[type=checkbox]');
   dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
   $('form input[type=submit][name=delscaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_sc));
 
