@@ -117,8 +117,8 @@ class CoreHelper
                     if ($fp = fopen($file, 'wt')) {
                         // Begin HTML Document
                         $report = Html::decodeEntities($_POST['htmlreport']);
-                        $report = str_replace('<img src="images/check-on.png">', '✅', $report, $count);
-                        $report = str_replace('<img src="images/check-off.png">', '⛔️', $report);
+                        $report = str_replace('<img class="mark mark-published" src="images/published.svg">', '✅', $report, $count);
+                        $report = str_replace('<img class="mark mark-unpublished" src="images/unpublished.svg">', '⛔️', $report);
                         $report = str_replace(App::config()->dotclearRoot(), '<code>DC_ROOT</code> ', $report);
                         fwrite($fp, '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Dotclear sysInfo report: ' . date('Y-m-d') . '-' . App::blog()->id() . '</title></head><body>');
                         fwrite($fp, Html::decodeEntities($report));

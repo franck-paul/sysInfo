@@ -101,7 +101,7 @@ class Templates
                     $title          = CoreHelper::simplifyFilename($sub_path) . DIRECTORY_SEPARATOR . $file;
                     $str .= '<tr><td>' . ($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)) . '</td>' .
                         '<td class="nowrap">' . $file . '</td>' .
-                        '<td class="nowrap">' . '<img src="images/' . ($file_exists ? 'check-on.png' : 'check-off.png') . '"> ' . $cache_subpath . '</td>' .
+                        '<td class="nowrap">' . '<img class="mark mark-' . ($file_exists ? 'check-on' : 'check-off') . '" src="images/' . ($file_exists ? 'check-on.svg' : 'check-off.svg') . '"> ' . $cache_subpath . '</td>' .
                         '<td class="nowrap">' .
                         (new Checkbox(['tpl[]'], false))
                             ->value($cache_file)

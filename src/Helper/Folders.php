@@ -55,8 +55,8 @@ class Folders
 
         $str = '<table id="urls" class="sysinfo"><caption>' . __('Dotclear folders and files') . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
-            '<th scope="col">' . __('Path') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Status') . '</th></tr></thead>' .
+            '<th scope="col" class="maximal">' . __('Path') . '</th>' .
+            '<th scope="col" class="nowrap">' . __('Status') . '</th></tr></thead>' .
             '<tbody>';
 
         foreach ($folders as $name => $subfolder) {
@@ -88,10 +88,10 @@ class Folders
                     }
 
                     $status = $writable && $touch ?
-                    '<img src="images/check-on.png" alt=""> ' . __('Writable') :
-                    '<img src="images/check-wrn.png" alt=""> ' . __('Readonly');
+                    '<img class="mark mark-check-on" src="images/check-on.svg" alt=""> ' . __('Writable') :
+                    '<img class="mark mark-check-wrn" src="images/check-wrn.svg" alt=""> ' . __('Readonly');
                 } else {
-                    $status = '<img src="images/check-off.png" alt=""> ' . __('Unknown');
+                    $status = '<img class="mark mark-check-off" src="images/check-off.svg" alt=""> ' . __('Unknown');
                 }
 
                 if ($err !== '') {
