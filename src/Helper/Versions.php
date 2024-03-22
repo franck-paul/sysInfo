@@ -50,8 +50,8 @@ class Versions
         // which is not a very good idea, but we need to cope with legacy code ;-)
         // Ex: dcRevisions store it as 'dcrevisions'
         // So we will check by ignoring case
-        $plugins  = array_map(static fn($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true))));
-        $disabled = array_map(static fn($name): string => mb_strtolower((string) $name), array_values(array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true))));
+        $plugins  = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true)));
+        $disabled = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
 
         $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="verform">' .
             '<table id="chk-table-result" class="sysinfo">' .
