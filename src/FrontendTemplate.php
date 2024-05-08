@@ -64,7 +64,7 @@ class FrontendTemplate
 
     public static function publicTemplatetagsList(): string
     {
-        $code = '<ul>' . "\n";
+        $code = '<pre><ul>' . "\n";
 
         $tplblocks = array_values(App::frontend()->template()->getBlockslist());
         $tplvalues = array_values(App::frontend()->template()->getValueslist());
@@ -86,6 +86,6 @@ class FrontendTemplate
 
         $code .= '</ul></li>' . "\n";
 
-        return $code . ('</ul>' . "\n");
+        return $code . ('</ul></pre>' . "\n");
     }
 }

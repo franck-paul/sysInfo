@@ -192,4 +192,20 @@ window.addEventListener('load', () => {
       });
     }
   });
+
+  const li = document.getElementById('sys_battery');
+  if (li) {
+    // Battery level (if API exists)
+    if (navigator.getBattery) {
+      navigator.getBattery().then((battery) => {
+        const level = battery.level * 100;
+        const str = li.getElementsByTagName('strong');
+        if (str.length) {
+          str[0].innerHTML = `${level}%`;
+        }
+      });
+    } else {
+      li.style.display = 'none';
+    }
+  }
 });

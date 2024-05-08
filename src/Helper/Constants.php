@@ -64,21 +64,21 @@ class Constants
     {
         $undefined = '<!-- undefined -->';
         $constants = [
-            'DC_ADMIN_CONTEXT'        => defined('DC_ADMIN_CONTEXT') ? (DC_ADMIN_CONTEXT ? 'true' : 'false') : $undefined,
+            'DC_ADMIN_CONTEXT'        => defined('DC_ADMIN_CONTEXT') ? (constant('DC_ADMIN_CONTEXT') ? 'true' : 'false') : $undefined,
             'DC_ADMIN_MAILFROM'       => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
             'DC_ADMIN_SSL'            => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
             'DC_ADMIN_URL'            => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
-            'DC_AKISMET_SUPER'        => defined('DC_AKISMET_SUPER') ? (DC_AKISMET_SUPER ? 'true' : 'false') : $undefined,
+            'DC_AKISMET_SUPER'        => defined('DC_AKISMET_SUPER') ? (constant('DC_AKISMET_SUPER') ? 'true' : 'false') : $undefined,
             'DC_ALLOW_MULTI_MODULES'  => defined('DC_ALLOW_MULTI_MODULES') ? (DC_ALLOW_MULTI_MODULES ? 'true' : 'false') : $undefined,
             'DC_ALLOW_REPOSITORIES'   => defined('DC_ALLOW_REPOSITORIES') ? (DC_ALLOW_REPOSITORIES ? 'true' : 'false') : $undefined,
             'DC_ANTISPAM_CONF_SUPER'  => defined('DC_ANTISPAM_CONF_SUPER') ? (DC_ANTISPAM_CONF_SUPER ? 'true' : 'false') : $undefined,
-            'DC_AUTH_PAGE'            => defined('DC_AUTH_PAGE') ? DC_AUTH_PAGE : $undefined,
-            'DC_AUTH_SESS_ID'         => defined('DC_AUTH_SESS_ID') ? DC_AUTH_SESS_ID : $undefined,
-            'DC_AUTH_SESS_UID'        => defined('DC_AUTH_SESS_UID') ? DC_AUTH_SESS_UID : $undefined,
+            'DC_AUTH_PAGE'            => defined('DC_AUTH_PAGE') ? constant('DC_AUTH_PAGE') : $undefined,
+            'DC_AUTH_SESS_ID'         => defined('DC_AUTH_SESS_ID') ? constant('DC_AUTH_SESS_ID') : $undefined,
+            'DC_AUTH_SESS_UID'        => defined('DC_AUTH_SESS_UID') ? constant('DC_AUTH_SESS_UID') : $undefined,
             'DC_BACKUP_PATH'          => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
             'DC_BLOG_ID'              => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
-            'DC_CONTEXT_ADMIN'        => defined('DC_CONTEXT_ADMIN') ? (DC_CONTEXT_ADMIN ? 'true' : 'false') : $undefined,
-            'DC_CONTEXT_MODULE'       => defined('DC_CONTEXT_MODULE') ? (DC_CONTEXT_MODULE ? 'true' : 'false') : $undefined,
+            'DC_CONTEXT_ADMIN'        => defined('DC_CONTEXT_ADMIN') ? (constant('DC_CONTEXT_ADMIN') ? 'true' : 'false') : $undefined,
+            'DC_CONTEXT_MODULE'       => defined('DC_CONTEXT_MODULE') ? (constant('DC_CONTEXT_MODULE') ? 'true' : 'false') : $undefined,
             'DC_CRYPT_ALGO'           => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
             'DC_CSP_LOGFILE'          => defined('DC_CSP_LOGFILE') ? DC_CSP_LOGFILE : $undefined,
             'DC_STORE_NOT_UPDATE'     => defined('DC_STORE_NOT_UPDATE') ? (DC_STORE_NOT_UPDATE ? 'true' : 'false') : $undefined,
@@ -96,7 +96,7 @@ class Constants
             'DC_DIGESTS'              => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
             'DC_DISTRIB_PLUGINS'      => defined('DC_DISTRIB_PLUGINS') ? DC_DISTRIB_PLUGINS : $undefined,
             'DC_DISTRIB_THEMES'       => defined('DC_DISTRIB_THEMES') ? DC_DISTRIB_THEMES : $undefined,
-            'DC_DNSBL_SUPER'          => defined('DC_DNSBL_SUPER') ? (DC_DNSBL_SUPER ? 'true' : 'false') : $undefined,
+            'DC_DNSBL_SUPER'          => defined('DC_DNSBL_SUPER') ? (constant('DC_DNSBL_SUPER') ? 'true' : 'false') : $undefined,
             'DC_FAIRTRACKBACKS_FORCE' => defined('DC_FAIRTRACKBACKS_FORCE') ? (DC_FAIRTRACKBACKS_FORCE ? 'true' : 'false') : $undefined,
             'DC_FORCE_SCHEME_443'     => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
             'DC_L10N_ROOT'            => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
@@ -128,8 +128,8 @@ class Constants
         if (App::plugins()->moduleExists('staticCache')) {
             $constants['DC_SC_CACHE_ENABLE']    = defined('DC_SC_CACHE_ENABLE') ? (DC_SC_CACHE_ENABLE ? 'true' : 'false') : $undefined;
             $constants['DC_SC_CACHE_DIR']       = defined('DC_SC_CACHE_DIR') ? DC_SC_CACHE_DIR : $undefined;
-            $constants['DC_SC_CACHE_BLOGS_ON']  = defined('DC_SC_CACHE_BLOGS_ON') ? DC_SC_CACHE_BLOGS_ON : $undefined;
-            $constants['DC_SC_CACHE_BLOGS_OFF'] = defined('DC_SC_CACHE_BLOGS_OFF') ? DC_SC_CACHE_BLOGS_OFF : $undefined;
+            $constants['DC_SC_CACHE_BLOGS_ON']  = defined('DC_SC_CACHE_BLOGS_ON') ? constant('DC_SC_CACHE_BLOGS_ON') : $undefined;
+            $constants['DC_SC_CACHE_BLOGS_OFF'] = defined('DC_SC_CACHE_BLOGS_OFF') ? constant('DC_SC_CACHE_BLOGS_OFF') : $undefined;
             $constants['DC_SC_EXCLUDED_URL']    = defined('DC_SC_EXCLUDED_URL') ? DC_SC_EXCLUDED_URL : $undefined;
         }
 

@@ -87,6 +87,7 @@ class System
             '<li>' . 'DIRECTORY_SEPARATOR :' . ' <strong><code>' . DIRECTORY_SEPARATOR . '</code></strong></li>' .
             '<li>' . 'PATH_SEPARATOR :' . ' <strong><code>' . PATH_SEPARATOR . '</code></strong></li>' .
             (session_id() ? '<li>session_id() : <strong><code>' . session_id() . '</code></strong>' . '</li>' : '') .
+            '<li id="sys_battery">' . __('Battery level: ') . '<strong></strong></li>' .
             '</ul>' .
             '</details>';
 
