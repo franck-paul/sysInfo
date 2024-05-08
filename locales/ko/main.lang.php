@@ -111,6 +111,7 @@ L10n::$locales['using <strong>%s</strong> syntax'] = '사용 <strong>%s</strong>
 L10n::$locales['Error reporting: '] = '오류 보고: ';
 L10n::$locales['PHP Cache: '] = 'PHP 캐시: ';
 L10n::$locales['Temporary folder: '] = '임시 폴더: ';
+L10n::$locales['Battery level: '] = '배터리 잔량: ';
 L10n::$locales['Dotclear info'] = '도트 클리어 정보';
 L10n::$locales['Dotclear version: '] = '도트 클리어 버전: ';
 L10n::$locales['Update channel: '] = '채널 업데이트: ';

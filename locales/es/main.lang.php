@@ -111,6 +111,7 @@ L10n::$locales['using <strong>%s</strong> syntax'] = 'utilizando <strong>%s</str
 L10n::$locales['Error reporting: '] = 'Informe de errores: ';
 L10n::$locales['PHP Cache: '] = 'Caché PHP: ';
 L10n::$locales['Temporary folder: '] = 'Carpeta temporal: ';
+L10n::$locales['Battery level: '] = 'Nivel de batería: ';
 L10n::$locales['Dotclear info'] = 'Información sobre Dotclear';
 L10n::$locales['Dotclear version: '] = 'Versión Dotclear: ';
 L10n::$locales['Update channel: '] = 'Canal de actualización: ';

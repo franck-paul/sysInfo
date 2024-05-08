@@ -111,6 +111,7 @@ L10n::$locales['using <strong>%s</strong> syntax'] = 'використовуюч
 L10n::$locales['Error reporting: '] = 'Повідомлення про помилки: ';
 L10n::$locales['PHP Cache: '] = 'Кеш PHP: ';
 L10n::$locales['Temporary folder: '] = 'Тимчасова папка: ';
+L10n::$locales['Battery level: '] = 'Рівень заряду батареї: ';
 L10n::$locales['Dotclear info'] = 'Точна інформація';
 L10n::$locales['Dotclear version: '] = 'Абсолютно чітка версія: ';
 L10n::$locales['Update channel: '] = 'Оновити канал: ';
