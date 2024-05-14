@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-08 09:04+0200\n"
+"POT-Creation-Date: 2024-05-14 20:19+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/open-time/teams/109573/es/)\n"
@@ -64,6 +64,15 @@ msgstr "URL"
 
 msgid "Query string"
 msgstr "Cadena de consulta"
+
+msgid "Antispam filters"
+msgstr "Filtros antispam"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "GUI"
+msgstr "GUI"
 
 msgid "Properties:"
 msgstr "Propiedades:"
