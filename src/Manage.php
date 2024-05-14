@@ -24,6 +24,7 @@ use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
+use Dotclear\Plugin\sysInfo\Helper\AntispamFilters;
 use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
 use Dotclear\Plugin\sysInfo\Helper\Configuration;
@@ -120,6 +121,10 @@ class Manage extends Process
 
         if (class_exists('\\Dotclear\\Exception\\ExceptionEnum')) {
             self::$checklists[__('Miscellaneous')][__('Exceptions')] = 'exceptions';
+        }
+
+        if (App::plugins()->moduleExists('antispam')) {
+            self::$checklists[__('Miscellaneous')][__('Antispam filters')] = 'antispamfilters';
         }
 
         if (App::plugins()->moduleExists('staticCache') && defined('DC_SC_CACHE_DIR')) {
@@ -278,6 +283,9 @@ class Manage extends Process
 
             // Get list of module's versions
             'versions' => Versions::render(),
+
+            // Get list of Antispam filters
+            'antispamfilters' => AntispamFilters::render(),
 
             // Report
             'report' => CoreHelper::renderReport(),
