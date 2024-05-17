@@ -16,7 +16,6 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
@@ -87,8 +86,11 @@ class Templates
             }
 
             $path_displayed = false;
-            $md5_path       = (strstr($path, 'inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset) ? Path::real($path) : $path);
-            $files          = Files::scandir($path);
+            $md5_path       = $path;
+            if (str_starts_with(Path::real($path), App::config()->dotclearRoot())) {
+                $md5_path = Path::real($path);
+            }
+            $files = Files::scandir($path);
             foreach ($files as $file) {
                 if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
                     $stack[]        = $file;
