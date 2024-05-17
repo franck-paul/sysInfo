@@ -87,9 +87,8 @@ class Templates
             }
 
             $path_displayed = false;
-            // Don't know exactly why but need to cope with */Utility::TPL_ROOT !
-            $md5_path = (strstr($path, '/' . Utility::TPL_ROOT . '/' . $tplset) ? Path::real($path) : $path);
-            $files    = Files::scandir($path);
+            $md5_path       = (strstr($path, 'inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset) ? Path::real($path) : $path);
+            $files          = Files::scandir($path);
             foreach ($files as $file) {
                 if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
                     $stack[]        = $file;
