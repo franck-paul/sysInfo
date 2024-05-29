@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-14 20:19+0200\n"
+"POT-Creation-Date: 2024-05-29 18:35+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/open-time/teams/109573/uk/)\n"
@@ -302,6 +302,9 @@ msgstr "Це чудово, ми повинні зробити це знову і
 
 msgid "Have You Tried Turning It Off And On Again?"
 msgstr "Ви пробували вимикати і вмикати його знову?"
+
+msgid "It's great, we'll have to do it all again!"
+msgstr "Чудово, треба буде повторити все це ще раз!"
 
 msgid "None"
 msgstr "Ні."
