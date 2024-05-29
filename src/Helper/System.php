@@ -39,6 +39,7 @@ class System
             __('With great power there must also come great responsibility.'),
             __('It\'s great, we have to do it all over again!'),
             __('Have You Tried Turning It Off And On Again?'),
+            __('It\'s great, we\'ll have to do it all again!'),
         ];
         $q = random_int(0, count($quotes) - 1);
 
