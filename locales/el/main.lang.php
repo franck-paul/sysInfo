@@ -104,6 +104,7 @@ L10n::$locales['I\'m sorry, Dave. I\'m afraid I can\'t do that.'] = 'Λυπάμ�
 L10n::$locales['With great power there must also come great responsibility.'] = 'Με τη μεγάλη δύναμη πρέπει να έρχεται και η μεγάλη ευθύνη.';
 L10n::$locales['It\'s great, we have to do it all over again!'] = 'Είναι σπουδαίο, πρέπει να το ξανακάνουμε από την αρχή!';
 L10n::$locales['Have You Tried Turning It Off And On Again?'] = 'Δοκιμάσατε να το απενεργοποιήσετε και να το ενεργοποιήσετε ξανά;';
+L10n::$locales['It\'s great, we\'ll have to do it all again!'] = 'Είναι υπέροχα, θα πρέπει να τα ξανακάνουμε όλα!';
 L10n::$locales['None'] = 'Κανένα';
 L10n::$locales['Server software: '] = 'Λογισμικό διακομιστή: ';
 L10n::$locales['System info'] = 'Πληροφορίες συστήματος';

@@ -104,6 +104,7 @@ L10n::$locales['I\'m sorry, Dave. I\'m afraid I can\'t do that.'] = 'ごめん�
 L10n::$locales['With great power there must also come great responsibility.'] = '大きな力には、大きな責任が伴うはずです。';
 L10n::$locales['It\'s great, we have to do it all over again!'] = 'すごいですね、もう一回やり直さないといけないですね！';
 L10n::$locales['Have You Tried Turning It Off And On Again?'] = '電源を切ってからもう一度入れてみましたか？';
+L10n::$locales['It\'s great, we\'ll have to do it all again!'] = '素晴らしいことだ！';
 L10n::$locales['None'] = 'なし';
 L10n::$locales['Server software: '] = 'サーバーソフトウェア： ';
 L10n::$locales['System info'] = 'システム情報';

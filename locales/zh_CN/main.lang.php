@@ -104,6 +104,7 @@ L10n::$locales['I\'m sorry, Dave. I\'m afraid I can\'t do that.'] = '我很抱�
 L10n::$locales['With great power there must also come great responsibility.'] = '有了巨大的权力，也必须有巨大的责任。';
 L10n::$locales['It\'s great, we have to do it all over again!'] = '这很好，我们必须重新做一遍！"！';
 L10n::$locales['Have You Tried Turning It Off And On Again?'] = '你是否尝试过将其关闭并重新打开？';
+L10n::$locales['It\'s great, we\'ll have to do it all again!'] = '太棒了，我们必须再来一次！';
 L10n::$locales['None'] = '无';
 L10n::$locales['Server software: '] = '服务器软件： ';
 L10n::$locales['System info'] = '系统信息';
