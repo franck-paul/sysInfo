@@ -33,7 +33,7 @@ class Templates
      */
     public static function render(): string
     {
-        $tplset = CoreHelper::publicPrepend();
+        CoreHelper::publicPrepend();
 
         $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
         $cache_path    = (string) Path::real(App::config()->cacheRoot());
@@ -87,7 +87,7 @@ class Templates
 
             $path_displayed = false;
             $md5_path       = $path;
-            if (str_starts_with(Path::real($path), App::config()->dotclearRoot())) {
+            if (str_starts_with((string) Path::real($path), App::config()->dotclearRoot())) {
                 $md5_path = Path::real($path);
             }
             $files = Files::scandir($path);
