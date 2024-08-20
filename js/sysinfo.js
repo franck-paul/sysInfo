@@ -199,9 +199,9 @@ window.addEventListener('load', () => {
     if (navigator.getBattery) {
       navigator.getBattery().then((battery) => {
         const level = battery.level * 100;
-        const str = li.getElementsByTagName('strong');
-        if (str.length) {
-          str[0].innerHTML = `${level}%`;
+        const [str] = li.getElementsByTagName('strong'); // Get first strong in li element
+        if (str) {
+          str.innerText = `${level}%`;
         }
       });
     } else {

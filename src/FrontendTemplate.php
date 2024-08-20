@@ -25,16 +25,16 @@ class FrontendTemplate
             $tplset = App::config()->defaultTplset() . '-default';
         }
 
-        return '<?php echo \'<span class="dc-tpl-' . $tplset . '">' . __('System Information') . '</span>\'; ?>';
+        return '<?= \'<span class="dc-tpl-' . $tplset . '">' . __('System Information') . '</span>\' ?>';
     }
 
     public static function sysInfoBehaviours(): string
     {
         $bl = App::behavior()->getBehaviors();
 
-        $code = '<h3><?php echo \'' . __('Public behaviours list') . '\'; ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
+        $code = '<h3><?= \'' . __('Public behaviours list') . '\' ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
 
-        return $code . ('<?php echo ' . self::class . '::publicBehavioursList(); ?>');
+        return $code . ('<?= ' . self::class . '::publicBehavioursList() ?>');
     }
 
     public static function publicBehavioursList(): string
@@ -57,9 +57,9 @@ class FrontendTemplate
 
     public static function sysInfoTemplatetags(): string
     {
-        $code = '<h3><?php echo \'' . __('Template tags list') . '\'; ?>' . '</h3>' . "\n";
+        $code = '<h3><?= \'' . __('Template tags list') . '\' ?>' . '</h3>' . "\n";
 
-        return $code . ('<?php echo ' . self::class . '::publicTemplatetagsList(); ?>');
+        return $code . ('<?= ' . self::class . '::publicTemplatetagsList() ?>');
     }
 
     public static function publicTemplatetagsList(): string

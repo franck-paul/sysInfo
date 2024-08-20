@@ -92,7 +92,7 @@ class Templates
             }
             $files = Files::scandir($path);
             foreach ($files as $file) {
-                if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && isset($matches[1]) && !in_array($file, $stack)) {
+                if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && !in_array($file, $stack)) {
                     $stack[]        = $file;
                     $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
                     $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));

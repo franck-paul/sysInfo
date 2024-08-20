@@ -31,12 +31,12 @@ class PhpInfo
         if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', (string) ob_get_clean(), $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 $keys = array_keys($phpinfo);
-                if (strlen($match[1]) !== 0) {
+                if (strlen($match[1] ?? '') !== 0) {
                     $phpinfo[$match[1]] = [];
                 } elseif (isset($match[3])) {
-                    @$phpinfo[end($keys)][$match[2]] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
+                    @$phpinfo[end($keys)][$match[2] ?? ''] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
                 } else {
-                    @$phpinfo[end($keys)][] = $match[2];
+                    @$phpinfo[end($keys)][] = $match[2] ?? '';
                 }
             }
         }
