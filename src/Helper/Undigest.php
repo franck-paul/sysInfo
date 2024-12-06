@@ -41,11 +41,11 @@ class Undigest
             'src',
         ];
         // Add distributed plugins
-        foreach (explode(',', App::Config()->distributedPlugins()) as $theme) {
+        foreach (explode(',', (string) App::Config()->distributedPlugins()) as $theme) {
             $folders[] = implode(DIRECTORY_SEPARATOR, ['plugins', $theme]);
         }
         // Add distributed themes
-        foreach (explode(',', App::Config()->distributedThemes()) as $theme) {
+        foreach (explode(',', (string) App::Config()->distributedThemes()) as $theme) {
             $folders[] = implode(DIRECTORY_SEPARATOR, ['themes', $theme]);
         }
 

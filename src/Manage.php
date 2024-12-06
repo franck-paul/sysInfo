@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -204,7 +205,7 @@ class Manage extends Process
                         (new Label(__('Select a checklist:')))
                             ->for('checklist'),
                         (new Select('checklist'))
-                            ->items(self::$checklists)
+                            ->items(self::$checklists)  // @phpstan-ignore-line
                             ->default(self::$checklist),
                         (new Submit(['frmsubmit']))
                             ->value(__('Check')),

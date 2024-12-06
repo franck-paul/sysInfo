@@ -40,13 +40,13 @@ class TplPaths
             '<tbody>';
         foreach ($paths as $path) {
             $sub_path = (string) Path::real($path, false);
-            if (str_starts_with($sub_path, $document_root)) {
-                $sub_path = substr($sub_path, strlen($document_root));
+            if (str_starts_with($sub_path, (string) $document_root)) {
+                $sub_path = substr($sub_path, strlen((string) $document_root));
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (str_starts_with($sub_path, App::config()->dotclearRoot())) {
-                $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
+            } elseif (str_starts_with($sub_path, (string) App::config()->dotclearRoot())) {
+                $sub_path = substr($sub_path, strlen((string) App::config()->dotclearRoot()));
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }

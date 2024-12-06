@@ -35,8 +35,8 @@ class Versions
     public static function render(): string
     {
         $versions    = App::version()->getVersions();
-        $distributed = explode(',', App::config()->distributedPlugins());
-        $paths       = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
+        $distributed = explode(',', (string) App::config()->distributedPlugins());
+        $paths       = explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot());
         $obsoletes   = [
             'blowupConfig',
             'daInstaller',
@@ -87,9 +87,9 @@ class Versions
                     $input->disabled(true);     // Do not modify distributed module version
                 }
 
-                if (!in_array(mb_strtolower($module), $plugins)) {
+                if (!in_array(mb_strtolower((string) $module), $plugins)) {
                     // Not in activated plugins list
-                    if (in_array(mb_strtolower($module), $disabled)) {
+                    if (in_array(mb_strtolower((string) $module), $disabled)) {
                         // In disabled plugins list
                         $exists = true;
                     } else {

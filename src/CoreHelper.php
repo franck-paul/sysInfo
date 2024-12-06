@@ -203,7 +203,7 @@ class CoreHelper
             $tplset = App::config()->defaultTplset();
         }
 
-        $main_plugins_root = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
+        $main_plugins_root = explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot());
         App::frontend()->template()->setPath(
             $tpl_path,
             $main_plugins_root[0] . '/../inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset,
@@ -242,7 +242,7 @@ class CoreHelper
         $bases = array_map(static fn ($path) => Path::real($path), [
             App::config()->dotclearRoot(),                  // Core
             App::blog()->themesPath(),                      // Theme
-            ...explode(PATH_SEPARATOR, App::config()->pluginsRoot()),    // Plugins
+            ...explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot()),    // Plugins
         ]);
         $prefixes = ['[core]', '[theme]', '[plugin]'];
 
@@ -279,7 +279,7 @@ class CoreHelper
             $name = $callable;
         } elseif (is_array($callable)) {
             // Class, method
-            $name = is_object($callable[0]) ? get_class($callable[0]) . '-&gt;' . $callable[1] : $callable[0] . '::' . $callable[1];
+            $name = is_object($callable[0]) ? $callable[0]::class . '-&gt;' . $callable[1] : $callable[0] . '::' . $callable[1];
         } elseif ($callable instanceof \Closure) {
             // Closure
             $r  = new ReflectionFunction($callable);

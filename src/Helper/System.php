@@ -67,7 +67,7 @@ class System
 
         $server = '';
         if (isset($_SERVER['SERVER_SOFTWARE'])) {
-            $info   = explode(' ', $_SERVER['SERVER_SOFTWARE']);
+            $info   = explode(' ', (string) $_SERVER['SERVER_SOFTWARE']);
             $server = '<li>' . __('Server software: ') . ' <strong>' . $info[0] . '</strong></li>';
         }
 

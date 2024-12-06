@@ -75,7 +75,7 @@ class Repo
         $lines = '<table><caption>' . $title . '</caption><thead><tr><th>' . __('Repositories') . '</th></tr></thead><tbody>';
         foreach ($modules as $module) {
             if ($module->get('repository') != '' && App::config()->allowRepositories()) {
-                $url = str_ends_with($module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
+                $url = str_ends_with((string) $module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
 
                 [$parser, $in_cache] = self::parseRepo($use_cache, $url);
 
@@ -222,7 +222,7 @@ class Repo
     public static function renderAltPlugins(): string
     {
         $plugins = App::plugins()->getDefines();
-        uasort($plugins, static fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
+        uasort($plugins, static fn ($a, $b) => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
 
         return self::renderAltModules(
             $plugins,
@@ -243,7 +243,7 @@ class Repo
         }
 
         $themes = App::themes()->getDefines();
-        uasort($themes, static fn ($a, $b) => strtolower($a->getId()) <=> strtolower($b->getId()));
+        uasort($themes, static fn ($a, $b) => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
 
         return self::renderAltModules(
             $themes,

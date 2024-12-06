@@ -34,7 +34,7 @@ class StaticCache
     public static function render()
     {
         $blog_host = App::blog()->host();
-        if (!str_ends_with($blog_host, '/')) {
+        if (!str_ends_with((string) $blog_host, '/')) {
             $blog_host .= '/';
         }
 

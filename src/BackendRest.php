@@ -79,7 +79,7 @@ class BackendRest
 
         if (defined('DC_SC_CACHE_DIR') && $root != '') {
             $blog_host = App::blog()->host();
-            if (!str_ends_with($blog_host, '/')) {
+            if (!str_ends_with((string) $blog_host, '/')) {
                 $blog_host .= '/';
             }
 
@@ -131,7 +131,7 @@ class BackendRest
 
         if (defined('DC_SC_CACHE_DIR') && $root != '') {
             $blog_host = App::blog()->host();
-            if (!str_ends_with($blog_host, '/')) {
+            if (!str_ends_with((string) $blog_host, '/')) {
                 $blog_host .= '/';
             }
 
@@ -203,8 +203,8 @@ class BackendRest
 
         // Extract REQUEST_URI from URL if possible
         $blog_host = App::blog()->host();
-        if (str_starts_with($url, $blog_host)) {
-            $url = substr($url, strlen($blog_host));
+        if (str_starts_with($url, (string) $blog_host)) {
+            $url = substr($url, strlen((string) $blog_host));
         }
 
         if ($url != '') {

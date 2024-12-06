@@ -37,20 +37,20 @@ class Templates
 
         $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
         $cache_path    = (string) Path::real(App::config()->cacheRoot());
-        if (str_starts_with($cache_path, $document_root)) {
-            $cache_path = substr($cache_path, strlen($document_root));
-        } elseif (str_starts_with($cache_path, App::config()->dotclearRoot())) {
-            $cache_path = substr($cache_path, strlen(App::config()->dotclearRoot()));
+        if (str_starts_with($cache_path, (string) $document_root)) {
+            $cache_path = substr($cache_path, strlen((string) $document_root));
+        } elseif (str_starts_with($cache_path, (string) App::config()->dotclearRoot())) {
+            $cache_path = substr($cache_path, strlen((string) App::config()->dotclearRoot()));
         }
 
         $blog_host = App::blog()->host();
-        if (!str_ends_with($blog_host, '/')) {
+        if (!str_ends_with((string) $blog_host, '/')) {
             $blog_host .= '/';
         }
 
         $blog_url = App::blog()->url();
-        if (str_starts_with($blog_url, $blog_host)) {
-            $blog_url = substr($blog_url, strlen($blog_host));
+        if (str_starts_with((string) $blog_url, (string) $blog_host)) {
+            $blog_url = substr((string) $blog_url, strlen((string) $blog_host));
         }
 
         $paths = App::frontend()->template()->getPath();
@@ -73,13 +73,13 @@ class Templates
         // Loop on template paths
         foreach ($paths as $path) {
             $sub_path = (string) Path::real($path, false);
-            if (str_starts_with($sub_path, $document_root)) {
-                $sub_path = substr($sub_path, strlen($document_root));
+            if (str_starts_with($sub_path, (string) $document_root)) {
+                $sub_path = substr($sub_path, strlen((string) $document_root));
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (str_starts_with($sub_path, App::config()->dotclearRoot())) {
-                $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
+            } elseif (str_starts_with($sub_path, (string) App::config()->dotclearRoot())) {
+                $sub_path = substr($sub_path, strlen((string) App::config()->dotclearRoot()));
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
@@ -87,7 +87,7 @@ class Templates
 
             $path_displayed = false;
             $md5_path       = $path;
-            if (str_starts_with((string) Path::real($path), App::config()->dotclearRoot())) {
+            if (str_starts_with((string) Path::real($path), (string) App::config()->dotclearRoot())) {
                 $md5_path = Path::real($path);
             }
             $files = Files::scandir($path);
@@ -146,7 +146,7 @@ class Templates
 
                 $root_cache = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
                 foreach ($_POST['tpl'] as $v) {
-                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($v, 0, 2), substr($v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
+                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr((string) $v, 0, 2), substr((string) $v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
                     }
