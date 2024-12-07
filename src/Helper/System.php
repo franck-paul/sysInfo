@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -16,6 +17,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
 use Dotclear\Helper\File\Path;
+use Exception;
 
 class System
 {
@@ -45,20 +47,33 @@ class System
 
         // Get cache info
         $caches = [];
-        if (function_exists('\opcache_get_status') && is_array(\opcache_get_status())) {
-            $caches[] = 'OPCache';
-        }
 
-        if (function_exists('\apcu_cache_info') && !empty(\apcu_cache_info())) {
-            $caches[] = 'APC';
-        }
-
-        if (class_exists('\Memcache')) {
-            $memcache     = new \Memcache();
-            $isMemcacheOn = @$memcache->connect('localhost', 11211, 1);
-            if ($isMemcacheOn) {
-                $caches[] = 'Memcache';
+        try {
+            // Check OPCache
+            if (extension_loaded('opcache') || extension_loaded('Zend OPcache')) {
+                if (function_exists('\opcache_get_status')) {
+                    if (ini_get('opcache.restrict_api') !== false && ini_get('opcache.restrict_api') !== '') {
+                        // OPCache API is restricted via .htaccess (or web server config), PHP_INI_USER or PHP_INI_PERDIR
+                    } elseif (get_cfg_var('opcache.restrict_api') !== false && get_cfg_var('opcache.restrict_api') !== '') {
+                        // OPCache API is restricted via PHP.ini
+                    } elseif (is_array(opcache_get_status())) {
+                        $caches[] = 'OPCache';
+                    }
+                }
             }
+            // Check APCu
+            if (function_exists('\apcu_cache_info') && !empty(\apcu_cache_info())) {
+                $caches[] = 'APCu';
+            }
+            // Check Memcache
+            if (class_exists(\Memcache::class)) {
+                $memcache     = new \Memcache();
+                $isMemcacheOn = @$memcache->connect('localhost', 11211, 1);
+                if ($isMemcacheOn) {
+                    $caches[] = 'Memcache';
+                }
+            }
+        } catch (Exception) {
         }
 
         if ($caches === []) {
