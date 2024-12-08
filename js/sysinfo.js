@@ -1,4 +1,4 @@
-/*global $, dotclear, CodeMirror */
+/*global jQuery, dotclear, CodeMirror */
 'use strict';
 
 window.addEventListener('load', () => {
@@ -39,10 +39,9 @@ window.addEventListener('load', () => {
 
   const viewSource = (prefix, filename, content, mode, title = '') => {
     let cm_editor; // Codemirror instance
-    const src = `<div class="${prefix}_view"><h1>${
-      title === '' ? '' : `${title} - `
-    }${filename}</h1><textarea id="${prefix}_source">${JSON.parse(window.atob(content))}</textarea></div>`;
-    $.magnificPopup.open({
+    const real_title = title === '' ? '' : `${title} - `;
+    const src = `<div class="${prefix}_view"><h1>${real_title}${filename}</h1><textarea id="${prefix}_source">${JSON.parse(window.atob(content))}</textarea></div>`;
+    jQuery.magnificPopup.open({
       items: {
         src,
         type: 'inline',
@@ -79,117 +78,168 @@ window.addEventListener('load', () => {
   };
 
   // Compiled template preview
-  $('a.tpl_compiled').on('click', (e) => {
-    e.preventDefault();
-    const template_file = $(e.target).text();
-    // Open template file content in a modal iframe
-    if (template_file !== undefined) {
-      loadServerFile(template_file, 'tpl', (content) => {
-        viewSource('tpl_compiled', template_file, content, 'php', e.target.title);
-      });
-    }
-  });
+  const tpl_compiled_list = document.querySelectorAll('a.tpl_compiled');
+  for (const tpl_compiled of tpl_compiled_list) {
+    tpl_compiled.addEventListener('click', (event) => {
+      event.preventDefault();
+      const template_file = event.target.textContent;
+      // Open template file content in a modal iframe
+      if (template_file !== undefined) {
+        loadServerFile(template_file, 'tpl', (content) => {
+          viewSource('tpl_compiled', template_file, content, 'php', event.target.title);
+        });
+      }
+    });
+  }
 
-  // Static cache dir expand (load 2nd level subdirs via Ajax)
-  $('a.sc_dir').on('click', (e) => {
-    e.preventDefault();
-    const main_dir = $(e.target).text();
-    loadStaticCacheDirs(main_dir, (dirs) => {
-      // Insert list and remove previous raw
-      const r = $(e.target).parent().parent();
-      r.after(dirs).remove();
-      // Static cache subdir expand (load 3rd level subdirs and cache file list via Ajax)
-      $('a.sc_subdir').on('click', (f) => {
-        f.preventDefault();
-        const sub_dir = $(f.target).text();
-        loadStaticCacheList(`${main_dir}/${sub_dir}`, (list) => {
+  if (document.getElementById('scform')) {
+    // Static cache dir expand (load 2nd level subdirs via Ajax)
+    const show = (event) => {
+      event.preventDefault();
+      const cache_file = event.target.getAttribute('data-file');
+      // Open static cache file content in a modal iframe
+      if (cache_file !== undefined) {
+        loadServerFile(cache_file, 'sc', (content) => {
+          viewSource('sc_compiled', event.target.textContent, content);
+        });
+      }
+    };
+
+    const sc_dirs = document.querySelectorAll('a.sc_dir');
+    for (const sc_dir of sc_dirs) {
+      sc_dir.addEventListener('click', (event) => {
+        event.preventDefault();
+        const main_dir = event.currentTarget.textContent;
+        loadStaticCacheDirs(main_dir, (dirs) => {
           // Insert list and remove previous raw
-          $('a.sc_compiled').off('click');
-          const s = $(f.target).parent().parent();
-          s.after(list).remove();
-          dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-          // Static cache file preview
-          $('a.sc_compiled').on('click', (g) => {
-            g.preventDefault();
-            const cache_file = $(g.target).attr('data-file');
-            // Open static cache file content in a modal iframe
-            if (cache_file !== undefined) {
-              loadServerFile(cache_file, 'sc', (content) => {
-                viewSource('sc_compiled', $(g.target).text(), content);
+          const line = event.target.parentNode.parentNode;
+          line.after(dotclear.htmlToNode(dirs));
+          line.remove();
+          // Static cache subdir expand (load 3rd level subdirs and cache file list via Ajax)
+          const sc_subdirs = document.querySelectorAll('a.sc_subdir');
+          for (const sc_subdir of sc_subdirs) {
+            sc_subdir.addEventListener('click', (event_sub) => {
+              event_sub.preventDefault();
+              const sub_dir = event_sub.currentTarget.textContent;
+              loadStaticCacheList(`${main_dir}/${sub_dir}`, (list) => {
+                // Insert list and remove previous raw
+                for (const sc_compiled of document.querySelectorAll('a.sc_compiled')) {
+                  sc_compiled.removeEventListener('click', show);
+                }
+                const raw = event_sub.target.parentNode.parentNode;
+                raw.after(dotclear.htmlToNode(list));
+                raw.remove();
+                dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
+                // Static cache file preview
+                for (const sc_compiled of document.querySelectorAll('a.sc_compiled')) {
+                  sc_compiled.addEventListener('click', show);
+                }
               });
-            }
-          });
+            });
+          }
         });
       });
-    });
-  });
+    }
+  }
 
   // Autosubmit on checklist change
-  $('#checklist').on('change', function () {
-    this.form.submit();
+  document.getElementById('checklist')?.addEventListener('change', (event) => {
+    event.currentTarget?.form.submit();
   });
 
   // Static cache calculator
-  $('#getscaction').on('click', (e) => {
-    e.preventDefault();
-    $('#sccalc_res').text('');
-    $('#sccalc_preview').text('').off('click');
-    const url = $('#sccalc_url').val();
-    if (url !== undefined && url !== '') {
-      getStaticCacheFilename(url, (res) => {
-        const text = `${String.fromCharCode(160) + res.slice(0, 2)} / ${res.slice(2, 4)} / ${res.slice(4, 6)} / `;
-        $('#sccalc_res').text(text);
-        $('#sccalc_preview').text(res).trigger('focus');
-        $('#sccalc_preview').on('click', (f) => {
-          f.preventDefault();
-          const cache_file = `${res.slice(0, 2)}/${res.slice(2, 4)}/${res.slice(4, 6)}/${res}`;
-          loadServerFile(`${$(f.target).attr('data-dir')}/${cache_file}`, 'sc', (content) => {
-            viewSource('sc_compiled', res, content);
-          });
+  if (document.getElementById('scform')) {
+    document.getElementById('getscaction')?.addEventListener('click', (event) => {
+      const show = (event) => {
+        event.preventDefault();
+        const res = event.currentTarget.textContent;
+        const cache_file = `${res.slice(0, 2)}/${res.slice(2, 4)}/${res.slice(4, 6)}/${res}`;
+        const cache_dir = event.currentTarget.getAttribute('data-dir');
+        loadServerFile(`${cache_dir}/${cache_file}`, 'sc', (content) => {
+          viewSource('sc_compiled', res, content);
         });
-      });
-    }
-  });
+      };
+
+      event.preventDefault();
+      const result = document.getElementById('sccalc_res');
+      const preview = document.getElementById('sccalc_preview');
+      result.textContent = '';
+      preview.textContent = '';
+      preview.removeEventListener('click', show);
+
+      const url = document.getElementById('sccalc_url')?.value;
+      if (url !== undefined && url !== '') {
+        getStaticCacheFilename(url, (res) => {
+          const text = `${String.fromCharCode(160) + res.slice(0, 2)} / ${res.slice(2, 4)} / ${res.slice(4, 6)} / `;
+          result.textContent = text;
+          preview.textContent = res;
+          preview.focus();
+          preview.addEventListener('click', show);
+        });
+      }
+    });
+  }
 
   // Checkboxes helpers
 
   // Template cache files
-  $('#tplform .checkboxes-helpers').each(function () {
-    dotclear.checkboxesHelpers(this, undefined, '#tplform td input[type=checkbox]:not(:disabled)', '#tplform #deltplaction');
-  });
-  dotclear.enableShiftClick('#tplform td input[type=checkbox]');
-  dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
-  $('form input[type=submit][name=deltplaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_tpl));
+  if (document.getElementById('tplform')) {
+    for (const item of document.querySelectorAll('#tplform .checkboxes-helpers')) {
+      dotclear.checkboxesHelpers(item, undefined, '#tplform td input[type=checkbox]:not(:disabled)', '#tplform #deltplaction');
+    }
+    dotclear.enableShiftClick('#tplform td input[type=checkbox]');
+    dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
+    document.querySelector('form input[type=submit][name=deltplaction]')?.addEventListener('click', (event) => {
+      // Wait for Dotclear 2.33+
+      // return dotclear.confirm(dotclear.msg.confirm_del_tpl, event);
+      if (window.confirm(dotclear.msg.confirm_del_tpl)) return;
+      event.preventDefault();
+      return false;
+    });
+  }
 
   // Versions in DB
-  $('#verform .checkboxes-helpers').each(function () {
-    dotclear.checkboxesHelpers(this, undefined, '#verform td input[type=checkbox]:not(:disabled)', '#verform #delveraction');
-  });
-  dotclear.enableShiftClick('#verform td input[type=checkbox]');
-  dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
-  $('form input[type=submit][name=delveraction]').on('click', () => window.confirm(dotclear.msg.confirm_del_ver));
+  if (document.getElementById('verform')) {
+    for (const item of document.querySelectorAll('#verform .checkboxes-helpers')) {
+      dotclear.checkboxesHelpers(item, undefined, '#verform td input[type=checkbox]:not(:disabled)', '#verform #delveraction');
+    }
+    dotclear.enableShiftClick('#verform td input[type=checkbox]');
+    dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
+    document.querySelector('form input[type=submit][name=delveraction]')?.addEventListener('click', (event) => {
+      // Wait for Dotclear 2.33+
+      // return dotclear.confirm(dotclear.msg.confirm_del_ver, event);
+      if (window.confirm(dotclear.msg.confirm_del_ver)) return;
+      event.preventDefault();
+      return false;
+    });
+  }
 
   // Static cache files
-  $('#scform .checkboxes-helpers').each(function () {
-    dotclear.checkboxesHelpers(this, undefined, '#scform td input[type=checkbox]:not(:disabled)', '#scform #delscaction');
-  });
-  dotclear.enableShiftClick('#scform td input[type=checkbox]');
-  dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-  $('form input[type=submit][name=delscaction]').on('click', () => window.confirm(dotclear.msg.confirm_del_sc));
+  if (document.getElementById('scform')) {
+    for (const item of document.querySelectorAll('#scform .checkboxes-helpers')) {
+      dotclear.checkboxesHelpers(item, undefined, '#scform td input[type=checkbox]:not(:disabled)', '#scform #delscaction');
+    }
+    dotclear.enableShiftClick('#scform td input[type=checkbox]');
+    dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
+    document.querySelector('form input[type=submit][name=delscaction]')?.addEventListener('click', (event) => {
+      // Wait for Dotclear 2.33+
+      // return dotclear.confirm(dotclear.msg.confirm_del_sc, event);
+      if (window.confirm(dotclear.msg.confirm_del_sc)) return;
+      event.preventDefault();
+      return false;
+    });
+  }
 
   // Expand/Contract all (details)
-  $('#expand-all').on('click', function (e) {
-    e.preventDefault();
-    if ($(this).attr('open')) {
+  document.getElementById('expand-all')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    const items = document.querySelectorAll('#content details');
+    if (event.currentTarget.getAttribute('open')) {
       // Close all
-      $('#content details').each(function () {
-        $(this).attr('open', false);
-      });
+      for (const item of items) item.removeAttribute('open');
     } else {
       // Open all
-      $('#content details').each(function () {
-        $(this).attr('open', true);
-      });
+      for (const item of items) item.setAttribute('open', 'open');
     }
   });
 
