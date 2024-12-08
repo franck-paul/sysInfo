@@ -15,7 +15,7 @@ $this->registerModule(
     'System Information',
     'System Information',
     'Franck Paul',
-    '9.8',
+    '10.0',
     [
         'requires' => [['core', '2.33']],
         'type'     => 'plugin',
