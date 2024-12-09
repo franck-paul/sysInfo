@@ -189,9 +189,7 @@ window.addEventListener('load', () => {
     }
     dotclear.enableShiftClick('#tplform td input[type=checkbox]');
     dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
-    document.querySelector('form input[type=submit][name=deltplaction]')?.addEventListener('click', (event) => {
-      return dotclear.confirm(dotclear.msg.confirm_del_tpl, event);
-    });
+    document.querySelector('form input[type=submit][name=deltplaction]')?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_tpl, event));
   }
 
   // Versions in DB
@@ -201,9 +199,7 @@ window.addEventListener('load', () => {
     }
     dotclear.enableShiftClick('#verform td input[type=checkbox]');
     dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
-    document.querySelector('form input[type=submit][name=delveraction]')?.addEventListener('click', (event) => {
-      return dotclear.confirm(dotclear.msg.confirm_del_ver, event);
-    });
+    document.querySelector('form input[type=submit][name=delveraction]')?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_ver, event));
   }
 
   // Static cache files
@@ -213,9 +209,7 @@ window.addEventListener('load', () => {
     }
     dotclear.enableShiftClick('#scform td input[type=checkbox]');
     dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-    document.querySelector('form input[type=submit][name=delscaction]')?.addEventListener('click', (event) => {
-      return dotclear.confirm(dotclear.msg.confirm_del_sc, event);
-    });
+    document.querySelector('form input[type=submit][name=delscaction]')?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_sc, event));
   }
 
   // Expand/Contract all (details)
