@@ -190,11 +190,7 @@ window.addEventListener('load', () => {
     dotclear.enableShiftClick('#tplform td input[type=checkbox]');
     dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
     document.querySelector('form input[type=submit][name=deltplaction]')?.addEventListener('click', (event) => {
-      // Wait for Dotclear 2.33+
-      // return dotclear.confirm(dotclear.msg.confirm_del_tpl, event);
-      if (window.confirm(dotclear.msg.confirm_del_tpl)) return;
-      event.preventDefault();
-      return false;
+      return dotclear.confirm(dotclear.msg.confirm_del_tpl, event);
     });
   }
 
@@ -206,11 +202,7 @@ window.addEventListener('load', () => {
     dotclear.enableShiftClick('#verform td input[type=checkbox]');
     dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
     document.querySelector('form input[type=submit][name=delveraction]')?.addEventListener('click', (event) => {
-      // Wait for Dotclear 2.33+
-      // return dotclear.confirm(dotclear.msg.confirm_del_ver, event);
-      if (window.confirm(dotclear.msg.confirm_del_ver)) return;
-      event.preventDefault();
-      return false;
+      return dotclear.confirm(dotclear.msg.confirm_del_ver, event);
     });
   }
 
@@ -222,11 +214,7 @@ window.addEventListener('load', () => {
     dotclear.enableShiftClick('#scform td input[type=checkbox]');
     dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
     document.querySelector('form input[type=submit][name=delscaction]')?.addEventListener('click', (event) => {
-      // Wait for Dotclear 2.33+
-      // return dotclear.confirm(dotclear.msg.confirm_del_sc, event);
-      if (window.confirm(dotclear.msg.confirm_del_sc)) return;
-      event.preventDefault();
-      return false;
+      return dotclear.confirm(dotclear.msg.confirm_del_sc, event);
     });
   }
 
