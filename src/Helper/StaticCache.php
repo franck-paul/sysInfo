@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -69,7 +70,7 @@ class StaticCache
         // List of existing cache files
         $str .= '<form action="' . App::backend()->getPageURL() . '" method="post" id="scform">';
 
-        $str .= '<table id="chk-table-result" class="sysinfo">';
+        $str .= '<table id="staticcache" class="sysinfo">';
         $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root)) .
            ', ' . __('last update:') . ' ' . date('Y-m-d H:i:s', (int) $cache->getMtime()) . '</caption>';
         $str .= '<thead><tr><th scope="col" class="nowrap" colspan="3">' . __('Cache subpath') . '</th>' .

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -54,7 +55,7 @@ class Globals
             'p_url'     => '2.23',
         ];
 
-        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' .
+        $str = '<table id="globals" class="sysinfo"><caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .

@@ -189,7 +189,9 @@ window.addEventListener('load', () => {
     }
     dotclear.enableShiftClick('#tplform td input[type=checkbox]');
     dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
-    document.querySelector('form input[type=submit][name=deltplaction]')?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_tpl, event));
+    document
+      .querySelector('form input[type=submit][name=deltplaction]')
+      ?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_tpl, event));
   }
 
   // Versions in DB
@@ -199,7 +201,9 @@ window.addEventListener('load', () => {
     }
     dotclear.enableShiftClick('#verform td input[type=checkbox]');
     dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
-    document.querySelector('form input[type=submit][name=delveraction]')?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_ver, event));
+    document
+      .querySelector('form input[type=submit][name=delveraction]')
+      ?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_ver, event));
   }
 
   // Static cache files
@@ -209,7 +213,9 @@ window.addEventListener('load', () => {
     }
     dotclear.enableShiftClick('#scform td input[type=checkbox]');
     dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-    document.querySelector('form input[type=submit][name=delscaction]')?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_sc, event));
+    document
+      .querySelector('form input[type=submit][name=delscaction]')
+      ?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_sc, event));
   }
 
   // Expand/Contract all (details)
@@ -240,4 +246,83 @@ window.addEventListener('load', () => {
       li.style.display = 'none';
     }
   }
+
+  // Cope with table sort for some results
+  const enableTableSort = (tableId) => {
+    const table = document.getElementById(tableId);
+    if (!table) {
+      return;
+    }
+    const headers = table.querySelectorAll('th');
+    const tableBody = table.querySelector('tbody');
+    const rows = tableBody.querySelectorAll('tr');
+    // Track sort directions
+    const directions = Array.from(headers).map((header) => {
+      '';
+    });
+    // Sort system
+    const sortColumn = (index) => {
+      // Get the current direction
+      const direction = directions[index] || 'asc';
+
+      // A factor based on the direction
+      const multiplier = direction === 'asc' ? 1 : -1;
+
+      // Clone the rows
+      const newRows = Array.from(rows);
+
+      // Sort rows by the content of cells
+      newRows.sort((rowA, rowB) => {
+        // Get the content of cells
+        const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+        const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+        switch (true) {
+          case cellA > cellB:
+            return 1 * multiplier;
+          case cellA < cellB:
+            return -1 * multiplier;
+          case cellA === cellB:
+            return 0;
+        }
+      });
+
+      // Remove old rows
+      for (const row of rows) tableBody.removeChild(row);
+
+      // Append new row
+      for (const row of newRows) tableBody.appendChild(row);
+
+      // Remove old headers class
+      for (const header of headers) {
+        header.classList.remove('sorted-asc');
+        header.classList.remove('sorted-desc');
+      }
+
+      // Set new header class
+      headers[index].classList.add(`sorted-${direction}`);
+
+      // Reverse the direction
+      directions[index] = direction === 'asc' ? 'desc' : 'asc';
+    };
+    if (headers.length)
+      for (let index = headers.length - 1; index >= 0; index--) {
+        headers[index].addEventListener('click', () => sortColumn(index));
+      }
+  };
+
+  // Add sorting mecanism to some tables
+  for (const table of [
+    'antispams',
+    'autoloads',
+    'constants',
+    'dotclear-config',
+    'dotclear-release',
+    'exceptions',
+    'permissions',
+    'restmethods',
+    'tplpaths',
+    'urls',
+  ])
+    enableTableSort(table);
 });

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -53,7 +54,7 @@ class Folders
             $folders += ['static' => DC_SC_CACHE_DIR];
         }
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Dotclear folders and files') . '</caption>' .
+        $str = '<table id="folders" class="sysinfo"><caption>' . __('Dotclear folders and files') . '</caption>' .
             '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
             '<th scope="col" class="maximal">' . __('Path') . '</th>' .
             '<th scope="col" class="nowrap">' . __('Status') . '</th></tr></thead>' .

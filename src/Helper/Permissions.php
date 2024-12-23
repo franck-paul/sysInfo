@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -27,7 +28,7 @@ class Permissions
     {
         $permissions = App::auth()->getPermissionsTypes();
 
-        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
+        $str = '<table id="permissions" class="sysinfo"><caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Type') . '</th>' .

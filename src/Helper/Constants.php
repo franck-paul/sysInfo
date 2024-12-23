@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -29,7 +30,7 @@ class Constants
         [$undefined, $constants] = self::getConstants();
 
         // Affichage des constantes remarquables de Dotclear
-        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
+        $str = '<table id="constants" class="sysinfo"><caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Constant') . '</th>' .

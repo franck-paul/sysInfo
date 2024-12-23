@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -54,7 +55,7 @@ class Versions
         $disabled = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
 
         $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="verform">' .
-            '<table id="chk-table-result" class="sysinfo">' .
+            '<table id="versions" class="sysinfo">' .
             '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .

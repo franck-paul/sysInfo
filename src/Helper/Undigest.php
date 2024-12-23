@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -93,7 +94,7 @@ class Undigest
             '-OLD',
         ];
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Unexpected or additional files') . '</caption>' .
+        $str = '<table id="undigest" class="sysinfo"><caption>' . __('Unexpected or additional files') . '</caption>' .
             '<thead>' .
             '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_primary) . ')' . '</th></tr>' .
             '</thead>' .

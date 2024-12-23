@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -35,7 +36,7 @@ class Autoload
             '<li>' . __('Root basedir:') . ' ' . ($autoloader->getRootBaseDir() !== '' ? $autoloader->getRootBaseDir() : __('Empty')) . '</li>' .
             '</ul>';
 
-        $str .= '<table id="chk-table-result" class="sysinfo"><caption>' . __('Namespaces') . ' (' . sprintf('%d', count($ns)) . ')' . '</caption>' .
+        $str .= '<table id="autoloads" class="sysinfo"><caption>' . __('Namespaces') . ' (' . sprintf('%d', count($ns)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Name') . '</th>' .

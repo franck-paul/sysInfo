@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -31,7 +32,7 @@ class TplPaths
         $paths         = App::frontend()->template()->getPath();
         $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
 
-        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' .
+        $str = '<table id="tplpaths" class="sysinfo"><caption>' . __('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col">' . __('Path') . '</th>' .
@@ -52,7 +53,7 @@ class TplPaths
                 }
             }
 
-            $str .= '<tr><td>' . CoreHelper::simplifyFilename($sub_path) . '</td><tr>';
+            $str .= '<tr><td>' . CoreHelper::simplifyFilename($sub_path) . '</td></tr>';
         }
 
         $str .= '</tbody></table>';

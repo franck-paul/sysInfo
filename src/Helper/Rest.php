@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -32,7 +33,7 @@ class Rest
         $rest    = App::rest();
         $methods = $rest->functions;
 
-        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
+        $str = '<table id="restmethods" class="sysinfo"><caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Method') . '</th>' .

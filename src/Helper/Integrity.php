@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -26,7 +27,7 @@ class Integrity
      */
     public static function render(): string
     {
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Dotclear digest integrity') . '</caption>' .
+        $str = '<table id="integrity" class="sysinfo"><caption>' . __('Dotclear digest integrity') . '</caption>' .
             '<thead><tr>' .
             '<th scope="col">' . __('File') . '</th>' .
             '<th scope="col">' . __('digest') . '</th>' .

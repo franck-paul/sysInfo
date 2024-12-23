@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -29,7 +30,7 @@ class Configuration
         [$release, $config] = self::getConfig();
 
         // Affichage des valeurs de release de Dotclear
-        $str = '<table id="chk-table-result-release" class="sysinfo"><caption>' . __('Dotclear release') . ' (' . sprintf('%d', count($release)) . ')' . '</caption>' .
+        $str = '<table id="dotclear-release" class="sysinfo"><caption>' . __('Dotclear release') . ' (' . sprintf('%d', count($release)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Key') . '</th>' .
@@ -46,7 +47,7 @@ class Configuration
         $str .= '</tbody></table>';
 
         // Affichage des valeurs de configuration de Dotclear
-        $str .= '<table id="chk-table-result-config" class="sysinfo"><caption>' . __('Dotclear configuration') . ' (' . sprintf('%d', count($config)) . ')' . '</caption>' .
+        $str .= '<table id="dotclear-config" class="sysinfo"><caption>' . __('Dotclear configuration') . ' (' . sprintf('%d', count($config)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('Key') . '</th>' .

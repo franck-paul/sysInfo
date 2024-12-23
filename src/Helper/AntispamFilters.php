@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -29,7 +30,7 @@ class AntispamFilters
         Antispam::initFilters();
         $fs = Antispam::$filters->getFilters();
 
-        $str = '<table id="chk-table-result" class="sysinfo"><caption>' . __('Antispam filters') . ' (' . sprintf('%d', count($fs)) . ')' . '</caption>' .
+        $str = '<table id="antispams" class="sysinfo"><caption>' . __('Antispam filters') . ' (' . sprintf('%d', count($fs)) . ')' . '</caption>' .
             '<thead>' .
             '<tr>' .
             '<th scope="col" class="nowrap">' . __('ID') . '</th>' .

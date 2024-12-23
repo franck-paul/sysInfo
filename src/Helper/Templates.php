@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -56,7 +57,7 @@ class Templates
         $paths = App::frontend()->template()->getPath();
 
         $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="tplform">' .
-            '<table id="chk-table-result" class="sysinfo">' .
+            '<table id="templates" class="sysinfo">' .
             '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . '</caption>' .
             '<thead>' .
             '<tr>' .
