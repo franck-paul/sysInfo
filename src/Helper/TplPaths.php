@@ -23,8 +23,6 @@ class TplPaths
 {
     /**
      * Return list of template paths
-     *
-     * @return     string
      */
     public static function render(): string
     {

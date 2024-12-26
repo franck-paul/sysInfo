@@ -29,8 +29,6 @@ class Templates
 {
     /**
      * Return list of compiled template's files
-     *
-     * @return     string
      */
     public static function render(): string
     {
@@ -132,8 +130,6 @@ class Templates
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception
-     *
-     * @return  string
      */
     public static function process(string $checklist): string
     {

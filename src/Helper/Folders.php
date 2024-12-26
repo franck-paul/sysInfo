@@ -26,8 +26,6 @@ class Folders
 {
     /**
      * Check generic Dotclear folders
-     *
-     * @return     string
      */
     public static function render(): string
     {

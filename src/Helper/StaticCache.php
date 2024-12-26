@@ -29,10 +29,8 @@ class StaticCache
 {
     /**
      * Return list of files in static cache
-     *
-     * @return     string  ( description_of_the_return_value )
      */
-    public static function render()
+    public static function render(): string
     {
         $blog_host = App::blog()->host();
         if (!str_ends_with((string) $blog_host, '/')) {
@@ -110,9 +108,7 @@ class StaticCache
      *
      * @param      string     $checklist  The checklist
      *
-     * @throws     Exception  (description)
-     *
-     * @return  string
+     * @throws     Exception
      */
     public static function process(string $checklist): string
     {

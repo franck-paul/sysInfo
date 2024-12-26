@@ -22,8 +22,6 @@ class Behaviors
 {
     /**
      * Return list of registered behaviours
-     *
-     * @return     string
      */
     public static function render(): string
     {

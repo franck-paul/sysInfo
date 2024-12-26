@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -31,8 +32,6 @@ class Repo
      * @param      string  $url        The url
      * @param      string  $title      The title
      * @param      string  $label      The label
-     *
-     * @return     string
      */
     private static function renderModules(bool $use_cache, string $url, string $title, string $label): string
     {
@@ -67,8 +66,6 @@ class Repo
      * @param      array<int|string, mixed>     $modules    The modules
      * @param      bool                         $use_cache  The use cache
      * @param      string                       $title      The title
-     *
-     * @return     string
      */
     private static function renderAltModules(array $modules, bool $use_cache, string $title): string
     {
@@ -121,8 +118,6 @@ class Repo
      *
      * @param      string          $id      The identifier
      * @param      ModuleDefine    $define  The define
-     *
-     * @return     string
      */
     private static function renderModule(string $id, ModuleDefine $define): string
     {
@@ -184,8 +179,6 @@ class Repo
      * Return list of available plugins
      *
      * @param      bool    $use_cache  Use cache if available
-     *
-     * @return     string
      */
     public static function renderPlugins(bool $use_cache = false): string
     {
@@ -201,8 +194,6 @@ class Repo
      * Return list of available themes
      *
      * @param      bool    $use_cache  Use cache if available
-     *
-     * @return     string
      */
     public static function renderThemes(bool $use_cache = false): string
     {
@@ -216,13 +207,11 @@ class Repo
 
     /**
      * Return list of available plugins from alternate repositories
-     *
-     * @return     string
      */
     public static function renderAltPlugins(): string
     {
         $plugins = App::plugins()->getDefines();
-        uasort($plugins, static fn ($a, $b) => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
+        uasort($plugins, static fn ($a, $b): int => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
 
         return self::renderAltModules(
             $plugins,
@@ -233,8 +222,6 @@ class Repo
 
     /**
      * Return list of available themes from alternate repositories
-     *
-     * @return     string
      */
     public static function renderAltThemes(): string
     {
@@ -243,7 +230,7 @@ class Repo
         }
 
         $themes = App::themes()->getDefines();
-        uasort($themes, static fn ($a, $b) => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
+        uasort($themes, static fn ($a, $b): int => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
 
         return self::renderAltModules(
             $themes,

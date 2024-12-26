@@ -22,8 +22,6 @@ class Configuration
 {
     /**
      * Return list of Dotclear Config values
-     *
-     * @return     string
      */
     public static function render(): string
     {

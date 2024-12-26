@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -44,8 +45,6 @@ class My extends MyPlugin
 
     /**
      * Return template path to use
-     *
-     * @return     string
      */
     public static function tplPath(): string
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -21,8 +22,6 @@ class BackendBehaviors
 {
     /**
      * dcMaintenanceInit Add cache emptying maintenance task
-     *
-     * @param  Maintenance $maintenance
      */
     public static function dcMaintenanceInit(Maintenance $maintenance): string
     {

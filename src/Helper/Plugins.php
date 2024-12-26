@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -22,8 +23,6 @@ class Plugins
 {
     /**
      * Return list of plugins
-     *
-     * @return     string
      */
     public static function render(): string
     {

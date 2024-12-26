@@ -22,8 +22,6 @@ class Integrity
 {
     /**
      * Check Dotclear digest integrity
-     *
-     * @return     string
      */
     public static function render(): string
     {

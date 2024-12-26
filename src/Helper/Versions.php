@@ -30,8 +30,6 @@ class Versions
 {
     /**
      * Return list of registered versions (core, plugins, themes, …)
-     *
-     * @return     string
      */
     public static function render(): string
     {
@@ -140,8 +138,6 @@ class Versions
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception
-     *
-     * @return  string
      */
     public static function process(string $checklist): string
     {

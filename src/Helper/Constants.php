@@ -22,8 +22,6 @@ class Constants
 {
     /**
      * Return list of Dotclear constants
-     *
-     * @return     string
      */
     public static function render(): string
     {

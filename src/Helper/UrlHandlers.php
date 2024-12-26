@@ -22,8 +22,6 @@ class UrlHandlers
 {
     /**
      * Return list of registered URLs
-     *
-     * @return     string
      */
     public static function render(): string
     {

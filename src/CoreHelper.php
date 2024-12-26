@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -39,8 +40,6 @@ class CoreHelper
 
     /**
      * Display full report in a textarea, ready to copy'n'paste
-     *
-     * @return     string
      */
     public static function renderReport(): string
     {
@@ -86,8 +85,6 @@ class CoreHelper
      * @param      string     $checklist  The checklist
      *
      * @throws     Exception
-     *
-     * @return  string
      */
     public static function downloadReport(string $checklist): string
     {
@@ -159,9 +156,7 @@ class CoreHelper
     }
 
     /**
-     * Emulate public prepend
-     *
-     * @return     string  template set name
+     * Emulate public prepend and return template set name
      */
     public static function publicPrepend(): string
     {
@@ -229,8 +224,6 @@ class CoreHelper
      *
      * @param      string        $file   The file
      * @param      bool          $real   Compute the real path if possible
-     *
-     * @return     string
      */
     public static function simplifyFilename(string $file, bool $real = false): string
     {
@@ -268,8 +261,6 @@ class CoreHelper
      * Return a string representation of a callable (usually callback)
      *
      * @param      mixed   $callable  The callable
-     *
-     * @return     string
      */
     public static function callableName(mixed $callable): string
     {

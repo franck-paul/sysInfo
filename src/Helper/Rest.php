@@ -22,8 +22,6 @@ class Rest
 {
     /**
      * Return list of REST methods
-     *
-     * @return     string
      */
     public static function render(): string
     {

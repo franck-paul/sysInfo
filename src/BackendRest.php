@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -167,7 +168,7 @@ class BackendRest
                     }
                 } while (count($dirs));
 
-                if ($content == '') {
+                if ($content === '') {
                     // No more dirs and files → send an empty raw
                     $k = explode(DIRECTORY_SEPARATOR, $root);
                     $content .= '<tr><td class="nowrap">' . $k[0] . '</td>' .         // 1st level

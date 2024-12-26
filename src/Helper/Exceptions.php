@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -20,8 +21,6 @@ class Exceptions
 {
     /**
      * Return list of known exceptions
-     *
-     * @return     string
      */
     public static function render(): string
     {

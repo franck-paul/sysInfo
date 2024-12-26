@@ -24,8 +24,6 @@ class Undigest
 {
     /**
      * Check Dotclear un-digest (find PHP files not in digest)
-     *
-     * @return     string
      */
     public static function render(): string
     {
@@ -111,7 +109,7 @@ class Undigest
                     }
                     $released[] = Path::real(implode(DIRECTORY_SEPARATOR, [$root,$m[2]]));
                 }
-                if (count($released)) {
+                if ($released !== []) {
                     foreach ($folders as $folder) {
                         $list_primary = self::scanDir(
                             implode(DIRECTORY_SEPARATOR, [$root, $folder]),
@@ -128,13 +126,13 @@ class Undigest
                             $ignore_folders
                         );
                     }
-                    if (count($list_primary)) {
+                    if ($list_primary !== []) {
                         foreach ($list_primary as $filename) {
                             if (!in_array($filename, $released)) {
                                 $unattended[] = $filename;
                             }
                         }
-                        if (count($unattended)) {
+                        if ($unattended !== []) {
                             foreach ($unattended as $filename) {
                                 $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
                             }
@@ -146,13 +144,13 @@ class Undigest
                     // Second part
                     $unattended = [];
                     $str .= '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_secondary) . ')' . '</th></tr>';
-                    if (count($list_secondary)) {
+                    if ($list_secondary !== []) {
                         foreach ($list_secondary as $filename) {
                             if (!in_array($filename, $released)) {
                                 $unattended[] = $filename;
                             }
                         }
-                        if (count($unattended)) {
+                        if ($unattended !== []) {
                             foreach ($unattended as $filename) {
                                 $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
                             }

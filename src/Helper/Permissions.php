@@ -21,8 +21,6 @@ class Permissions
 {
     /**
      * Return list of registered permissions
-     *
-     * @return     string
      */
     public static function render(): string
     {

@@ -25,8 +25,6 @@ class System
      * Return a quote and PHP and DB driver version
      *
      * @param   bool    $quote include quote
-     *
-     * @return     string
      */
     public static function render(bool $quote = true): string
     {
@@ -50,15 +48,13 @@ class System
 
         try {
             // Check OPCache
-            if (extension_loaded('opcache') || extension_loaded('Zend OPcache')) {
-                if (function_exists('\opcache_get_status')) {
-                    if (ini_get('opcache.restrict_api') !== false && ini_get('opcache.restrict_api') !== '') {
-                        // OPCache API is restricted via .htaccess (or web server config), PHP_INI_USER or PHP_INI_PERDIR
-                    } elseif (get_cfg_var('opcache.restrict_api') !== false && get_cfg_var('opcache.restrict_api') !== '') {
-                        // OPCache API is restricted via PHP.ini
-                    } elseif (is_array(opcache_get_status())) {
-                        $caches[] = 'OPCache';
-                    }
+            if ((extension_loaded('opcache') || extension_loaded('Zend OPcache')) && function_exists('\opcache_get_status')) {
+                if (ini_get('opcache.restrict_api') !== false && ini_get('opcache.restrict_api') !== '') {
+                    // OPCache API is restricted via .htaccess (or web server config), PHP_INI_USER or PHP_INI_PERDIR
+                } elseif (get_cfg_var('opcache.restrict_api') !== false && get_cfg_var('opcache.restrict_api') !== '') {
+                    // OPCache API is restricted via PHP.ini
+                } elseif (is_array(opcache_get_status())) {
+                    $caches[] = 'OPCache';
                 }
             }
             // Check APCu
@@ -154,12 +150,12 @@ class System
                 if (is_array($value)) {
                     $release .= '<li>' . $key . ' = <ul>';
                     foreach ($value as $subkey => $subvalue) {
-                        $release .= '<li>' . $subkey . ' = <strong>' . (string) $subvalue . '</strong></li>';
+                        $release .= '<li>' . $subkey . ' = <strong>' . $subvalue . '</strong></li>';
                     }
 
                     $release .= '</ul></li>';
                 } else {
-                    $release .= '<li>' . $key . ' = <strong>' . (string) $value . '</strong></li>';
+                    $release .= '<li>' . $key . ' = <strong>' . $value . '</strong></li>';
                 }
             }
 
@@ -185,8 +181,6 @@ class System
      *
      * @param      int     $intval     The intval
      * @param      string  $separator  The separator
-     *
-     * @return     string
      */
     private static function errorLevelToString(int $intval, string $separator = ','): string
     {

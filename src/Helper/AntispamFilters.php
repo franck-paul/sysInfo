@@ -21,8 +21,6 @@ class AntispamFilters
 {
     /**
      * Return list of antispam filters
-     *
-     * @return     string
      */
     public static function render(): string
     {

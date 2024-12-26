@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -32,13 +33,17 @@ class Frontend extends Process
         }
 
         App::behavior()->addBehaviors([
-            'publicBreadcrumb' => static function (?string $context) {
+            'publicBreadcrumb' => static function (?string $context): string {
                 if ($context == 'sysinfo') {
                     return __('System Information');
                 }
+
+                return '';
             },
-            'urlHandlerBeforeGetData' => static function (Ctx $ctx) {
+            'urlHandlerBeforeGetData' => static function (Ctx $ctx): string {
                 $ctx->http_cache = (bool) My::settings()->http_cache;
+
+                return '';
             },
         ]);
 
