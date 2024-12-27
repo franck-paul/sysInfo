@@ -257,9 +257,7 @@ window.addEventListener('load', () => {
     const tableBody = table.querySelector('tbody');
     const rows = tableBody.querySelectorAll('tr');
     // Track sort directions
-    const directions = Array.from(headers).map((header) => {
-      '';
-    });
+    const directions = Array.from(headers).map(() => {});
     // Sort system
     const sortColumn = (index) => {
       // Get the current direction
