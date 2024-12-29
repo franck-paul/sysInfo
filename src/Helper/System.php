@@ -58,7 +58,7 @@ class System
                 }
             }
             // Check APCu
-            if (function_exists('\apcu_cache_info') && !empty(\apcu_cache_info())) {
+            if (function_exists('\apcu_cache_info') && !in_array(\apcu_cache_info(), [[], false], true)) {
                 $caches[] = 'APCu';
             }
             // Check Memcache
