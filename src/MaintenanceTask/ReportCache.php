@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -33,7 +34,7 @@ class ReportCache extends MaintenanceTask
         $this->description = __('');
     }
 
-    public function execute()
+    public function execute(): bool|int
     {
         $cache_dir = Path::real(implode(DIRECTORY_SEPARATOR, [App::config()->cacheRoot(), My::id()]), false);
         if ($cache_dir !== false && is_dir($cache_dir)) {
