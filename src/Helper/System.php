@@ -19,6 +19,9 @@ use Dotclear\App;
 use Dotclear\Helper\File\Path;
 use Exception;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class System
 {
     /**

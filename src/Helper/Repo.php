@@ -23,6 +23,9 @@ use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
 use Dotclear\Module\Themes;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Repo
 {
     /**

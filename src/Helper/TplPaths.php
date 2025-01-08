@@ -19,6 +19,9 @@ use Dotclear\App;
 use Dotclear\Helper\File\Path;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class TplPaths
 {
     /**

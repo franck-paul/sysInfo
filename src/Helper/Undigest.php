@@ -20,6 +20,9 @@ use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Undigest
 {
     /**

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-29 18:35+0200\n"
+"POT-Creation-Date: 2025-01-08 17:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "System Information"
+msgid "sysInfo"
 msgstr ""
 
-msgid "sysInfo"
+msgid "System Information"
 msgstr ""
 
 msgid "…"
@@ -270,6 +270,9 @@ msgid "No cache file selected"
 msgstr ""
 
 msgid "Selected cache files have been deleted."
+msgstr ""
+
+msgid "Statuses"
 msgstr ""
 
 msgid "Live long and prosper."

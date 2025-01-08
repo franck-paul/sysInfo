@@ -17,6 +17,9 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class AdminUrls
 {
     /**

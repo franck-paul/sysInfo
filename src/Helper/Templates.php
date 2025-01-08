@@ -25,6 +25,9 @@ use Dotclear\Plugin\sysInfo\CoreHelper;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Templates
 {
     /**

@@ -18,6 +18,9 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 use Dotclear\App;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Behaviors
 {
     /**

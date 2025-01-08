@@ -22,6 +22,9 @@ use Dotclear\Helper\Html\Template\Template;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 use Exception;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Folders
 {
     /**

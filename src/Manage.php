@@ -41,6 +41,7 @@ use Dotclear\Plugin\sysInfo\Helper\Plugins;
 use Dotclear\Plugin\sysInfo\Helper\Repo;
 use Dotclear\Plugin\sysInfo\Helper\Rest;
 use Dotclear\Plugin\sysInfo\Helper\StaticCache;
+use Dotclear\Plugin\sysInfo\Helper\Statuses;
 use Dotclear\Plugin\sysInfo\Helper\System;
 use Dotclear\Plugin\sysInfo\Helper\Templates;
 use Dotclear\Plugin\sysInfo\Helper\TplPaths;
@@ -92,6 +93,7 @@ class Manage extends Process
                 __('Behaviours')          => 'behaviours',
                 __('Admin URLs')          => 'adminurls',
                 __('Types of permission') => 'permissions',
+                __('Statuses')            => 'statuses',
             ],
 
             __('Templates') => [
@@ -293,6 +295,9 @@ class Manage extends Process
 
             // Get list of exceptions
             'exceptions' => Exceptions::render(),
+
+            // Get list of statuses
+            'statuses' => Statuses::render(),
 
             // Display PHP version and DB version
             default => System::render()

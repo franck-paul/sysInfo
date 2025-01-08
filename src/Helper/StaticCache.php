@@ -25,6 +25,9 @@ use Dotclear\Plugin\sysInfo\My;
 use Exception;
 use form;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class StaticCache
 {
     /**

@@ -17,12 +17,13 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Formaters
 {
     /**
      * Return list of formaters (syntaxes coped by installed editors)
-     *
-     * @return     string  ( description_of_the_return_value )
      */
     public static function render(): string
     {

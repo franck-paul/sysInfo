@@ -26,6 +26,9 @@ use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Versions
 {
     /**

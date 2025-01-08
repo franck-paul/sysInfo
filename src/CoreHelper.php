@@ -24,10 +24,16 @@ use Dotclear\Helper\Html\Form\Hidden;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Module\ModuleDefine;
+use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
+use Dotclear\Plugin\sysInfo\Helper\AntispamFilters;
+use Dotclear\Plugin\sysInfo\Helper\Configuration;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
+use Dotclear\Plugin\sysInfo\Helper\Formaters;
 use Dotclear\Plugin\sysInfo\Helper\Globals;
+use Dotclear\Plugin\sysInfo\Helper\Permissions;
 use Dotclear\Plugin\sysInfo\Helper\Plugins;
+use Dotclear\Plugin\sysInfo\Helper\Statuses;
 use Dotclear\Plugin\sysInfo\Helper\System;
 use Dotclear\Plugin\sysInfo\Helper\TplPaths;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
@@ -49,13 +55,19 @@ class CoreHelper
         echo System::render(false);
 
         echo Constants::render();
+        echo Configuration::render();
         echo Folders::render();
         echo Globals::render();
 
         echo UrlHandlers::render();
+        echo AdminUrls::render();
+        echo Permissions::render();
+        echo Statuses::render();
+        echo Formaters::render();
 
         echo TplPaths::render();
 
+        echo AntispamFilters::render();
         echo Plugins::render();
 
         // Get capture content

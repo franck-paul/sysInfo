@@ -17,6 +17,9 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class PhpInfo
 {
     /**

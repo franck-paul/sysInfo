@@ -17,12 +17,13 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Autoloader;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class Autoload
 {
     /**
      * Return autoloader infos
-     *
-     * @return     string  ( description_of_the_return_value )
      */
     public static function render(): string
     {

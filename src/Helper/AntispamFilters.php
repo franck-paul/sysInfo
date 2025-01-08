@@ -17,6 +17,9 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\Plugin\antispam\Antispam;
 
+/**
+ * @todo switch Helper/Html/Form/...
+ */
 class AntispamFilters
 {
     /**
