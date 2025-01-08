@@ -10,8 +10,8 @@
 
 use Dotclear\Helper\L10n;
 
-L10n::$locales['System Information'] = 'Πληροφορίες συστήματος';
 L10n::$locales['sysInfo'] = 'sysInfo';
+L10n::$locales['System Information'] = 'Πληροφορίες συστήματος';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(άδειο)';
 L10n::$locales['Report'] = 'Αναφορά';
@@ -95,6 +95,7 @@ L10n::$locales['Cache file'] = 'Αρχείο cache';
 L10n::$locales['Delete selected cache files'] = 'Διαγραφή επιλεγμένων αρχείων cache';
 L10n::$locales['No cache file selected'] = 'Δεν έχει επιλεγεί αρχείο cache';
 L10n::$locales['Selected cache files have been deleted.'] = 'Επιλεγμένα αρχεία cache έχουν διαγραφεί.';
+L10n::$locales['Statuses'] = 'Καταστάσεις';
 L10n::$locales['Live long and prosper.'] = 'Ζήσε μακροημέρευση και ευημερία.';
 L10n::$locales['To infinity and beyond.'] = 'Στο άπειρο και πέρα από αυτό.';
 L10n::$locales['So long, and thanks for all the fish.'] = 'Αντίο, και ευχαριστώ για όλα τα ψάρια.';
