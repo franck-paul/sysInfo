@@ -25,8 +25,6 @@ class Statuses
 {
     /**
      * Return list of statuses
-     *
-     * @return     string
      */
     public static function render(): string
     {
