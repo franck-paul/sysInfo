@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Date;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
@@ -64,6 +65,8 @@ class Plugins
                     $value = '<a href="' . $value . '">' . $value . '</a>';
                 } elseif ($key == 'root') {
                     $value = CoreHelper::simplifyFilename($value, true);
+                } elseif ($key === 'date') {
+                    $value = Date::dt2str(App::blog()->settings()->get('system')->get('date_format'), $value, App::auth()->getInfo('user_tz')) . ' ' . Date::dt2str(App::blog()->settings()->get('system')->get('time_format'), $value, App::auth()->getInfo('user_tz'));
                 }
 
                 $str .= '<li>' . $key . ' = ' . $value . '</li>';
