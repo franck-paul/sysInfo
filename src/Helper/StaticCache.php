@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
+use DateTimeImmutable;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
@@ -72,8 +73,11 @@ class StaticCache
         $str .= '<form action="' . App::backend()->getPageURL() . '" method="post" id="scform">';
 
         $str .= '<table id="staticcache" class="sysinfo">';
-        $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root)) .
-           ', ' . __('last update:') . ' ' . date('Y-m-d H:i:s', (int) $cache->getMtime()) . '</caption>';
+        $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root));
+        $mtime = $cache->getMtime();
+        if ($mtime !== false) {
+            $str .= ', ' . __('last update:') . ' ' . (new DateTimeImmutable())->setTimestamp((int) $cache->getMtime())->format('c') . '</caption>';
+        }
         $str .= '<thead><tr><th scope="col" class="nowrap" colspan="3">' . __('Cache subpath') . '</th>' .
             '<th scope="col" class="nowrap maximal">' . __('Cache file') . '</th>' .
             '</tr>' .
