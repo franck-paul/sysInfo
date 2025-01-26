@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 17:54+0100\n"
+"POT-Creation-Date: 2025-01-26 11:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid "System Information"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/BackendRest.php:101
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:91
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:95
 msgid "…"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 #: ../git-plugins/sysInfo/src/Helper/Exceptions.php:43
 #: ../git-plugins/sysInfo/src/Helper/Folders.php:59
 #: ../git-plugins/sysInfo/src/Helper/Globals.php:62
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:40
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:38
 msgid "Name"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgid "Antispam filters"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/AntispamFilters.php:37
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:38
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:36
 msgid "ID"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Configuration.php:55
 #: ../git-plugins/sysInfo/src/Helper/Permissions.php:35
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:37
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:35
 #: ../git-plugins/sysInfo/src/Helper/UrlHandlers.php:39
 msgid "Type"
 msgstr ""
@@ -277,15 +277,15 @@ msgstr ""
 msgid "Types of permission"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Plugins.php:37
+#: ../git-plugins/sysInfo/src/Helper/Plugins.php:38
 msgid "Plugins (in loading order)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Plugins.php:38
+#: ../git-plugins/sysInfo/src/Helper/Plugins.php:39
 msgid " (priority, name)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Plugins.php:38
+#: ../git-plugins/sysInfo/src/Helper/Plugins.php:39
 msgid "Plugin id"
 msgstr ""
 
@@ -348,57 +348,57 @@ msgstr ""
 msgid "Method"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:44
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:53
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:45
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:54
 msgid "Static cache directory does not exists"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:57
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:58
 msgid "Static cache directory is not readable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:65
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:66
 msgid "URL:"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:67
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:68
 msgid " → "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:75
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:76
 msgid "List of static cache files in"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:76
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:79
 msgid "last update:"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:77
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:81
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:67
 msgid "Cache subpath"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:78
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:82
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:68
 msgid "Cache file"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:104
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:108
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:125
 msgid "Delete selected cache files"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:123
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:127
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:144
 msgid "No cache file selected"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:137
+#: ../git-plugins/sysInfo/src/Helper/StaticCache.php:141
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:160
 msgid "Selected cache files have been deleted."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:34
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:32
 #: ../git-plugins/sysInfo/src/Manage.php:96
 msgid "Statuses"
 msgstr ""
