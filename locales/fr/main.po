@@ -277,7 +277,7 @@ msgid "Selected cache files have been deleted."
 msgstr "Les fichiers cache sélectionnés ont été supprimés."
 
 msgid "Statuses"
-msgstr "Statuts"
+msgstr "États"
 
 msgid "Live long and prosper."
 msgstr "Longue vie et prospérité."
