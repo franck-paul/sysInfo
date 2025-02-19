@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 17:54+0100\n"
+"POT-Creation-Date: 2025-02-19 11:13+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -128,15 +128,6 @@ msgstr "초"
 msgid "Registered Exceptions"
 msgstr "등록 예외"
 
-msgid "Dotclear folders and files"
-msgstr "폴더 및 파일 지우기"
-
-msgid "Path"
-msgstr "경로"
-
-msgid "Status"
-msgstr "상태"
-
 msgid "Writable"
 msgstr "쓰기 가능"
 
@@ -145,6 +136,15 @@ msgstr "읽기 전용"
 
 msgid "Unknown"
 msgstr "알 수 없음"
+
+msgid "Dotclear folders and files"
+msgstr "폴더 및 파일 지우기"
+
+msgid "Path"
+msgstr "경로"
+
+msgid "Status"
+msgstr "상태"
 
 msgid "Editors and their supported syntaxes"
 msgstr "편집기 및 지원되는 구문"
@@ -155,15 +155,24 @@ msgstr "편집기"
 msgid "Syntax"
 msgstr "구문"
 
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "*** 이후 사용 중단 %s ***"
+
 msgid "Global variables"
 msgstr "전역 변수"
 
 msgid "Content"
 msgstr "콘텐츠"
 
-#, php-format
-msgid "*** deprecated since %s ***"
-msgstr "*** 이후 사용 중단 %s ***"
+msgid "Not readable"
+msgstr "읽을 수 없음"
+
+msgid "Everything is fine."
+msgstr "모든 것이 괜찮습니다."
+
+msgid "Unable to read digests file."
+msgstr "다이제스트 파일을 읽을 수 없습니다."
 
 msgid "Dotclear digest integrity"
 msgstr "도트클리어 다이제스트 무결성"
@@ -179,15 +188,6 @@ msgstr "md5"
 
 msgid "md5 (experimental)"
 msgstr "MD5(실험적)"
-
-msgid "Not readable"
-msgstr "읽을 수 없음"
-
-msgid "Everything is fine."
-msgstr "모든 것이 괜찮습니다."
-
-msgid "Unable to read digests file."
-msgstr "다이제스트 파일을 읽을 수 없습니다."
 
 msgid "Types of permission"
 msgstr "권한 유형"
@@ -210,14 +210,14 @@ msgstr "캐시"
 msgid "Repository is unreachable"
 msgstr "리포지토리에 연결할 수 없습니다."
 
-msgid "Repositories"
-msgstr "리포지토리"
-
 msgid "in cache"
 msgstr "캐시"
 
 msgid "Repository content"
 msgstr "리포지토리 콘텐츠"
+
+msgid "Repositories"
+msgstr "리포지토리"
 
 msgid "Repository plugins list"
 msgstr "리포지토리 플러그인 목록"
@@ -249,17 +249,20 @@ msgstr "정적 캐시 디렉터리가 존재하지 않습니다."
 msgid "Static cache directory is not readable"
 msgstr "정적 캐시 디렉터리를 읽을 수 없습니다."
 
-msgid "URL:"
-msgstr "URL:"
-
-msgid " → "
-msgstr " → "
-
 msgid "List of static cache files in"
 msgstr "의 정적 캐시 파일 목록"
 
 msgid "last update:"
 msgstr "마지막 업데이트:"
+
+msgid "URL converter"
+msgstr "URL 변환기"
+
+msgid "URL:"
+msgstr "URL:"
+
+msgid " → "
+msgstr " → "
 
 msgid "Cache subpath"
 msgstr "캐시 하위 경로"
@@ -314,6 +317,10 @@ msgstr "없음"
 
 msgid "Server software: "
 msgstr "서버 소프트웨어: "
+
+#, php-format
+msgid "%s server"
+msgstr "%s 서버"
 
 msgid "System info"
 msgstr "시스템 정보"
@@ -388,10 +395,6 @@ msgstr "업데이트 정보"
 msgid "Release info"
 msgstr "릴리스 정보"
 
-#, php-format
-msgid "%s server"
-msgstr "%s 서버"
-
 msgid "List of compiled templates in cache"
 msgstr "캐시에 컴파일된 템플릿 목록"
 
@@ -407,11 +410,11 @@ msgstr "템플릿 경로 목록"
 msgid "Display template tags"
 msgstr "템플릿 태그 표시"
 
-msgid "Unexpected or additional files"
-msgstr "예기치 않은 파일 또는 추가 파일"
-
 msgid "Nothing unexpected or additional found."
 msgstr "예상치 못한 추가 발견 사항은 없습니다."
+
+msgid "Unexpected or additional files"
+msgstr "예기치 않은 파일 또는 추가 파일"
 
 msgid "List of known URLs"
 msgstr "알려진 URL 목록"
@@ -421,15 +424,6 @@ msgstr "기본 URL"
 
 msgid "Regular expression"
 msgstr "정규식"
-
-msgid "List of versions registered in the database"
-msgstr "데이터베이스에 등록된 버전 목록"
-
-msgid "Module"
-msgstr "모듈"
-
-msgid "Version"
-msgstr "버전"
 
 msgid "Core"
 msgstr "핵심"
@@ -445,6 +439,15 @@ msgstr "사용되지 않음"
 
 msgid "Not found but may exist"
 msgstr "찾을 수 없지만 존재할 수 있음"
+
+msgid "List of versions registered in the database"
+msgstr "데이터베이스에 등록된 버전 목록"
+
+msgid "Module"
+msgstr "모듈"
+
+msgid "Version"
+msgstr "버전"
 
 msgid "Update versions"
 msgstr "버전 업데이트"
