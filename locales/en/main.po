@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-26 11:03+0100\n"
+"POT-Creation-Date: 2025-02-19 11:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,15 +124,6 @@ msgstr ""
 msgid "Registered Exceptions"
 msgstr ""
 
-msgid "Dotclear folders and files"
-msgstr ""
-
-msgid "Path"
-msgstr ""
-
-msgid "Status"
-msgstr ""
-
 msgid "Writable"
 msgstr ""
 
@@ -140,6 +131,15 @@ msgid "Readonly"
 msgstr ""
 
 msgid "Unknown"
+msgstr ""
+
+msgid "Dotclear folders and files"
+msgstr ""
+
+msgid "Path"
+msgstr ""
+
+msgid "Status"
 msgstr ""
 
 msgid "Editors and their supported syntaxes"
@@ -151,14 +151,23 @@ msgstr ""
 msgid "Syntax"
 msgstr ""
 
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr ""
+
 msgid "Global variables"
 msgstr ""
 
 msgid "Content"
 msgstr ""
 
-#, php-format
-msgid "*** deprecated since %s ***"
+msgid "Not readable"
+msgstr ""
+
+msgid "Everything is fine."
+msgstr ""
+
+msgid "Unable to read digests file."
 msgstr ""
 
 msgid "Dotclear digest integrity"
@@ -174,15 +183,6 @@ msgid "md5"
 msgstr ""
 
 msgid "md5 (experimental)"
-msgstr ""
-
-msgid "Not readable"
-msgstr ""
-
-msgid "Everything is fine."
-msgstr ""
-
-msgid "Unable to read digests file."
 msgstr ""
 
 msgid "Types of permission"
@@ -206,13 +206,13 @@ msgstr ""
 msgid "Repository is unreachable"
 msgstr ""
 
-msgid "Repositories"
-msgstr ""
-
 msgid "in cache"
 msgstr ""
 
 msgid "Repository content"
+msgstr ""
+
+msgid "Repositories"
 msgstr ""
 
 msgid "Repository plugins list"
@@ -245,16 +245,19 @@ msgstr ""
 msgid "Static cache directory is not readable"
 msgstr ""
 
-msgid "URL:"
-msgstr ""
-
-msgid " → "
-msgstr ""
-
 msgid "List of static cache files in"
 msgstr ""
 
 msgid "last update:"
+msgstr ""
+
+msgid "URL converter"
+msgstr ""
+
+msgid "URL:"
+msgstr ""
+
+msgid " → "
 msgstr ""
 
 msgid "Cache subpath"
@@ -309,6 +312,10 @@ msgid "None"
 msgstr ""
 
 msgid "Server software: "
+msgstr ""
+
+#, php-format
+msgid "%s server"
 msgstr ""
 
 msgid "System info"
@@ -384,10 +391,6 @@ msgstr ""
 msgid "Release info"
 msgstr ""
 
-#, php-format
-msgid "%s server"
-msgstr ""
-
 msgid "List of compiled templates in cache"
 msgstr ""
 
@@ -403,10 +406,10 @@ msgstr ""
 msgid "Display template tags"
 msgstr ""
 
-msgid "Unexpected or additional files"
+msgid "Nothing unexpected or additional found."
 msgstr ""
 
-msgid "Nothing unexpected or additional found."
+msgid "Unexpected or additional files"
 msgstr ""
 
 msgid "List of known URLs"
@@ -416,15 +419,6 @@ msgid "base URL"
 msgstr ""
 
 msgid "Regular expression"
-msgstr ""
-
-msgid "List of versions registered in the database"
-msgstr ""
-
-msgid "Module"
-msgstr ""
-
-msgid "Version"
 msgstr ""
 
 msgid "Core"
@@ -440,6 +434,15 @@ msgid "Obsolete"
 msgstr ""
 
 msgid "Not found but may exist"
+msgstr ""
+
+msgid "List of versions registered in the database"
+msgstr ""
+
+msgid "Module"
+msgstr ""
+
+msgid "Version"
 msgstr ""
 
 msgid "Update versions"
