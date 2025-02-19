@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 17:54+0100\n"
+"POT-Creation-Date: 2025-02-19 11:13+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/open-time/teams/109573/ru/)\n"
@@ -128,15 +128,6 @@ msgstr "секунды"
 msgid "Registered Exceptions"
 msgstr "Зарегистрированные исключения"
 
-msgid "Dotclear folders and files"
-msgstr "Папки и файлы Dotclear"
-
-msgid "Path"
-msgstr "Путь"
-
-msgid "Status"
-msgstr "Статус"
-
 msgid "Writable"
 msgstr "Записываемый"
 
@@ -145,6 +136,15 @@ msgstr "Доступно для чтения"
 
 msgid "Unknown"
 msgstr "Неизвестно"
+
+msgid "Dotclear folders and files"
+msgstr "Папки и файлы Dotclear"
+
+msgid "Path"
+msgstr "Путь"
+
+msgid "Status"
+msgstr "Статус"
 
 msgid "Editors and their supported syntaxes"
 msgstr "Редакторы и поддерживаемые ими синтаксисы"
@@ -155,15 +155,24 @@ msgstr "Редактор"
 msgid "Syntax"
 msgstr "Синтаксис"
 
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "*** deprecated since %s ***"
+
 msgid "Global variables"
 msgstr "Глобальные переменные"
 
 msgid "Content"
 msgstr "Содержание"
 
-#, php-format
-msgid "*** deprecated since %s ***"
-msgstr "*** deprecated since %s ***"
+msgid "Not readable"
+msgstr "Не читается"
+
+msgid "Everything is fine."
+msgstr "Все в порядке."
+
+msgid "Unable to read digests file."
+msgstr "Невозможно прочитать файл дайджестов."
 
 msgid "Dotclear digest integrity"
 msgstr "Целостность дайджеста Dotclear"
@@ -179,15 +188,6 @@ msgstr "md5"
 
 msgid "md5 (experimental)"
 msgstr "md5 (экспериментальный)"
-
-msgid "Not readable"
-msgstr "Не читается"
-
-msgid "Everything is fine."
-msgstr "Все в порядке."
-
-msgid "Unable to read digests file."
-msgstr "Невозможно прочитать файл дайджестов."
 
 msgid "Types of permission"
 msgstr "Виды разрешений"
@@ -210,14 +210,14 @@ msgstr "кэш"
 msgid "Repository is unreachable"
 msgstr "Хранилище недоступно"
 
-msgid "Repositories"
-msgstr "Репозитории"
-
 msgid "in cache"
 msgstr "в кэше"
 
 msgid "Repository content"
 msgstr "Содержание репозитория"
+
+msgid "Repositories"
+msgstr "Репозитории"
 
 msgid "Repository plugins list"
 msgstr "Список плагинов репозитория"
@@ -249,17 +249,20 @@ msgstr "Директория статического кэша не сущест
 msgid "Static cache directory is not readable"
 msgstr "Каталог статического кэша не доступен для чтения"
 
-msgid "URL:"
-msgstr "URL:"
-
-msgid " → "
-msgstr " → "
-
 msgid "List of static cache files in"
 msgstr "Список статических файлов кэша в"
 
 msgid "last update:"
 msgstr "последнее обновление:"
+
+msgid "URL converter"
+msgstr "Конвертер URL"
+
+msgid "URL:"
+msgstr "URL:"
+
+msgid " → "
+msgstr " → "
 
 msgid "Cache subpath"
 msgstr "Подпуть к кэшу"
@@ -314,6 +317,10 @@ msgstr "Нет"
 
 msgid "Server software: "
 msgstr "Серверное программное обеспечение: "
+
+#, php-format
+msgid "%s server"
+msgstr "%s сервер"
 
 msgid "System info"
 msgstr "Системная информация"
@@ -388,10 +395,6 @@ msgstr "Обновление информации"
 msgid "Release info"
 msgstr "Информация о выпуске"
 
-#, php-format
-msgid "%s server"
-msgstr "%s сервер"
-
 msgid "List of compiled templates in cache"
 msgstr "Список скомпилированных шаблонов в кэше"
 
@@ -407,11 +410,11 @@ msgstr "Список путей шаблонов"
 msgid "Display template tags"
 msgstr "Отображение тегов шаблона"
 
-msgid "Unexpected or additional files"
-msgstr "Неожиданные или дополнительные файлы"
-
 msgid "Nothing unexpected or additional found."
 msgstr "Ничего неожиданного или дополнительного не обнаружено."
+
+msgid "Unexpected or additional files"
+msgstr "Неожиданные или дополнительные файлы"
 
 msgid "List of known URLs"
 msgstr "Список известных URL-адресов"
@@ -421,15 +424,6 @@ msgstr "базовый URL"
 
 msgid "Regular expression"
 msgstr "Регулярное выражение"
-
-msgid "List of versions registered in the database"
-msgstr "Список версий, зарегистрированных в базе данных"
-
-msgid "Module"
-msgstr "Модуль"
-
-msgid "Version"
-msgstr "Версия"
 
 msgid "Core"
 msgstr "Ядро"
@@ -445,6 +439,15 @@ msgstr "Устаревшие"
 
 msgid "Not found but may exist"
 msgstr "Не найдено, но может существовать"
+
+msgid "List of versions registered in the database"
+msgstr "Список версий, зарегистрированных в базе данных"
+
+msgid "Module"
+msgstr "Модуль"
+
+msgid "Version"
+msgstr "Версия"
 
 msgid "Update versions"
 msgstr "Версии обновления"

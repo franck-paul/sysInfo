@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 17:54+0100\n"
+"POT-Creation-Date: 2025-02-19 11:13+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -128,15 +128,6 @@ msgstr "秒"
 msgid "Registered Exceptions"
 msgstr "已登记的例外情况"
 
-msgid "Dotclear folders and files"
-msgstr "Dotclear 文件夹和文件"
-
-msgid "Path"
-msgstr "路径"
-
-msgid "Status"
-msgstr "状况"
-
 msgid "Writable"
 msgstr "可写"
 
@@ -145,6 +136,15 @@ msgstr "只读"
 
 msgid "Unknown"
 msgstr "不详"
+
+msgid "Dotclear folders and files"
+msgstr "Dotclear 文件夹和文件"
+
+msgid "Path"
+msgstr "路径"
+
+msgid "Status"
+msgstr "状况"
 
 msgid "Editors and their supported syntaxes"
 msgstr "编辑器和它们支持的语法"
@@ -155,15 +155,24 @@ msgstr "编辑"
 msgid "Syntax"
 msgstr "语法"
 
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "***自%s 起被废弃 ***"
+
 msgid "Global variables"
 msgstr "全球变量"
 
 msgid "Content"
 msgstr "内容"
 
-#, php-format
-msgid "*** deprecated since %s ***"
-msgstr "***自%s 起被废弃 ***"
+msgid "Not readable"
+msgstr "无法阅读"
+
+msgid "Everything is fine."
+msgstr "一切都很好。"
+
+msgid "Unable to read digests file."
+msgstr "无法读取摘要文件。"
 
 msgid "Dotclear digest integrity"
 msgstr "Dotclear摘要的完整性"
@@ -179,15 +188,6 @@ msgstr "md5"
 
 msgid "md5 (experimental)"
 msgstr "md5 (实验性)"
-
-msgid "Not readable"
-msgstr "无法阅读"
-
-msgid "Everything is fine."
-msgstr "一切都很好。"
-
-msgid "Unable to read digests file."
-msgstr "无法读取摘要文件。"
 
 msgid "Types of permission"
 msgstr "许可的类型"
@@ -210,14 +210,14 @@ msgstr "缓存"
 msgid "Repository is unreachable"
 msgstr "存储库无法访问"
 
-msgid "Repositories"
-msgstr "储存库"
-
 msgid "in cache"
 msgstr "缓存中"
 
 msgid "Repository content"
 msgstr "存储库内容"
+
+msgid "Repositories"
+msgstr "储存库"
 
 msgid "Repository plugins list"
 msgstr "存储库插件列表"
@@ -249,17 +249,20 @@ msgstr "静态缓存目录不存在"
 msgid "Static cache directory is not readable"
 msgstr "静态缓存目录不可读"
 
-msgid "URL:"
-msgstr "URL："
-
-msgid " → "
-msgstr "→ "
-
 msgid "List of static cache files in"
 msgstr "中的静态缓存文件列表。"
 
 msgid "last update:"
 msgstr "最后更新："
+
+msgid "URL converter"
+msgstr "URL 转换器"
+
+msgid "URL:"
+msgstr "URL："
+
+msgid " → "
+msgstr "→ "
 
 msgid "Cache subpath"
 msgstr "缓存子路径"
@@ -314,6 +317,10 @@ msgstr "无"
 
 msgid "Server software: "
 msgstr "服务器软件： "
+
+#, php-format
+msgid "%s server"
+msgstr "%s 服务器"
 
 msgid "System info"
 msgstr "系统信息"
@@ -388,10 +395,6 @@ msgstr "更新信息"
 msgid "Release info"
 msgstr "发布信息"
 
-#, php-format
-msgid "%s server"
-msgstr "%s 服务器"
-
 msgid "List of compiled templates in cache"
 msgstr "缓存中的编译模板列表"
 
@@ -407,11 +410,11 @@ msgstr "模板路径列表"
 msgid "Display template tags"
 msgstr "显示模板标签"
 
-msgid "Unexpected or additional files"
-msgstr "意外或额外文件"
-
 msgid "Nothing unexpected or additional found."
 msgstr "没有发现任何意外或额外情况。"
+
+msgid "Unexpected or additional files"
+msgstr "意外或额外文件"
 
 msgid "List of known URLs"
 msgstr "已知的URL列表"
@@ -421,15 +424,6 @@ msgstr "基准网址"
 
 msgid "Regular expression"
 msgstr "正则表达式"
-
-msgid "List of versions registered in the database"
-msgstr "在数据库中注册的版本列表"
-
-msgid "Module"
-msgstr "模块"
-
-msgid "Version"
-msgstr "版本"
 
 msgid "Core"
 msgstr "核心"
@@ -445,6 +439,15 @@ msgstr "已过时的"
 
 msgid "Not found but may exist"
 msgstr "未发现但可能存在"
+
+msgid "List of versions registered in the database"
+msgstr "在数据库中注册的版本列表"
+
+msgid "Module"
+msgstr "模块"
+
+msgid "Version"
+msgstr "版本"
 
 msgid "Update versions"
 msgstr "更新版本"
