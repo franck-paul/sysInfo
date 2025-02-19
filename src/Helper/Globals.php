@@ -16,11 +16,18 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Globals
 {
     /**
@@ -56,49 +63,84 @@ class Globals
             'p_url'     => '2.23',
         ];
 
-        $str = '<table id="globals" class="sysinfo"><caption>' . __('Global variables') . ' (' . sprintf('%d', count($variables)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Content') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-        // First loop for non deprecated variables
-        foreach ($variables as $variable) {
-            if (!in_array($variable, array_keys($deprecated))) {
-                $str .= '<tr><td class="nowrap">' . $variable . '</td>';
-                if (is_array($GLOBALS[$variable])) {
-                    $values = $GLOBALS[$variable];
-                    App::lexical()->lexicalKeySort($values, App::lexical()::ADMIN_LOCALE);
-                    $content = '<ul>';
-                    foreach ($values as $key => $value) {
-                        $type = '';
-                        $content .= '<li><strong>' . $key . '</strong> = ' . '<code>' . CoreHelper::simplifyFilename(print_r($value, true)) . '</code>' . $type . '</li>';
+        $globals = function ($non_deprecated = true) use ($variables, $deprecated, $max_length) {
+            foreach ($variables as $variable) {
+                if ($non_deprecated && !in_array($variable, array_keys($deprecated))) {
+                    if (is_array($GLOBALS[$variable])) {
+                        $values = $GLOBALS[$variable];
+                        App::lexical()->lexicalKeySort($values, App::lexical()::ADMIN_LOCALE);
+
+                        $lines = function ($values) {
+                            foreach ($values as $key => $value) {
+                                yield (new Li())
+                                    ->separator(' ')
+                                    ->items([
+                                        (new Text('strong', $key)),
+                                        (new Text(null, '=')),
+                                        (new Text('code', CoreHelper::simplifyFilename(print_r($value, true)))),
+                                    ]);
+                            }
+                        };
+
+                        $content = (new Ul())
+                            ->items([
+                                ... $lines($values),
+                            ]);
+                    } else {
+                        $value = CoreHelper::simplifyFilename(print_r($GLOBALS[$variable], true));
+                        if (mb_strlen($value) > $max_length) {
+                            $value = mb_substr($value, 0, $max_length) . ' …';
+                        }
+
+                        $content = (new Text(null, $value));
                     }
 
-                    $content .= '</ul>';
-                } else {
-                    $content = CoreHelper::simplifyFilename(print_r($GLOBALS[$variable], true));
-                    if (mb_strlen($content) > $max_length) {
-                        $content = mb_substr($content, 0, $max_length) . ' …';
-                    }
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text($variable),
+                            (new td())
+                                ->items([
+                                    $content,
+                                ]),
+                        ]);
+                } elseif (!$non_deprecated && in_array($variable, array_keys($deprecated))) {
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text($variable),
+                            (new td())
+                                ->class(['maximal', 'deprecated'])
+                                ->text(sprintf(__('*** deprecated since %s ***'), $deprecated[$variable])),
+                        ]);
                 }
-
-                $str .= '<td class="maximal">' . $content . '</td>';
-                $str .= '</tr>';
             }
-        }
+        };
 
-        // Second loop for deprecated variables
-        foreach ($variables as $variable) {
-            if (in_array($variable, array_keys($deprecated))) {
-                $str .= '<tr><td class="nowrap">' . $variable . '</td>';
-                $str .= '<td class="maximal deprecated">' . sprintf(__('*** deprecated since %s ***'), $deprecated[$variable]) . '</td>';
-                $str .= '</tr>';
-            }
-        }
-
-        return $str . '</tbody></table>';
+        return (new Table('globals'))
+            ->class(['sysinfo'])
+            ->caption(new Caption(__('Global variables') . ' (' . sprintf('%d', count($variables)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Name')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('Content')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $globals(),         // First loop for non deprecated variables
+                    ... $globals(false),    // Second loop for deprecated variables
+                ]))
+        ->render();
     }
 }

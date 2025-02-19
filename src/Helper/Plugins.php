@@ -17,12 +17,16 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
 use Dotclear\Helper\Date;
+use Dotclear\Helper\Html\Form\Details;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Summary;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Plugins
 {
     /**
@@ -35,12 +39,11 @@ class Plugins
 
         $count = count($plugins) > 0 ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
 
-        $str = '<h3>' . __('Plugins (in loading order)') . $count . '</h3>';
-        $str .= '<details id="expand-all"><summary>' . __('Plugin id') . __(' (priority, name)') . '</summary></details>';
+        $lines = [];
+
         foreach ($plugins as $id => $m) {
-            $info = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
-            $str .= '<details id="p-' . $id . '"><summary><strong>' . $id . '</strong>' . $info . '</summary>';
-            $str .= '<ul>';
+            $info  = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
+            $infos = [];
             foreach ($m as $key => $val) {
                 $value = print_r($val, true);
                 if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'])) {
@@ -56,26 +59,50 @@ class Plugins
                                 $module = $module[0];
                             }
 
-                            $value[] = $module !== 'core' ? ('<a href="#p-' . $module . '">' . $module . '</a>' . $version) : 'Dotclear' . $version;
+                            $value[] = $module !== 'core' ?
+                                (new Link())
+                                    ->href('#p-' . $module)
+                                    ->text($module)
+                                ->render() . $version :
+                                'Dotclear';
                         }
 
                         $value = implode(', ', $value);
                     }
                 } elseif (in_array($key, ['support', 'details', 'repository'])) {
-                    $value = '<a href="' . $value . '">' . $value . '</a>';
-                } elseif ($key == 'root') {
+                    $value = (new Link())
+                        ->href($value)
+                        ->text($value)
+                    ->render();
+                } elseif ($key === 'root') {
                     $value = CoreHelper::simplifyFilename($value, true);
                 } elseif ($key === 'date') {
                     $value = Date::dt2str(App::blog()->settings()->get('system')->get('date_format'), $value, App::auth()->getInfo('user_tz')) . ' ' . Date::dt2str(App::blog()->settings()->get('system')->get('time_format'), $value, App::auth()->getInfo('user_tz'));
                 }
 
-                $str .= '<li>' . $key . ' = ' . $value . '</li>';
+                $infos[] = (new Li())
+                    ->text($key . ' = ' . $value);
             }
 
-            $str .= '</ul>';
-            $str .= '</details>';
+            $lines[] = (new Set())
+                ->items([
+                    (new Details('p-' . $id))
+                        ->summary(new Summary((new Text('strong', (string) $id))->render() . $info))
+                        ->items([
+                            (new Ul())
+                                ->items($infos),
+                        ]),
+                ]);
         }
 
-        return $str;
+        return (new Set())
+            ->items([
+                (new Text('h3', __('Plugins (in loading order)') . $count)),
+                (new Details('expand-all'))
+                    ->summary(new Summary(__('Plugin id') . __(' (priority, name)'))),
+                (new Set())
+                    ->items($lines),
+            ])
+        ->render();
     }
 }

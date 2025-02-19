@@ -19,16 +19,25 @@ use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Database\Statement\DeleteStatement;
 use Dotclear\Database\Statement\UpdateStatement;
+use Dotclear\Helper\Html\Form\Caption;
 use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Versions
 {
     /**
@@ -55,29 +64,24 @@ class Versions
         $plugins  = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true)));
         $disabled = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
 
-        $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="verform">' .
-            '<table id="versions" class="sysinfo">' .
-            '<caption>' . __('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="">' . __('Module') . '</th>' .
-            '<th scope="col" class="nowrap">' . __('Version') . '</th>' .
-            '<th scope="col" class="nowrap">' . __('Status') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-
+        $rows = [];
         App::lexical()->lexicalKeySort($versions, App::lexical()::ADMIN_LOCALE);
         foreach ($versions as $module => $version) {
-            $status   = [];
-            $class    = [];
-            $name     = $module;
-            $checkbox = (new Checkbox(['ver[]'], false))->value($module);
-            $input    = (new Input(['m[' . $module . ']']))->value($version);
+            $status = [];
+            $class  = [];
+            $name   = $module;
+            $strong = false;
+
+            $checkbox = (new Checkbox(['ver[]'], false))
+                ->value($module);
+
+            $input = (new Input(['m[' . $module . ']']))
+                ->value($version);
 
             if ($module === 'core') {
                 $class[]  = 'version-core';
                 $name     = '<strong>' . $module . '</strong>';
+                $strong   = true;
                 $status[] = __('Core');
                 $checkbox->disabled(true);  // Do not delete core version
                 $input->disabled(true);     // Do not modify core version
@@ -118,21 +122,66 @@ class Versions
                     }
                 }
             }
-
-            $str .= '<tr class="' . implode(' ', $class) . '">' .
-                '<td class="">' . $checkbox->render() . ' ' . $name . '</td>' .
-                '<td class="nowrap">' . $input->render() . '</td>' .
-                '<td class="nowrap">' . implode(', ', $status) . '</td>' .
-                '</tr>';
+            $rows[] = (new Tr())
+                ->class($class)
+                ->cols([
+                    (new Td())
+                        ->items([
+                            $checkbox->label(new Label($strong ? (new Text('strong', $name))->render() : $name, Label::IL_FT)),
+                        ]),
+                    (new Td())
+                        ->class('nowrap')
+                        ->items([
+                            $input,
+                        ]),
+                    (new Td())
+                        ->class('nowrap')
+                        ->text(implode(', ', $status)),
+                ]);
         }
 
-        return $str . ('</tbody></table><div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' .
-            My::parsedHiddenFields() .
-            (new Submit('updveraction', __('Update versions')))->render() . ' ' .
-            (new Submit('delveraction', __('Delete selected versions')))->class('delete')->render() .
-            '</p>' .
-            '</div>' .
-            '</form>');
+        return (new Form('verform'))
+            ->method('post')
+            ->action(App::backend()->getPageURL())
+            ->fields([
+                (new Table('versions'))
+                    ->class('sysinfo')
+                    ->caption(new Caption(__('List of versions registered in the database') . ' (' . sprintf('%d', count($versions)) . ')'))
+                    ->thead((new Thead())
+                        ->rows([
+                            (new Tr())
+                                ->cols([
+                                    (new Th())
+                                        ->scope('col')
+                                        ->text(__('Module')),
+                                    (new Th())
+                                        ->scope('col')
+                                        ->class('nowrap')
+                                        ->text(__('Version')),
+                                    (new Th())
+                                        ->scope('col')
+                                        ->class('nowrap')
+                                        ->text(__('Status')),
+                                ]),
+                        ]))
+                    ->tbody((new Tbody())
+                        ->rows($rows)),
+                (new Div())
+                    ->class('two-cols')
+                    ->items([
+                        (new Para())
+                            ->class(['col', 'checkboxes-helpers']),
+                        (new Para())
+                            ->class(['col', 'right', 'form-buttons'])
+                            ->items([
+                                ... My::hiddenFields(),
+                                (new Submit('updveraction', __('Update versions'))),
+                                (new Submit('delveraction', __('Delete selected versions')))
+                                    ->class('delete'),
+                            ]),
+                    ]),
+            ])
+        ->render();
     }
 
     /**

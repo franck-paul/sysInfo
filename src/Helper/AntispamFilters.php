@@ -15,11 +15,16 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\antispam\Antispam;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class AntispamFilters
 {
     /**
@@ -31,26 +36,55 @@ class AntispamFilters
         Antispam::initFilters();
         $fs = Antispam::$filters->getFilters();
 
-        $str = '<table id="antispams" class="sysinfo"><caption>' . __('Antispam filters') . ' (' . sprintf('%d', count($fs)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('ID') . '</th>' .
-            '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
-            '<th scope="col">' . __('GUI') . '</th>' .
-            '<th scope="col" class="maximal">' . __('URL') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
+        $lines = function () use ($fs) {
+            foreach ($fs as $f) {
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($f->id),
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($f->name),
+                        (new Td())
+                            ->text($f->hasGUI() ? __('yes') : __('no')),
+                        (new Td())
+                            ->class('maximal')
+                            ->items([
+                                (new Text('code', (string) $f->guiURL())),
+                            ]),
+                    ]);
+            }
+        };
 
-        foreach ($fs as $f) {
-            $str .= '<tr>' .
-                '<td class="nowrap">' . $f->id . '</td>' .
-                '<td class="nowrap">' . $f->name . '</td>' .
-                '<td>' . ($f->hasGUI() ? __('yes') : __('no')) . '</td>' .
-                '<td class="maximal"><code>' . $f->guiURL() . '</code></td>' .
-            '</tr>';
-        }
-
-        return $str . '</tbody></table>';
+        return (new Table('antispams'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Antispam filters') . ' (' . sprintf('%d', count($fs)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('ID')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Name')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('GUI')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('URL')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $lines(),
+                ]))
+        ->render();
     }
 }

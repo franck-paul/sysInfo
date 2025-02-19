@@ -16,10 +16,14 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Permissions
 {
     /**
@@ -29,20 +33,41 @@ class Permissions
     {
         $permissions = App::auth()->getPermissionsTypes();
 
-        $str = '<table id="permissions" class="sysinfo"><caption>' . __('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Type') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Label') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-        foreach ($permissions as $n => $l) {
-            $str .= '<tr><td class="nowrap">' . $n . '</td>' .
-                '<td class="maximal">' . __($l) . '</td>' .
-                '</tr>';
-        }
+        $rows = function () use ($permissions) {
+            foreach ($permissions as $key => $value) {
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text((string) $key),
+                        (new Td())
+                            ->class('maximal')
+                            ->text(__((string) $value)),
+                    ]);
+            }
+        };
 
-        return $str . '</tbody></table>';
+        return (new Table('permissions'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Types of permission') . ' (' . sprintf('%d', count($permissions)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Type')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('Label')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $rows(),
+                ]))
+        ->render();
     }
 }

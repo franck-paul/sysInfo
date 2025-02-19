@@ -16,11 +16,17 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Img;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Constants
 {
     /**
@@ -29,32 +35,55 @@ class Constants
     public static function render(): string
     {
         [$undefined, $constants] = self::getConstants();
+        App::lexical()->lexicalKeySort($constants, App::lexical()::ADMIN_LOCALE);
 
         // Affichage des constantes remarquables de Dotclear
-        $str = '<table id="constants" class="sysinfo"><caption>' . __('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Constant') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Value') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-        App::lexical()->lexicalKeySort($constants, App::lexical()::ADMIN_LOCALE);
-        foreach ($constants as $c => $v) {
-            $str .= '<tr><td class="nowrap"><img class="mark mark-' . ($v != $undefined ? 'check-on' : 'check-off') . '" src="images/' . ($v != $undefined ? 'check-on.svg' : 'check-off.svg') . '"> <code>' . $c . '</code></td>' .
-                '<td class="maximal">';
-            if ($v != $undefined) {
-                if (is_string($v)) {
-                    $v = CoreHelper::simplifyFilename($v);
+
+        $lines = function () use ($constants, $undefined) {
+            foreach ($constants as $key => $value) {
+                if ($value != $undefined && is_string($value)) {
+                    $value = CoreHelper::simplifyFilename($value);
                 }
 
-                $str .= $v;
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->separator(' ')
+                            ->items([
+                                (new Img('images/' . ($value != $undefined ? 'check-on.svg' : 'check-off.svg')))
+                                    ->class(['mark', 'mark-' . ($value != $undefined ? 'check-on' : 'check-off')]),
+                                (new Text('code', $key)),
+                            ]),
+                        (new Td())
+                            ->class('maximal')
+                            ->text($value),
+                    ]);
             }
+        };
 
-            $str .= '</td></tr>';
-        }
-
-        return $str . '</tbody></table>';
+        return (new Table('constants'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Dotclear constants') . ' (' . sprintf('%d', count($constants)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Constant')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('Value')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $lines(),
+                ]))
+        ->render();
     }
 
     /**

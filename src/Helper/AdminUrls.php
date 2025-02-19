@@ -16,10 +16,15 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class AdminUrls
 {
     /**
@@ -32,18 +37,50 @@ class AdminUrls
         $urls = $urls->getArrayCopy();
         App::lexical()->lexicalKeySort($urls, App::lexical()::ADMIN_LOCALE);
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .
-            '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
-            '<th scope="col">' . __('URL') . '</th>' .
-            '<th scope="col">' . __('Query string') . '</th></tr></thead>' .
-            '<tbody>';
-        foreach ($urls as $name => $url) {
-            $str .= '<tr><td scope="row" class="nowrap">' . $name . '</td>' .
-                '<td><code>' . $url['url'] . '</code></td>' .
-                '<td><code>' . http_build_query($url['qs']) . '</code></td>' .
-                '</tr>';
-        }
+        $lines = function () use ($urls) {
+            foreach ($urls as $name => $url) {
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($name),
+                        (new Td())
+                            ->items([
+                                new Text('code', $url['url']),
+                            ]),
+                        (new Td())
+                            ->class('maximal')
+                            ->items([
+                                new Text('code', http_build_query($url['qs'])),
+                            ]),
+                    ]);
+            }
+        };
 
-        return $str . '</tbody></table>';
+        return (new Table('urls'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Admin registered URLs') . ' (' . sprintf('%d', count($urls)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Name')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('URL')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('Query string')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $lines(),
+                ]))
+        ->render();
     }
 }

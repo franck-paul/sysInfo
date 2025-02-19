@@ -16,10 +16,18 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Autoloader;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
+use Dotclear\Helper\Html\Form\Ul;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Autoload
 {
     /**
@@ -27,30 +35,50 @@ class Autoload
      */
     public static function render(): string
     {
-        $autoloader = Autoloader::me();
-        $ns         = array_keys($autoloader->getNamespaces());
-        sort($ns);
+        $loader     = Autoloader::me();
+        $namespaces = array_keys($loader->getNamespaces());
+        sort($namespaces);
 
-        $str = '<p>' . __('Properties:') . '</p>' .
-            '<ul>' .
-            '<li>' . __('Root prefix:') . ' ' . ($autoloader->getRootPrefix() !== '' ? $autoloader->getRootPrefix() : __('Empty')) . '</li>' .
-            '<li>' . __('Root basedir:') . ' ' . ($autoloader->getRootBaseDir() !== '' ? $autoloader->getRootBaseDir() : __('Empty')) . '</li>' .
-            '</ul>';
+        $lines = function () use ($namespaces) {
+            foreach ($namespaces as $namespace) {
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($namespace),
+                    ]);
+            }
+        };
 
-        $str .= '<table id="autoloads" class="sysinfo"><caption>' . __('Namespaces') . ' (' . sprintf('%d', count($ns)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Name') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-
-        // Second loop for deprecated variables
-        foreach ($ns as $n) {
-            $str .= '<tr><td class="nowrap">' . $n . '</td>';
-            $str .= '</tr>';
-        }
-
-        return $str . '</tbody></table>';
+        return (new Set())
+            ->items([
+                (new Note())
+                    ->text(__('Properties:')),
+                (new Ul())
+                    ->items([
+                        (new Li())
+                            ->text(__('Root prefix:') . ' ' . ($loader->getRootPrefix() !== '' ? $loader->getRootPrefix() : __('Empty'))),
+                        (new Li())
+                            ->text(__('Root basedir:') . ' ' . ($loader->getRootBaseDir() !== '' ? $loader->getRootBaseDir() : __('Empty'))),
+                    ]),
+                (new Table('autoloads'))
+                    ->class('sysinfo')
+                    ->caption(new Caption(__('Namespaces') . ' (' . sprintf('%d', count($namespaces)) . ')'))
+                    ->thead((new Thead())
+                        ->rows([
+                            (new Tr())
+                                ->cols([
+                                    (new Th())
+                                        ->scope('col')
+                                        ->class('nowrap')
+                                        ->text(__('Name')),
+                                ]),
+                        ]))
+                    ->tbody((new Tbody())
+                        ->rows([
+                            ... $lines(),
+                        ])),
+            ])
+        ->render();
     }
 }

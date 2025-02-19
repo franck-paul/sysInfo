@@ -35,6 +35,33 @@ pre.sysinfo {
   margin: 0;
 }
 
+.sysinfo#phpinfo {
+  h1 {
+    text-indent: initial;
+    width: initial;
+  }
+
+  a.outgoing img:not(.outgoing-js) {
+    width: 5em;
+    height: auto;
+  }
+}
+
+.sysinfo#constants,
+.sysinfo#dotclear-release,
+.sysinfo#dotclear-config,
+.sysinfo#phpinfo {
+  td {
+    word-break: break-all;
+  }
+}
+
+.sysinfo#globals {
+  ul {
+    padding-inline-start: 1em;
+  }
+}
+
 blockquote.sysinfo {
   font-family: Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif;
   color: #636363;

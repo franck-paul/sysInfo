@@ -16,10 +16,15 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Exceptions
 {
     /**
@@ -39,20 +44,55 @@ class Exceptions
 
         App::lexical()->lexicalKeySort($list, App::lexical()::ADMIN_LOCALE);
 
-        $str = '<table id="exceptions" class="sysinfo"><caption>' . __('Registered Exceptions') . ' (' . sprintf('%d', count($list)) . ')' . '</caption>' .
-            '<thead><tr><th scope="col" class="nowrap">' . __('Name') . '</th>' .
-            '<th scope="col">' . __('Value') . '</th>' .
-            '<th scope="col">' . __('Code') . '</th>' .
-            '<th scope="col">' . __('Label') . '</th></tr></thead>' .
-            '<tbody>';
-        foreach ($list as $name => $info) {
-            $str .= '<tr><td scope="row" class="nowrap">' . $name . '</td>' .
-                '<td><code>' . $info['value'] . '</code></td>' .
-                '<td><code>' . $info['code'] . '</code></td>' .
-                '<td><code>' . $info['label'] . '</code></td>' .
-                '</tr>';
-        }
+        $exceptions = function () use ($list) {
+            foreach ($list as $name => $info) {
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($name),
+                        (new Td())
+                            ->items([
+                                (new Text('code', (string) $info['value'])),
+                            ]),
+                        (new Td())
+                            ->items([
+                                (new Text('code', (string) $info['code'])),
+                            ]),
+                        (new Td())
+                            ->items([
+                                (new Text('code', (string) $info['label'])),
+                            ]),
+                    ]);
+            }
+        };
 
-        return $str . '</tbody></table>';
+        return (new Table('exceptions'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Registered Exceptions') . ' (' . sprintf('%d', count($list)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Name')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('Value')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('Code')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('Label')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $exceptions(),
+                ]))
+        ->render();
     }
 }

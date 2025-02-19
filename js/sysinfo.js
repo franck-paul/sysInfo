@@ -1,7 +1,7 @@
 /*global jQuery, dotclear, CodeMirror */
 'use strict';
 
-window.addEventListener('load', () => {
+dotclear.ready(() => {
   // DOM ready and content loaded
 
   dotclear.mergeDeep(dotclear, dotclear.getData('sysinfo'));

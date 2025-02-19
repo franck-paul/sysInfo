@@ -19,15 +19,27 @@ use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Caption;
 use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Img;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Template\Template;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Templates
 {
     /**
@@ -57,18 +69,7 @@ class Templates
 
         $paths = App::frontend()->template()->getPath();
 
-        $str = '<form action="' . App::backend()->getPageURL() . '" method="post" id="tplform">' .
-            '<table id="templates" class="sysinfo">' .
-            '<caption>' . __('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col">' . __('Template path') . '</th>' .
-            '<th scope="col" class="nowrap">' . __('Template file') . '</th>' .
-            '<th scope="col" class="nowrap">' . __('Cache subpath') . '</th>' .
-            '<th scope="col" class="nowrap">' . __('Cache file') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
+        $rows = [];
 
         // Template stack
         $stack = [];
@@ -102,29 +103,92 @@ class Templates
                     $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
                     $file_exists    = file_exists($file_check);
                     $title          = CoreHelper::simplifyFilename($sub_path) . DIRECTORY_SEPARATOR . $file;
-                    $str .= '<tr><td>' . ($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)) . '</td>' .
-                        '<td class="nowrap">' . $file . '</td>' .
-                        '<td class="nowrap">' . '<img class="mark mark-' . ($file_exists ? 'check-on' : 'check-off') . '" src="images/' . ($file_exists ? 'check-on.svg' : 'check-off.svg') . '"> ' . $cache_subpath . '</td>' .
-                        '<td class="nowrap">' .
-                        (new Checkbox(['tpl[]'], false))
-                            ->value($cache_file)
-                            ->class(($file_exists) ? 'tpl_compiled' : '')
-                            ->disabled(!($file_exists))
-                            ->render() . ' ' .
-                        '<label class="classic">' .
-                        ($file_exists ? '<a class="tpl_compiled" title="' . $title . '" href="#">' : '') .
-                        $cache_file .
-                        ($file_exists ? '</a>' : '') .
-                        '</label></td>' .
-                        '</tr>';
+
+                    $url = $file_exists ?
+                        (new Link())
+                            ->class('tpl_compiled')
+                            ->title($title)
+                            ->href('#')
+                            ->text($cache_file)
+                        ->render() :
+                        $cache_file;
+
+                    $rows[] = (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->text($path_displayed ? '' : CoreHelper::simplifyFilename($sub_path)),
+                            (new Td())
+                                ->class('nowrap')
+                                ->text($file),
+                            (new Td())
+                                ->class('nowrap')
+                                ->separator(' ')
+                                ->items([
+                                    (new Img('images/' . ($file_exists ? 'check-on.svg' : 'check-off.svg')))
+                                        ->class(['mark', 'mark-' . ($file_exists ? 'check-on' : 'check-off')]),
+                                    (new Text(null, $cache_subpath)),
+                                ]),
+                            (new Td())
+                                ->class('nowrap')
+                                ->items([
+                                    (new Checkbox(['tpl[]'], false))
+                                        ->value($cache_file)
+                                        ->class($file_exists ? 'tpl_compiled' : '')
+                                        ->disabled(!$file_exists)
+                                        ->label(new Label($url, Label::IL_FT)),
+                                ]),
+                        ]);
+
                     $path_displayed = true;
                 }
             }
         }
 
-        return $str . ('</tbody></table><div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="deltplaction" name="deltplaction" value="' . __('Delete selected cache files') . '"></p>' .
-            '</div>' .
-            '</form>');
+        return (new Form('tplform'))
+            ->method('post')
+            ->action(App::backend()->getPageURL())
+            ->fields([
+                (new Table('templates'))
+                    ->class('sysinfo')
+                    ->caption(new Caption(__('List of compiled templates in cache') . ' ' . $cache_path . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER))
+                    ->thead((new Thead())
+                        ->rows([
+                            (new Tr())
+                                ->cols([
+                                    (new Th())
+                                        ->scope('col')
+                                        ->text(__('Template path')),
+                                    (new Th())
+                                        ->scope('col')
+                                        ->class('nowrap')
+                                        ->text(__('Template file')),
+                                    (new Th())
+                                        ->scope('col')
+                                        ->class('nowrap')
+                                        ->text(__('Cache subpath')),
+                                    (new Th())
+                                        ->scope('col')
+                                        ->class('nowrap')
+                                        ->text(__('Cache file')),
+                                ]),
+                        ]))
+                    ->tbody((new Tbody())
+                        ->rows($rows)),
+                (new Div())
+                    ->class('two-cols')
+                    ->items([
+                        (new Para())
+                            ->class(['col', 'checkboxes-helpers', 'form-buttons']),
+                        (new Para())
+                            ->class(['col', 'right', 'form-buttons'])
+                            ->items([
+                                ... My::hiddenFields(),
+                                (new Submit('deltplaction', __('Delete selected cache files')))
+                                    ->class('delete'),
+                            ]),
+                    ]),
+            ])
+        ->render();
     }
 
     /**

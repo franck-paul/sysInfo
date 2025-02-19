@@ -19,6 +19,10 @@ use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Html\Template\Template;
 use Dotclear\Helper\Network\Http;
@@ -72,7 +76,6 @@ class BackendRest
     {
         // Return list of folders in a given cache folder
         $root    = empty($get['root']) ? '' : $get['root'];
-        $content = '';
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
         $payload = [
             'ret' => false,
@@ -86,28 +89,42 @@ class BackendRest
 
             $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
             $cache_key = md5(Http::getHostFromURL($blog_host));
-            $k         = str_split($cache_key, 2);
-            $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+            $key_parts = str_split($cache_key, 2);
+            $cache_dir = sprintf($pattern, $cache_dir, $key_parts[0], $key_parts[1], $key_parts[2], $cache_key);
             if (is_dir($cache_dir) && is_readable($cache_dir)) {
                 $files = Files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
+                $lines = [];
                 foreach ($files as $file) {
                     if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
                         $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
                         if (is_dir($cache_fullpath)) {
-                            $content .= '<tr><td class="nowrap">' . $root . '</td>' . // 1st level
-                            '<td class="nowrap">' .
-                            '<a class="sc_subdir" href="#">' . $file . '</a>' .
-                            '</td>' .                                     // 2nd level
-                            '<td class="nowrap">' . __('…') . '</td>' . // 3rd level
-                            '<td class="nowrap maximal"></td>' .          // cache file
-                            '</tr>' . "\n";
+                            $lines[] = (new Tr())
+                                ->cols([
+                                    (new Td())      // 1st level
+                                        ->class('nowrap')
+                                        ->text($root),
+                                    (new td())      // 2nd level
+                                        ->class('nowrap')
+                                        ->items([
+                                            (new Link())
+                                                ->class('sc_subdir')
+                                                ->href('#')
+                                                ->text($file),
+                                        ]),
+                                    (new Td())      // 3rd level
+                                        ->class('nowrap')
+                                        ->text(__('…')),
+                                    (new Td())      // cache file
+                                        ->class(['nowrap', 'maximal']),
+                                ])
+                            ->render();
                         }
                     }
                 }
 
                 $payload = [
                     'ret'  => true,
-                    'html' => $content,
+                    'html' => implode("\n", $lines),
                 ];
             }
         }
@@ -127,7 +144,7 @@ class BackendRest
         // Return list of folders and files in a given folder
         $root    = empty($get['root']) ? '' : $get['root'];
         $ret     = false;
-        $content = '';
+        $lines   = [];
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if (defined('DC_SC_CACHE_DIR') && $root != '') {
@@ -139,8 +156,8 @@ class BackendRest
             $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
             $cache_key = md5(Http::getHostFromURL($blog_host));
             if ($cache_dir !== false && is_dir($cache_dir) && is_readable($cache_dir)) {
-                $k         = str_split($cache_key, 2);
-                $cache_dir = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
+                $key_parts = str_split($cache_key, 2);
+                $cache_dir = sprintf($pattern, $cache_dir, $key_parts[0], $key_parts[1], $key_parts[2], $cache_key);
 
                 $dirs = [$cache_dir . DIRECTORY_SEPARATOR . $root];
                 do {
@@ -150,17 +167,36 @@ class BackendRest
                         if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
                             $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
                             if (is_file($cache_fullpath)) {
-                                $k = str_split($file, 2);
-                                $content .= '<tr><td class="nowrap">' . $k[0] . '</td>' . // 1st level
-                                '<td class="nowrap">' . $k[1] . '</td>' . // 2nd level
-                                '<td class="nowrap">' . $k[2] . '</td>' . // 3rd level
-                                '<td class="nowrap maximal">' .
-                                (new Checkbox(['sc[]'], false))->value($cache_fullpath)->render() . ' ' .
-                                '<label class="classic">' .
-                                '<a class="sc_compiled" href="#" data-file="' . $cache_fullpath . '">' . $file . '</a>' .
-                                '</label>' .
-                                '</td>' . // cache file
-                                '</tr>' . "\n";
+                                $key_parts = str_split($file, 2);
+
+                                // Compose preview link
+                                $url = (new Link())
+                                    ->class('sc_compiled')
+                                    ->href('#')
+                                    ->data(['file' => $cache_fullpath])
+                                    ->text($file)
+                                ->render();
+
+                                $lines[] = (new Tr())
+                                    ->cols([
+                                        (new Td())      // 1st level
+                                            ->class('nowrap')
+                                            ->text($key_parts[0]),
+                                        (new Td())      // 2nd level
+                                            ->class('nowrap')
+                                            ->text($key_parts[1]),
+                                        (new Td())      // 3rd level
+                                            ->class('nowrap')
+                                            ->text($key_parts[2]),
+                                        (new Td())      // cache file
+                                            ->class(['nowrap', 'maximal'])
+                                            ->items([
+                                                (new Checkbox(['sc[]'], false))
+                                                    ->value($cache_fullpath)
+                                                    ->label(new Label($url, Label::IL_FT)),
+                                            ]),
+                                    ])
+                                ->render();
                             } else {
                                 $dirs[] = $dir . DIRECTORY_SEPARATOR . $file;
                             }
@@ -168,14 +204,24 @@ class BackendRest
                     }
                 } while (count($dirs));
 
-                if ($content === '') {
+                if ($lines === []) {
                     // No more dirs and files → send an empty raw
-                    $k = explode(DIRECTORY_SEPARATOR, $root);
-                    $content .= '<tr><td class="nowrap">' . $k[0] . '</td>' .         // 1st level
-                    '<td class="nowrap">' . $k[1] . '</td>' .         // 2nd level
-                    '<td class="nowrap">' . __('(empty)') . '</td>' . // 3rd level (empty)
-                    '<td class="nowrap maximal"></td>' .              // cache file (empty)
-                    '</tr>' . "\n";
+                    $key_parts = explode(DIRECTORY_SEPARATOR, $root);
+                    $lines[]   = (new Tr())
+                        ->cols([
+                            (new Td())      // 1st level
+                                ->class('nowrap')
+                                ->text($key_parts[0]),
+                            (new Td())      // 2nd level
+                                ->class('nowrap')
+                                ->text($key_parts[1]),
+                            (new Td())      // 3rd level (empty)
+                                ->class('nowrap')
+                                ->text(__('(empty)')),
+                            (new Td())      // cache file (empty)
+                                ->class(['nowrap', 'maximal']),
+                        ])
+                    ->render();
                 }
 
                 $ret = true;
@@ -184,7 +230,7 @@ class BackendRest
 
         return [
             'ret'  => $ret,
-            'html' => $content,
+            'html' => implode("\n", $lines),
         ];
     }
 

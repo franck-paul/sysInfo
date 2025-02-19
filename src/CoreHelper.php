@@ -21,7 +21,10 @@ use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Hidden;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Set;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
@@ -75,20 +78,25 @@ class CoreHelper
 
         // Transform HTML to text
 
-        return '<h3>' . __('Report') . '</h3>' .
-
-        (new Form('report'))
-            ->action(App::backend()->getPageURL())
-            ->method('post')
-            ->fields([
-                (new Submit(['getreport']))
-                    ->value(__('Download report')),
-                (new Hidden(['htmlreport']))
-                    ->value(Html::escapeHTML($buffer)),
-                ...My::hiddenFields(),
-            ])->render() .
-
-        '<pre>' . $buffer . '</pre>';
+        return (new Set())
+            ->items([
+                (new Text('h3', __('Report'))),
+                (new Form('report'))
+                    ->action(App::backend()->getPageURL())
+                    ->method('post')
+                    ->fields([
+                        (new Para())
+                            ->items([
+                                (new Submit(['getreport']))
+                                    ->value(__('Download report')),
+                                (new Hidden(['htmlreport']))
+                                    ->value(Html::escapeHTML($buffer)),
+                                ...My::hiddenFields(),
+                            ]),
+                    ]),
+                (new Text('pre', $buffer)),
+            ])
+        ->render();
     }
 
     /**
@@ -286,13 +294,13 @@ class CoreHelper
         } elseif ($callable instanceof \Closure) {
             // Closure
             $r  = new ReflectionFunction($callable);
-            $ns = $r->getNamespaceName() !== '' && $r->getNamespaceName() !== '0' ? $r->getNamespaceName() . '::' : '';
-            $fn = $r->getShortName()     !== '' && $r->getShortName() !== '0' ? $r->getShortName() : '__closure__';
+            $ns = (bool) $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
+            $fn = $r->getShortName() ?: '__closure__';
             if ($ns === '') {
                 // Cope with class::method(...) forms
                 $c = $r->getClosureScopeClass();
                 if (!is_null($c)) {
-                    $ns = $c->getNamespaceName() !== '' && $c->getNamespaceName() !== '0' ? $c->getNamespaceName() . '::' : '';
+                    $ns = (bool) $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
                 }
             }
 

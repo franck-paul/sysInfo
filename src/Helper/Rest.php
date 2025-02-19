@@ -16,11 +16,16 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Rest
 {
     /**
@@ -34,22 +39,43 @@ class Rest
         $rest    = App::rest();
         $methods = $rest->functions;
 
-        $str = '<table id="restmethods" class="sysinfo"><caption>' . __('REST methods') . ' (' . sprintf('%d', count($methods)) . ')' . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Method') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Callback') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-
         App::lexical()->lexicalKeySort($methods, App::lexical()::ADMIN_LOCALE);
-        foreach ($methods as $method => $callback) {
-            $str .= '<tr><td class="nowrap">' . $method . '</td><td class="maximal"><code>';
-            $str .= CoreHelper::callableName($callback);
-            $str .= '</code></td></tr>';
-        }
 
-        return $str . '</tbody></table>';
+        $rows = function ($methods) {
+            foreach ($methods as $method => $callback) {
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($method),
+                        (new Td())
+                            ->class('maximal')
+                            ->items([
+                                (new Text('code', CoreHelper::callableName($callback))),
+                            ]),
+                    ]);
+            }
+        };
+
+        return (new Table('restmethods'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('REST methods') . ' (' . sprintf('%d', count($methods)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Method')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('Callback')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([... $rows($methods)]))
+        ->render();
     }
 }

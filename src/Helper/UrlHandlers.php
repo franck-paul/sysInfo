@@ -16,11 +16,16 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class UrlHandlers
 {
     /**
@@ -29,37 +34,74 @@ class UrlHandlers
     public static function render(): string
     {
         // Récupération des types d'URL enregistrées
-        $urls = App::url()->getTypes();
+        $url_handlers = App::url()->getTypes();
 
-        // Tables des URLs non gérées par le menu
-        //$excluded = ['xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed'];
-        $excluded = [];
+        /**
+         * Tables des URLs non gérées par le menu
+         * Ex: ['xmlrpc','preview','trackback','feed','spamfeed','hamfeed','pagespreview','tag_feed']
+         *
+         * @var        array<int, string>
+         */
+        $url_excluded = [];
 
-        $str = '<table id="urls" class="sysinfo"><caption>' . __('List of known URLs') . ' (' . sprintf('%d', count($urls)) . ')' . '</caption>' .
-            '<thead><tr><th scope="col">' . __('Type') . '</th>' .
-            '<th scope="col">' . __('base URL') . '</th>' .
-            '<th scope="col">' . __('Regular expression') . '</th>' .
-            '<th scope="col">' . __('Callback') . '</th>' .
-            '</tr></thead>' .
-            '<tbody>' .
-            '<tr>' .
-            '<td scope="row">' . 'home' . '</td>' .
-            '<td>' . '' . '</td>' .
-            '<td><code>' . '^$' . '</code></td>' .
-            '<td><code>' . '(default)' . '</code></td>' .
-            '</tr>';
-        foreach ($urls as $type => $param) {
-            if (!in_array($type, $excluded)) {
-                $fi      = $param['handler'];
-                $handler = CoreHelper::callableName($fi);
-                $str .= '<tr><td scope="row">' . $type . '</td>' .
-                    '<td>' . $param['url'] . '</td>' .
-                    '<td><code>' . $param['representation'] . '</code></td>' .
-                    '<td><code>' . $handler . '</code></td>' .
-                    '</tr>';
+        $url_handlers_rows = function () use ($url_handlers, $url_excluded) {
+            // Default handler (home)
+            yield (new Tr())
+                ->cols([
+                    (new Td())
+                        ->text('home'),
+                    (new Td()),
+                    (new Td())
+                        ->items([
+                            (new Text('code', '^$')),
+                        ]),
+                    (new Td())
+                        ->items([
+                            (new Text('code', '(default)')),
+                        ]),
+                ]);
+            // Other URLs handler
+            foreach ($url_handlers as $url_handler_name => $url_handler_parameters) {
+                if (!in_array($url_handler_name, $url_excluded)) {
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->text($url_handler_name),
+                            (new Td())
+                                ->text($url_handler_parameters['url']),
+                            (new Td())
+                                ->items([
+                                    (new Text('code', $url_handler_parameters['representation'])),
+                                ]),
+                            (new Td())
+                                ->items([
+                                    (new Text('code', CoreHelper::callableName($url_handler_parameters['handler']))),
+                                ]),
+                        ]);
+                }
             }
-        }
+        };
 
-        return $str . '</tbody></table>';
+        return (new Table('urls'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('List of known URLs') . ' (' . sprintf('%d', count($url_handlers)) . ')'))
+            ->thead((new Thead())
+                ->rows([
+                    (new Th())
+                        ->scope('col')
+                        ->text(__('Type')),
+                    (new Th())
+                        ->scope('col')
+                        ->text(__('base URL')),
+                    (new Th())
+                        ->scope('col')
+                        ->text(__('Regular expression')),
+                    (new Th())
+                        ->scope('col')
+                        ->text(__('Callback')),
+                ]))
+            ->tbody((new Tbody())
+                ->rows($url_handlers_rows()))
+        ->render();
     }
 }

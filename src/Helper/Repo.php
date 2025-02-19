@@ -17,15 +17,28 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Details;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\None;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Summary;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Module\ModuleDefine;
 use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
 use Dotclear\Module\Themes;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Repo
 {
     /**
@@ -36,31 +49,38 @@ class Repo
      * @param      string  $title      The title
      * @param      string  $label      The label
      */
-    private static function renderModules(bool $use_cache, string $url, string $title, string $label): string
+    private static function renderModules(bool $use_cache, string $url, string $title, string $label): Set
     {
         [$parser, $in_cache] = self::parseRepo($use_cache, $url);
 
-        $defines   = $parser ? $parser->getDefines() : [];
-        $raw_datas = [];
+        $defines = $parser ? $parser->getDefines() : [];
+        $data    = [];
         foreach ($defines as $define) {
-            $raw_datas[$define->getId()] = $define;
+            $data[$define->getId()] = $define;
         }
 
-        App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
-        $count = $parser ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
+        App::lexical()->lexicalKeySort($data, App::lexical()::ADMIN_LOCALE);
+        $count = $parser ? ' (' . sprintf('%d', count($data)) . ')' : '';
 
-        $str = '<h3>' . $title . __(' from: ') . ($in_cache ? __('cache') : $url) . $count . '</h3>';
-        if (!$parser) {
-            $str .= '<p>' . __('Repository is unreachable') . '</p>';
-        } else {
-            $str .= '<details id="expand-all"><summary>' . $label . '</summary></details>';
-
-            foreach ($raw_datas as $id => $define) {
-                $str .= self::renderModule($id, $define);
+        $lines = function ($data) {
+            foreach ($data as $id => $define) {
+                yield self::renderModule($id, $define);
             }
-        }
+        };
 
-        return $str;
+        return (new Set())
+            ->items([
+                (new Text('h3', $title . __(' from: ') . ($in_cache ? __('cache') : $url) . $count)),
+                $parser ?
+                (new Set())
+                    ->items([
+                        (new Details('expand-all'))
+                            ->summary(new Summary($label)),
+                        ... $lines($data),
+                    ]) :
+                (new Note())
+                    ->text(__('Repository is unreachable')),
+            ]);
     }
 
     /**
@@ -70,9 +90,9 @@ class Repo
      * @param      bool                         $use_cache  The use cache
      * @param      string                       $title      The title
      */
-    private static function renderAltModules(array $modules, bool $use_cache, string $title): string
+    private static function renderAltModules(array $modules, bool $use_cache, string $title): Table
     {
-        $lines = '<table><caption>' . $title . '</caption><thead><tr><th>' . __('Repositories') . '</th></tr></thead><tbody>';
+        $rows = [];
         foreach ($modules as $module) {
             if ($module->get('repository') != '' && App::config()->allowRepositories()) {
                 $url = str_ends_with((string) $module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
@@ -88,32 +108,53 @@ class Repo
                 App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
                 $count = $parser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
-                $str   = '';
                 $label = $url . ' ' . ($in_cache ? __('in cache') : '') . $count;
-                $str .= '<tr><td><p><strong>' . $label . '</strong></p>';
+
                 if (!$parser) {
-                    $str .= '<p>' . __('Repository is unreachable') . '</p>';
+                    $details = (new Note())
+                        ->text(__('Repository is unreachable'));
                 } else {
-                    if (count($raw_datas) > 1) {
-                        $str .= '<details><summary>' . __('Repository content') . '</summary>';
-                    }
-
+                    $list = [];
                     foreach ($raw_datas as $id => $define) {
-                        $str .= self::renderModule($id, $define);
+                        $list[] = self::renderModule($id, $define);
                     }
 
                     if (count($raw_datas) > 1) {
-                        $str .= '</details>';
+                        $details = (new Details())
+                            ->summary(new Summary(__('Repository content')))
+                            ->items($list);
+                    } else {
+                        $details = (new Set())
+                            ->items($list);
                     }
                 }
 
-                $str .= '</td></tr>';
-
-                $lines .= $str;
+                $rows[] = (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->items([
+                                (new Para())
+                                    ->items([
+                                        (new Text('strong', $label)),
+                                    ]),
+                                $details,
+                            ]),
+                    ]);
             }
         }
 
-        return $lines . '</tbody></table>';
+        return (new Table())
+            ->caption(new Caption($title))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->text(__('Repositories')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows($rows));
     }
 
     /**
@@ -122,24 +163,29 @@ class Repo
      * @param      string          $id      The identifier
      * @param      ModuleDefine    $define  The define
      */
-    private static function renderModule(string $id, ModuleDefine $define): string
+    private static function renderModule(string $id, ModuleDefine $define): Details
     {
         $infos = $define->dump();
-        $str   = '<details><summary>' . $id . '</summary>';
-        $str .= '<ul>';
-        foreach ($infos as $key => $value) {
-            if (in_array($key, ['file', 'details', 'support', 'sshot'])) {
-                $val = $value ? sprintf('<a href="%1$s">%1$s</a>', $value) : $value;
-            } else {
-                $val = is_array($value) ? var_export($value, true) : $value;
+
+        $lines = function ($infos) {
+            foreach ($infos as $key => $value) {
+                if (in_array($key, ['file', 'details', 'support', 'sshot'])) {
+                    $val = $value ? sprintf('<a href="%1$s">%1$s</a>', $value) : $value;
+                } else {
+                    $val = is_array($value) ? var_export($value, true) : $value;
+                }
+
+                yield (new Li())
+                    ->text($key . ' = ' . $val);
             }
+        };
 
-            $str .= '<li>' . $key . ' = ' . $val . '</li>';
-        }
-
-        $str .= '</ul>';
-
-        return $str . '</details>';
+        return (new Details())
+            ->summary(new Summary($id))
+            ->items([
+                (new Ul())
+                    ->items([... $lines($infos)]),
+            ]);
     }
 
     /**
@@ -190,7 +236,8 @@ class Repo
             App::blog()->settings()->system->store_plugin_url,
             __('Repository plugins list'),
             __('Plugin ID')
-        );
+        )
+        ->render();
     }
 
     /**
@@ -205,7 +252,8 @@ class Repo
             App::blog()->settings()->system->store_theme_url,
             __('Repository themes list'),
             __('Theme ID')
-        );
+        )
+        ->render();
     }
 
     /**
@@ -220,7 +268,8 @@ class Repo
             $plugins,
             true,
             __('Repository plugins list (alternate repositories)')
-        );
+        )
+        ->render();
     }
 
     /**
@@ -239,6 +288,7 @@ class Repo
             $themes,
             true,
             __('Repository themes list (alternate repositories)')
-        );
+        )
+        ->render();
     }
 }

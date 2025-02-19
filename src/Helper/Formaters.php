@@ -16,10 +16,14 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Formaters
 {
     /**
@@ -30,27 +34,48 @@ class Formaters
         // Affichage de la liste des éditeurs et des syntaxes par éditeur
         $formaters = App::formater()->getFormaters();
 
-        $str = '<table id="formaters" class="sysinfo"><caption>' . __('Editors and their supported syntaxes') . '</caption>' .
-            '<thead>' .
-            '<tr>' .
-            '<th scope="col" class="nowrap">' . __('Editor') . '</th>' .
-            '<th scope="col">' . __('Code') . '</th>' .
-            '<th scope="col" class="maximal">' . __('Syntax') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody>';
-        foreach ($formaters as $e => $s) {
-            $str .= '<tr><td class="nowrap">' . $e . '</td>';
-            $newline = false;
-            foreach ($s as $f) {
-                $l = App::formater()->getFormaterName($f);
-                $str .= ($newline ? '</tr><tr><td></td>' : '') . '<td>' . $f . '</td><td class="maximal">' . $l . '</td>' ;
-                $newline = true;
+        $rows = function () use ($formaters) {
+            foreach ($formaters as $editor => $syntaxes) {
+                $first = true;
+                foreach ($syntaxes as $syntax) {
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text($first ? $editor : ''),
+                            (new Td())
+                                ->text($syntax),
+                            (new Td())
+                                ->class('maximal')
+                                ->text(App::formater()->getFormaterName($syntax)),
+                        ]);
+                    $first = false;
+                }
             }
+        };
 
-            $str .= '</tr>';
-        }
-
-        return $str . '</tbody></table>';
+        return (new Table('formaters'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Editors and their supported syntaxes')))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->class('nowrap')
+                                ->text(__('Editor')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('Code')),
+                            (new Th())
+                                ->scope('col')
+                                ->class('maximal')
+                                ->text(__('Syntax')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([... $rows()]))
+        ->render();
     }
 }

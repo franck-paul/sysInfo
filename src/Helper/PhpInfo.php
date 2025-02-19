@@ -15,11 +15,14 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo\Helper;
 
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class PhpInfo
 {
     /**
@@ -43,22 +46,59 @@ class PhpInfo
             }
         }
 
-        $str = '';
-        foreach ($phpinfo as $name => $section) {
-            $str .= "<h3>{$name}</h3>\n<table class=\"sysinfo\">\n";
+        $values = function ($section) {
             foreach ($section as $key => $val) {
                 if (is_array($val)) {
-                    $str .= "<tr><td>{$key}</td><td>$val[0]</td><td>$val[1]</td></tr>\n";
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text((string) $key),
+                            (new Td())
+                                ->text((string) $val[0]),
+                            (new Td())
+                                ->text((string) $val[1]),
+                        ]);
                 } elseif (is_string($key)) {
-                    $str .= sprintf('<tr><td>%s</td><td>', $key) . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text($key),
+                            (new Td())
+                                ->colspan(2)
+                                ->text(CoreHelper::simplifyFilename($val)),
+                        ]);
                 } else {
-                    $str .= '<tr><td>' . CoreHelper::simplifyFilename($val) . "</td></tr>\n";
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->colspan(3)
+                                ->text(CoreHelper::simplifyFilename($val)),
+                        ]);
                 }
             }
+        };
 
-            $str .= "</table>\n";
-        }
+        $sections = function () use ($phpinfo, $values) {
+            foreach ($phpinfo as $name => $section) {
+                yield (new Set())
+                    ->items([
+                        (new Text('h3', $name)),
+                        (new Table('phpinfo'))
+                            ->class(['sysinfo'])
+                            ->tbody((new Tbody())
+                                ->rows([
+                                    ... $values($section),
+                                ])),
+                    ]);
+            }
+        };
 
-        return $str;
+        return (new Set())
+            ->items([
+                ... $sections(),
+            ])
+        ->render();
     }
 }

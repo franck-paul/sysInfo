@@ -20,15 +20,31 @@ use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Button;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Fieldset;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Plugin\sysInfo\My;
 use Exception;
-use form;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class StaticCache
 {
     /**
@@ -42,7 +58,9 @@ class StaticCache
         }
 
         if (!defined('DC_SC_CACHE_DIR')) {
-            return '<p>' . __('Static cache directory does not exists') . '</p>';
+            return (new Note())
+                ->text(__('Static cache directory does not exists'))
+            ->render();
         }
 
         $cache_dir = (string) Path::real(DC_SC_CACHE_DIR, false);
@@ -51,38 +69,28 @@ class StaticCache
         $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         if (!is_dir($cache_dir)) {
-            return '<p>' . __('Static cache directory does not exists') . '</p>';
+            return (new Note())
+                ->text(__('Static cache directory does not exists'))
+            ->render();
         }
 
         if (!is_readable($cache_dir)) {
-            return '<p>' . __('Static cache directory is not readable') . '</p>';
+            return (new Note())
+                ->text(__('Static cache directory is not readable'))
+            ->render();
         }
 
         $k          = str_split($cache_key, 2);
         $cache_root = $cache_dir;
         $cache_dir  = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
-
-        // Add a static cache URL convertor
-        $str = '<p class="fieldset"><label for="sccalc_url" class="classic">' . __('URL:') . '</label>' . ' ' .
-            form::field('sccalc_url', 50, 255, Html::escapeHTML(App::blog()->url())) . ' ' .
-            '<input type="button" id="getscaction" name="getscaction" value="' . __(' → ') . '">' .
-            ' <span id="sccalc_res"></span><a id="sccalc_preview" href="#" data-dir="' . $cache_dir . '"></a>' .
-            '</p>';
+        $caption    = __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root));
+        $mtime      = $cache->getMtime();
+        if ($mtime !== false) {
+            $caption .= ', ' . __('last update:') . ' ' . (new DateTimeImmutable())->setTimestamp((int) $cache->getMtime())->format('c');
+        }
 
         // List of existing cache files
-        $str .= '<form action="' . App::backend()->getPageURL() . '" method="post" id="scform">';
-
-        $str .= '<table id="staticcache" class="sysinfo">';
-        $str .= '<caption>' . __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root));
-        $mtime = $cache->getMtime();
-        if ($mtime !== false) {
-            $str .= ', ' . __('last update:') . ' ' . (new DateTimeImmutable())->setTimestamp((int) $cache->getMtime())->format('c') . '</caption>';
-        }
-        $str .= '<thead><tr><th scope="col" class="nowrap" colspan="3">' . __('Cache subpath') . '</th>' .
-            '<th scope="col" class="nowrap maximal">' . __('Cache file') . '</th>' .
-            '</tr>' .
-            '</thead>';
-        $str .= '<tbody>';
+        $rows = [];
 
         try {
             $files = Files::scandir($cache_dir);
@@ -90,12 +98,24 @@ class StaticCache
                 if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
                     $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($cache_fullpath)) {
-                        $str .= '<tr><td class="nowrap"><a class="sc_dir" href="#">' . $file . '</a>' .
-                            '</td>' .                                     // 1st level
-                            '<td class="nowrap">' . __('…') . '</td>' . // 2nd level (loaded via getStaticCacheDir REST)
-                            '<td class="nowrap"></td>' .                  // 3rd level (loaded via getStaticCacheList REST)
-                            '<td class="nowrap maximal"></td>' .          // cache file (loaded via getStaticCacheList REST too)
-                            '</tr>' . "\n";
+                        $rows[] = (new Tr())
+                            ->cols([
+                                (new Td())      // 1st level
+                                    ->class('nowrap')
+                                    ->items([
+                                        (new Link())
+                                            ->class('sc_dir')
+                                            ->href('#')
+                                            ->text($file),
+                                    ]),
+                                (new Td())      // 2nd level (loaded via getStaticCacheDir REST)
+                                    ->class('nowrap')
+                                    ->text(__('…')),
+                                (new Td())      // 3rd level (loaded via getStaticCacheList REST)
+                                    ->class('nowrap'),
+                                (new Td())      // cache file (loaded via getStaticCacheList REST too)
+                                    ->class(['nowrap', 'maximal']),
+                            ]);
                     }
                 }
             }
@@ -103,11 +123,69 @@ class StaticCache
             // Unable to read the static cache directory, ignore it
         }
 
-        $str .= '</tbody></table>';
-
-        return $str . ('<div class="two-cols"><p class="col checkboxes-helpers"></p><p class="col right">' . My::parsedHiddenFields() . '<input type="submit" class="delete" id="delscaction" name="delscaction" value="' . __('Delete selected cache files') . '"></p>' .
-            '</div>' .
-            '</form>');
+        return (new Set())
+            ->items([
+                // Add a static cache URL convertor
+                (new Fieldset())
+                    ->legend(new Legend(__('URL converter')))
+                    ->fields([
+                        (new Para())
+                            ->separator(' ')
+                            ->items([
+                                (new Input('sccalc_url'))
+                                    ->size(50)
+                                    ->maxlength(255)
+                                    ->value(Html::escapeHTML(App::blog()->url()))
+                                    ->label((new Label(__('URL:'), Label::IL_TF))->class('classic')),
+                                (new Button('getscaction', __(' → '))),
+                                (new Text('output'))
+                                    ->id('sccalc_res'),
+                                (new Link('sccalc_preview'))
+                                    ->href('#')
+                                    ->data(['dir' => $cache_dir]),
+                            ]),
+                    ]),
+                // List of existing cache files
+                (new Form('scform'))
+                    ->method('post')
+                    ->action(App::backend()->getPageURL())
+                    ->fields([
+                        (new Table('staticcache'))
+                            ->class('sysinfo')
+                            ->caption(new Caption($caption))
+                            ->thead((new Thead())
+                                ->rows([
+                                    (new Tr())
+                                        ->cols([
+                                            (new Th())
+                                                ->scope('col')
+                                                ->class('nowrap')
+                                                ->colspan(3)
+                                                ->text(__('Cache subpath')),
+                                            (new Th())
+                                                ->scope('col')
+                                                ->class(['nowrap', 'maximal'])
+                                                ->text(__('Cache file')),
+                                        ]),
+                                ]))
+                            ->tbody((new Tbody())
+                                ->rows($rows)),
+                        (new Div())
+                            ->class('two-cols')
+                            ->items([
+                                (new Para())
+                                    ->class(['col', 'checkboxes-helpers']),
+                                (new Para())
+                                    ->class(['col', 'right', 'form-buttons'])
+                                    ->items([
+                                        ... My::hiddenFields(),
+                                        (new Submit('delscaction', __('Delete selected cache files')))
+                                            ->class('delete'),
+                                    ]),
+                            ]),
+                    ]),
+            ])
+        ->render();
     }
 
     /**

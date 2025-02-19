@@ -16,11 +16,15 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Integrity
 {
     /**
@@ -28,82 +32,127 @@ class Integrity
      */
     public static function render(): string
     {
-        $str = '<table id="integrity" class="sysinfo"><caption>' . __('Dotclear digest integrity') . '</caption>' .
-            '<thead><tr>' .
-            '<th scope="col">' . __('File') . '</th>' .
-            '<th scope="col">' . __('digest') . '</th>' .
-            '<th scope="col">' . __('md5') . '</th>' .
-            '<th scope="col">' . __('md5 (experimental)') . '</th>' .
-            '</tr></thead>' .
-            '<tbody>';
-
         $digests_file = implode(DIRECTORY_SEPARATOR, [App::config()->dotclearRoot(), 'inc', 'digests']);
-        if (is_readable($digests_file)) {
-            $opts     = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
-            $contents = file($digests_file, $opts);
-            $count    = 0;
 
-            if ($contents !== false) {
-                foreach ($contents as $digest) {
-                    if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
-                        continue;
-                    }
+        $rows = function () use ($digests_file) {
+            if (is_readable($digests_file)) {
+                $opts     = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
+                $contents = file($digests_file, $opts);
+                $count    = 0;
 
-                    $md5      = $m[1];
-                    $filename = App::config()->dotclearRoot() . '/' . $m[2];
+                if ($contents !== false) {
+                    foreach ($contents as $digest) {
+                        if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
+                            continue;
+                        }
 
-                    $md5_std    = '';
-                    $md5_exp    = '';
-                    $std_status = '';
-                    $exp_status = '';
+                        $md5_in_digest = $m[1];
+                        $filename      = App::config()->dotclearRoot() . '/' . $m[2];
 
-                    if (!is_readable($filename)) {
-                        $md5_std = __('Not readable');
-                    } else {
-                        // Direct
-                        $md5_std = md5_file($filename);
+                        $md5_standard        = '';
+                        $md5_experimental    = '';
+                        $status_standard     = '';
+                        $status_experimental = '';
 
-                        if ($md5_std !== $md5) {
+                        if (!is_readable($filename)) {
+                            $md5_standard = __('Not readable');
+                        } else {
+                            // Direct
+                            $md5_standard = md5_file($filename);
+
+                            if ($md5_standard !== $md5_in_digest) {
+                                // Remove EOL
+                                $filecontent = (string) file_get_contents($filename);
+                                $filecontent = str_replace("\r\n", "\n", $filecontent);
+                                $filecontent = str_replace("\r", "\n", $filecontent);
+
+                                $md5_standard    = md5($filecontent);
+                                $status_standard = $md5_standard === $md5_in_digest ? '' : 'version-disabled';
+                            }
+
+                            // Experimental
                             // Remove EOL
                             $filecontent = (string) file_get_contents($filename);
-                            $filecontent = str_replace("\r\n", "\n", $filecontent);
-                            $filecontent = str_replace("\r", "\n", $filecontent);
+                            $filecontent = preg_replace('/(*BSR_ANYCRLF)\R/', '\n', $filecontent);
 
-                            $md5_std    = md5($filecontent);
-                            $std_status = $md5_std === $md5 ? '' : ' class="version-disabled"';
+                            if ($filecontent) {
+                                $md5_experimental    = md5($filecontent);
+                                $status_experimental = $md5_experimental === $md5_in_digest ? '' : 'version-disabled';
+                            }
                         }
 
-                        // Experimental
-                        // Remove EOL
-                        $filecontent = (string) file_get_contents($filename);
-                        $filecontent = preg_replace('/(*BSR_ANYCRLF)\R/', '\n', $filecontent);
+                        if ($status_standard !== '') {
+                            ++$count;
 
-                        if ($filecontent) {
-                            $md5_exp    = md5($filecontent);
-                            $exp_status = $md5_exp === $md5 ? '' : ' class="version-disabled"';
+                            yield (new Tr())
+                                ->cols([
+                                    (new Td())
+                                        ->class('maximal')
+                                        ->text(CoreHelper::simplifyFilename($filename, true)),
+                                    (new Td())
+                                        ->class('nowrap')
+                                        ->text($md5_in_digest),
+                                    (new Td())
+                                        ->text($md5_standard)
+                                        ->class(['nowrap', $status_standard]),
+                                    (new Td())
+                                        ->text($md5_experimental)
+                                        ->class(['nowrap', $status_experimental]),
+                                ]);
                         }
                     }
 
-                    if ($std_status !== '') {
-                        ++$count;
-                        $str .= '<tr><td class="maximal">' . CoreHelper::simplifyFilename($filename, true) . '</td>' .
-                        '<td>' . $md5 . '</td>' .
-                        '<td' . $std_status . '>' . $md5_std . '</td>' .
-                        '<td' . $exp_status . '>' . $md5_exp . '</td>' .
-                        '</tr>';
+                    if ($count === 0) {
+                        yield (new Tr())
+                            ->cols([
+                                (new Td())
+                                    ->colspan(4)
+                                    ->text(__('Everything is fine.')),
+                            ]);
                     }
-                }
-
-                if ($count === 0) {
-                    $str .= '<tr><td>' . __('Everything is fine.') . '</td></tr>';
+                } else {
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->colspan(4)
+                                ->text(__('Unable to read digests file.')),
+                        ]);
                 }
             } else {
-                $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->colspan(4)
+                            ->text(__('Unable to read digests file.')),
+                    ]);
             }
-        } else {
-            $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
-        }
+        };
 
-        return $str . '</tbody></table>';
+        return (new Table('integrity'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Dotclear digest integrity')))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('File')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('digest')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('md5')),
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('md5 (experimental)')),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows([
+                    ... $rows(),
+                ]))
+        ->render();
     }
 }

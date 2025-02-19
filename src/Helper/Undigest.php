@@ -18,11 +18,15 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
-/**
- * @todo switch Helper/Html/Form/...
- */
 class Undigest
 {
     /**
@@ -95,11 +99,7 @@ class Undigest
             '-OLD',
         ];
 
-        $str = '<table id="undigest" class="sysinfo"><caption>' . __('Unexpected or additional files') . '</caption>' .
-            '<thead>' .
-            '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_primary) . ')' . '</th></tr>' .
-            '</thead>' .
-            '<tbody>';
+        $rows = [];
 
         // Get list of files in digest
         $digests_file = implode(DIRECTORY_SEPARATOR, [App::config()->dotclearRoot(), 'inc', 'digests']);
@@ -107,7 +107,7 @@ class Undigest
             $contents = file($digests_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             if ($contents !== false) {
                 foreach ($contents as $digest) {
-                    if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
+                    if (!preg_match('#^([\da-f]{32})\s+(.+)$#', $digest, $m)) {
                         continue;
                     }
                     $released[] = Path::real(implode(DIRECTORY_SEPARATOR, [$root,$m[2]]));
@@ -137,16 +137,29 @@ class Undigest
                         }
                         if ($unattended !== []) {
                             foreach ($unattended as $filename) {
-                                $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
+                                $rows[] = (new Tr())
+                                    ->cols([
+                                        (new Td())
+                                            ->text(CoreHelper::simplifyFilename($filename)),
+                                    ]);
                             }
                         } else {
-                            $str .= '<tr><td>' . __('Nothing unexpected or additional found.') . '</td></tr>';
+                            $rows[] = (new Tr())
+                                ->cols([
+                                    (new Td())
+                                        ->text(__('Nothing unexpected or additional found.')),
+                                ]);
                         }
                     }
 
                     // Second part
                     $unattended = [];
-                    $str .= '<tr><th scope="col">' . __('File') . ' (' . implode(', ', $ext_secondary) . ')' . '</th></tr>';
+                    $rows[]     = (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('File') . ' (' . implode(', ', $ext_secondary) . ')'),
+                        ]);
                     if ($list_secondary !== []) {
                         foreach ($list_secondary as $filename) {
                             if (!in_array($filename, $released)) {
@@ -155,21 +168,51 @@ class Undigest
                         }
                         if ($unattended !== []) {
                             foreach ($unattended as $filename) {
-                                $str .= '<tr><td>' . CoreHelper::simplifyFilename($filename) . '</td></tr>';
+                                $rows[] = (new Tr())
+                                    ->cols([
+                                        (new Td())
+                                            ->text(CoreHelper::simplifyFilename($filename)),
+                                    ]);
                             }
                         } else {
-                            $str .= '<tr><td>' . __('Nothing unexpected or additional found.') . '</td></tr>';
+                            $rows[] = (new Tr())
+                                ->cols([
+                                    (new Td())
+                                        ->text(__('Nothing unexpected or additional found.')),
+                                ]);
                         }
                     }
                 }
             } else {
-                $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
+                $rows[] = (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->text(__('Unable to read digests file.')),
+                    ]);
             }
         } else {
-            $str .= '<tr><td>' . __('Unable to read digests file.') . '</td></tr>';
+            $rows[] = (new Tr())
+                ->cols([
+                    (new Td())
+                        ->text(__('Unable to read digests file.')),
+                ]);
         }
 
-        return $str . '</tbody></table>';
+        return (new Table('undigest'))
+            ->class('sysinfo')
+            ->caption(new Caption(__('Unexpected or additional files')))
+            ->thead((new Thead())
+                ->rows([
+                    (new Tr())
+                        ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('File') . ' (' . implode(', ', $ext_primary) . ')'),
+                        ]),
+                ]))
+            ->tbody((new Tbody())
+                ->rows($rows))
+        ->render();
     }
 
     /**
