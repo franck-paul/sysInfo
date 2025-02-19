@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 17:54+0100\n"
+"POT-Creation-Date: 2025-02-19 11:13+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -128,15 +128,6 @@ msgstr "お代わり"
 msgid "Registered Exceptions"
 msgstr "登録された例外"
 
-msgid "Dotclear folders and files"
-msgstr "ドットクリアフォルダ・ファイル"
-
-msgid "Path"
-msgstr "パス"
-
-msgid "Status"
-msgstr "ステータス"
-
 msgid "Writable"
 msgstr "書き込み可能"
 
@@ -145,6 +136,15 @@ msgstr "読み取り専用"
 
 msgid "Unknown"
 msgstr "不明"
+
+msgid "Dotclear folders and files"
+msgstr "ドットクリアフォルダ・ファイル"
+
+msgid "Path"
+msgstr "パス"
+
+msgid "Status"
+msgstr "ステータス"
 
 msgid "Editors and their supported syntaxes"
 msgstr "エディターとその対応構文"
@@ -155,15 +155,24 @@ msgstr "エディター"
 msgid "Syntax"
 msgstr "シンタックス"
 
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "***%s ***から非推奨。"
+
 msgid "Global variables"
 msgstr "グローバル変数"
 
 msgid "Content"
 msgstr "コンテンツ"
 
-#, php-format
-msgid "*** deprecated since %s ***"
-msgstr "***%s ***から非推奨。"
+msgid "Not readable"
+msgstr "読めない"
+
+msgid "Everything is fine."
+msgstr "すべて順調です。"
+
+msgid "Unable to read digests file."
+msgstr "ダイジェストファイルを読み込むことができません。"
 
 msgid "Dotclear digest integrity"
 msgstr "ドットクリアダイジェスト完全性"
@@ -179,15 +188,6 @@ msgstr "エムディーファイブ"
 
 msgid "md5 (experimental)"
 msgstr "エムディーゴー"
-
-msgid "Not readable"
-msgstr "読めない"
-
-msgid "Everything is fine."
-msgstr "すべて順調です。"
-
-msgid "Unable to read digests file."
-msgstr "ダイジェストファイルを読み込むことができません。"
 
 msgid "Types of permission"
 msgstr "許諾の種類"
@@ -210,14 +210,14 @@ msgstr "キャッシュ"
 msgid "Repository is unreachable"
 msgstr "リポジトリにアクセスできない"
 
-msgid "Repositories"
-msgstr "リポジトリ"
-
 msgid "in cache"
 msgstr "キャッシュ内"
 
 msgid "Repository content"
 msgstr "リポジトリの内容"
+
+msgid "Repositories"
+msgstr "リポジトリ"
 
 msgid "Repository plugins list"
 msgstr "リポジトリ・プラグイン一覧"
@@ -249,17 +249,20 @@ msgstr "Static cache ディレクトリが存在しない"
 msgid "Static cache directory is not readable"
 msgstr "静的キャッシュのディレクトリが読めない"
 
-msgid "URL:"
-msgstr "URLです："
-
-msgid " → "
-msgstr "→ "
-
 msgid "List of static cache files in"
 msgstr "の静的キャッシュファイルの一覧です。"
 
 msgid "last update:"
 msgstr "最終更新日"
+
+msgid "URL converter"
+msgstr "URLコンバータ"
+
+msgid "URL:"
+msgstr "URLです："
+
+msgid " → "
+msgstr "→ "
 
 msgid "Cache subpath"
 msgstr "キャッシュのサブパス"
@@ -314,6 +317,10 @@ msgstr "なし"
 
 msgid "Server software: "
 msgstr "サーバーソフトウェア： "
+
+#, php-format
+msgid "%s server"
+msgstr "%s サーバー"
 
 msgid "System info"
 msgstr "システム情報"
@@ -388,10 +395,6 @@ msgstr "アップデート情報"
 msgid "Release info"
 msgstr "リリース情報"
 
-#, php-format
-msgid "%s server"
-msgstr "%s サーバー"
-
 msgid "List of compiled templates in cache"
 msgstr "キャッシュにあるコンパイル済みテンプレートの一覧"
 
@@ -407,11 +410,11 @@ msgstr "テンプレートパスの一覧"
 msgid "Display template tags"
 msgstr "テンプレートタグを表示する"
 
-msgid "Unexpected or additional files"
-msgstr "予期せぬ追加ファイル"
-
 msgid "Nothing unexpected or additional found."
 msgstr "予期せぬものや追加的なものは何も見つかっていない。"
+
+msgid "Unexpected or additional files"
+msgstr "予期せぬ追加ファイル"
 
 msgid "List of known URLs"
 msgstr "既知のURLの一覧"
@@ -421,15 +424,6 @@ msgstr "ベースURL"
 
 msgid "Regular expression"
 msgstr "正規表現"
-
-msgid "List of versions registered in the database"
-msgstr "データベースに登録されているバージョンの一覧"
-
-msgid "Module"
-msgstr "モジュール"
-
-msgid "Version"
-msgstr "バージョン"
 
 msgid "Core"
 msgstr "コア"
@@ -445,6 +439,15 @@ msgstr "廃止"
 
 msgid "Not found but may exist"
 msgstr "見つからないが、存在する可能性がある"
+
+msgid "List of versions registered in the database"
+msgstr "データベースに登録されているバージョンの一覧"
+
+msgid "Module"
+msgstr "モジュール"
+
+msgid "Version"
+msgstr "バージョン"
 
 msgid "Update versions"
 msgstr "アップデートバージョン"
