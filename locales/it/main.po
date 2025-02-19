@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 17:54+0100\n"
+"POT-Creation-Date: 2025-02-19 11:13+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
@@ -128,15 +128,6 @@ msgstr "secondi"
 msgid "Registered Exceptions"
 msgstr "Eccezioni registrate"
 
-msgid "Dotclear folders and files"
-msgstr "Cartelle e file Dotclear"
-
-msgid "Path"
-msgstr "Percorso"
-
-msgid "Status"
-msgstr "Stato"
-
 msgid "Writable"
 msgstr "Scrivibile"
 
@@ -145,6 +136,15 @@ msgstr "In sola lettura"
 
 msgid "Unknown"
 msgstr "Sconosciuto"
+
+msgid "Dotclear folders and files"
+msgstr "Cartelle e file Dotclear"
+
+msgid "Path"
+msgstr "Percorso"
+
+msgid "Status"
+msgstr "Stato"
 
 msgid "Editors and their supported syntaxes"
 msgstr "Gli editor e le loro sintassi supportate"
@@ -155,15 +155,24 @@ msgstr "Editore"
 msgid "Syntax"
 msgstr "Sintassi"
 
+#, php-format
+msgid "*** deprecated since %s ***"
+msgstr "*** deprecato da %s ***"
+
 msgid "Global variables"
 msgstr "Variabili globali"
 
 msgid "Content"
 msgstr "Contenuto"
 
-#, php-format
-msgid "*** deprecated since %s ***"
-msgstr "*** deprecato da %s ***"
+msgid "Not readable"
+msgstr "Non leggibile"
+
+msgid "Everything is fine."
+msgstr "Tutto va bene."
+
+msgid "Unable to read digests file."
+msgstr "Impossibile leggere il file dei digest."
 
 msgid "Dotclear digest integrity"
 msgstr "Integrità del digest Dotclear"
@@ -179,15 +188,6 @@ msgstr "md5"
 
 msgid "md5 (experimental)"
 msgstr "md5 (sperimentale)"
-
-msgid "Not readable"
-msgstr "Non leggibile"
-
-msgid "Everything is fine."
-msgstr "Tutto va bene."
-
-msgid "Unable to read digests file."
-msgstr "Impossibile leggere il file dei digest."
 
 msgid "Types of permission"
 msgstr "Tipi di autorizzazione"
@@ -210,14 +210,14 @@ msgstr "cache"
 msgid "Repository is unreachable"
 msgstr "Il repository non è raggiungibile"
 
-msgid "Repositories"
-msgstr "Repository"
-
 msgid "in cache"
 msgstr "in cache"
 
 msgid "Repository content"
 msgstr "Contenuto del repository"
+
+msgid "Repositories"
+msgstr "Repository"
 
 msgid "Repository plugins list"
 msgstr "Elenco dei plugin del repository"
@@ -249,17 +249,20 @@ msgstr "La directory statica della cache non esiste"
 msgid "Static cache directory is not readable"
 msgstr "La directory statica della cache non è leggibile"
 
-msgid "URL:"
-msgstr "URL:"
-
-msgid " → "
-msgstr " → "
-
 msgid "List of static cache files in"
 msgstr "Elenco dei file statici della cache in"
 
 msgid "last update:"
 msgstr "ultimo aggiornamento:"
+
+msgid "URL converter"
+msgstr "Convertitore di URL"
+
+msgid "URL:"
+msgstr "URL:"
+
+msgid " → "
+msgstr " → "
 
 msgid "Cache subpath"
 msgstr "Percorso secondario della cache"
@@ -315,6 +318,10 @@ msgstr "Nessuno"
 
 msgid "Server software: "
 msgstr "Software del server: "
+
+#, php-format
+msgid "%s server"
+msgstr "%s server"
 
 msgid "System info"
 msgstr "Informazioni sul sistema"
@@ -389,10 +396,6 @@ msgstr "Aggiornamento info"
 msgid "Release info"
 msgstr "Informazioni sul rilascio"
 
-#, php-format
-msgid "%s server"
-msgstr "%s server"
-
 msgid "List of compiled templates in cache"
 msgstr "Elenco dei modelli compilati nella cache"
 
@@ -408,11 +411,11 @@ msgstr "Elenco dei percorsi dei modelli"
 msgid "Display template tags"
 msgstr "Visualizzazione dei tag del modello"
 
-msgid "Unexpected or additional files"
-msgstr "File inattesi o aggiuntivi"
-
 msgid "Nothing unexpected or additional found."
 msgstr "Non è stato trovato nulla di inaspettato o aggiuntivo."
+
+msgid "Unexpected or additional files"
+msgstr "File inattesi o aggiuntivi"
 
 msgid "List of known URLs"
 msgstr "Elenco degli URL noti"
@@ -422,15 +425,6 @@ msgstr "URL di base"
 
 msgid "Regular expression"
 msgstr "Espressione regolare"
-
-msgid "List of versions registered in the database"
-msgstr "Elenco delle versioni registrate nel database"
-
-msgid "Module"
-msgstr "Modulo"
-
-msgid "Version"
-msgstr "Versione"
 
 msgid "Core"
 msgstr "Nucleo"
@@ -446,6 +440,15 @@ msgstr "Obsoleto"
 
 msgid "Not found but may exist"
 msgstr "Non trovato ma potrebbe esistere"
+
+msgid "List of versions registered in the database"
+msgstr "Elenco delle versioni registrate nel database"
+
+msgid "Module"
+msgstr "Modulo"
+
+msgid "Version"
+msgstr "Versione"
 
 msgid "Update versions"
 msgstr "Aggiornamento delle versioni"
