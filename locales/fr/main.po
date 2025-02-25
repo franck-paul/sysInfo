@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-19 11:13+0100\n"
+"POT-Creation-Date: 2025-02-25 16:30+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -395,6 +395,9 @@ msgstr "Infos de mise à jour"
 
 msgid "Release info"
 msgstr "Infos de version"
+
+msgid "Releases in attic"
+msgstr "Versions disponibles dans le grenier"
 
 msgid "List of compiled templates in cache"
 msgstr "Liste des fichiers template compilés dans le cache"
