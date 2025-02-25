@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-19 11:13+0100\n"
+"POT-Creation-Date: 2025-02-25 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -407,154 +407,158 @@ msgstr ""
 msgid "Statuses"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:44
+#: ../git-plugins/sysInfo/src/Helper/System.php:45
 msgid "Live long and prosper."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:45
+#: ../git-plugins/sysInfo/src/Helper/System.php:46
 msgid "To infinity and beyond."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:46
+#: ../git-plugins/sysInfo/src/Helper/System.php:47
 msgid "So long, and thanks for all the fish."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:47
+#: ../git-plugins/sysInfo/src/Helper/System.php:48
 msgid "Find a needle in a haystack."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:48
+#: ../git-plugins/sysInfo/src/Helper/System.php:49
 msgid "A clever person solves a problem. A wise person avoids it."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:49
+#: ../git-plugins/sysInfo/src/Helper/System.php:50
 msgid "I'm sorry, Dave. I'm afraid I can't do that."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:50
+#: ../git-plugins/sysInfo/src/Helper/System.php:51
 msgid "With great power there must also come great responsibility."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:51
+#: ../git-plugins/sysInfo/src/Helper/System.php:52
 msgid "It's great, we have to do it all over again!"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:52
+#: ../git-plugins/sysInfo/src/Helper/System.php:53
 msgid "Have You Tried Turning It Off And On Again?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:53
+#: ../git-plugins/sysInfo/src/Helper/System.php:54
 msgid "It's great, we'll have to do it all again!"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:87
+#: ../git-plugins/sysInfo/src/Helper/System.php:88
 msgid "None"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:99
+#: ../git-plugins/sysInfo/src/Helper/System.php:100
 msgid "Server software: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:102
+#: ../git-plugins/sysInfo/src/Helper/System.php:103
 #, php-format
 msgid "%s server"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:115
+#: ../git-plugins/sysInfo/src/Helper/System.php:116
 msgid "System info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:121
+#: ../git-plugins/sysInfo/src/Helper/System.php:122
 msgid "PHP Version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:125
+#: ../git-plugins/sysInfo/src/Helper/System.php:126
 msgid "DB driver: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:126
+#: ../git-plugins/sysInfo/src/Helper/System.php:127
 msgid "version"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:127
+#: ../git-plugins/sysInfo/src/Helper/System.php:128
 #, php-format
 msgid "using <strong>%s</strong> syntax"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:132
+#: ../git-plugins/sysInfo/src/Helper/System.php:133
 msgid "Error reporting: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:137
+#: ../git-plugins/sysInfo/src/Helper/System.php:138
 msgid "PHP Cache: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:139
+#: ../git-plugins/sysInfo/src/Helper/System.php:140
 msgid "Temporary folder: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:149
+#: ../git-plugins/sysInfo/src/Helper/System.php:150
 msgid "Battery level: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:157
+#: ../git-plugins/sysInfo/src/Helper/System.php:158
 msgid "Dotclear info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:162
+#: ../git-plugins/sysInfo/src/Helper/System.php:163
 msgid "Dotclear version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:164
+#: ../git-plugins/sysInfo/src/Helper/System.php:165
 msgid "Update channel: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:178
+#: ../git-plugins/sysInfo/src/Helper/System.php:179
 msgid "Channel: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:182
+#: ../git-plugins/sysInfo/src/Helper/System.php:183
 msgid "version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:185
+#: ../git-plugins/sysInfo/src/Helper/System.php:186
 msgid "href: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:191
+#: ../git-plugins/sysInfo/src/Helper/System.php:192
 msgid "checksum: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:194
+#: ../git-plugins/sysInfo/src/Helper/System.php:195
 msgid "info: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:200
+#: ../git-plugins/sysInfo/src/Helper/System.php:201
 msgid "PHP min: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:203
+#: ../git-plugins/sysInfo/src/Helper/System.php:204
 msgid "No"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:203
+#: ../git-plugins/sysInfo/src/Helper/System.php:204
 msgid "Warning: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:203
+#: ../git-plugins/sysInfo/src/Helper/System.php:204
 msgid "Yes"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:214
+#: ../git-plugins/sysInfo/src/Helper/System.php:215
 msgid "(from versions cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:214
+#: ../git-plugins/sysInfo/src/Helper/System.php:215
 msgid "Update info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:251
+#: ../git-plugins/sysInfo/src/Helper/System.php:252
 msgid "Release info"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/Helper/System.php:267
+msgid "Releases in attic"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Templates.php:153

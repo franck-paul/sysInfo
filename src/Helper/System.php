@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
+use Dotclear\Core\Upgrade\UpdateAttic;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Div;
@@ -255,12 +256,28 @@ class System
                 ]);
         }
 
+        $attic = (new None());
+        // Get all attic versions
+        $upgrade = new UpdateAttic(App::config()->coreAtticUrl(), App::config()->cacheRoot() . DIRECTORY_SEPARATOR . UpdateAttic::CACHE_FOLDER);
+        $upgrade->check('0.0');
+        $list = array_keys($upgrade->getReleases('0.0'));
+        if ($list !== []) {
+            $list  = array_reverse($list);
+            $attic = (new Details())
+                ->summary(new Summary(__('Releases in attic')))
+                ->items([
+                    (new Ul())
+                        ->items(array_map(fn ($item) => (new Li())->text($item), $list)),
+                ]);
+        }
+
         return (new Set())
             ->items([
                 $server,
                 $dotclear,
                 $update,
                 $release,
+                $attic,
             ])
         ->render();
     }
