@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = '예';
 L10n::$locales['(from versions cache)'] = '(버전 캐시에서)';
 L10n::$locales['Update info'] = '업데이트 정보';
 L10n::$locales['Release info'] = '릴리스 정보';
+L10n::$locales['Releases in attic'] = '다락방에서 릴리스';
 L10n::$locales['List of compiled templates in cache'] = '캐시에 컴파일된 템플릿 목록';
 L10n::$locales['Template path'] = '템플릿 경로';
 L10n::$locales['Template file'] = '템플릿 파일';

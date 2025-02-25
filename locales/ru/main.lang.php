@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = 'Да';
 L10n::$locales['(from versions cache)'] = '(из кэша версий)';
 L10n::$locales['Update info'] = 'Обновление информации';
 L10n::$locales['Release info'] = 'Информация о выпуске';
+L10n::$locales['Releases in attic'] = 'Выпуски на чердаке';
 L10n::$locales['List of compiled templates in cache'] = 'Список скомпилированных шаблонов в кэше';
 L10n::$locales['Template path'] = 'Шаблонный путь';
 L10n::$locales['Template file'] = 'Файл шаблона';

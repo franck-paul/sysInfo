@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = 'Ναι';
 L10n::$locales['(from versions cache)'] = '(από τις εκδόσεις cache)';
 L10n::$locales['Update info'] = 'Ενημέρωση πληροφοριών';
 L10n::$locales['Release info'] = 'Πληροφορίες απελευθέρωσης';
+L10n::$locales['Releases in attic'] = 'Απελευθερώσεις στη σοφίτα';
 L10n::$locales['List of compiled templates in cache'] = 'Λίστα των μεταγλωττισμένων προτύπων στην κρυφή μνήμη';
 L10n::$locales['Template path'] = 'Διαδρομή προτύπου';
 L10n::$locales['Template file'] = 'Αρχείο προτύπου';

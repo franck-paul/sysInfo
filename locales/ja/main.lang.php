@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = 'はい';
 L10n::$locales['(from versions cache)'] = '(バージョンキャッシュから)';
 L10n::$locales['Update info'] = 'アップデート情報';
 L10n::$locales['Release info'] = 'リリース情報';
+L10n::$locales['Releases in attic'] = '屋根裏の放出';
 L10n::$locales['List of compiled templates in cache'] = 'キャッシュにあるコンパイル済みテンプレートの一覧';
 L10n::$locales['Template path'] = 'テンプレートパス';
 L10n::$locales['Template file'] = 'テンプレートファイル';

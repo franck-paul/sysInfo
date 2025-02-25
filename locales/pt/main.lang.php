@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = 'Sim';
 L10n::$locales['(from versions cache)'] = '(da cache de versões)';
 L10n::$locales['Update info'] = 'Actualizar informações';
 L10n::$locales['Release info'] = 'Informações de lançamento';
+L10n::$locales['Releases in attic'] = 'Libertações no sótão';
 L10n::$locales['List of compiled templates in cache'] = 'Lista de modelos compilados na cache';
 L10n::$locales['Template path'] = 'Caminho do modelo';
 L10n::$locales['Template file'] = 'Ficheiro de modelo';

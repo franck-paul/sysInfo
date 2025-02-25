@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = 'Ja';
 L10n::$locales['(from versions cache)'] = '(aus dem Versions-Cache)';
 L10n::$locales['Update info'] = 'Informationen aktualisieren';
 L10n::$locales['Release info'] = 'Infos zur Veröffentlichung';
+L10n::$locales['Releases in attic'] = 'Freisetzungen auf dem Dachboden';
 L10n::$locales['List of compiled templates in cache'] = 'Liste der kompilierten Vorlagen im Cache';
 L10n::$locales['Template path'] = 'Vorlage Pfad';
 L10n::$locales['Template file'] = 'Vorlage-Datei';

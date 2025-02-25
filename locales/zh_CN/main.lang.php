@@ -134,6 +134,7 @@ L10n::$locales['Yes'] = '是';
 L10n::$locales['(from versions cache)'] = '(来自版本缓存)';
 L10n::$locales['Update info'] = '更新信息';
 L10n::$locales['Release info'] = '发布信息';
+L10n::$locales['Releases in attic'] = '阁楼释放';
 L10n::$locales['List of compiled templates in cache'] = '缓存中的编译模板列表';
 L10n::$locales['Template path'] = '模板路径';
 L10n::$locales['Template file'] = '模板文件';
