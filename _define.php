@@ -25,5 +25,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=sysinfo',
         'support'    => 'https://github.com/franck-paul/sysInfo',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/sysInfo/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );

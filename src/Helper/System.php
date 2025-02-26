@@ -275,8 +275,8 @@ class System
             ->items([
                 $server,
                 $dotclear,
-                $update,
                 $release,
+                $update,
                 $attic,
             ])
         ->render();
