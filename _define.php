@@ -15,9 +15,9 @@ $this->registerModule(
     'System Information',
     'System Information',
     'Franck Paul',
-    '10.11',
+    '10.12',
     [
-        'date'     => '2025-02-25T16:37:21+0100',
+        'date'     => '2025-02-26T09:24:59+0100',
         'requires' => [['core', '2.33']],
         'type'     => 'plugin',
         'priority' => 99_999_999_999,
