@@ -247,8 +247,8 @@ dotclear.ready(() => {
     }
   }
 
-  // Cope with table sort for some results
-  const enableTableSort = (tableId) => {
+  // Table sorting enabler
+  const enableTableSort = (tableId, offset = 0, semver = -1) => {
     const table = document.getElementById(tableId);
     if (!table) {
       return;
@@ -259,9 +259,9 @@ dotclear.ready(() => {
     // Track sort directions
     const directions = Array.from(headers).map(() => {});
     // Sort system
-    const sortColumn = (index) => {
+    const sortColumn = (indexData, indexHead) => {
       // Get the current direction
-      const direction = directions[index] || 'asc';
+      const direction = directions[indexHead] || 'asc';
 
       // A factor based on the direction
       const multiplier = direction === 'asc' ? 1 : -1;
@@ -269,11 +269,38 @@ dotclear.ready(() => {
       // Clone the rows
       const newRows = Array.from(rows);
 
+      function comparePartials(a, b) {
+        if (a === b) {
+          return 0;
+        }
+        const splitA = a.split('.');
+        const splitB = b.split('.');
+        const length = Math.max(splitA.length, splitB.length);
+        for (let i = 0; i < length; i++) {
+          // flip
+          if (
+            Number.parseInt(splitA[i]) > Number.parseInt(splitB[i]) ||
+            (splitA[i] === splitB[i] && Number.isNaN(splitB[i + 1]))
+          ) {
+            return 1 * multiplier;
+          }
+          // don't flip
+          if (
+            Number.parseInt(splitA[i]) < Number.parseInt(splitB[i]) ||
+            (splitA[i] === splitB[i] && Number.isNaN(splitA[i + 1]))
+          ) {
+            return -1 * multiplier;
+          }
+        }
+      }
+
       // Sort rows by the content of cells
       newRows.sort((rowA, rowB) => {
         // Get the content of cells
-        const cellA = rowA.querySelectorAll('td')[index].innerHTML;
-        const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+        const cellA = rowA.querySelectorAll('td')[indexData].innerHTML;
+        const cellB = rowB.querySelectorAll('td')[indexData].innerHTML;
+
+        if (semver === indexHead) return comparePartials(cellA, cellB);
 
         switch (true) {
           case cellA > cellB:
@@ -298,14 +325,14 @@ dotclear.ready(() => {
       }
 
       // Set new header class
-      headers[index].classList.add(`sorted-${direction}`);
+      headers[indexHead].classList.add(`sorted-${direction}`);
 
       // Reverse the direction
-      directions[index] = direction === 'asc' ? 'desc' : 'asc';
+      directions[indexHead] = direction === 'asc' ? 'desc' : 'asc';
     };
     if (headers.length)
       for (let index = headers.length - 1; index >= 0; index--) {
-        headers[index].addEventListener('click', () => sortColumn(index));
+        headers[index].addEventListener('click', () => sortColumn(index + offset, index));
       }
   };
 
