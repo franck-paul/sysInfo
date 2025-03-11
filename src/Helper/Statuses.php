@@ -26,6 +26,10 @@ use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
+use Dotclear\Schema\Status\Blog;
+use Dotclear\Schema\Status\Comment;
+use Dotclear\Schema\Status\Post;
+use Dotclear\Schema\Status\User;
 
 class Statuses
 {
@@ -41,9 +45,9 @@ class Statuses
         self::getTable(App::status()->comment(), 'Comment')->render();
     }
 
-    protected static function getTable($statuses, string $name): Table
+    protected static function getTable(Blog|User|Post|Comment $statuses, string $name): Table
     {
-        $lines = function ($statuses, int $threshold) {
+        $lines = function (Blog|User|Post|Comment $statuses) {
             foreach ($statuses->dump() as $status) {
                 $icon      = $status->icon();
                 $icon_dark = $status->iconDark();
@@ -117,7 +121,7 @@ class Statuses
                 ]))
             ->tbody((new Tbody())
                 ->rows([
-                    ...$lines($statuses, $statuses->threshold()),
+                    ...$lines($statuses),
                 ]));
     }
 }
