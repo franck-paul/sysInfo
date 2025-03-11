@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 16:30+0100\n"
+"POT-Creation-Date: 2025-03-11 10:57+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -279,8 +279,12 @@ msgstr "캐시 파일을 선택하지 않았습니다."
 msgid "Selected cache files have been deleted."
 msgstr "선택한 캐시 파일이 삭제되었습니다."
 
-msgid "Statuses"
-msgstr "상태"
+#, php-format
+msgid "threshold = %d"
+msgstr "임계값 = %d"
+
+msgid "Icon"
+msgstr "아이콘"
 
 msgid "Live long and prosper."
 msgstr "오래오래 번영하세요."
@@ -511,6 +515,9 @@ msgstr "행동"
 
 msgid "Admin URLs"
 msgstr "관리자 URL"
+
+msgid "Statuses"
+msgstr "상태"
 
 msgid "Templates"
 msgstr "템플릿"
