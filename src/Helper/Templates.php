@@ -91,18 +91,50 @@ class Templates
             $path_displayed = false;
             $md5_path       = $path;
             if (str_starts_with((string) Path::real($path), (string) App::config()->dotclearRoot())) {
-                $md5_path = Path::real($path);
+                $md5_path = (string) Path::real($path);
             }
+
             $files = Files::scandir($path);
             foreach ($files as $file) {
                 if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && !in_array($file, $stack)) {
-                    $stack[]        = $file;
-                    $cache_file     = md5($md5_path . DIRECTORY_SEPARATOR . $file) . '.php';
-                    $cache_subpath  = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
-                    $cache_fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $cache_subpath;
-                    $file_check     = $cache_fullpath . DIRECTORY_SEPARATOR . $cache_file;
-                    $file_exists    = file_exists($file_check);
-                    $title          = CoreHelper::simplifyFilename($sub_path) . DIRECTORY_SEPARATOR . $file;
+                    $stack[] = $file;
+
+                    /**
+                     * Check cache file
+                     *
+                     * @param      string  $path   The path
+                     * @param      string  $file   The file
+                     *
+                     * @return     array{0: string, 1: string, 2: bool}
+                     */
+                    $check = function (string $path, string $file): array {
+                        // Compute MD5 representation of the cache file
+                        $cache_file = md5($path . DIRECTORY_SEPARATOR . $file) . '.php';
+                        // Get sub path where the cache file should be stored
+                        $cache_subpath = sprintf('%s/%s', substr($cache_file, 0, 2), substr($cache_file, 2, 2));
+                        $file_exists   = file_exists(
+                            implode(DIRECTORY_SEPARATOR, [
+                                Path::real(App::config()->cacheRoot()),
+                                Template::CACHE_FOLDER,
+                                $cache_subpath,
+                                $cache_file,
+                            ])
+                        );
+
+                        return [
+                            $cache_file,
+                            $cache_subpath,
+                            $file_exists,
+                        ];
+                    };
+
+                    [$cache_file, $cache_subpath, $file_exists] = $check($md5_path, $file);
+                    if (!$file_exists) {
+                        // Try with real path
+                        [$cache_file, $cache_subpath, $file_exists] = $check((string) Path::real($path), $file);
+                    }
+
+                    $title = CoreHelper::simplifyFilename($sub_path) . DIRECTORY_SEPARATOR . $file;
 
                     $url = $file_exists ?
                         (new Link())
