@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 10:57+0100\n"
+"POT-Creation-Date: 2025-03-11 11:49+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: German (https://app.transifex.com/open-time/teams/109573/de/)\n"
@@ -201,6 +201,21 @@ msgstr " (Priorität, Name)"
 msgid "Plugin id"
 msgstr "Plugin-ID"
 
+msgid "Entry types"
+msgstr "Eintragsarten"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Admin URL"
+msgstr "Verwaltungs-URL"
+
+msgid "List admin URL"
+msgstr "Liste der Verwaltungs-URL"
+
+msgid "Public URL"
+msgstr "Öffentliche URL"
+
 msgid " from: "
 msgstr " von: "
 
@@ -282,9 +297,6 @@ msgstr "Ausgewählte Cache-Dateien wurden gelöscht."
 #, php-format
 msgid "threshold = %d"
 msgstr "Schwelle = %d"
-
-msgid "Icon"
-msgstr "Icon"
 
 msgid "Live long and prosper."
 msgstr "Lebt lange und in Frieden."
