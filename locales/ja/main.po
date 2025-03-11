@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 10:57+0100\n"
+"POT-Creation-Date: 2025-03-11 11:49+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -201,6 +201,21 @@ msgstr "(優先順位、名前)"
 msgid "Plugin id"
 msgstr "プラグインID"
 
+msgid "Entry types"
+msgstr "エントリーの種類"
+
+msgid "Icon"
+msgstr "アイコン"
+
+msgid "Admin URL"
+msgstr "管理者URL"
+
+msgid "List admin URL"
+msgstr "リスト管理URL"
+
+msgid "Public URL"
+msgstr "公開URL"
+
 msgid " from: "
 msgstr "からです： "
 
@@ -282,9 +297,6 @@ msgstr "選択されたキャッシュファイルが削除されました。"
 #, php-format
 msgid "threshold = %d"
 msgstr "閾値%d"
-
-msgid "Icon"
-msgstr "アイコン"
 
 msgid "Live long and prosper."
 msgstr "長生きしてください。"

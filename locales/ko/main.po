@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 10:57+0100\n"
+"POT-Creation-Date: 2025-03-11 11:49+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -201,6 +201,21 @@ msgstr " (우선순위, 이름)"
 msgid "Plugin id"
 msgstr "플러그인 ID"
 
+msgid "Entry types"
+msgstr "항목 유형"
+
+msgid "Icon"
+msgstr "아이콘"
+
+msgid "Admin URL"
+msgstr "관리자 URL"
+
+msgid "List admin URL"
+msgstr "관리자 URL 나열"
+
+msgid "Public URL"
+msgstr "공개 URL"
+
 msgid " from: "
 msgstr " 에서: "
 
@@ -282,9 +297,6 @@ msgstr "선택한 캐시 파일이 삭제되었습니다."
 #, php-format
 msgid "threshold = %d"
 msgstr "임계값 = %d"
-
-msgid "Icon"
-msgstr "아이콘"
 
 msgid "Live long and prosper."
 msgstr "오래오래 번영하세요."
