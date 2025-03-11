@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 16:30+0100\n"
+"POT-Creation-Date: 2025-03-11 10:57+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
@@ -279,8 +279,12 @@ msgstr "Non è stato selezionato alcun file di cache"
 msgid "Selected cache files have been deleted."
 msgstr "I file di cache selezionati sono stati eliminati."
 
-msgid "Statuses"
-msgstr "Stati"
+#, php-format
+msgid "threshold = %d"
+msgstr "soglia = %d"
+
+msgid "Icon"
+msgstr "Icona"
 
 msgid "Live long and prosper."
 msgstr "Vivere a lungo e prosperare."
@@ -513,6 +517,9 @@ msgstr "Comportamenti"
 
 msgid "Admin URLs"
 msgstr "URL amministratore"
+
+msgid "Statuses"
+msgstr "Stati"
 
 msgid "Templates"
 msgstr "Modelli"
