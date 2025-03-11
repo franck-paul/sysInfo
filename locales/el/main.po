@@ -281,7 +281,7 @@ msgstr "Επιλεγμένα αρχεία cache έχουν διαγραφεί."
 
 #, php-format
 msgid "threshold = %d"
-msgstr "threshold = %d"
+msgstr "κατώφλι = %d"
 
 msgid "Icon"
 msgstr "Εικονίδιο"
