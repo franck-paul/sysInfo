@@ -348,6 +348,10 @@ dotclear.ready(() => {
     'restmethods',
     'tplpaths',
     'urls',
+    'statuses_blog',
+    'statuses_user',
+    'statuses_post',
+    'statuses_comment',
   ])
     enableTableSort(table);
 });

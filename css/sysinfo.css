@@ -30,6 +30,12 @@
   background: var(--msg-info-background);
 }
 
+.sysinfo .status-restricted {
+  td:first-child {
+    font-style: italic;
+  }
+}
+
 pre.sysinfo {
   white-space: pre;
   margin: 0;

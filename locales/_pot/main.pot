@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 16:30+0100\n"
+"POT-Creation-Date: 2025-03-11 10:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: ../git-plugins/sysInfo/src/Helper/Exceptions.php:80
 #: ../git-plugins/sysInfo/src/Helper/Folders.php:153
 #: ../git-plugins/sysInfo/src/Helper/Globals.php:132
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:96
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:112
 msgid "Name"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgid "Antispam filters"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/AntispamFilters.php:70
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:89
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:102
 msgid "ID"
 msgstr ""
 
@@ -156,7 +156,6 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Configuration.php:110
 #: ../git-plugins/sysInfo/src/Helper/Permissions.php:60
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:86
 #: ../git-plugins/sysInfo/src/Helper/UrlHandlers.php:92
 msgid "Type"
 msgstr ""
@@ -402,9 +401,13 @@ msgstr ""
 msgid "Selected cache files have been deleted."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Statuses.php:78
-#: ../git-plugins/sysInfo/src/Manage.php:96
-msgid "Statuses"
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:95
+#, php-format
+msgid "threshold = %d"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/Helper/Statuses.php:105
+msgid "Icon"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/System.php:45
@@ -714,6 +717,10 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/src/Manage.php:94
 msgid "Admin URLs"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/Manage.php:96
+msgid "Statuses"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Manage.php:99

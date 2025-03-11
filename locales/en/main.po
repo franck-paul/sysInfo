@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 16:30+0100\n"
+"POT-Creation-Date: 2025-03-11 10:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,7 +275,11 @@ msgstr ""
 msgid "Selected cache files have been deleted."
 msgstr ""
 
-msgid "Statuses"
+#, php-format
+msgid "threshold = %d"
+msgstr ""
+
+msgid "Icon"
 msgstr ""
 
 msgid "Live long and prosper."
@@ -506,6 +510,9 @@ msgid "Behaviours"
 msgstr ""
 
 msgid "Admin URLs"
+msgstr ""
+
+msgid "Statuses"
 msgstr ""
 
 msgid "Templates"

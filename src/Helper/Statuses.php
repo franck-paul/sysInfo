@@ -25,7 +25,7 @@ use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
-use Dotclear\Helper\Stack\Status;
+use Dotclear\Helper\Html\Html;
 
 class Statuses
 {
@@ -34,59 +34,75 @@ class Statuses
      */
     public static function render(): string
     {
-        $lines = [];
+        return
+        self::getTable(App::status()->blog(), 'Blog')->render() .
+        self::getTable(App::status()->user(), 'User')->render() .
+        self::getTable(App::status()->post(), 'Post')->render() .
+        self::getTable(App::status()->comment(), 'Comment')->render();
+    }
 
-        $statuses = App::status()->blog()->dump(true);
-        $type     = 'App::status()->blog()';
-        foreach ($statuses as $status) {
-            $lines[] = self::getRow($status, $type);
-            if ($type !== '') {
-                $type = '';
+    protected static function getTable($statuses, string $name): Table
+    {
+        $lines = function ($statuses, int $threshold) {
+            foreach ($statuses->dump() as $status) {
+                $icon      = $status->icon();
+                $icon_dark = $status->iconDark();
+                if ($icon_dark !== '') {
+                    // Two icons, one for each mode (light and dark)
+                    $icons = [
+                        (new Img($icon))
+                            ->alt(Html::escapeHTML(__($status->name())))
+                            ->class(['mark', 'mark-' . $status->id(), 'light-only']),
+                        (new Img($icon_dark))
+                            ->alt(Html::escapeHTML(__($status->name())))
+                            ->class(['mark', 'mark-' . $status->id(), 'dark-only']),
+                    ];
+                } else {
+                    $icons = [
+                        (new Img($icon))
+                            ->alt(Html::escapeHTML(__($status->name())))
+                            ->class(['mark', 'mark-' . $status->id()]),
+                    ];
+                }
+
+                $restricted = $status->level() <= $statuses->threshold() ? 'status-restricted' : '';
+
+                yield (new Tr())
+                    ->class($restricted)
+                    ->items([
+                        (new Td())
+                            ->text($status->id()),
+                        (new Td())
+                            ->items($icons),
+                        (new Td())
+                            ->class('right')
+                            ->text((new Text('code', (string) $status->level()))->render()),
+                        (new Td())
+                            ->class('maximal')
+                            ->text($status->name()),
+                        (new Td())
+                            ->items([
+                                (new Img('images/' . ($status->hidden() ? 'check-on.svg' : 'check-off.svg')))
+                                    ->class(['mark', 'mark-' . ($status->hidden() ? 'check-on' : 'check-off')])
+                                    ->alt($status->hidden() ? 'true' : 'false'),
+                            ]),
+                    ]);
             }
-        }
+        };
 
-        $statuses = App::status()->user()->dump(true);
-        $type     = 'App::status()->user()';
-        foreach ($statuses as $status) {
-            $lines[] = self::getRow($status, $type);
-            if ($type !== '') {
-                $type = '';
-            }
-        }
-
-        $statuses = App::status()->post()->dump(true);
-        $type     = 'App::status()->post()';
-        foreach ($statuses as $status) {
-            $lines[] = self::getRow($status, $type);
-            if ($type !== '') {
-                $type = '';
-            }
-        }
-
-        $statuses = App::status()->comment()->dump(true);
-        $type     = 'App::status()->comment()';
-        foreach ($statuses as $status) {
-            $lines[] = self::getRow($status, $type);
-            if ($type !== '') {
-                $type = '';
-            }
-        }
-
-        // Affichage de la liste des status
-        return (new Table('statuses'))
+        return (new Table('statuses_' . mb_strtolower($name)))
             ->class('sysinfo')
-            ->caption(new Caption(__('Statuses')))
+            ->caption(new Caption(__($name) . ' - ' . sprintf(__('threshold = %d'), $statuses->threshold())))
             ->thead((new Thead())
                 ->rows([
                     (new Tr())
                         ->cols([
                             (new Th())
                                 ->scope('col')
-                                ->class('nowrap')
-                                ->text(__('Type')),
+                                ->text(__('ID')),
                             (new Th())
                                 ->scope('col')
-                                ->text(__('ID')),
+                                ->text(__('Icon')),
                             (new Th())
                                 ->scope('col')
                                 ->text(__('Value')),
@@ -100,31 +116,8 @@ class Statuses
                         ]),
                 ]))
             ->tbody((new Tbody())
-                ->rows($lines))
-        ->render();
-    }
-
-    protected static function getRow(Status $status, string $type = ''): Tr
-    {
-        return (new Tr())
-            ->items([
-                (new Td())
-                    ->class('nowrap')
-                    ->text($type),
-                (new Td())
-                    ->text($status->id()),
-                (new Td())
-                    ->class('right')
-                    ->text((new Text('code', (string) $status->level()))->render()),
-                (new Td())
-                    ->class('maximal')
-                    ->text($status->name()),
-                (new Td())
-                    ->items([
-                        (new Img('images/' . ($status->hidden() ? 'check-on.svg' : 'check-off.svg')))
-                            ->class(['mark', 'mark-' . ($status->hidden() ? 'check-on' : 'check-off')])
-                            ->alt($status->hidden() ? 'true' : 'false'),
-                    ]),
-            ]);
+                ->rows([
+                    ...$lines($statuses, $statuses->threshold()),
+                ]));
     }
 }
