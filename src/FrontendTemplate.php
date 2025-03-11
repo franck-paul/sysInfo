@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -64,7 +65,7 @@ class FrontendTemplate
 
     public static function publicTemplatetagsList(): string
     {
-        $code = '<pre><ul>' . "\n";
+        $code = '<div class="sysinfo"><ul>' . "\n";
 
         $tplblocks = array_values(App::frontend()->template()->getBlockslist());
         $tplvalues = array_values(App::frontend()->template()->getValueslist());
@@ -72,20 +73,22 @@ class FrontendTemplate
         sort($tplblocks, SORT_STRING);
         sort($tplvalues, SORT_STRING);
 
-        $code .= '<li>' . __('Blocks') . '<ul>' . "\n";
+        $code .= '<li>' . __('Blocks') . ' (' . count($tplblocks) . ')' . '<ul>' . "\n";
         foreach ($tplblocks as $elt) {
-            $code .= '<li>' . $elt . '</li>' . "\n";
+            $callback = App::frontend()->template()->getBlockCallback($elt);
+            $code .= '<li>' . $elt . ' - <code>' . CoreHelper::callableName($callback) . '</code></li>' . "\n";
         }
 
         $code .= '</ul></li>' . "\n";
 
-        $code .= '<li>' . __('Values') . '<ul>' . "\n";
+        $code .= '<li>' . __('Values') . ' (' . count($tplvalues) . ')' . '<ul>' . "\n";
         foreach ($tplvalues as $elt) {
-            $code .= '<li>' . $elt . '</li>' . "\n";
+            $callback = App::frontend()->template()->getValueCallback($elt) ;
+            $code .= '<li>' . $elt . ' - <code>' . CoreHelper::callableName($callback) . '</code></li>' . "\n";
         }
 
         $code .= '</ul></li>' . "\n";
 
-        return $code . ('</ul></pre>' . "\n");
+        return $code . ('</ul></div>' . "\n");
     }
 }
