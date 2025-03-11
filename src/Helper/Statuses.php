@@ -25,7 +25,6 @@ use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
-use Dotclear\Helper\Html\Html;
 use Dotclear\Schema\Status\Blog;
 use Dotclear\Schema\Status\Comment;
 use Dotclear\Schema\Status\Post;
@@ -49,35 +48,15 @@ class Statuses
     {
         $lines = function (Blog|User|Post|Comment $statuses) {
             foreach ($statuses->dump() as $status) {
-                $icon      = $status->icon();
-                $icon_dark = $status->iconDark();
-                if ($icon_dark !== '') {
-                    // Two icons, one for each mode (light and dark)
-                    $icons = [
-                        (new Img($icon))
-                            ->alt(Html::escapeHTML(__($status->name())))
-                            ->class(['mark', 'mark-' . $status->id(), 'light-only']),
-                        (new Img($icon_dark))
-                            ->alt(Html::escapeHTML(__($status->name())))
-                            ->class(['mark', 'mark-' . $status->id(), 'dark-only']),
-                    ];
-                } else {
-                    $icons = [
-                        (new Img($icon))
-                            ->alt(Html::escapeHTML(__($status->name())))
-                            ->class(['mark', 'mark-' . $status->id()]),
-                    ];
-                }
-
-                $restricted = $status->level() <= $statuses->threshold() ? 'status-restricted' : '';
-
                 yield (new Tr())
-                    ->class($restricted)
+                    ->class($status->level() <= $statuses->threshold() ? 'status-restricted' : '')
                     ->items([
                         (new Td())
                             ->text($status->id()),
                         (new Td())
-                            ->items($icons),
+                            ->items([
+                                $statuses->image($status->id()),
+                            ]),
                         (new Td())
                             ->class('right')
                             ->text((new Text('code', (string) $status->level()))->render()),
