@@ -38,6 +38,7 @@ use Dotclear\Plugin\sysInfo\Helper\Integrity;
 use Dotclear\Plugin\sysInfo\Helper\Permissions;
 use Dotclear\Plugin\sysInfo\Helper\PhpInfo;
 use Dotclear\Plugin\sysInfo\Helper\Plugins;
+use Dotclear\Plugin\sysInfo\Helper\PostTypes;
 use Dotclear\Plugin\sysInfo\Helper\Repo;
 use Dotclear\Plugin\sysInfo\Helper\Rest;
 use Dotclear\Plugin\sysInfo\Helper\StaticCache;
@@ -93,6 +94,7 @@ class Manage extends Process
                 __('Behaviours')          => 'behaviours',
                 __('Admin URLs')          => 'adminurls',
                 __('Types of permission') => 'permissions',
+                __('Entry types')         => 'posttypes',
                 __('Statuses')            => 'statuses',
             ],
 
@@ -298,6 +300,9 @@ class Manage extends Process
 
             // Get list of statuses
             'statuses' => Statuses::render(),
+
+            // Get entry types
+            'posttypes' => PostTypes::render(),
 
             // Display PHP version and DB version
             default => System::render()

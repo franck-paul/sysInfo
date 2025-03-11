@@ -352,6 +352,7 @@ dotclear.ready(() => {
     'statuses_user',
     'statuses_post',
     'statuses_comment',
+    'posttypes',
   ])
     enableTableSort(table);
 });

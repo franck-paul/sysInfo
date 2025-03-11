@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 10:57+0100\n"
+"POT-Creation-Date: 2025-03-11 11:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,6 +197,21 @@ msgstr ""
 msgid "Plugin id"
 msgstr ""
 
+msgid "Entry types"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Admin URL"
+msgstr ""
+
+msgid "List admin URL"
+msgstr ""
+
+msgid "Public URL"
+msgstr ""
+
 msgid " from: "
 msgstr ""
 
@@ -277,9 +292,6 @@ msgstr ""
 
 #, php-format
 msgid "threshold = %d"
-msgstr ""
-
-msgid "Icon"
 msgstr ""
 
 msgid "Live long and prosper."
