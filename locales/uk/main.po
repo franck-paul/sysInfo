@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 10:57+0100\n"
+"POT-Creation-Date: 2025-03-11 11:49+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/open-time/teams/109573/uk/)\n"
@@ -201,6 +201,21 @@ msgstr " (пріоритет, ім'я)"
 msgid "Plugin id"
 msgstr "Ідентифікатор плагіна"
 
+msgid "Entry types"
+msgstr "Типи записів"
+
+msgid "Icon"
+msgstr "Ікона"
+
+msgid "Admin URL"
+msgstr "URL-адреса адміністратора"
+
+msgid "List admin URL"
+msgstr "Перерахувати URL-адресу адміністратора"
+
+msgid "Public URL"
+msgstr "Публічна URL-адреса"
+
 msgid " from: "
 msgstr " з якого: "
 
@@ -282,9 +297,6 @@ msgstr "Видалено вибрані файли кешу."
 #, php-format
 msgid "threshold = %d"
 msgstr "поріг = %d"
-
-msgid "Icon"
-msgstr "Ікона"
 
 msgid "Live long and prosper."
 msgstr "Живіть довго і процвітайте."
