@@ -16,9 +16,23 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Ul;
 
 class FrontendTemplate
 {
+    private static function phpCode(string $code, bool $echo = true): string
+    {
+        if ($echo) {
+            // Use PHP short syntax with implicit echo
+            return '<?= ' . trim($code) . ' ?>';
+        }
+
+        return implode("\n", ['<?php', trim($code), '?>']) . "\n";
+    }
+
     public static function sysInfoPageTitle(): string
     {
         $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
@@ -26,69 +40,114 @@ class FrontendTemplate
             $tplset = App::config()->defaultTplset() . '-default';
         }
 
-        return '<?= \'<span class="dc-tpl-' . $tplset . '">' . __('System Information') . '</span>\' ?>';
+        return trim((string) (new Text('span', __('System Information')))
+            ->class('dc-tpl-' . $tplset)
+        ->render());
     }
 
     public static function sysInfoBehaviours(): string
     {
+        return (new Set())
+            ->items([
+                (new Text('h3', self::phpCode(self::class . '::publicBehavioursTitle()'))),
+                (new Text(null, self::phpCode(self::class . '::publicBehavioursList()'))),
+            ])
+        ->render();
+    }
+
+    public static function publicBehavioursTitle(): string
+    {
         $bl = App::behavior()->getBehaviors();
 
-        $code = '<h3><?= \'' . __('Public behaviours list') . '\' ?>' . ' (' . sprintf('%d', count($bl)) . ')' . '</h3>' . "\n";
-
-        return $code . ('<?= ' . self::class . '::publicBehavioursList() ?>');
+        return __('Public behaviours list') . ' (' . sprintf('%d', count($bl)) . ')';
     }
 
     public static function publicBehavioursList(): string
     {
-        $code = '<ul>' . "\n";
-
-        $bl = App::behavior()->getBehaviors();
-        foreach ($bl as $b => $f) {
-            $code .= '<li>' . $b . ' : ' . "\n" . '<ul>';
-            // List of behavior's callback(s)
-            foreach ($f as $fi) {
-                $code .= '<li><code>' . CoreHelper::callableName($fi) . '</code></li>';
+        $behaviorsList = function (array $behaviors) {
+            $callbacksList = function (array $callbacks) {
+                foreach ($callbacks as $callback) {
+                    yield (new Li())
+                        ->items([
+                            (new Text('code', CoreHelper::callableName($callback))),
+                        ]);
+                }
+            };
+            foreach ($behaviors as $name => $callbacks) {
+                yield (new Li())
+                    ->items([
+                        (new Text(null, (string) $name)),
+                        (new Ul())
+                            ->items([
+                                ... $callbacksList($callbacks),
+                            ]),
+                    ]);
             }
+        };
 
-            $code .= '</ul>' . "\n" . '</li>' . "\n";
-        }
-
-        return $code . ('</ul>' . "\n");
+        return (new Ul())
+            ->items([
+                ... $behaviorsList(App::behavior()->getBehaviors()),
+            ])
+        ->render();
     }
 
     public static function sysInfoTemplatetags(): string
     {
-        $code = '<h3><?= \'' . __('Template tags list') . '\' ?>' . '</h3>' . "\n";
+        return (new Set())
+            ->items([
+                (new Text('h3', self::phpCode(self::class . '::publicTemplatetagsTitle()'))),
+                (new Text(null, self::phpCode(self::class . '::publicTemplatetagsList()'))),
+            ])
+        ->render();
+    }
 
-        return $code . ('<?= ' . self::class . '::publicTemplatetagsList() ?>');
+    public static function publicTemplatetagsTitle(): string
+    {
+        return __('Template tags list');
     }
 
     public static function publicTemplatetagsList(): string
     {
-        $code = '<div class="sysinfo"><ul>' . "\n";
-
         $tplblocks = array_values(App::frontend()->template()->getBlockslist());
         $tplvalues = array_values(App::frontend()->template()->getValueslist());
 
         sort($tplblocks, SORT_STRING);
         sort($tplvalues, SORT_STRING);
 
-        $code .= '<li>' . __('Blocks') . ' (' . count($tplblocks) . ')' . '<ul>' . "\n";
-        foreach ($tplblocks as $elt) {
-            $callback = App::frontend()->template()->getBlockCallback($elt);
-            $code .= '<li>' . $elt . ' - <code>' . CoreHelper::callableName($callback) . '</code></li>' . "\n";
-        }
+        $tagsList = function (array $list, bool $block) {
+            foreach ($list as $tag) {
+                $callback = $block ?
+                    App::frontend()->template()->getBlockCallback($tag) :
+                    App::frontend()->template()->getValueCallback($tag);
+                yield (new Li())
+                    ->separator(' - ')
+                    ->items([
+                        (new Text(null, $tag)),
+                        (new Text('code', CoreHelper::callableName($callback))),
+                    ]);
+            }
+        };
 
-        $code .= '</ul></li>' . "\n";
-
-        $code .= '<li>' . __('Values') . ' (' . count($tplvalues) . ')' . '<ul>' . "\n";
-        foreach ($tplvalues as $elt) {
-            $callback = App::frontend()->template()->getValueCallback($elt) ;
-            $code .= '<li>' . $elt . ' - <code>' . CoreHelper::callableName($callback) . '</code></li>' . "\n";
-        }
-
-        $code .= '</ul></li>' . "\n";
-
-        return $code . ('</ul></div>' . "\n");
+        return (new Ul())
+            ->items([
+                (new Li())
+                    ->items([
+                        (new Text(null, __('Blocks') . ' (' . count($tplblocks) . ')')),
+                        (new Ul())
+                            ->items([
+                                ... $tagsList($tplblocks, true),
+                            ]),
+                    ]),
+                (new Li())
+                    ->items([
+                        (new Text(null, __('Values') . ' (' . count($tplvalues) . ')')),
+                        (new Ul())
+                            ->items([
+                                ... $tagsList($tplvalues, false),
+                            ]),
+                    ]),
+            ])
+        ->render();
     }
 }

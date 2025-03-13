@@ -65,6 +65,12 @@ class TplPaths
 
         return (new Set())
             ->items([
+                (new Para())
+                    ->items([
+                        (new Link('sysinfo-preview'))
+                            ->href(App::blog()->url() . App::url()->getURLFor('sysinfo') . '/templatetags')
+                            ->text(__('Display template tags')),
+                    ]),
                 (new Table('tplpaths'))
                     ->class('sysinfo')
                     ->caption(new Caption(__('List of template paths') . ' (' . sprintf('%d', count($paths)) . ')'))
@@ -79,12 +85,6 @@ class TplPaths
                         ]))
                     ->tbody((new Tbody())
                         ->rows($rows())),
-                (new Para())
-                    ->items([
-                        (new Link('sysinfo-preview'))
-                            ->href(App::blog()->url() . App::url()->getURLFor('sysinfo') . '/templatetags')
-                            ->text(__('Display template tags')),
-                    ]),
             ])
         ->render();
     }
