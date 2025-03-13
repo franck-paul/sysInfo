@@ -123,6 +123,7 @@ L10n::$locales['using <strong>%s</strong> syntax'] = 'χρησιμοποιώντ
 L10n::$locales['Error reporting: '] = 'Αναφορά σφάλματος: ';
 L10n::$locales['PHP Cache: '] = 'PHP Cache: ';
 L10n::$locales['Temporary folder: '] = 'Προσωρινός φάκελος: ';
+L10n::$locales['Form nonce: '] = 'Μορφή nonce: ';
 L10n::$locales['Battery level: '] = 'Επίπεδο μπαταρίας: ';
 L10n::$locales['Dotclear info'] = 'Πληροφορίες Dotclear';
 L10n::$locales['Dotclear version: '] = 'Έκδοση Dotclear: ';

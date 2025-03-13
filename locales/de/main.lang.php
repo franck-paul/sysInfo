@@ -123,6 +123,7 @@ L10n::$locales['using <strong>%s</strong> syntax'] = 'mit <strong>%s</strong> de
 L10n::$locales['Error reporting: '] = 'Fehlermeldung: ';
 L10n::$locales['PHP Cache: '] = 'PHP-Cache: ';
 L10n::$locales['Temporary folder: '] = 'Temporärer Ordner: ';
+L10n::$locales['Form nonce: '] = 'Form nonce: ';
 L10n::$locales['Battery level: '] = 'Batteriestand: ';
 L10n::$locales['Dotclear info'] = 'Dotclear-Informationen';
 L10n::$locales['Dotclear version: '] = 'Dotclear-Version: ';

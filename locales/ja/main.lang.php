@@ -123,6 +123,7 @@ L10n::$locales['using <strong>%s</strong> syntax'] = '使用 <strong>%s</strong>
 L10n::$locales['Error reporting: '] = 'エラーの報告です： ';
 L10n::$locales['PHP Cache: '] = 'PHPのキャッシュです： ';
 L10n::$locales['Temporary folder: '] = 'テンポラリフォルダです： ';
+L10n::$locales['Form nonce: '] = 'フォーム・ノンス： ';
 L10n::$locales['Battery level: '] = 'バッテリー残量： ';
 L10n::$locales['Dotclear info'] = 'ドットクリアインフォ';
 L10n::$locales['Dotclear version: '] = 'ドットクリアバージョンです： ';
