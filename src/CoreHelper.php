@@ -300,7 +300,7 @@ class CoreHelper
                 // Cope with class::method(...) forms
                 $c = $r->getClosureScopeClass();
                 if (!is_null($c)) {
-                    $ns = (bool) $c->getNamespaceName() ? $c->getNamespaceName() . '::' : '';
+                    $ns = $c->getName() !== '' ? $c->getName() . '::' : ''; // @phpstan-ignore-line
                 }
             }
 
