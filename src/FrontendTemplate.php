@@ -65,21 +65,19 @@ class FrontendTemplate
     public static function publicBehavioursList(): string
     {
         $behaviorsList = function (array $behaviors) {
-            $callbacksList = function (array $callbacks) {
-                foreach ($callbacks as $callback) {
-                    yield (new Li())
-                        ->items([
-                            (new Text('code', CoreHelper::callableName($callback))),
-                        ]);
-                }
-            };
             foreach ($behaviors as $name => $callbacks) {
                 yield (new Li())
                     ->items([
                         (new Text(null, (string) $name)),
                         (new Ul())
                             ->items([
-                                ... $callbacksList($callbacks),
+                                ... array_map(
+                                    fn ($callback) => (new Li())
+                                        ->items([
+                                            (new Text('code', CoreHelper::callableName($callback))),
+                                        ]),
+                                    $callbacks
+                                ),
                             ]),
                     ]);
             }
