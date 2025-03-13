@@ -146,6 +146,8 @@ class System
                                     (new Li())
                                         ->text('session_id(): ' . $toStrong($toCode(session_id()))) :
                                     (new None()),
+                                (new Li())
+                                    ->text(__('Form nonce: ') . $toStrong($toCode(App::nonce()->getNonce()))),
                                 (new Li('sys_battery'))
                                     ->text(__('Battery level: ') . $toStrong('')),
                             ]),
