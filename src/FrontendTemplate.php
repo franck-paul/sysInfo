@@ -23,8 +23,18 @@ use Dotclear\Helper\Html\Form\Ul;
 
 class FrontendTemplate
 {
-    private static function phpCode(string $code, bool $echo = true): string
+    /**
+     * Output some PHP code
+     *
+     * @param      array<int, string>|string    $code   The code
+     * @param      bool                         $echo   The echo
+     */
+    private static function phpCode(string|array $code, bool $echo = true): string
     {
+        if (is_array($code)) {
+            $code = trim(implode("\n", $code));
+        }
+
         if ($echo) {
             // Use PHP short syntax with implicit echo
             return '<?= ' . trim($code) . ' ?>';
