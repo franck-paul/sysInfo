@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 12:19+0100\n"
+"POT-Creation-Date: 2025-03-16 15:18+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/open-time/teams/109573/pt/)\n"
@@ -188,6 +188,12 @@ msgstr "md5"
 
 msgid "md5 (experimental)"
 msgstr "md5 (experimental)"
+
+msgid "Locales"
+msgstr "Traduções"
+
+msgid "English (source)"
+msgstr "Inglês (fonte)"
 
 msgid "Types of permission"
 msgstr "Tipos de autorização"
@@ -426,11 +432,11 @@ msgstr "Caminho do modelo"
 msgid "Template file"
 msgstr "Ficheiro de modelo"
 
-msgid "List of template paths"
-msgstr "Lista de caminhos de modelos"
-
 msgid "Display template tags"
 msgstr "Apresentar etiquetas de modelos"
+
+msgid "List of template paths"
+msgstr "Lista de caminhos de modelos"
 
 msgid "Nothing unexpected or additional found."
 msgstr "Nada de inesperado ou adicional foi encontrado."
