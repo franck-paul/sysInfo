@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 12:19+0100\n"
+"POT-Creation-Date: 2025-03-16 15:18+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -188,6 +188,12 @@ msgstr "md5"
 
 msgid "md5 (experimental)"
 msgstr "md5 (实验性)"
+
+msgid "Locales"
+msgstr "地点"
+
+msgid "English (source)"
+msgstr "英语（来源）"
 
 msgid "Types of permission"
 msgstr "许可的类型"
@@ -426,11 +432,11 @@ msgstr "模板路径"
 msgid "Template file"
 msgstr "模板文件"
 
-msgid "List of template paths"
-msgstr "模板路径列表"
-
 msgid "Display template tags"
 msgstr "显示模板标签"
+
+msgid "List of template paths"
+msgstr "模板路径列表"
 
 msgid "Nothing unexpected or additional found."
 msgstr "没有发现任何意外或额外情况。"
