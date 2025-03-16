@@ -35,6 +35,7 @@ use Dotclear\Plugin\sysInfo\Helper\Folders;
 use Dotclear\Plugin\sysInfo\Helper\Formaters;
 use Dotclear\Plugin\sysInfo\Helper\Globals;
 use Dotclear\Plugin\sysInfo\Helper\Integrity;
+use Dotclear\Plugin\sysInfo\Helper\Locales;
 use Dotclear\Plugin\sysInfo\Helper\Permissions;
 use Dotclear\Plugin\sysInfo\Helper\PhpInfo;
 use Dotclear\Plugin\sysInfo\Helper\Plugins;
@@ -117,6 +118,7 @@ class Manage extends Process
                 __('Editors and Syntaxes') => 'formaters',
                 __('REST methods')         => 'rest',
                 __('Versions')             => 'versions',
+                __('Locales')              => 'locales',
             ],
 
             __('Report') => [
@@ -303,6 +305,9 @@ class Manage extends Process
 
             // Get entry types
             'posttypes' => PostTypes::render(),
+
+            // Get current locales
+            'locales' => Locales::render(),
 
             // Display PHP version and DB version
             default => System::render()
