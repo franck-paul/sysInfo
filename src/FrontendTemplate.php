@@ -15,54 +15,43 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
+use ArrayObject;
 use Dotclear\App;
 use Dotclear\Helper\Html\Form\Li;
-use Dotclear\Helper\Html\Form\Set;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Ul;
+use Dotclear\Plugin\TemplateHelper\Code;
 
 class FrontendTemplate
 {
     /**
-     * Output some PHP code
-     *
-     * @param      array<int, string>|string    $code   The code
-     * @param      bool                         $echo   The echo
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr   The attribute
      */
-    private static function phpCode(string|array $code, bool $echo = true): string
-    {
-        if (is_array($code)) {
-            $code = trim(implode("\n", $code));
-        }
-
-        if ($echo) {
-            // Use PHP short syntax with implicit echo
-            return '<?= ' . trim($code) . ' ?>';
-        }
-
-        return implode("\n", ['<?php', trim($code), '?>']) . "\n";
-    }
-
-    public static function sysInfoPageTitle(): string
+    public static function sysInfoPageTitle(array|ArrayObject $attr): string
     {
         $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
         if (empty($tplset)) {
             $tplset = App::config()->defaultTplset() . '-default';
         }
 
-        return trim((string) (new Text('span', __('System Information')))
-            ->class('dc-tpl-' . $tplset)
-        ->render());
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::sysInfoPageTitle(...),
+            [
+                $tplset,
+            ],
+            attr: $attr,
+        );
     }
 
-    public static function sysInfoBehaviours(): string
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr   The attribute
+     */
+    public static function sysInfoBehaviours(array|ArrayObject $attr): string
     {
-        return (new Set())
-            ->items([
-                (new Text('h3', self::phpCode(self::class . '::publicBehavioursTitle()'))),
-                (new Text(null, self::phpCode(self::class . '::publicBehavioursList()'))),
-            ])
-        ->render();
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::sysInfoBehaviours(...),
+            attr: $attr,
+        );
     }
 
     public static function publicBehavioursTitle(): string
@@ -100,14 +89,15 @@ class FrontendTemplate
         ->render();
     }
 
-    public static function sysInfoTemplatetags(): string
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr   The attribute
+     */
+    public static function sysInfoTemplatetags(array|ArrayObject $attr): string
     {
-        return (new Set())
-            ->items([
-                (new Text('h3', self::phpCode(self::class . '::publicTemplatetagsTitle()'))),
-                (new Text(null, self::phpCode(self::class . '::publicTemplatetagsList()'))),
-            ])
-        ->render();
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::sysInfoTemplatetags(...),
+            attr: $attr,
+        );
     }
 
     public static function publicTemplatetagsTitle(): string
