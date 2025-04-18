@@ -137,7 +137,7 @@ class System
                                 (new Li())
                                     ->text(__('PHP Cache: ') . implode(', ', array_map(fn ($cache): string => $toStrong($cache), $caches))),
                                 (new Li())
-                                    ->text(__('Temporary folder: ') . $toStrong(sys_get_temp_dir())),
+                                    ->text(__('Temporary folder: ') . $toStrong(realpath(sys_get_temp_dir()))),
                                 (new Li())
                                     ->text('DIRECTORY_SEPARATOR: ' . $toStrong($toCode(DIRECTORY_SEPARATOR))),
                                 (new Li())
