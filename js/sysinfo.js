@@ -347,7 +347,6 @@ dotclear.ready(() => {
     'constants',
     'dotclear-config',
     'dotclear-release',
-    'exceptions',
     'permissions',
     'restmethods',
     'tplpaths',
@@ -359,6 +358,11 @@ dotclear.ready(() => {
     'posttypes',
   ])
     enableTableSort(table);
-  // Sorting for some specific tables
+  // Sorting for some specific tables (one column is numeric)
   enableTableSort('thumbnails', 0, -1, 1);
+  enableTableSort('statuses_blog', 0, -1, 2);
+  enableTableSort('statuses_user', 0, -1, 2);
+  enableTableSort('statuses_post', 0, -1, 2);
+  enableTableSort('statuses_comment', 0, -1, 2);
+  enableTableSort('exceptions', 0, -1, 2);
 });
