@@ -205,6 +205,7 @@ class Configuration
             'httpReverseProxy'   => App::config()->httpReverseProxy(),
             'checkAdsBlocker'    => App::config()->checkAdsBlocker(),
             'cspReportFile'      => App::config()->cspReportFile(),
+            'mediaUpdateDBLimit' => App::config()->mediaUpdateDBLimit(),
         ];
 
         return [$release, $config];
