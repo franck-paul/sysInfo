@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 15:18+0100\n"
+"POT-Creation-Date: 2025-04-19 10:06+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/open-time/teams/109573/it/)\n"
@@ -433,6 +433,32 @@ msgstr "Percorso del modello"
 msgid "Template file"
 msgstr "File modello"
 
+msgid "Media thumbnails sizes"
+msgstr "Dimensioni delle miniature dei media"
+
+msgid "Size"
+msgstr "Dimensione"
+
+msgid "Mode"
+msgstr "Modalità"
+
+msgid "Translated label"
+msgstr "Etichetta tradotta"
+
+msgid "System"
+msgstr "Sistema"
+
+#, php-format
+msgid "Thumbnails prefix: <code>%s</code>"
+msgstr "Prefisso delle miniature: <code>%s</code>"
+
+#, php-format
+msgid ""
+"Thumbnails file pattern: <code>%s</code> (path, filename, thumbnail code)"
+msgstr ""
+"Schema file miniature: <code>%s</code> (percorso, nome file, codice "
+"miniatura)"
+
 msgid "Display template tags"
 msgstr "Visualizzazione dei tag del modello"
 
@@ -502,9 +528,6 @@ msgstr "sysInfo segnala che la directory della cache è stata svuotata."
 msgid "Failed to empty sysInfo reports cache directory."
 msgstr ""
 "Impossibile svuotare la directory della cache dei rapporti di sysInfo."
-
-msgid "System"
-msgstr "Sistema"
 
 msgid "PHP info"
 msgstr "Info PHP"
@@ -577,6 +600,9 @@ msgstr "Plugin"
 
 msgid "Editors and Syntaxes"
 msgstr "Editori e sintassi"
+
+msgid "Thumbnails"
+msgstr "Miniature"
 
 msgid "Full report"
 msgstr "Rapporto completo"
