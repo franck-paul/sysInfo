@@ -248,7 +248,7 @@ dotclear.ready(() => {
   }
 
   // Table sorting enabler
-  const enableTableSort = (tableId, offset = 0, semver = -1) => {
+  const enableTableSort = (tableId, offset = 0, semver = -1, numeric = -1) => {
     const table = document.getElementById(tableId);
     if (!table) {
       return;
@@ -297,10 +297,14 @@ dotclear.ready(() => {
       // Sort rows by the content of cells
       newRows.sort((rowA, rowB) => {
         // Get the content of cells
-        const cellA = rowA.querySelectorAll('td')[indexData].innerHTML;
-        const cellB = rowB.querySelectorAll('td')[indexData].innerHTML;
+        let cellA = rowA.querySelectorAll('td')[indexData].innerHTML;
+        let cellB = rowB.querySelectorAll('td')[indexData].innerHTML;
 
         if (semver === indexHead) return comparePartials(cellA, cellB);
+        if (numeric === indexHead) {
+          cellA = Number.parseInt(rowA.querySelectorAll('td')[indexData].innerText);
+          cellB = Number.parseInt(rowB.querySelectorAll('td')[indexData].innerText);
+        }
 
         switch (true) {
           case cellA > cellB:
@@ -355,4 +359,6 @@ dotclear.ready(() => {
     'posttypes',
   ])
     enableTableSort(table);
+  // Sorting for some specific tables
+  enableTableSort('thumbnails', 0, -1, 1);
 });

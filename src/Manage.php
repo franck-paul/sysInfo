@@ -46,6 +46,7 @@ use Dotclear\Plugin\sysInfo\Helper\StaticCache;
 use Dotclear\Plugin\sysInfo\Helper\Statuses;
 use Dotclear\Plugin\sysInfo\Helper\System;
 use Dotclear\Plugin\sysInfo\Helper\Templates;
+use Dotclear\Plugin\sysInfo\Helper\Thumbnails;
 use Dotclear\Plugin\sysInfo\Helper\TplPaths;
 use Dotclear\Plugin\sysInfo\Helper\Undigest;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
@@ -119,6 +120,7 @@ class Manage extends Process
                 __('REST methods')         => 'rest',
                 __('Versions')             => 'versions',
                 __('Locales')              => 'locales',
+                __('Thumbnails')           => 'thumbnails',
             ],
 
             __('Report') => [
@@ -308,6 +310,9 @@ class Manage extends Process
 
             // Get current locales
             'locales' => Locales::render(),
+
+            // Get list of thumbnails sizes
+            'thumbnails' => Thumbnails::render(),
 
             // Display PHP version and DB version
             default => System::render()

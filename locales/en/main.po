@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 15:18+0100\n"
+"POT-Creation-Date: 2025-04-19 10:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -428,6 +428,29 @@ msgstr ""
 msgid "Template file"
 msgstr ""
 
+msgid "Media thumbnails sizes"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "Translated label"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+#, php-format
+msgid "Thumbnails prefix: <code>%s</code>"
+msgstr ""
+
+#, php-format
+msgid "Thumbnails file pattern: <code>%s</code> (path, filename, thumbnail code)"
+msgstr ""
+
 msgid "Display template tags"
 msgstr ""
 
@@ -495,9 +518,6 @@ msgid "sysInfo reports cache directory emptied."
 msgstr ""
 
 msgid "Failed to empty sysInfo reports cache directory."
-msgstr ""
-
-msgid "System"
 msgstr ""
 
 msgid "PHP info"
@@ -570,6 +590,9 @@ msgid "Plugins"
 msgstr ""
 
 msgid "Editors and Syntaxes"
+msgstr ""
+
+msgid "Thumbnails"
 msgstr ""
 
 msgid "Full report"
