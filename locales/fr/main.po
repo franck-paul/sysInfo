@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 15:18+0100\n"
+"POT-Creation-Date: 2025-04-19 10:06+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -433,6 +433,32 @@ msgstr "Répertoire des templates"
 msgid "Template file"
 msgstr "Fichier template"
 
+msgid "Media thumbnails sizes"
+msgstr "Taille des vignettes des médias"
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Translated label"
+msgstr "Libellé traduit"
+
+msgid "System"
+msgstr "Système"
+
+#, php-format
+msgid "Thumbnails prefix: <code>%s</code>"
+msgstr "Préfixe des vignettes : <code>%s</code>"
+
+#, php-format
+msgid ""
+"Thumbnails file pattern: <code>%s</code> (path, filename, thumbnail code)"
+msgstr ""
+"Modèle de fichier des vignettes : <code>%s</code> (chemin, nom de fichier, "
+"code de la vignette)"
+
 msgid "Display template tags"
 msgstr "Liste des balises template"
 
@@ -501,9 +527,6 @@ msgstr "Le répertoire de cache des rapports de sysInfo a été vidé."
 
 msgid "Failed to empty sysInfo reports cache directory."
 msgstr "Échec du vidage du répertoire de cache des rapports de sysInfo."
-
-msgid "System"
-msgstr "Système"
 
 msgid "PHP info"
 msgstr "PHP info"
@@ -576,6 +599,9 @@ msgstr "Plugins"
 
 msgid "Editors and Syntaxes"
 msgstr "Éditeurs et syntaxes"
+
+msgid "Thumbnails"
+msgstr "Vignettes"
 
 msgid "Full report"
 msgstr "Rapport complet"
