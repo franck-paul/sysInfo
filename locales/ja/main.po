@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 15:18+0100\n"
+"POT-Creation-Date: 2025-04-19 10:06+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -432,6 +432,30 @@ msgstr "テンプレートパス"
 msgid "Template file"
 msgstr "テンプレートファイル"
 
+msgid "Media thumbnails sizes"
+msgstr "メディアのサムネイルサイズ"
+
+msgid "Size"
+msgstr "サイズ"
+
+msgid "Mode"
+msgstr "モード"
+
+msgid "Translated label"
+msgstr "翻訳ラベル"
+
+msgid "System"
+msgstr "システム"
+
+#, php-format
+msgid "Thumbnails prefix: <code>%s</code>"
+msgstr "サムネイルの接頭辞： <code>%s</code>"
+
+#, php-format
+msgid ""
+"Thumbnails file pattern: <code>%s</code> (path, filename, thumbnail code)"
+msgstr "サムネイルファイルパターン： <code>%s</code>(パス、ファイル名、サムネイルコード)"
+
 msgid "Display template tags"
 msgstr "テンプレートタグを表示する"
 
@@ -500,9 +524,6 @@ msgstr "sysInfoがキャッシュディレクトリが空になったと報告�
 
 msgid "Failed to empty sysInfo reports cache directory."
 msgstr "sysInfo レポートキャッシュディレクトリを空にできませんでした。"
-
-msgid "System"
-msgstr "システム"
 
 msgid "PHP info"
 msgstr "PHP情報"
@@ -575,6 +596,9 @@ msgstr "プラグイン"
 
 msgid "Editors and Syntaxes"
 msgstr "エディターとシンタックス"
+
+msgid "Thumbnails"
+msgstr "サムネイル"
 
 msgid "Full report"
 msgstr "全文表示"
