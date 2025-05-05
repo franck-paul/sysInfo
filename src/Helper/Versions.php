@@ -26,11 +26,11 @@ use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Strong;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Table;
 use Dotclear\Helper\Html\Form\Tbody;
 use Dotclear\Helper\Html\Form\Td;
-use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
@@ -127,7 +127,7 @@ class Versions
                 ->cols([
                     (new Td())
                         ->items([
-                            $checkbox->label(new Label($strong ? (new Text('strong', $name))->render() : $name, Label::IL_FT)),
+                            $checkbox->label(new Label($strong ? (new Strong($name))->render() : $name, Label::IL_FT)),
                         ]),
                     (new Td())
                         ->class('nowrap')

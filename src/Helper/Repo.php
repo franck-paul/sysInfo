@@ -20,10 +20,10 @@ use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Caption;
 use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Li;
-use Dotclear\Helper\Html\Form\None;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Strong;
 use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Form\Table;
 use Dotclear\Helper\Html\Form\Tbody;
@@ -135,7 +135,7 @@ class Repo
                             ->items([
                                 (new Para())
                                     ->items([
-                                        (new Text('strong', $label)),
+                                        (new Strong($label)),
                                     ]),
                                 $details,
                             ]),

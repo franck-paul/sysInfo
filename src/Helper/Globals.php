@@ -18,6 +18,7 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 use Dotclear\App;
 use Dotclear\Helper\Html\Form\Caption;
 use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Strong;
 use Dotclear\Helper\Html\Form\Table;
 use Dotclear\Helper\Html\Form\Tbody;
 use Dotclear\Helper\Html\Form\Td;
@@ -75,7 +76,7 @@ class Globals
                                 yield (new Li())
                                     ->separator(' ')
                                     ->items([
-                                        (new Text('strong', $key)),
+                                        (new Strong($key)),
                                         (new Text(null, '=')),
                                         (new Text('code', CoreHelper::simplifyFilename(print_r($value, true)))),
                                     ]);

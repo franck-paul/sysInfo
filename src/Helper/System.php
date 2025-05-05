@@ -25,6 +25,7 @@ use Dotclear\Helper\Html\Form\Link;
 use Dotclear\Helper\Html\Form\None;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Strong;
 use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Ul;
@@ -89,7 +90,7 @@ class System
         }
 
         // Helpers
-        $toStrong = fn ($text): string => (new Text('strong', $text))->render();
+        $toStrong = fn ($text): string => (new Strong($text))->render();
         $toCode   = fn ($text): string => (new Text('code', $text))->render();
 
         // Server info

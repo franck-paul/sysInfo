@@ -21,6 +21,7 @@ use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Link;
 use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Strong;
 use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Ul;
@@ -87,7 +88,7 @@ class Plugins
             $lines[] = (new Set())
                 ->items([
                     (new Details('p-' . $id))
-                        ->summary(new Summary((new Text('strong', (string) $id))->render() . $info))
+                        ->summary(new Summary((new Strong((string) $id))->render() . $info))
                         ->items([
                             (new Ul())
                                 ->items($infos),
