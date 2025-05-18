@@ -51,6 +51,11 @@ class Frontend extends Process
         App::frontend()->template()->addValue('SysInfoBehaviours', FrontendTemplate::sysInfoBehaviours(...));
         App::frontend()->template()->addValue('SysInfoTemplatetags', FrontendTemplate::sysInfoTemplatetags(...));
 
+        App::behavior()->addBehaviors([
+            'publicHeadContent'     => FrontendBehaviors::publicHeadContent(...),
+            'publicAfterDocumentV2' => FrontendBehaviors::publicAfterDocument(...),
+        ]);
+
         return true;
     }
 }

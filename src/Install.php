@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief sysInfo, a plugin for Dotclear 2
  *
@@ -32,6 +33,7 @@ class Install extends Process
         $settings = My::settings();
         $settings->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
         $settings->put('redact', '', 'string', '', false, true);
+        $settings->put('public_debug', false, 'boolean', 'Display debug information on each public page', false, true);
 
         return true;
     }

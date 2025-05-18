@@ -52,7 +52,9 @@ class Backend extends Process
         });
 
         App::behavior()->addBehaviors([
-            'dcMaintenanceInit' => BackendBehaviors::dcMaintenanceInit(...),
+            'dcMaintenanceInit'             => BackendBehaviors::dcMaintenanceInit(...),
+            'adminBlogPreferencesFormV2'    => BackendBehaviors::adminBlogPreferencesForm(...),
+            'adminBeforeBlogSettingsUpdate' => BackendBehaviors::adminBeforeBlogSettingsUpdate(...),
         ]);
 
         // Register REST methods
