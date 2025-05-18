@@ -12,6 +12,7 @@ use Dotclear\Helper\L10n;
 
 L10n::$locales['sysInfo'] = 'sysInfo';
 L10n::$locales['System Information'] = 'Πληροφορίες συστήματος';
+L10n::$locales['Display debug information on each public page'] = 'Εμφάνιση πληροφοριών εντοπισμού σφαλμάτων σε κάθε δημόσια σελίδα';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(άδειο)';
 L10n::$locales['Report'] = 'Αναφορά';

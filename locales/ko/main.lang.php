@@ -12,6 +12,7 @@ use Dotclear\Helper\L10n;
 
 L10n::$locales['sysInfo'] = 'sysInfo';
 L10n::$locales['System Information'] = '시스템 정보';
+L10n::$locales['Display debug information on each public page'] = '각 공개 페이지에 디버그 정보 표시';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(빈)';
 L10n::$locales['Report'] = '보고서';
