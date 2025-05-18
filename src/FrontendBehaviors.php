@@ -106,7 +106,7 @@ class FrontendBehaviors
                 (new Strong(Files::size(memory_get_peak_usage()))),
             ]);
 
-        if (static::isXdebugStackAvailable()) {
+        if (self::isXdebugStackAvailable()) {
             $items[] = (new Para())
                 ->items([
                     (new Text(null, 'Elapsed time = ')),
@@ -147,7 +147,7 @@ class FrontendBehaviors
         $exclude     = ['_COOKIE', '_ENV', '_FILES', '_GET', '_POST', '_REQUEST', '_SERVER', '_SESSION'];
         $global_vars = array_diff(array_keys($GLOBALS), $exclude);
         sort($global_vars);
-        $vars = array_map(fn ($var): string => (new Strong($var))->render(), $global_vars);
+        $vars = array_map(fn ($var): string => (new Strong((string) $var))->render(), $global_vars);
 
         $items[] = (new Para())
             ->items([
