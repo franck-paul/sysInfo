@@ -25,6 +25,10 @@ $this->registerModule(
         'type'     => 'plugin',
         'priority' => 99_999_999_999,
 
+        'settings' => [
+            'blog' => '#params.sysinfo',
+        ],
+
         'details'    => 'https://open-time.net/?q=sysinfo',
         'support'    => 'https://github.com/franck-paul/sysInfo',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/sysInfo/main/dcstore.xml',
