@@ -60,7 +60,7 @@ class BackendBehaviors
                     ]),
                 (new Note())
                     ->class(['form-note', 'info'])
-                    ->text('You may use FrontendSession plugin to permit administrator connection on public page.'),
+                    ->text(__('You may use FrontendSession plugin to permit administrator connection on public page.')),
             ])
         ->render();
 
