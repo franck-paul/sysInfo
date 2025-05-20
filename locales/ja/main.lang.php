@@ -13,6 +13,7 @@ use Dotclear\Helper\L10n;
 L10n::$locales['sysInfo'] = 'シスインフォ';
 L10n::$locales['System Information'] = 'システム情報';
 L10n::$locales['Display debug information on each public page'] = '各公開ページにデバッグ情報を表示';
+L10n::$locales['Only if an administrator is connected'] = '管理者が接続されている場合のみ';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(空)';
 L10n::$locales['Report'] = '報告書';
