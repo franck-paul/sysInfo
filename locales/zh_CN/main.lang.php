@@ -14,6 +14,7 @@ L10n::$locales['sysInfo'] = 'sysInfo';
 L10n::$locales['System Information'] = '系统信息';
 L10n::$locales['Display debug information on each public page'] = '在每个公共页面上显示调试信息';
 L10n::$locales['Only if an administrator is connected'] = '仅当连接了管理员时';
+L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = '您可以使用 FrontendSession 插件允许管理员在公共页面上进行连接。';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(空)';
 L10n::$locales['Report'] = '报告';

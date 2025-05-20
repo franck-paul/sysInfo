@@ -13,6 +13,8 @@ use Dotclear\Helper\L10n;
 L10n::$locales['sysInfo'] = 'sysInfo';
 L10n::$locales['System Information'] = 'Información del sistema';
 L10n::$locales['Display debug information on each public page'] = 'Mostrar información de depuración en cada página pública';
+L10n::$locales['Only if an administrator is connected'] = 'Sólo si hay un administrador conectado';
+L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = 'Puede utilizar el plugin FrontendSession para permitir la conexión del administrador en la página pública.';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(vacío)';
 L10n::$locales['Report'] = 'Informe';

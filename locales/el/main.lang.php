@@ -14,6 +14,7 @@ L10n::$locales['sysInfo'] = 'sysInfo';
 L10n::$locales['System Information'] = 'Πληροφορίες συστήματος';
 L10n::$locales['Display debug information on each public page'] = 'Εμφάνιση πληροφοριών εντοπισμού σφαλμάτων σε κάθε δημόσια σελίδα';
 L10n::$locales['Only if an administrator is connected'] = 'Μόνο αν είναι συνδεδεμένος ένας διαχειριστής';
+L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = 'Μπορείτε να χρησιμοποιήσετε το πρόσθετο FrontendSession για να επιτρέψετε τη σύνδεση διαχειριστή σε δημόσια σελίδα.';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(άδειο)';
 L10n::$locales['Report'] = 'Αναφορά';

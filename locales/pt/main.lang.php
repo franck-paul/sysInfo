@@ -14,6 +14,7 @@ L10n::$locales['sysInfo'] = 'sysInfo';
 L10n::$locales['System Information'] = 'Informações sobre o sistema';
 L10n::$locales['Display debug information on each public page'] = 'Mostrar informações de depuração em cada página pública';
 L10n::$locales['Only if an administrator is connected'] = 'Apenas se um administrador estiver ligado';
+L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = 'Pode utilizar o plugin FrontendSession para permitir a ligação do administrador numa página pública.';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(vazio)';
 L10n::$locales['Report'] = 'Relatório';
