@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-18 10:28+0200\n"
+"POT-Creation-Date: 2025-05-20 15:59+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: German (https://app.transifex.com/open-time/teams/109573/de/)\n"
@@ -28,6 +28,9 @@ msgstr "System-Informationen"
 
 msgid "Display debug information on each public page"
 msgstr "Anzeige von Debug-Informationen auf jeder öffentlichen Seite"
+
+msgid "Only if an administrator is connected"
+msgstr "Nur wenn ein Administrator verbunden ist"
 
 msgid "…"
 msgstr "..."
