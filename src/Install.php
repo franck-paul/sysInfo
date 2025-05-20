@@ -34,6 +34,7 @@ class Install extends Process
         $settings->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
         $settings->put('redact', '', 'string', '', false, true);
         $settings->put('public_debug', false, 'boolean', 'Display debug information on each public page', false, true);
+        $settings->put('public_debug_adminonly', true, 'boolean', 'Display debug information but only if an administrator is connected', false, true);
 
         return true;
     }

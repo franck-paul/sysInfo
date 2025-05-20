@@ -28,21 +28,27 @@ use Dotclear\Helper\Network\Http;
 
 class FrontendBehaviors
 {
+    protected static function checkAdminConnected(): bool
+    {
+        return App::auth()->isSuperAdmin() || App::auth()->check(App::auth()->makePermissions([App::auth()::PERMISSION_ADMIN]), App::blog()->id());
+    }
+
     public static function publicHeadContent(): string
     {
         $settings = My::settings();
 
-        if ((bool) $settings->public_debug) {
+        if ((bool) $settings->public_debug && (bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : (bool) $settings->public_debug) {
             echo My::cssLoad('frontend.css');
         }
 
         return '';
     }
+
     public static function publicAfterDocument(): string
     {
         $settings = My::settings();
 
-        if ((bool) $settings->public_debug) {
+        if ((bool) $settings->public_debug && (bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : (bool) $settings->public_debug) {
             echo static::debugInfo();
         }
 

@@ -19,6 +19,7 @@ use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Interface\Core\BlogSettingsInterface;
 use Dotclear\Plugin\sysInfo\MaintenanceTask\ReportCache;
@@ -43,14 +44,24 @@ class BackendBehaviors
         // Add fieldset for plugin options
         echo
         (new Fieldset('sysinfo'))
-        ->legend((new Legend(__('System Information'))))
-        ->fields([
-            (new Para())->items([
-                (new Checkbox('sysinfo_public_debug', $settings->public_debug))
-                    ->value(1)
-                    ->label((new Label(__('Display debug information on each public page'), Label::INSIDE_TEXT_AFTER))),
-            ]),
-        ])
+            ->legend((new Legend(__('System Information'))))
+            ->fields([
+                (new Para())
+                    ->items([
+                        (new Checkbox('sysinfo_public_debug', $settings->public_debug))
+                            ->value(1)
+                            ->label((new Label(__('Display debug information on each public page'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Checkbox('sysinfo_public_debug_adminonly', $settings->public_debug_adminonly))
+                            ->value(1)
+                            ->label((new Label(__('Only if an administrator is connected'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                (new Note())
+                    ->class(['form-note', 'info'])
+                    ->text('You may use FrontendSession plugin to permit administrator connection on public page.'),
+            ])
         ->render();
 
         return '';
@@ -60,6 +71,7 @@ class BackendBehaviors
     {
         $settings = My::settings();
         $settings->put('public_debug', !empty($_POST['sysinfo_public_debug']), 'boolean');
+        $settings->put('public_debug_adminonly', !empty($_POST['sysinfo_public_debug_adminonly']), 'boolean');
 
         return '';
     }
