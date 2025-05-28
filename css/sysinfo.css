@@ -160,14 +160,3 @@ blockquote.sysinfo:after {
 #sccalc_res {
   font-weight: bold;
 }
-
-/* Sorted table */
-
-.sysinfo {
-  .sorted-asc:after {
-    content: ' ↑';
-  }
-  .sorted-desc:after {
-    content: ' ↓';
-  }
-}
