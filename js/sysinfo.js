@@ -247,6 +247,13 @@ dotclear.ready(() => {
     }
   }
 
+  const attic = document.getElementById('attic');
+  if (attic) {
+    dotclearAjax('getAtticVersions', {}, (html) => {
+      attic.outerHTML = html;
+    });
+  }
+
   // Table sorting enabler
   const enableTableSort = (tableId, offset = 0, semver = -1, numeric = -1) => {
     const table = document.getElementById(tableId);

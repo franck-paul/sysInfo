@@ -63,6 +63,7 @@ class Backend extends Process
         App::rest()->addFunction('getStaticCacheDir', BackendRest::getStaticCacheDir(...));
         App::rest()->addFunction('getStaticCacheList', BackendRest::getStaticCacheList(...));
         App::rest()->addFunction('getStaticCacheName', BackendRest::getStaticCacheName(...));
+        App::rest()->addFunction('getAtticVersions', BackendRest::getAtticVersions(...));
 
         return true;
     }

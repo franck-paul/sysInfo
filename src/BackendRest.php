@@ -16,19 +16,60 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use Dotclear\App;
+use Dotclear\Core\Upgrade\UpdateAttic;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Form\Td;
 use Dotclear\Helper\Html\Form\Tr;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Html\Template\Template;
 use Dotclear\Helper\Network\Http;
 
 class BackendRest
 {
+    /**
+     * Gets the available Dotclear versions in attic. (JSON)
+     *
+     * @param      array<string, string>    $get     The get
+     *
+     * @return     array<string, mixed>
+     */
+    public static function getAtticVersions(array $get): array
+    {
+        $payload = [
+            'ret'  => false,
+            'html' => '',
+        ];
+
+        // Get all attic versions
+        $upgrade = new UpdateAttic(App::config()->coreAtticUrl(), App::config()->cacheRoot() . DIRECTORY_SEPARATOR . UpdateAttic::CACHE_FOLDER);
+        $upgrade->check('0.0');
+        $list = array_keys($upgrade->getReleases('0.0'));
+        if ($list !== []) {
+            $list  = array_reverse($list);
+            $attic = (new Details())
+                ->summary(new Summary(__('Releases in attic')))
+                ->items([
+                    (new Ul())
+                        ->items(array_map(fn ($item) => (new Li())->text($item), $list)),
+                ]);
+
+            $payload = [
+                'ret'  => true,
+                'html' => $attic->render(),
+            ];
+        }
+
+        return $payload;
+    }
+
     /**
      * Gets the compiled template. (JSON)
      *
