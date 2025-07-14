@@ -188,7 +188,7 @@ class System
                                             (new Text(null, __('href: '))),
                                             (new Link())
                                                 ->href($content['href'])
-                                                ->text(Html::escapeHtml($content['href'])),
+                                                ->text(Html::escapeHTML($content['href'])),
                                         ]),
                                     (new Li())
                                         ->text(__('checksum: ') . $toCode($content['checksum'])),
@@ -197,7 +197,7 @@ class System
                                             (new Text(null, __('info: '))),
                                             (new Link())
                                                 ->href($content['info'])
-                                                ->text(Html::escapeHtml($content['info'])),
+                                                ->text(Html::escapeHTML($content['info'])),
                                         ]),
                                     (new Li())
                                         ->text(__('PHP min: ') . $toStrong($content['php'])),

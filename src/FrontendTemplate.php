@@ -107,8 +107,8 @@ class FrontendTemplate
 
     public static function publicTemplatetagsList(): string
     {
-        $tplblocks = array_values(App::frontend()->template()->getBlockslist());
-        $tplvalues = array_values(App::frontend()->template()->getValueslist());
+        $tplblocks = array_values(App::frontend()->template()->getBlocksList());
+        $tplvalues = array_values(App::frontend()->template()->getValuesList());
 
         sort($tplblocks, SORT_STRING);
         sort($tplvalues, SORT_STRING);

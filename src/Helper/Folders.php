@@ -80,7 +80,7 @@ class Folders
                             $void = '';
 
                             try {
-                                $void  = $path . (substr($path, -1) === DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . 'tmp-' . str_shuffle(MD5(microtime()));
+                                $void  = $path . (substr($path, -1) === DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . 'tmp-' . str_shuffle(md5(microtime()));
                                 $touch = false;
                                 Files::putContent($void, '');
                                 if (file_exists($void)) {
