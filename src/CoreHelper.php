@@ -186,6 +186,12 @@ class CoreHelper
 
         new Utility();
 
+        $blogId = App::blog()->id();
+        if (!$blogId) {
+            // Get user default blog
+            $blogId = App::auth()->findUserBlog(App::auth()->getInfo('user_default_blog'), false);
+        }
+
         App::themes()->loadModules(App::blog()->themesPath());
         if (!isset(App::frontend()->theme)) {
             App::frontend()->theme = App::blog()->settings()->system->theme;
@@ -205,8 +211,10 @@ class CoreHelper
         }
 
         $tpl_path = [
+            App::config()->varRoot() . '/themes/' . $blogId . '/' . App::frontend()->theme . '/tpl',
             App::blog()->themesPath() . '/' . App::frontend()->theme . '/tpl',
         ];
+
         if (App::frontend()->parent_theme) {
             $tpl_path[] = App::blog()->themesPath() . '/' . App::frontend()->parent_theme . '/tpl';
             if (empty($tplset)) {
