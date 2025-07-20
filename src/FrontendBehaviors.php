@@ -48,7 +48,7 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if ((bool) $settings->public_debug && (bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : (bool) $settings->public_debug) {
+        if (((bool) $settings->public_debug && (bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : (bool) $settings->public_debug) && App::frontend()->context()->content_type === 'text/html') {
             echo static::debugInfo();
         }
 
