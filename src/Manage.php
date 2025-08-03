@@ -213,7 +213,7 @@ class Manage extends Process
                         (new Label(__('Select a checklist:')))
                             ->for('checklist'),
                         (new Select('checklist'))
-                            ->items(self::$checklists)  // @phpstan-ignore-line
+                            ->items(self::$checklists)
                             ->default(self::$checklist),
                         (new Submit(['frmsubmit']))
                             ->value(__('Check')),
