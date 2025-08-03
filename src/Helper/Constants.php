@@ -157,7 +157,7 @@ class Constants
             'CLEARBRICKS_VERSION'      => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined,
             'HTTP_PROXY_HOST'          => defined('HTTP_PROXY_HOST') ? HTTP_PROXY_HOST : $undefined,
             'HTTP_PROXY_PORT'          => defined('HTTP_PROXY_PORT') ? HTTP_PROXY_PORT : $undefined,
-            'SOCKET_VERIFY_PEER'       => defined('SOCKET_VERIFY_PEER') ? (SOCKET_VERIFY_PEER ? 'true' : 'false') : $undefined,  // @phpstan-ignore-line
+            'SOCKET_VERIFY_PEER'       => defined('SOCKET_VERIFY_PEER') ? (SOCKET_VERIFY_PEER ? 'true' : 'false') : $undefined,
         ];
 
         if (App::plugins()->moduleExists('staticCache')) {
