@@ -38,7 +38,7 @@ class Globals
     {
         $max_length = 1024 * 4;     // 4Kb max
 
-        $variables = array_map(fn ($v): string => (string) $v, array_keys($GLOBALS));
+        $variables = array_map(fn (int|string $v): string => (string) $v, array_keys($GLOBALS));
         App::lexical()->lexicalSort($variables, App::lexical()::ADMIN_LOCALE);
 
         $deprecated = [

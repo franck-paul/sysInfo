@@ -58,7 +58,7 @@ class BackendRest
                 ->summary(new Summary(__('Releases in attic')))
                 ->items([
                     (new Ul())
-                        ->items(array_map(fn ($item) => (new Li())->text($item), $list)),
+                        ->items(array_map(fn (int|string $item) => (new Li())->text($item), $list)),
                 ]);
 
             $payload = [

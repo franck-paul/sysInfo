@@ -61,8 +61,8 @@ class Versions
         // which is not a very good idea, but we need to cope with legacy code ;-)
         // Ex: dcRevisions store it as 'dcrevisions'
         // So we will check by ignoring case
-        $plugins  = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true)));
-        $disabled = array_map(static fn ($name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
+        $plugins  = array_map(static fn (int|string $name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true)));
+        $disabled = array_map(static fn (int|string $name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
 
         $rows = [];
         App::lexical()->lexicalKeySort($versions, App::lexical()::ADMIN_LOCALE);
