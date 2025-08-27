@@ -105,7 +105,7 @@ class Templates
                      * @param      string  $path   The path
                      * @param      string  $file   The file
                      *
-                     * @return     array{0: string, 1: string, 2: bool}
+                     * @return     list{0: string, 1: string, 2: bool}
                      */
                     $check = function (string $path, string $file): array {
                         // Compute MD5 representation of the cache file

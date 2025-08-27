@@ -89,7 +89,7 @@ class Constants
     /**
      * Get current list of Dotclear constants and their values
      *
-     * @return     array{0: string, array<string, string>}  array[0] = undefined value, array[1] = list of constants
+     * @return     list{0: string, array<string, string>}  array[0] = undefined value, array[1] = list of constants
      */
     private static function getConstants(): array
     {

@@ -206,6 +206,9 @@ class Configuration
             'checkAdsBlocker'    => App::config()->checkAdsBlocker(),
             'cspReportFile'      => App::config()->cspReportFile(),
             'mediaUpdateDBLimit' => App::config()->mediaUpdateDBLimit(),
+            'hasOauth2'          => App::config()->hasOauth2(),
+            'oauth2Path'         => App::config()->oauth2Path(),
+            'authPasswordOnly'   => App::config()->authPasswordOnly(),
         ];
 
         return [$release, $config];

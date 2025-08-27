@@ -194,7 +194,7 @@ class Repo
      * @param      bool    $use_cache  The use cache
      * @param      string  $url        The url
      *
-     * @return     array{0:false|StoreParser, 1:bool}
+     * @return     list{0:false|StoreParser, 1:bool}
      */
     private static function parseRepo(bool $use_cache, string $url): array
     {
