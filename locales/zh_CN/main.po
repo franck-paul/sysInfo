@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 16:05+0200\n"
+"POT-Creation-Date: 2025-08-29 18:48+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -36,6 +36,9 @@ msgid ""
 "You may use FrontendSession plugin to permit administrator connection on "
 "public page."
 msgstr "您可以使用 FrontendSession 插件允许管理员在公共页面上进行连接。"
+
+msgid "Releases in attic"
+msgstr "阁楼释放"
 
 msgid "…"
 msgstr "..."
@@ -355,11 +358,17 @@ msgstr "服务器软件： "
 msgid "%s server"
 msgstr "%s 服务器"
 
+msgid "(missing)"
+msgstr "(失踪)"
+
 msgid "System info"
 msgstr "系统信息"
 
 msgid "PHP Version: "
 msgstr "PHP版本： "
+
+msgid "Required PHP modules: "
+msgstr "所需的 PHP 模块： "
 
 msgid "DB driver: "
 msgstr "DB驱动： "
@@ -430,9 +439,6 @@ msgstr "更新信息"
 
 msgid "Release info"
 msgstr "发布信息"
-
-msgid "Releases in attic"
-msgstr "阁楼释放"
 
 msgid "List of compiled templates in cache"
 msgstr "缓存中的编译模板列表"
