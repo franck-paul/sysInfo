@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 16:05+0200\n"
+"POT-Creation-Date: 2025-08-29 18:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,9 @@ msgid "Only if an administrator is connected"
 msgstr ""
 
 msgid "You may use FrontendSession plugin to permit administrator connection on public page."
+msgstr ""
+
+msgid "Releases in attic"
 msgstr ""
 
 msgid "…"
@@ -349,10 +352,16 @@ msgstr ""
 msgid "%s server"
 msgstr ""
 
+msgid "(missing)"
+msgstr ""
+
 msgid "System info"
 msgstr ""
 
 msgid "PHP Version: "
+msgstr ""
+
+msgid "Required PHP modules: "
 msgstr ""
 
 msgid "DB driver: "
@@ -423,9 +432,6 @@ msgid "Update info"
 msgstr ""
 
 msgid "Release info"
-msgstr ""
-
-msgid "Releases in attic"
 msgstr ""
 
 msgid "List of compiled templates in cache"

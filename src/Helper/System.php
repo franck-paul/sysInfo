@@ -102,6 +102,13 @@ class System
 
         $getDbInfo = fn (): string => App::con()->syntax() === 'mysql' ? ' - ' . sprintf(__('%s server'), $toStrong(stristr(mysqli_get_server_info(App::con()->link()), 'mariadb') ? 'MariaDB' : 'MySQL')) : '';
 
+        $phpModules = [
+            'mbstring' . (function_exists('mb_detect_encoding') ? '' : ' ' . __('(missing)')),
+            'simpleXML' . (function_exists('simplexml_load_string') ? '' : ' ' . __('(missing)')),
+            'domXML' . (function_exists('dom_import_simplexml') ? '' : ' ' . __('(missing)')),
+            'SPL' . (function_exists('spl_classes') ? '' : ' ' . __('(missing)')),
+        ];
+
         $server = (new Set())
             ->items([
                 $quote ? (new Div(null, 'blockquote'))
@@ -120,6 +127,8 @@ class System
                                 $software,
                                 (new Li())
                                     ->text(__('PHP Version: ') . $toStrong(phpversion())),
+                                (new Li())
+                                    ->text(__('Required PHP modules: ') . implode(', ', $phpModules)),
                                 (new Li())
                                     ->separator(' ')
                                     ->items([
