@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 16:05+0200\n"
+"POT-Creation-Date: 2025-08-29 18:48+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -36,6 +36,9 @@ msgid ""
 "You may use FrontendSession plugin to permit administrator connection on "
 "public page."
 msgstr "프론트엔드 세션 플러그인을 사용하여 공개 페이지에서 관리자 연결을 허용할 수 있습니다."
+
+msgid "Releases in attic"
+msgstr "다락방에서 릴리스"
 
 msgid "…"
 msgstr "..."
@@ -355,11 +358,17 @@ msgstr "서버 소프트웨어: "
 msgid "%s server"
 msgstr "%s 서버"
 
+msgid "(missing)"
+msgstr "(누락됨)"
+
 msgid "System info"
 msgstr "시스템 정보"
 
 msgid "PHP Version: "
 msgstr "PHP 버전: "
+
+msgid "Required PHP modules: "
+msgstr "필수 PHP 모듈: "
 
 msgid "DB driver: "
 msgstr "DB 드라이버: "
@@ -430,9 +439,6 @@ msgstr "업데이트 정보"
 
 msgid "Release info"
 msgstr "릴리스 정보"
-
-msgid "Releases in attic"
-msgstr "다락방에서 릴리스"
 
 msgid "List of compiled templates in cache"
 msgstr "캐시에 컴파일된 템플릿 목록"
