@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 16:05+0200\n"
+"POT-Creation-Date: 2025-08-29 18:48+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/open-time/teams/109573/uk/)\n"
@@ -38,6 +38,9 @@ msgid ""
 msgstr ""
 "Ви можете використовувати плагін FrontendSession, щоб дозволити підключення "
 "адміністратора до публічної сторінки."
+
+msgid "Releases in attic"
+msgstr "Релізи на горищі"
 
 msgid "…"
 msgstr "..."
@@ -357,11 +360,17 @@ msgstr "Серверне програмне забезпечення: "
 msgid "%s server"
 msgstr "%s сервер"
 
+msgid "(missing)"
+msgstr "(відсутній)"
+
 msgid "System info"
 msgstr "Інформація про систему"
 
 msgid "PHP Version: "
 msgstr "Версія PHP: "
+
+msgid "Required PHP modules: "
+msgstr "Необхідні PHP-модулі: "
 
 msgid "DB driver: "
 msgstr "Драйвер БД: "
@@ -432,9 +441,6 @@ msgstr "Оновлення інформації"
 
 msgid "Release info"
 msgstr "Інформація про випуск"
-
-msgid "Releases in attic"
-msgstr "Релізи на горищі"
 
 msgid "List of compiled templates in cache"
 msgstr "Список скомпільованих шаблонів у кеші"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 16:05+0200\n"
+"POT-Creation-Date: 2025-08-29 18:48+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -36,6 +36,9 @@ msgid ""
 "You may use FrontendSession plugin to permit administrator connection on "
 "public page."
 msgstr "FrontendSession プラグインを使用して、公開ページでの管理者接続を許可することができます。"
+
+msgid "Releases in attic"
+msgstr "屋根裏の放出"
 
 msgid "…"
 msgstr "..."
@@ -355,11 +358,17 @@ msgstr "サーバーソフトウェア： "
 msgid "%s server"
 msgstr "%s サーバー"
 
+msgid "(missing)"
+msgstr "(行方不明）"
+
 msgid "System info"
 msgstr "システム情報"
 
 msgid "PHP Version: "
 msgstr "PHPバージョンです： "
+
+msgid "Required PHP modules: "
+msgstr "必要な PHP モジュール： "
 
 msgid "DB driver: "
 msgstr "DBドライバーです： "
@@ -430,9 +439,6 @@ msgstr "アップデート情報"
 
 msgid "Release info"
 msgstr "リリース情報"
-
-msgid "Releases in attic"
-msgstr "屋根裏の放出"
 
 msgid "List of compiled templates in cache"
 msgstr "キャッシュにあるコンパイル済みテンプレートの一覧"
