@@ -104,6 +104,7 @@ class Constants
             'DC_ALLOW_REPOSITORIES'    => defined('DC_ALLOW_REPOSITORIES') ? (DC_ALLOW_REPOSITORIES ? 'true' : 'false') : $undefined,
             'DC_ANTISPAM_CONF_SUPER'   => defined('DC_ANTISPAM_CONF_SUPER') ? (DC_ANTISPAM_CONF_SUPER ? 'true' : 'false') : $undefined,
             'DC_AUTH_PAGE'             => defined('DC_AUTH_PAGE') ? constant('DC_AUTH_PAGE') : $undefined,
+            'DC_AUTH_PASSWORD_ONLY'    => defined('DC_AUTH_PASSWORD_ONLY') ? (DC_AUTH_PASSWORD_ONLY ? 'true' : 'false') : $undefined,
             'DC_AUTH_SESS_ID'          => defined('DC_AUTH_SESS_ID') ? constant('DC_AUTH_SESS_ID') : $undefined,
             'DC_AUTH_SESS_UID'         => defined('DC_AUTH_SESS_UID') ? constant('DC_AUTH_SESS_UID') : $undefined,
             'DC_BACKUP_PATH'           => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
