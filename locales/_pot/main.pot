@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 18:48+0200\n"
+"POT-Creation-Date: 2025-08-31 16:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: ../git-plugins/sysInfo/src/BackendBehaviors.php:47
 #: ../git-plugins/sysInfo/src/Frontend.php:38
 #: ../git-plugins/sysInfo/src/FrontendTemplateCode.php:26
-#: ../git-plugins/sysInfo/src/Manage.php:199
+#: ../git-plugins/sysInfo/src/Manage.php:201
 msgid "System Information"
 msgstr ""
 
@@ -53,16 +53,16 @@ msgstr ""
 msgid "(empty)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/CoreHelper.php:83
-#: ../git-plugins/sysInfo/src/Manage.php:126
+#: ../git-plugins/sysInfo/src/CoreHelper.php:85
+#: ../git-plugins/sysInfo/src/Manage.php:128
 msgid "Report"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/CoreHelper.php:91
+#: ../git-plugins/sysInfo/src/CoreHelper.php:93
 msgid "Download report"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/CoreHelper.php:116
+#: ../git-plugins/sysInfo/src/CoreHelper.php:118
 msgid "Report empty"
 msgstr ""
 
@@ -107,7 +107,7 @@ msgid "Query string"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/AntispamFilters.php:62
-#: ../git-plugins/sysInfo/src/Manage.php:136
+#: ../git-plugins/sysInfo/src/Manage.php:138
 msgid "Antispam filters"
 msgstr ""
 
@@ -198,6 +198,14 @@ msgstr ""
 msgid "seconds"
 msgstr ""
 
+#: ../git-plugins/sysInfo/src/Helper/DbDrivers.php:48
+msgid "DB drivers"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/Helper/DbDrivers.php:55
+msgid "Driver name"
+msgstr ""
+
 #: ../git-plugins/sysInfo/src/Helper/Exceptions.php:72
 msgid "Registered Exceptions"
 msgstr ""
@@ -263,8 +271,8 @@ msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Integrity.php:118
 #: ../git-plugins/sysInfo/src/Helper/Integrity.php:126
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:190
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:197
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:231
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:238
 msgid "Unable to read digests file."
 msgstr ""
 
@@ -273,8 +281,8 @@ msgid "Dotclear digest integrity"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Integrity.php:140
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:161
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:210
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:202
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:251
 msgid "File"
 msgstr ""
 
@@ -291,7 +299,7 @@ msgid "md5 (experimental)"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Locales.php:67
-#: ../git-plugins/sysInfo/src/Manage.php:122
+#: ../git-plugins/sysInfo/src/Manage.php:123
 msgid "Locales"
 msgstr ""
 
@@ -300,7 +308,7 @@ msgid "English (source)"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Permissions.php:52
-#: ../git-plugins/sysInfo/src/Manage.php:98
+#: ../git-plugins/sysInfo/src/Manage.php:99
 msgid "Types of permission"
 msgstr ""
 
@@ -317,7 +325,7 @@ msgid "Plugin id"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/PostTypes.php:66
-#: ../git-plugins/sysInfo/src/Manage.php:99
+#: ../git-plugins/sysInfo/src/Manage.php:100
 msgid "Entry types"
 msgstr ""
 
@@ -360,7 +368,7 @@ msgid "Repository content"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Repo.php:153
-#: ../git-plugins/sysInfo/src/Manage.php:108
+#: ../git-plugins/sysInfo/src/Manage.php:109
 msgid "Repositories"
 msgstr ""
 
@@ -389,7 +397,7 @@ msgid "Repository themes list (alternate repositories)"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Rest.php:62
-#: ../git-plugins/sysInfo/src/Manage.php:120
+#: ../git-plugins/sysInfo/src/Manage.php:121
 msgid "REST methods"
 msgstr ""
 
@@ -650,8 +658,8 @@ msgid "Translated label"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Thumbnails.php:105
-#: ../git-plugins/sysInfo/src/Manage.php:82
-#: ../git-plugins/sysInfo/src/Manage.php:198
+#: ../git-plugins/sysInfo/src/Manage.php:83
+#: ../git-plugins/sysInfo/src/Manage.php:200
 msgid "System"
 msgstr ""
 
@@ -673,12 +681,12 @@ msgstr ""
 msgid "List of template paths"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:150
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:181
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:191
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:222
 msgid "Nothing unexpected or additional found."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:203
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:244
 msgid "Unexpected or additional files"
 msgstr ""
 
@@ -695,7 +703,7 @@ msgid "Regular expression"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Versions.php:85
-#: ../git-plugins/sysInfo/src/Manage.php:94
+#: ../git-plugins/sysInfo/src/Manage.php:95
 msgid "Core"
 msgstr ""
 
@@ -759,148 +767,152 @@ msgstr ""
 msgid "Failed to empty sysInfo reports cache directory."
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:84
+#: ../git-plugins/sysInfo/src/Manage.php:85
 msgid "PHP info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:85
+#: ../git-plugins/sysInfo/src/Manage.php:86
 msgid "DC Configuration"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:86
+#: ../git-plugins/sysInfo/src/Manage.php:87
 msgid "DC Constants"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:87
+#: ../git-plugins/sysInfo/src/Manage.php:88
 msgid "Globals"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:88
+#: ../git-plugins/sysInfo/src/Manage.php:89
 msgid "Folders"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:89
+#: ../git-plugins/sysInfo/src/Manage.php:90
 msgid "Integrity"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:90
+#: ../git-plugins/sysInfo/src/Manage.php:91
 msgid "Unexpected"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:91
+#: ../git-plugins/sysInfo/src/Manage.php:92
 msgid "Autoloader"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:95
+#: ../git-plugins/sysInfo/src/Manage.php:96
 msgid "URL handlers"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:96
+#: ../git-plugins/sysInfo/src/Manage.php:97
 msgid "Behaviours"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:97
+#: ../git-plugins/sysInfo/src/Manage.php:98
 msgid "Admin URLs"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:100
+#: ../git-plugins/sysInfo/src/Manage.php:101
 msgid "Statuses"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:103
+#: ../git-plugins/sysInfo/src/Manage.php:104
 msgid "Templates"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:104
+#: ../git-plugins/sysInfo/src/Manage.php:105
 msgid "Compiled templates"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:105
+#: ../git-plugins/sysInfo/src/Manage.php:106
 msgid "Template paths"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:109
+#: ../git-plugins/sysInfo/src/Manage.php:110
 msgid "Plugins repository (cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:110
+#: ../git-plugins/sysInfo/src/Manage.php:111
 msgid "Plugins repository"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:111
+#: ../git-plugins/sysInfo/src/Manage.php:112
 msgid "Plugins repository (alternate repositories)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:112
+#: ../git-plugins/sysInfo/src/Manage.php:113
 msgid "Themes repository (cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:113
+#: ../git-plugins/sysInfo/src/Manage.php:114
 msgid "Themes repository"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:114
+#: ../git-plugins/sysInfo/src/Manage.php:115
 msgid "Themes repository (alternate repositories)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:117
-#: ../git-plugins/sysInfo/src/Manage.php:132
-#: ../git-plugins/sysInfo/src/Manage.php:136
+#: ../git-plugins/sysInfo/src/Manage.php:118
+#: ../git-plugins/sysInfo/src/Manage.php:134
+#: ../git-plugins/sysInfo/src/Manage.php:138
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:118
+#: ../git-plugins/sysInfo/src/Manage.php:119
 msgid "Plugins"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:119
+#: ../git-plugins/sysInfo/src/Manage.php:120
 msgid "Editors and Syntaxes"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:123
+#: ../git-plugins/sysInfo/src/Manage.php:124
 msgid "Thumbnails"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:127
+#: ../git-plugins/sysInfo/src/Manage.php:125
+msgid "DB Drivers"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/Manage.php:129
 msgid "Full report"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:132
+#: ../git-plugins/sysInfo/src/Manage.php:134
 msgid "Exceptions"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:140
+#: ../git-plugins/sysInfo/src/Manage.php:142
 msgid "3rd party"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:141
+#: ../git-plugins/sysInfo/src/Manage.php:143
 msgid "Static cache"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:180
+#: ../git-plugins/sysInfo/src/Manage.php:182
 msgid "Are you sure you want to remove selected template cache files?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:181
+#: ../git-plugins/sysInfo/src/Manage.php:183
 msgid "Are you sure you want to remove selected versions from database?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:182
+#: ../git-plugins/sysInfo/src/Manage.php:184
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:183
+#: ../git-plugins/sysInfo/src/Manage.php:185
 msgid "Compiled template file not found or unreadable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:184
+#: ../git-plugins/sysInfo/src/Manage.php:186
 msgid "Static cache file not found or unreadable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:213
+#: ../git-plugins/sysInfo/src/Manage.php:215
 msgid "Select a checklist:"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Manage.php:219
+#: ../git-plugins/sysInfo/src/Manage.php:221
 msgid "Check"
 msgstr ""

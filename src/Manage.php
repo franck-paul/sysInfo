@@ -30,6 +30,7 @@ use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
 use Dotclear\Plugin\sysInfo\Helper\Configuration;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
+use Dotclear\Plugin\sysInfo\Helper\DbDrivers;
 use Dotclear\Plugin\sysInfo\Helper\Exceptions;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
 use Dotclear\Plugin\sysInfo\Helper\Formaters;
@@ -121,6 +122,7 @@ class Manage extends Process
                 __('Versions')             => 'versions',
                 __('Locales')              => 'locales',
                 __('Thumbnails')           => 'thumbnails',
+                __('DB Drivers')           => 'dbdrivers',
             ],
 
             __('Report') => [
@@ -313,6 +315,9 @@ class Manage extends Process
 
             // Get list of thumbnails sizes
             'thumbnails' => Thumbnails::render(),
+
+            // Get list of DB drivers
+            'dbdrivers' => DbDrivers::render(),
 
             // Display PHP version and DB version
             default => System::render()

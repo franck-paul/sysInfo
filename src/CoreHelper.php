@@ -31,6 +31,7 @@ use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
 use Dotclear\Plugin\sysInfo\Helper\AntispamFilters;
 use Dotclear\Plugin\sysInfo\Helper\Configuration;
 use Dotclear\Plugin\sysInfo\Helper\Constants;
+use Dotclear\Plugin\sysInfo\Helper\DbDrivers;
 use Dotclear\Plugin\sysInfo\Helper\Folders;
 use Dotclear\Plugin\sysInfo\Helper\Formaters;
 use Dotclear\Plugin\sysInfo\Helper\Globals;
@@ -67,6 +68,7 @@ class CoreHelper
         echo Permissions::render();
         echo Statuses::render();
         echo Formaters::render();
+        echo DbDrivers::render();
 
         echo TplPaths::render();
 
