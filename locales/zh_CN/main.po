@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 18:48+0200\n"
+"POT-Creation-Date: 2025-08-31 16:55+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -138,6 +138,12 @@ msgstr "恒定"
 
 msgid "seconds"
 msgstr "秒"
+
+msgid "DB drivers"
+msgstr "DB 驱动程序"
+
+msgid "Driver name"
+msgstr "司机姓名"
 
 msgid "Registered Exceptions"
 msgstr "已登记的例外情况"
@@ -616,6 +622,9 @@ msgstr "编辑器和句法"
 
 msgid "Thumbnails"
 msgstr "缩略图"
+
+msgid "DB Drivers"
+msgstr "DB 驱动程序"
 
 msgid "Full report"
 msgstr "报告全文"
