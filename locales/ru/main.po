@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 18:48+0200\n"
+"POT-Creation-Date: 2025-08-31 16:55+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/open-time/teams/109573/ru/)\n"
@@ -140,6 +140,12 @@ msgstr "Постоянная"
 
 msgid "seconds"
 msgstr "секунды"
+
+msgid "DB drivers"
+msgstr "Драйверы БД"
+
+msgid "Driver name"
+msgstr "Имя водителя"
 
 msgid "Registered Exceptions"
 msgstr "Зарегистрированные исключения"
@@ -619,6 +625,9 @@ msgstr "Редакторы и синтаксисы"
 
 msgid "Thumbnails"
 msgstr "Эскизы"
+
+msgid "DB Drivers"
+msgstr "Драйверы DB"
 
 msgid "Full report"
 msgstr "Полный отчет"
