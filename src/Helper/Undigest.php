@@ -55,8 +55,8 @@ class Undigest
             $folders[] = implode(DIRECTORY_SEPARATOR, ['themes', $theme]);
         }
 
-        $ignore_folders = [
-            'vendor',
+        // Folders to ignore during scanDir
+        $ignore = [
         ];
 
         // Primary extensions to find
@@ -99,6 +99,47 @@ class Undigest
             '-OLD',
         ];
 
+        // Files to ignore after scanDir (primary or secondary)
+        $ignore_files = [
+            Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'admin', 'js', 'jquery', 'jquery-ui.md'])), // Git ignored
+            Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'inc', 'config.php'])),
+            Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'inc', 'oauth2.php'])),
+            Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'inc', 'core', '_fake_l10n.php'])),
+        ];
+
+        // Folders to ignore after scanDir (primary or secondary)
+        $ignore_folders = [
+            Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'admin', 'style', 'scss'])),    // Removed in Makefile
+            Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'themes', 'berlin', 'scss'])),  // Removed in Makefile
+        ];
+
+        // Add optional locales to ignored folders
+        $locales_folders = glob((string) Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', '*']), false), GLOB_ONLYDIR);
+        if ($locales_folders) {
+            $keep_locales_folders = [
+                Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'en'])), // Keep in Makefile
+                Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'fr'])), // Keep in Makefile
+            ];
+            foreach ($locales_folders as $locales_folder) {
+                if (!in_array($locales_folder, $keep_locales_folders)) {
+                    $ignore_folders[] = $locales_folder;
+                }
+            }
+        }
+
+        $keep_file = function (string $filename) use ($ignore_files, $ignore_folders): bool {
+            if (in_array($filename, $ignore_files)) {
+                return false;
+            }
+            foreach ($ignore_folders as $folder) {
+                if ($folder && str_starts_with($filename, $folder)) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
         $rows = [];
 
         // Get list of files in digest
@@ -118,7 +159,7 @@ class Undigest
                             implode(DIRECTORY_SEPARATOR, [$root, $folder]),
                             $list_primary,
                             $ext_primary,
-                            $ignore_folders,
+                            $ignore,
                             $ignore_ext_primary,
                             $ext_suffixes
                         );
@@ -126,12 +167,12 @@ class Undigest
                             implode(DIRECTORY_SEPARATOR, [$root, $folder]),
                             $list_secondary,
                             $ext_secondary,
-                            $ignore_folders
+                            $ignore
                         );
                     }
                     if ($list_primary !== []) {
                         foreach ($list_primary as $filename) {
-                            if (!in_array($filename, $released)) {
+                            if (!in_array($filename, $released) && $keep_file($filename)) {
                                 $unattended[] = $filename;
                             }
                         }
@@ -162,7 +203,7 @@ class Undigest
                         ]);
                     if ($list_secondary !== []) {
                         foreach ($list_secondary as $filename) {
-                            if (!in_array($filename, $released)) {
+                            if (!in_array($filename, $released) && $keep_file($filename)) {
                                 $unattended[] = $filename;
                             }
                         }
