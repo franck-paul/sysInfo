@@ -145,7 +145,7 @@ msgid "DB drivers"
 msgstr "DB-Treiber"
 
 msgid "Driver name"
-msgstr "Name des Fahrers"
+msgstr "Name des Treiber"
 
 msgid "Registered Exceptions"
 msgstr "Registrierte Ausnahmen"
