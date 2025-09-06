@@ -208,7 +208,7 @@ class Versions
 
                 $sql = new DeleteStatement();
                 $sql
-                    ->from(App::con()->prefix() . App::version()::VERSION_TABLE_NAME)
+                    ->from(App::db()->con()->prefix() . App::version()::VERSION_TABLE_NAME)
                     ->where('module' . $sql->in($list));
                 $sql->delete();
             } catch (Exception $e) {
@@ -229,7 +229,7 @@ class Versions
             try {
                 $sql = new UpdateStatement();
                 $sql
-                    ->ref(App::con()->prefix() . App::version()::VERSION_TABLE_NAME);
+                    ->ref(App::db()->con()->prefix() . App::version()::VERSION_TABLE_NAME);
                 foreach ($_POST['m'] as $module => $version) {
                     $sql
                         ->set('version = ' . $sql->quote($version), true)   // Reset value

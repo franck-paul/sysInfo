@@ -100,7 +100,7 @@ class System
                 ->text(__('Server software: ') . $toStrong($info[0]));
         }
 
-        $getDbInfo = fn (): string => App::con()->syntax() === 'mysql' ? ' - ' . sprintf(__('%s server'), $toStrong(stristr(mysqli_get_server_info(App::con()->link()), 'mariadb') ? 'MariaDB' : 'MySQL')) : '';
+        $getDbInfo = fn (): string => App::db()->con()->syntax() === 'mysql' ? ' - ' . sprintf(__('%s server'), $toStrong(stristr(mysqli_get_server_info(App::db()->con()->link()), 'mariadb') ? 'MariaDB' : 'MySQL')) : '';
 
         $phpModules = [
             'mbstring' . (function_exists('mb_detect_encoding') ? '' : ' ' . __('(missing)')),
@@ -132,9 +132,9 @@ class System
                                 (new Li())
                                     ->separator(' ')
                                     ->items([
-                                        (new Text(null, __('DB driver: ') . $toStrong(App::con()->driver()))),
-                                        (new Text(null, __('version') . $toStrong(App::con()->version()))),
-                                        (new Text(null, sprintf(__('using <strong>%s</strong> syntax'), App::con()->syntax()) . $getDbInfo())),
+                                        (new Text(null, __('DB driver: ') . $toStrong(App::db()->con()->driver()))),
+                                        (new Text(null, __('version') . $toStrong(App::db()->con()->version()))),
+                                        (new Text(null, sprintf(__('using <strong>%s</strong> syntax'), App::db()->con()->syntax()) . $getDbInfo())),
                                     ]),
                                 (new Li())
                                     ->separator(' ')
