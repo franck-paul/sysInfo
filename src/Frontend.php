@@ -17,10 +17,12 @@ namespace Dotclear\Plugin\sysInfo;
 
 use Dotclear\App;
 use Dotclear\Core\Frontend\Ctx;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 
-class Frontend extends Process
+class Frontend
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::FRONTEND));

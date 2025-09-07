@@ -18,12 +18,12 @@ namespace Dotclear\Plugin\sysInfo;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
-use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
 use Dotclear\Plugin\sysInfo\Helper\AntispamFilters;
 use Dotclear\Plugin\sysInfo\Helper\Autoload;
@@ -53,8 +53,10 @@ use Dotclear\Plugin\sysInfo\Helper\Undigest;
 use Dotclear\Plugin\sysInfo\Helper\UrlHandlers;
 use Dotclear\Plugin\sysInfo\Helper\Versions;
 
-class Manage extends Process
+class Manage
 {
+    use TraitProcess;
+
     /**
      * @var array<string, array<string, string>>
      */
