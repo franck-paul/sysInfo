@@ -17,6 +17,7 @@ namespace Dotclear\Plugin\sysInfo;
 
 use Autoloader;
 use Dotclear\App;
+use Dotclear\Helper\Container\Factory;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Link;
@@ -168,11 +169,17 @@ class FrontendBehaviors
                 (new Strong((string) Autoloader::me()->getLoadsCount())),
             ]);
 
+        $items[] = (new Para())
+            ->items([
+                (new Text(null, 'Factories: requests = ')),
+                (new Strong((string) Factory::getStats()['*']['count'])),
+            ]);
+
         return (new Div())
             ->id('sysinfo_debug')
             ->items([
                 (new Div())
-                    ->items($items),
+        ->items($items),
             ])
         ->render();
     }
