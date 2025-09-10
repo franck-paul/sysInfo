@@ -79,6 +79,7 @@ class Globals
                                         (new Strong($key)),
                                         (new Text(null, '=')),
                                         (new Text('code', CoreHelper::simplifyFilename(print_r($value, true)))),
+                                        (new Text(null, '(' . gettype($value) . ')')),
                                     ]);
                             }
                         };
@@ -93,7 +94,7 @@ class Globals
                             $value = mb_substr($value, 0, $max_length) . ' …';
                         }
 
-                        $content = (new Text(null, $value));
+                        $content = (new Text(null, $value . '(' . gettype($value) . ')'));
                     }
 
                     yield (new Tr())
