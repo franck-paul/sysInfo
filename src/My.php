@@ -34,12 +34,9 @@ class My extends MyPlugin
     public static function checkCustomContext(int $context): ?bool
     {
         return match ($context) {
-            self::MANAGE,
-            self::CONFIG,
-            self::MENU,
-            self::WIDGETS => !App::task()->checkContext('FRONTEND') && App::auth()->isSuperAdmin(),   // Super-admin only
-
-            default => null
+            // Limit to super admin
+            self::MODULE => App::auth()->isSuperAdmin(),
+            default      => null,
         };
     }
 
