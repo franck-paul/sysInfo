@@ -35,8 +35,11 @@ class My extends MyPlugin
     {
         return match ($context) {
             // Limit to super admin
-            self::MODULE => App::auth()->isSuperAdmin(),
-            default      => null,
+            self::BACKEND,
+            self::MANAGE,
+            self::MENU,
+            self::WIDGETS => App::auth()->isSuperAdmin(),
+            default       => null,
         };
     }
 

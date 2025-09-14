@@ -17,7 +17,7 @@ namespace Dotclear\Plugin\sysInfo;
 
 use Autoloader;
 use Dotclear\App;
-use Dotclear\Helper\Container\Factory;
+use Dotclear\Helper\Container\Container;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Link;
@@ -38,7 +38,7 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if ((bool) $settings->public_debug && (bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : (bool) $settings->public_debug) {
+        if ((bool) $settings->public_debug && ((bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : true)) {
             echo My::cssLoad('frontend.css');
         }
 
@@ -49,7 +49,7 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if (((bool) $settings->public_debug && (bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : (bool) $settings->public_debug) && App::frontend()->context()->content_type === 'text/html') {
+        if ((bool) $settings->public_debug && ((bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : true) && App::frontend()->context()->content_type === 'text/html') {
             echo static::debugInfo();
         }
 
@@ -172,7 +172,9 @@ class FrontendBehaviors
         $items[] = (new Para())
             ->items([
                 (new Text(null, 'Factories: requests = ')),
-                (new Strong((string) Factory::getStats()['*']['count'])),
+                (new Strong((string) Container::getRequestsCount())),
+                (new Text(null, ' - loads = ')),
+                (new Strong((string) Container::getLoadsCount())),
             ]);
 
         return (new Div())
