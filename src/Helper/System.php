@@ -30,6 +30,7 @@ use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
 use Exception;
+use PDO;
 
 class System
 {
@@ -100,7 +101,26 @@ class System
                 ->text(__('Server software: ') . $toStrong($info[0]));
         }
 
-        $getDbInfo = fn (): string => App::db()->con()->syntax() === 'mysql' ? ' - ' . sprintf(__('%s server'), $toStrong(stristr(mysqli_get_server_info(App::db()->con()->link()), 'mariadb') ? 'MariaDB' : 'MySQL')) : '';
+        $getDbInfo = function () use ($toStrong): string {
+            try {
+                if (App::db()->con()->syntax() === 'mysql') {
+                    // Look if the server is MySQL or MariaDB
+                    if (str_starts_with(App::db()->con()->driver(), 'pdo')) {
+                        // Use PDO extension
+                        $server = App::db()->con()->link()->getAttribute(PDO::ATTR_SERVER_VERSION);
+                    } else {
+                        // Use mysqli extension
+                        $server = mysqli_get_server_info(App::db()->con()->link());
+                    }
+                    if ($server !== '') {
+                        return ' - ' . sprintf(__('%s server'), $toStrong(stristr($server, 'mariadb') ? 'MariaDB' : 'MySQL'));
+                    }
+                }
+            } catch (Exception) {
+            }
+
+            return '';
+        };
 
         $phpModules = [
             'mbstring' . (function_exists('mb_detect_encoding') ? '' : ' ' . __('(missing)')),
