@@ -124,6 +124,7 @@ class Manage
                 __('Versions')             => 'versions',
                 __('Locales')              => 'locales',
                 __('Thumbnails')           => 'thumbnails',
+                __('Exception')            => 'exceptions',
                 __('DB Drivers')           => 'dbdrivers',
             ],
 
@@ -131,10 +132,6 @@ class Manage
                 __('Full report') => 'report',
             ],
         ];
-
-        if (class_exists('\\Dotclear\\Exception\\ExceptionEnum')) {
-            self::$checklists[__('Miscellaneous')][__('Exceptions')] = 'exceptions';
-        }
 
         if (App::plugins()->moduleExists('antispam')) {
             self::$checklists[__('Miscellaneous')][__('Antispam filters')] = 'antispamfilters';
