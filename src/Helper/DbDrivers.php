@@ -31,12 +31,15 @@ class DbDrivers
      */
     public static function render(): string
     {
-        $drivers = array_keys(App::db()->combo());
+        $drivers = App::db()->combo();
+        //$drivers = array_keys(App::db()->combo());
 
         $lines = function () use ($drivers) {
-            foreach ($drivers as $driver) {
+            foreach ($drivers as $driver => $id) {
                 yield (new Tr())
                     ->items([
+                        (new Td())
+                            ->text($id),
                         (new Td())
                             ->text($driver),
                     ]);
@@ -50,6 +53,9 @@ class DbDrivers
                 ->rows([
                     (new Tr())
                         ->cols([
+                            (new Th())
+                                ->scope('col')
+                                ->text(__('Driver')),
                             (new Th())
                                 ->scope('col')
                                 ->text(__('Driver name')),
