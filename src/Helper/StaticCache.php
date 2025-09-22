@@ -17,7 +17,6 @@ namespace Dotclear\Plugin\sysInfo\Helper;
 
 use DateTimeImmutable;
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Button;
@@ -216,7 +215,7 @@ class StaticCache
             }
 
             if (!App::error()->flag()) {
-                Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
+                App::backend()->notices()->addSuccessNotice(__('Selected cache files have been deleted.'));
                 My::redirect([
                     'sc' => 1,
                 ]);

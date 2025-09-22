@@ -16,8 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Para;
@@ -174,7 +172,7 @@ class Manage
         $user_ui_colorsyntax_theme = App::auth()->prefs()->interface->colorsyntax_theme;
 
         $head = My::cssLoad('sysinfo.css') .
-        Page::jsJson('sysinfo', [
+        App::backend()->page()->jsJson('sysinfo', [
             'colorsyntax'       => $user_ui_colorsyntax,
             'colorsyntax_theme' => $user_ui_colorsyntax_theme,
             'msg'               => [
@@ -185,22 +183,22 @@ class Manage
                 'sc_not_found'    => __('Static cache file not found or unreadable'),
             ],
         ]) .
-        Page::jsModal() .
+        App::backend()->page()->jsModal() .
         My::jsLoad('sysinfo.js');
 
         if ($user_ui_colorsyntax) {
-            $head .= Page::jsLoadCodeMirror($user_ui_colorsyntax_theme);
+            $head .= App::backend()->page()->jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
 
-        Page::openModule(My::name(), $head);
+        App::backend()->page()->openModule(My::name(), $head);
 
-        echo Page::breadcrumb(
+        echo App::backend()->page()->breadcrumb(
             [
                 __('System')             => '',
                 __('System Information') => '',
             ]
         ) .
-        Notices::getNotices();
+        App::backend()->notices()->getNotices();
 
         echo
         (new Form('frmchecklist'))
@@ -322,6 +320,6 @@ class Manage
             default => System::render()
         };
 
-        Page::closeModule();
+        App::backend()->page()->closeModule();
     }
 }

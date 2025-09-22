@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
 use Dotclear\Database\Statement\DeleteStatement;
 use Dotclear\Database\Statement\UpdateStatement;
 use Dotclear\Helper\Html\Form\Caption;
@@ -217,7 +216,7 @@ class Versions
             }
 
             if (!App::error()->flag()) {
-                Notices::addSuccessNotice(__('Selected versions have been deleted.'));
+                App::backend()->notices()->addSuccessNotice(__('Selected versions have been deleted.'));
                 My::redirect([
                     'ver' => 1,
                 ]);
@@ -242,7 +241,7 @@ class Versions
             }
 
             if (!App::error()->flag()) {
-                Notices::addSuccessNotice(__('Versions have been updated.'));
+                App::backend()->notices()->addSuccessNotice(__('Versions have been updated.'));
                 My::redirect([
                     'ver' => 1,
                 ]);

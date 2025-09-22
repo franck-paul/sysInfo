@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\sysInfo\Helper;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Caption;
@@ -253,7 +252,7 @@ class Templates
             }
 
             if (!App::error()->flag()) {
-                Notices::addSuccessNotice(__('Selected cache files have been deleted.'));
+                App::backend()->notices()->addSuccessNotice(__('Selected cache files have been deleted.'));
                 My::redirect([
                     'tpl' => 1,
                 ]);
