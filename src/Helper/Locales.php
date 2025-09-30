@@ -75,7 +75,7 @@ class Locales
                             (new Th())
                                 ->scope('col')
                                 ->class('maximal')
-                                ->text(L10n::getLanguageName(App::auth()->getInfo('user_lang'))),
+                                ->text(App::lang()->getLanguageName(App::auth()->getInfo('user_lang'))),
                         ]),
                 ]))
             ->tbody((new Tbody())
