@@ -186,8 +186,6 @@ class CoreHelper
         define('DC_CONTEXT_PUBLIC', true);
         App::task()->addContext('FRONTEND');
 
-        new Utility();
-
         $blogId = App::blog()->id();
         if (!$blogId) {
             // Get user default blog
