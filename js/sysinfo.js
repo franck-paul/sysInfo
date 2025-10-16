@@ -96,7 +96,7 @@ dotclear.ready(() => {
     // Static cache dir expand (load 2nd level subdirs via Ajax)
     const show = (event) => {
       event.preventDefault();
-      const cache_file = event.target.getAttribute('data-file');
+      const cache_file = event.target.dataset.file;
       // Open static cache file content in a modal iframe
       if (cache_file !== undefined) {
         loadServerFile(cache_file, 'sc', (content) => {
@@ -154,7 +154,7 @@ dotclear.ready(() => {
         event.preventDefault();
         const res = event.currentTarget.textContent;
         const cache_file = `${res.slice(0, 2)}/${res.slice(2, 4)}/${res.slice(4, 6)}/${res}`;
-        const cache_dir = event.currentTarget.getAttribute('data-dir');
+        const cache_dir = event.currentTarget.dataset.dir;
         loadServerFile(`${cache_dir}/${cache_file}`, 'sc', (content) => {
           viewSource('sc_compiled', res, content);
         });
