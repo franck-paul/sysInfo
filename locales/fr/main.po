@@ -423,7 +423,7 @@ msgid "href: "
 msgstr "URL de téléchargement : "
 
 msgid "checksum: "
-msgstr "Checksum :"
+msgstr "Checksum : "
 
 msgid "info: "
 msgstr "URL d'information : "
