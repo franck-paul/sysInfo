@@ -182,41 +182,35 @@ dotclear.ready(() => {
 
   // Checkboxes helpers
 
-  // Template cache files
-  if (document.getElementById('tplform')) {
-    for (const item of document.querySelectorAll('#tplform .checkboxes-helpers')) {
-      dotclear.checkboxesHelpers(item, undefined, '#tplform td input[type=checkbox]:not(:disabled)', '#tplform #deltplaction');
+  const confirmAction = (formID, actionID, confirmMessage) => {
+    if (document.getElementById(formID)) {
+      for (const item of document.querySelectorAll(`#${formID} .checkboxes-helpers`)) {
+        dotclear.checkboxesHelpers(
+          item,
+          undefined,
+          `#${formID} td input[type=checkbox]:not(:disabled)`,
+          `#${formID} #${actionID}`,
+        );
+      }
+      dotclear.enableShiftClick(`#${formID} td input[type=checkbox]`);
+      dotclear.condSubmit(`#${formID} td input[type=checkbox]`, `#${formID} #${actionID}`);
+      document
+        .querySelector(`form input[type=submit][name=${actionID}]`)
+        ?.addEventListener('click', (event) => dotclear.confirm(confirmMessage, event));
     }
-    dotclear.enableShiftClick('#tplform td input[type=checkbox]');
-    dotclear.condSubmit('#tplform td input[type=checkbox]', '#tplform #deltplaction');
-    document
-      .querySelector('form input[type=submit][name=deltplaction]')
-      ?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_tpl, event));
-  }
+  };
+
+  // Template cache files
+  confirmAction('tplform', 'deltplaction', dotclear.msg.confirm_del_tpl);
 
   // Versions in DB
-  if (document.getElementById('verform')) {
-    for (const item of document.querySelectorAll('#verform .checkboxes-helpers')) {
-      dotclear.checkboxesHelpers(item, undefined, '#verform td input[type=checkbox]:not(:disabled)', '#verform #delveraction');
-    }
-    dotclear.enableShiftClick('#verform td input[type=checkbox]');
-    dotclear.condSubmit('#verform td input[type=checkbox]', '#verform #delveraction');
-    document
-      .querySelector('form input[type=submit][name=delveraction]')
-      ?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_ver, event));
-  }
+  confirmAction('verform', 'delveraction', dotclear.msg.confirm_del_ver);
 
   // Static cache files
-  if (document.getElementById('scform')) {
-    for (const item of document.querySelectorAll('#scform .checkboxes-helpers')) {
-      dotclear.checkboxesHelpers(item, undefined, '#scform td input[type=checkbox]:not(:disabled)', '#scform #delscaction');
-    }
-    dotclear.enableShiftClick('#scform td input[type=checkbox]');
-    dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
-    document
-      .querySelector('form input[type=submit][name=delscaction]')
-      ?.addEventListener('click', (event) => dotclear.confirm(dotclear.msg.confirm_del_sc, event));
-  }
+  confirmAction('scform', 'delscaction', dotclear.msg.confirm_del_sc);
+
+  // Unexpected files
+  confirmAction('udform', 'deludaction', dotclear.msg.confirm_del_ud);
 
   // Expand/Contract all (details)
   document.getElementById('expand-all')?.addEventListener('click', (event) => {
@@ -336,8 +330,7 @@ dotclear.ready(() => {
 
       // Remove old headers class
       for (const header of headers) {
-        header.classList.remove('sorted-asc');
-        header.classList.remove('sorted-desc');
+        header.classList.remove('sorted-asc', 'sorted-desc');
       }
 
       // Set new header class

@@ -147,6 +147,7 @@ class Manage
         self::$checklist = Versions::check(self::$checklist);
         self::$checklist = Templates::check(self::$checklist);
         self::$checklist = StaticCache::check(self::$checklist);
+        self::$checklist = Undigest::check(self::$checklist);
 
         self::$checklist = CoreHelper::downloadReport(self::$checklist);
 
@@ -154,6 +155,7 @@ class Manage
         self::$checklist = Versions::process(self::$checklist);
         self::$checklist = Templates::process(self::$checklist);
         self::$checklist = StaticCache::process(self::$checklist);
+        self::$checklist = Undigest::process(self::$checklist);
 
         return true;
     }
@@ -179,6 +181,7 @@ class Manage
                 'confirm_del_tpl' => __('Are you sure you want to remove selected template cache files?'),
                 'confirm_del_ver' => __('Are you sure you want to remove selected versions from database?'),
                 'confirm_del_sc'  => __('Are you sure you want to remove selected static cache files?'),
+                'confirm_del_ud'  => __('Are you sure you want to remove selected unexpected files?'),
                 'tpl_not_found'   => __('Compiled template file not found or unreadable'),
                 'sc_not_found'    => __('Static cache file not found or unreadable'),
             ],

@@ -19,6 +19,12 @@ use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Caption;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Table;
 use Dotclear\Helper\Html\Form\Tbody;
 use Dotclear\Helper\Html\Form\Td;
@@ -26,6 +32,8 @@ use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Plugin\sysInfo\CoreHelper;
+use Dotclear\Plugin\sysInfo\My;
+use Exception;
 
 class Undigest
 {
@@ -82,6 +90,7 @@ class Undigest
             'js',
             'json',
             'md',
+            'mjs',
             'pdf',
             'png',
             'po',
@@ -181,7 +190,12 @@ class Undigest
                                 $rows[] = (new Tr())
                                     ->cols([
                                         (new Td())
-                                            ->text(CoreHelper::simplifyFilename($filename)),
+                                            ->class('nowrap')
+                                            ->items([
+                                                (new Checkbox(['ud[]'], false))
+                                                    ->value($filename)
+                                                    ->label(new Label(CoreHelper::simplifyFilename($filename), Label::IL_FT)),
+                                            ]),
                                     ]);
                             }
                         } else {
@@ -212,7 +226,12 @@ class Undigest
                                 $rows[] = (new Tr())
                                     ->cols([
                                         (new Td())
-                                            ->text(CoreHelper::simplifyFilename($filename)),
+                                            ->class('nowrap')
+                                            ->items([
+                                                (new Checkbox(['ud[]'], false))
+                                                    ->value($filename)
+                                                    ->label(new Label(CoreHelper::simplifyFilename($filename), Label::IL_FT)),
+                                            ]),
                                     ]);
                             }
                         } else {
@@ -239,20 +258,38 @@ class Undigest
                 ]);
         }
 
-        return (new Table('undigest'))
-            ->class('sysinfo')
-            ->caption(new Caption(__('Unexpected or additional files')))
-            ->thead((new Thead())
-                ->rows([
-                    (new Tr())
-                        ->cols([
-                            (new Th())
-                                ->scope('col')
-                                ->text(__('File') . ' (' . implode(', ', $ext_primary) . ')'),
-                        ]),
-                ]))
-            ->tbody((new Tbody())
-                ->rows($rows))
+        return (new Form('udform'))
+            ->method('post')
+            ->action(App::backend()->getPageURL())
+            ->fields([
+                (new Table('undigest'))
+                    ->class('sysinfo')
+                    ->caption(new Caption(__('Unexpected or additional files')))
+                    ->thead((new Thead())
+                        ->rows([
+                            (new Tr())
+                                ->cols([
+                                    (new Th())
+                                        ->scope('col')
+                                        ->text(__('File') . ' (' . implode(', ', $ext_primary) . ')'),
+                                ]),
+                        ]))
+                    ->tbody((new Tbody())
+                        ->rows($rows)),
+                (new Div())
+                    ->class('two-cols')
+                    ->items([
+                        (new Para())
+                            ->class(['col', 'checkboxes-helpers']),
+                        (new Para())
+                            ->class(['col', 'right', 'form-buttons'])
+                            ->items([
+                                ... My::hiddenFields(),
+                                (new Submit('deludaction', __('Delete selected unexpected files')))
+                                    ->class('delete'),
+                            ]),
+                    ]),
+            ])
         ->render();
     }
 
@@ -321,5 +358,48 @@ class Undigest
         }
 
         return $stack;
+    }
+
+    /**
+     * Cope with undigest form action.
+     *
+     * @param      string     $checklist  The checklist
+     *
+     * @throws     Exception
+     */
+    public static function process(string $checklist): string
+    {
+        $nextlist = $checklist;
+        if (!empty($_POST['deludaction'])) {
+            // Cope with static cache file deletion
+            try {
+                if (empty($_POST['ud'])) {
+                    throw new Exception(__('No unexpected file selected'));
+                }
+
+                foreach ($_POST['ud'] as $file) {
+                    if (file_exists($file)) {
+                        unlink($file);
+                    }
+                }
+            } catch (Exception $e) {
+                $nextlist = 'undigest';
+                App::error()->add($e->getMessage());
+            }
+
+            if (!App::error()->flag()) {
+                App::backend()->notices()->addSuccessNotice(__('Selected unexpected files have been deleted.'));
+                My::redirect([
+                    'ud' => 1,
+                ]);
+            }
+        }
+
+        return $nextlist;
+    }
+
+    public static function check(string $checklist): string
+    {
+        return empty($_GET['ud']) ? $checklist : 'undigest';
     }
 }

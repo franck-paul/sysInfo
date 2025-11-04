@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 16:55+0200\n"
+"POT-Creation-Date: 2025-11-04 12:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,6 +134,9 @@ msgid "seconds"
 msgstr ""
 
 msgid "DB drivers"
+msgstr ""
+
+msgid "Driver"
 msgstr ""
 
 msgid "Driver name"
@@ -484,6 +487,15 @@ msgstr ""
 msgid "Unexpected or additional files"
 msgstr ""
 
+msgid "Delete selected unexpected files"
+msgstr ""
+
+msgid "No unexpected file selected"
+msgstr ""
+
+msgid "Selected unexpected files have been deleted."
+msgstr ""
+
 msgid "List of known URLs"
 msgstr ""
 
@@ -616,13 +628,13 @@ msgstr ""
 msgid "Thumbnails"
 msgstr ""
 
+msgid "Exception"
+msgstr ""
+
 msgid "DB Drivers"
 msgstr ""
 
 msgid "Full report"
-msgstr ""
-
-msgid "Exceptions"
 msgstr ""
 
 msgid "3rd party"
@@ -638,6 +650,9 @@ msgid "Are you sure you want to remove selected versions from database?"
 msgstr ""
 
 msgid "Are you sure you want to remove selected static cache files?"
+msgstr ""
+
+msgid "Are you sure you want to remove selected unexpected files?"
 msgstr ""
 
 msgid "Compiled template file not found or unreadable"
