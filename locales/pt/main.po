@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 16:55+0200\n"
+"POT-Creation-Date: 2025-11-04 12:12+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/open-time/teams/109573/pt/)\n"
@@ -143,6 +143,9 @@ msgstr "segundos"
 
 msgid "DB drivers"
 msgstr "Condutores de BD"
+
+msgid "Driver"
+msgstr "Condutor"
 
 msgid "Driver name"
 msgstr "Nome do condutor"
@@ -495,6 +498,15 @@ msgstr "Nada de inesperado ou adicional foi encontrado."
 msgid "Unexpected or additional files"
 msgstr "Ficheiros inesperados ou adicionais"
 
+msgid "Delete selected unexpected files"
+msgstr "Eliminar ficheiros inesperados selecionados"
+
+msgid "No unexpected file selected"
+msgstr "Nenhum ficheiro inesperado selecionado"
+
+msgid "Selected unexpected files have been deleted."
+msgstr "Os ficheiros inesperados selecionados foram eliminados."
+
 msgid "List of known URLs"
 msgstr "Lista de URLs conhecidos"
 
@@ -627,14 +639,14 @@ msgstr "Editores e sintaxes"
 msgid "Thumbnails"
 msgstr "Miniaturas"
 
+msgid "Exception"
+msgstr "Exceção"
+
 msgid "DB Drivers"
 msgstr "Condutores DB"
 
 msgid "Full report"
 msgstr "Relatório completo"
-
-msgid "Exceptions"
-msgstr "Excepções"
 
 msgid "3rd party"
 msgstr "Terceiro"
@@ -656,6 +668,10 @@ msgid "Are you sure you want to remove selected static cache files?"
 msgstr ""
 "Tem a certeza de que pretende remover os ficheiros de cache estáticos "
 "seleccionados?"
+
+msgid "Are you sure you want to remove selected unexpected files?"
+msgstr ""
+"Tem a certeza de que pretende remover os ficheiros inesperados selecionados?"
 
 msgid "Compiled template file not found or unreadable"
 msgstr "Ficheiro de modelo compilado não encontrado ou ilegível"
