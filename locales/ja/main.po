@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 16:55+0200\n"
+"POT-Creation-Date: 2025-11-04 12:12+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -141,6 +141,9 @@ msgstr "お代わり"
 
 msgid "DB drivers"
 msgstr "DBドライバー"
+
+msgid "Driver"
+msgstr "ドライバー"
 
 msgid "Driver name"
 msgstr "ドライバー名"
@@ -491,6 +494,15 @@ msgstr "予期せぬものや追加的なものは何も見つかっていない
 msgid "Unexpected or additional files"
 msgstr "予期せぬ追加ファイル"
 
+msgid "Delete selected unexpected files"
+msgstr "選択した予期せぬファイルを削除する"
+
+msgid "No unexpected file selected"
+msgstr "予期しないファイルが選択された"
+
+msgid "Selected unexpected files have been deleted."
+msgstr "選択された予期せぬファイルが削除されました。"
+
 msgid "List of known URLs"
 msgstr "既知のURLの一覧"
 
@@ -623,14 +635,14 @@ msgstr "エディターとシンタックス"
 msgid "Thumbnails"
 msgstr "サムネイル"
 
+msgid "Exception"
+msgstr "例外"
+
 msgid "DB Drivers"
 msgstr "DBドライバー"
 
 msgid "Full report"
 msgstr "全文表示"
-
-msgid "Exceptions"
-msgstr "例外"
 
 msgid "3rd party"
 msgstr "サードパーティ"
@@ -646,6 +658,9 @@ msgstr "選択したバージョンをデータベースから削除したいの
 
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr "選択された静的キャッシュファイルを削除するのは間違いないですか？"
+
+msgid "Are you sure you want to remove selected unexpected files?"
+msgstr "選択された予期せぬファイルを本当に削除しますか？"
 
 msgid "Compiled template file not found or unreadable"
 msgstr "コンパイルされたテンプレートファイルが見つからない、または読めない"
