@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 16:55+0200\n"
+"POT-Creation-Date: 2025-11-04 12:12+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
@@ -141,6 +141,9 @@ msgstr "초"
 
 msgid "DB drivers"
 msgstr "DB 드라이버"
+
+msgid "Driver"
+msgstr "드라이버"
 
 msgid "Driver name"
 msgstr "드라이버 이름"
@@ -491,6 +494,15 @@ msgstr "예상치 못한 추가 발견 사항은 없습니다."
 msgid "Unexpected or additional files"
 msgstr "예기치 않은 파일 또는 추가 파일"
 
+msgid "Delete selected unexpected files"
+msgstr "선택한 예기치 않은 파일 삭제"
+
+msgid "No unexpected file selected"
+msgstr "예기치 않은 파일이 선택되지 않았습니다."
+
+msgid "Selected unexpected files have been deleted."
+msgstr "선택된 예기치 않은 파일이 삭제되었습니다."
+
 msgid "List of known URLs"
 msgstr "알려진 URL 목록"
 
@@ -623,14 +635,14 @@ msgstr "편집기 및 구문"
 msgid "Thumbnails"
 msgstr "썸네일"
 
+msgid "Exception"
+msgstr "예외"
+
 msgid "DB Drivers"
 msgstr "DB 드라이버"
 
 msgid "Full report"
 msgstr "전체 보고서"
-
-msgid "Exceptions"
-msgstr "예외"
 
 msgid "3rd party"
 msgstr "타사"
@@ -646,6 +658,9 @@ msgstr "선택한 버전을 데이터베이스에서 제거하시겠습니까?"
 
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr "선택한 정적 캐시 파일을 제거하시겠습니까?"
+
+msgid "Are you sure you want to remove selected unexpected files?"
+msgstr "선택한 예기치 않은 파일을 제거하시겠습니까?"
 
 msgid "Compiled template file not found or unreadable"
 msgstr "컴파일된 템플릿 파일을 찾을 수 없거나 읽을 수 없음"
