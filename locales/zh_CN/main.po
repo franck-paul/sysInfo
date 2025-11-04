@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 16:55+0200\n"
+"POT-Creation-Date: 2025-11-04 12:12+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -141,6 +141,9 @@ msgstr "秒"
 
 msgid "DB drivers"
 msgstr "DB 驱动程序"
+
+msgid "Driver"
+msgstr "司机"
 
 msgid "Driver name"
 msgstr "司机姓名"
@@ -491,6 +494,15 @@ msgstr "没有发现任何意外或额外情况。"
 msgid "Unexpected or additional files"
 msgstr "意外或额外文件"
 
+msgid "Delete selected unexpected files"
+msgstr "删除选定的意外文件"
+
+msgid "No unexpected file selected"
+msgstr "未选择意外文件"
+
+msgid "Selected unexpected files have been deleted."
+msgstr "已删除选定的意外文件。"
+
 msgid "List of known URLs"
 msgstr "已知的URL列表"
 
@@ -623,14 +635,14 @@ msgstr "编辑器和句法"
 msgid "Thumbnails"
 msgstr "缩略图"
 
+msgid "Exception"
+msgstr "例外情况"
+
 msgid "DB Drivers"
 msgstr "DB 驱动程序"
 
 msgid "Full report"
 msgstr "报告全文"
-
-msgid "Exceptions"
-msgstr "例外情况"
 
 msgid "3rd party"
 msgstr "第三方"
@@ -646,6 +658,9 @@ msgstr "你确定要从数据库中删除选定的版本吗？"
 
 msgid "Are you sure you want to remove selected static cache files?"
 msgstr "你确定你要删除选定的静态缓存文件吗？"
+
+msgid "Are you sure you want to remove selected unexpected files?"
+msgstr "您确定要删除选定的意外文件吗？"
 
 msgid "Compiled template file not found or unreadable"
 msgstr "未找到编译的模板文件或无法读取"
