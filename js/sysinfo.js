@@ -113,7 +113,7 @@ dotclear.ready(() => {
         loadStaticCacheDirs(main_dir, (dirs) => {
           // Insert list and remove previous raw
           const line = event.target.parentNode.parentNode;
-          line.after(dotclear.htmlToNode(dirs));
+          line.after(...dotclear.htmlToNodes(dirs));
           line.remove();
           // Static cache subdir expand (load 3rd level subdirs and cache file list via Ajax)
           const sc_subdirs = document.querySelectorAll('a.sc_subdir');
@@ -127,7 +127,7 @@ dotclear.ready(() => {
                   sc_compiled.removeEventListener('click', show);
                 }
                 const raw = event_sub.target.parentNode.parentNode;
-                raw.after(dotclear.htmlToNode(list));
+                raw.after(...dotclear.htmlToNodes(list));
                 raw.remove();
                 dotclear.condSubmit('#scform td input[type=checkbox]', '#scform #delscaction');
                 // Static cache file preview
@@ -183,21 +183,22 @@ dotclear.ready(() => {
   // Checkboxes helpers
 
   const confirmAction = (formID, actionID, confirmMessage) => {
-    if (document.getElementById(formID)) {
-      for (const item of document.querySelectorAll(`#${formID} .checkboxes-helpers`)) {
-        dotclear.checkboxesHelpers(
-          item,
-          undefined,
-          `#${formID} td input[type=checkbox]:not(:disabled)`,
-          `#${formID} #${actionID}`,
-        );
-      }
-      dotclear.enableShiftClick(`#${formID} td input[type=checkbox]`);
-      dotclear.condSubmit(`#${formID} td input[type=checkbox]`, `#${formID} #${actionID}`);
-      document
-        .querySelector(`form input[type=submit][name=${actionID}]`)
-        ?.addEventListener('click', (event) => dotclear.confirm(confirmMessage, event));
+    if (!document.getElementById(formID)) {
+      return;
     }
+    for (const item of document.querySelectorAll(`#${formID} .checkboxes-helpers`)) {
+      dotclear.checkboxesHelpers(
+        item,
+        undefined,
+        `#${formID} td input[type=checkbox]:not(:disabled)`,
+        `#${formID} #${actionID}`,
+      );
+    }
+    dotclear.enableShiftClick(`#${formID} td input[type=checkbox]`);
+    dotclear.condSubmit(`#${formID} td input[type=checkbox]`, `#${formID} #${actionID}`);
+    document
+    .querySelector(`form input[type=submit][name=${actionID}]`)
+    ?.addEventListener('click', (event) => dotclear.confirm(confirmMessage, event));
   };
 
   // Template cache files
