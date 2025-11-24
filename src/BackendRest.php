@@ -136,7 +136,7 @@ class BackendRest
                 $files = Files::scandir($cache_dir . DIRECTORY_SEPARATOR . $root);
                 $lines = [];
                 foreach ($files as $file) {
-                    if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                    if (!in_array($file, ['.', '..', 'mtime'], true)) {
                         $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . $file;
                         if (is_dir($cache_fullpath)) {
                             $lines[] = (new Tr())
@@ -205,7 +205,7 @@ class BackendRest
                     $dir   = array_shift($dirs);
                     $files = Files::scandir($dir);
                     foreach ($files as $file) {
-                        if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                        if (!in_array($file, ['.', '..', 'mtime'], true)) {
                             $cache_fullpath = $dir . DIRECTORY_SEPARATOR . $file;
                             if (is_file($cache_fullpath)) {
                                 $key_parts = str_split($file, 2);

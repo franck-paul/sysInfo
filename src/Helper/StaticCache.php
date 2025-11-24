@@ -94,7 +94,7 @@ class StaticCache
         try {
             $files = Files::scandir($cache_dir);
             foreach ($files as $file) {
-                if ($file !== '.' && $file !== '..' && $file !== 'mtime') {
+                if (!in_array($file, ['.', '..', 'mtime'], true)) {
                     $cache_fullpath = $cache_dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($cache_fullpath)) {
                         $rows[] = (new Tr())
