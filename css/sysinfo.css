@@ -158,8 +158,9 @@ blockquote.sysinfo:after {
 /* Static cache calculator */
 
 #scconverter {
+  width: fit-content;
   position: sticky;
-  top: 1em;
+  top: 3em;
 }
 
 #sccalc_res {

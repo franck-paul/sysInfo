@@ -141,13 +141,13 @@ class BackendRest
                         if (is_dir($cache_fullpath)) {
                             $lines[] = (new Tr())
                                 ->cols([
-                                    (new Td())      // 1st level
+                                    (new Td('sc_dir_' . $root))      // 1st level
                                         ->class('nowrap')
                                         ->text($root),
                                     (new td())      // 2nd level
                                         ->class('nowrap')
                                         ->items([
-                                            (new Link())
+                                            (new Link('sc_dir_' . $root . $file))
                                                 ->class('sc_subdir')
                                                 ->href('#')
                                                 ->text($file),
@@ -220,13 +220,13 @@ class BackendRest
 
                                 $lines[] = (new Tr())
                                     ->cols([
-                                        (new Td())      // 1st level
+                                        (new Td('sc_dir_' . $key_parts[0]))      // 1st level
                                             ->class('nowrap')
                                             ->text($key_parts[0]),
-                                        (new Td())      // 2nd level
+                                        (new Td('sc_dir_' . $key_parts[0] . $key_parts[1]))      // 2nd level
                                             ->class('nowrap')
                                             ->text($key_parts[1]),
-                                        (new Td())      // 3rd level
+                                        (new Td('sc_dir_' . $key_parts[0] . $key_parts[1] . $key_parts[2]))      // 3rd level
                                             ->class('nowrap')
                                             ->text($key_parts[2]),
                                         (new Td())      // cache file

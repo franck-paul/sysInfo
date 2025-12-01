@@ -160,6 +160,10 @@ dotclear.ready(() => {
         });
       };
 
+      const makeAnchorLink = (code, prefix = '') => {
+        return `<a href="#sc_dir_${prefix}${code}">${code}</a>`;
+      };
+
       event.preventDefault();
       const result = document.getElementById('sccalc_res');
       const preview = document.getElementById('sccalc_preview');
@@ -170,8 +174,8 @@ dotclear.ready(() => {
       const url = document.getElementById('sccalc_url')?.value;
       if (url !== undefined && url !== '') {
         getStaticCacheFilename(url, (res) => {
-          const text = `${String.fromCharCode(160) + res.slice(0, 2)} / ${res.slice(2, 4)} / ${res.slice(4, 6)} / `;
-          result.textContent = text;
+          const text = `${String.fromCharCode(160)}${makeAnchorLink(res.slice(0, 2))} / ${makeAnchorLink(res.slice(2, 4), res.slice(0, 2))} / ${makeAnchorLink(res.slice(4, 6), res.slice(0, 4))} / `;
+          result.innerHTML = text;
           preview.textContent = res;
           preview.focus();
           preview.addEventListener('click', show);
@@ -197,8 +201,8 @@ dotclear.ready(() => {
     dotclear.enableShiftClick(`#${formID} td input[type=checkbox]`);
     dotclear.condSubmit(`#${formID} td input[type=checkbox]`, `#${formID} #${actionID}`);
     document
-    .querySelector(`form input[type=submit][name=${actionID}]`)
-    ?.addEventListener('click', (event) => dotclear.confirm(confirmMessage, event));
+      .querySelector(`form input[type=submit][name=${actionID}]`)
+      ?.addEventListener('click', (event) => dotclear.confirm(confirmMessage, event));
   };
 
   // Template cache files

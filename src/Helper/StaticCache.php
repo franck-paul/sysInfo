@@ -102,7 +102,7 @@ class StaticCache
                                 (new Td())      // 1st level
                                     ->class('nowrap')
                                     ->items([
-                                        (new Link())
+                                        (new Link('sc_dir_' . $file))
                                             ->class('sc_dir')
                                             ->href('#')
                                             ->text($file),
