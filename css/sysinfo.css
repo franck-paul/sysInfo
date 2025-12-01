@@ -157,6 +157,11 @@ blockquote.sysinfo:after {
 
 /* Static cache calculator */
 
+#scconverter {
+  position: sticky;
+  top: 1em;
+}
+
 #sccalc_res {
   font-weight: bold;
 }

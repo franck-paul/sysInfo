@@ -125,7 +125,7 @@ class StaticCache
         return (new Set())
             ->items([
                 // Add a static cache URL convertor
-                (new Fieldset())
+                (new Fieldset('scconverter'))
                     ->legend(new Legend(__('URL converter')))
                     ->fields([
                         (new Para())
