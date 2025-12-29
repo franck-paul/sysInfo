@@ -70,10 +70,12 @@ class System
                     $caches[] = 'OPCache';
                 }
             }
+
             // Check APCu
             if (function_exists('\apcu_cache_info') && !in_array(\apcu_cache_info(), [[], false], true)) {
                 $caches[] = 'APCu';
             }
+
             // Check Memcache
             if (class_exists(\Memcache::class)) {
                 $memcache     = new \Memcache();
@@ -287,15 +289,13 @@ class System
                 ]);
         }
 
-        $attic = (new Div('attic'));
-
         return (new Set())
             ->items([
                 $server,
                 $dotclear,
                 $release,
                 $update,
-                $attic,
+                (new Div('attic')),
             ])
         ->render();
     }

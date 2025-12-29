@@ -279,7 +279,7 @@ class CoreHelper
         }
 
         if (static::$redact !== '') {
-            $file = str_replace(static::$redact, '[***]', $file);
+            return str_replace(static::$redact, '[***]', $file);
         }
 
         return $file;

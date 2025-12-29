@@ -31,7 +31,11 @@ class FrontendBehaviors
 {
     protected static function checkAdminConnected(): bool
     {
-        return App::auth()->isSuperAdmin() || App::auth()->check(App::auth()->makePermissions([App::auth()::PERMISSION_ADMIN]), App::blog()->id());
+        if (App::auth()->isSuperAdmin()) {
+            return true;
+        }
+
+        return (bool) App::auth()->check(App::auth()->makePermissions([App::auth()::PERMISSION_ADMIN]), App::blog()->id());
     }
 
     public static function publicHeadContent(): string

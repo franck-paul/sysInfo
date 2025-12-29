@@ -27,11 +27,13 @@ class FrontendUrl extends Url
      */
     public static function sysInfo(?string $args): void
     {
-        if ($args == 'behaviours') {
+        if ($args === 'behaviours') {
             App::frontend()->template()->appendPath(My::tplPath());
             self::serveDocument('behaviours.html');
             exit;
-        } elseif ($args == 'templatetags') {
+        }
+
+        if ($args === 'templatetags') {
             App::frontend()->template()->appendPath(My::tplPath());
             self::serveDocument('templatetags.html');
             exit;

@@ -15,7 +15,7 @@ dotclear.ready(() => {
       args,
       (error) => {
         if (dotclear.debug) console.log(error);
-        window.alert(msg);
+        globalThis.alert(msg);
       },
     );
   };
@@ -40,7 +40,7 @@ dotclear.ready(() => {
   const viewSource = (prefix, filename, content, mode, title = '') => {
     let cm_editor; // Codemirror instance
     const real_title = title === '' ? '' : `${title} - `;
-    const src = `<div class="${prefix}_view"><h1>${real_title}${filename}</h1><textarea id="${prefix}_source">${JSON.parse(window.atob(content))}</textarea></div>`;
+    const src = `<div class="${prefix}_view"><h1>${real_title}${filename}</h1><textarea id="${prefix}_source">${JSON.parse(globalThis.atob(content))}</textarea></div>`;
     jQuery.magnificPopup.open({
       items: {
         src,
@@ -174,7 +174,7 @@ dotclear.ready(() => {
       const url = document.getElementById('sccalc_url')?.value;
       if (url !== undefined && url !== '') {
         getStaticCacheFilename(url, (res) => {
-          const text = `${String.fromCharCode(160)}${makeAnchorLink(res.slice(0, 2))} / ${makeAnchorLink(res.slice(2, 4), res.slice(0, 2))} / ${makeAnchorLink(res.slice(4, 6), res.slice(0, 4))} / `;
+          const text = `${String.fromCodePoint(160)}${makeAnchorLink(res.slice(0, 2))} / ${makeAnchorLink(res.slice(2, 4), res.slice(0, 2))} / ${makeAnchorLink(res.slice(4, 6), res.slice(0, 4))} / `;
           result.innerHTML = text;
           preview.textContent = res;
           preview.focus();
@@ -328,7 +328,7 @@ dotclear.ready(() => {
       });
 
       // Remove old rows
-      for (const row of rows) tableBody.removeChild(row);
+      for (const row of rows) row.remove();
 
       // Append new row
       for (const row of newRows) tableBody.appendChild(row);
@@ -361,6 +361,7 @@ dotclear.ready(() => {
     'antispams',
     'autoloads',
     'constants',
+    'dbdrivers',
     'dotclear-config',
     'dotclear-release',
     'permissions',

@@ -41,8 +41,8 @@ class Integrity
                 $count    = 0;
 
                 if ($contents !== false) {
-                    foreach ($contents as $digest) {
-                        if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
+                    foreach ($contents as $content) {
+                        if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $content, $m)) {
                             continue;
                         }
 
