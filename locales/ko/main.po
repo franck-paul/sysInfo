@@ -3,16 +3,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Franck Paul <carnet.franck.paul@gmail.com>, 2025
+# Franck Paul <carnet.franck.paul@gmail.com>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:12+0100\n"
+"POT-Creation-Date: 2026-01-04 13:01+0100\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
-"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
+"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2026\n"
 "Language-Team: Korean (https://app.transifex.com/open-time/teams/109573/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,6 +88,33 @@ msgstr "ID"
 msgid "GUI"
 msgstr "GUI"
 
+msgid "Disabled"
+msgstr "장애인"
+
+msgid "Enabled"
+msgstr "활성화됨"
+
+msgid "Login/Password"
+msgstr "로그인/비밀번호"
+
+msgid "2 factors authentication"
+msgstr "2단계 인증"
+
+msgid "3rd party applications connections"
+msgstr "타사 애플리케이션 연결"
+
+msgid "Passkey sign in"
+msgstr "패스키 로그인"
+
+msgid "Authentication methods"
+msgstr "인증 방법"
+
+msgid "Type"
+msgstr "유형"
+
+msgid "Provider"
+msgstr "공급자"
+
 msgid "Properties:"
 msgstr "속성:"
 
@@ -123,9 +150,6 @@ msgstr "키"
 
 msgid "Dotclear configuration"
 msgstr "도트 클리어 구성"
-
-msgid "Type"
-msgstr "유형"
 
 msgid "(see inc/config.php)"
 msgstr "(inc/config.php 참조)"
@@ -518,9 +542,6 @@ msgstr "핵심"
 msgid "Distributed"
 msgstr "배포"
 
-msgid "Disabled"
-msgstr "장애인"
-
 msgid "Obsolete"
 msgstr "사용되지 않음"
 
@@ -583,6 +604,9 @@ msgstr "예상치 못한"
 
 msgid "Autoloader"
 msgstr "오토로더"
+
+msgid "Authentications"
+msgstr "인증"
 
 msgid "URL handlers"
 msgstr "URL 핸들러"
