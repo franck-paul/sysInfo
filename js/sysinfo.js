@@ -359,6 +359,7 @@ dotclear.ready(() => {
   // Add sorting mecanism to some tables
   for (const table of [
     'antispams',
+    'authentications',
     'autoloads',
     'constants',
     'dbdrivers',

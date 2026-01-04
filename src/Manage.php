@@ -24,6 +24,7 @@ use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Plugin\sysInfo\Helper\AdminUrls;
 use Dotclear\Plugin\sysInfo\Helper\AntispamFilters;
+use Dotclear\Plugin\sysInfo\Helper\Authentications;
 use Dotclear\Plugin\sysInfo\Helper\Autoload;
 use Dotclear\Plugin\sysInfo\Helper\Behaviors;
 use Dotclear\Plugin\sysInfo\Helper\Configuration;
@@ -90,6 +91,7 @@ class Manage
                 __('Integrity')        => 'integrity',
                 __('Unexpected')       => 'undigest',
                 __('Autoloader')       => 'autoloader',
+                __('Authentications')  => 'authentications',
             ],
 
             __('Core') => [
@@ -318,6 +320,9 @@ class Manage
 
             // Get list of DB drivers
             'dbdrivers' => DbDrivers::render(),
+
+            // Get list of authentication methods
+            'authentications' => Authentications::render(),
 
             // Display PHP version and DB version
             default => System::render()
