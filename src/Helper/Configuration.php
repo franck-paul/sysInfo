@@ -41,6 +41,7 @@ class Configuration
         // Affichage des valeurs de release de Dotclear
         $releaseLines = function () use ($release) {
             foreach ($release as $key => $value) {
+                $value = is_string($value) ? CoreHelper::simplifyFilename($value) : var_export($value, true);
                 yield (new Tr())
                     ->cols([
                         (new Td())
@@ -50,7 +51,7 @@ class Configuration
                             ]),
                         (new Td())
                             ->class('maximal')
-                            ->text(is_string($value) ? CoreHelper::simplifyFilename($value) : (string) $value),
+                            ->text($value),
                     ]);
             }
         };

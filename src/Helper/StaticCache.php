@@ -62,10 +62,13 @@ class StaticCache
             ->render();
         }
 
-        $cache_dir = (string) Path::real(DC_SC_CACHE_DIR, false);
-        $cache_key = md5(Http::getHostFromURL($blog_host));
-        $cache     = new \Dotclear\Plugin\staticCache\StaticCache(DC_SC_CACHE_DIR, $cache_key);
-        $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
+        $sc_cache_dir = is_string($sc_cache_dir = DC_SC_CACHE_DIR) ? $sc_cache_dir : '';
+        $cache_dir    = Path::real($sc_cache_dir, false);
+        if ($cache_dir === false) {
+            return (new Note())
+                ->text(__('Static cache directory does not exists'))
+            ->render();
+        }
 
         if (!is_dir($cache_dir)) {
             return (new Note())
@@ -78,6 +81,10 @@ class StaticCache
                 ->text(__('Static cache directory is not readable'))
             ->render();
         }
+
+        $cache_key = md5(Http::getHostFromURL($blog_host));
+        $cache     = new \Dotclear\Plugin\staticCache\StaticCache($sc_cache_dir, $cache_key);
+        $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         $k          = str_split($cache_key, 2);
         $cache_root = $cache_dir;
@@ -204,7 +211,11 @@ class StaticCache
                     throw new Exception(__('No cache file selected'));
                 }
 
-                foreach ($_POST['sc'] as $cache_file) {
+                /**
+                 * @var array<string>
+                 */
+                $cache_files = is_array($cache_files = $_POST['sc']) ? $cache_files : [];
+                foreach ($cache_files as $cache_file) {
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
                     }

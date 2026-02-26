@@ -75,7 +75,7 @@ class Versions
                 ->value($module);
 
             $input = (new Input(['m[' . $module . ']']))
-                ->value($version);
+                ->value(is_string($version) ? $version : '');
 
             if ($module === 'core') {
                 $class[]  = 'version-core';
@@ -200,8 +200,12 @@ class Versions
                     throw new Exception(__('No version selected'));
                 }
 
-                $list = [];
-                foreach ($_POST['ver'] as $v) {
+                /**
+                 * @var array<string>
+                 */
+                $versions = is_array($versions = $_POST['ver']) ? $versions : [];
+                $list     = [];
+                foreach ($versions as $v) {
                     $list[] = $v;
                 }
 
@@ -229,7 +233,12 @@ class Versions
                 $sql = new UpdateStatement();
                 $sql
                     ->ref(App::db()->con()->prefix() . App::version()::VERSION_TABLE_NAME);
-                foreach ($_POST['m'] as $module => $version) {
+
+                /**
+                 * @var array<string, string>
+                 */
+                $modules = isset($_POST['m']) && is_array($modules = $_POST['m']) ? $modules : [];
+                foreach ($modules as $module => $version) {
                     $sql
                         ->set('version = ' . $sql->quote($version), true)   // Reset value
                         ->where('module = ' . $sql->quote($module), true)   // Reset condition

@@ -44,10 +44,11 @@ class Locales
                 if (is_array($translation)) {
                     $item = (new Ul())
                         ->items([
-                            ... array_map(fn ($value) => (new Li())->text(Html::escapeHTML($value)), $translation),
+                            ... array_map(fn ($value) => (new Li())->text(Html::escapeHTML(is_string($value) ? $value : '')), $translation),
                         ]);
                 } else {
-                    $item = (new Text(null, Html::escapeHTML($translation)));
+                    $translation = is_string($translation) ? $translation : '';
+                    $item        = (new Text(null, Html::escapeHTML($translation)));
                 }
                 yield (new Tr())
                     ->cols([
@@ -62,6 +63,8 @@ class Locales
             }
         };
 
+        $user_lang = is_string($user_lang = App::auth()->getInfo('user_lang')) ? $user_lang : 'en';
+
         return (new Table('Locales'))
             ->class('sysinfo')
             ->caption(new Caption(__('Locales') . ' (' . sprintf('%d', count($l10n)) . ')'))
@@ -75,7 +78,7 @@ class Locales
                             (new Th())
                                 ->scope('col')
                                 ->class('maximal')
-                                ->text(App::lang()->getLanguageName(App::auth()->getInfo('user_lang'))),
+                                ->text(App::lang()->getLanguageName($user_lang)),
                         ]),
                 ]))
             ->tbody((new Tbody())

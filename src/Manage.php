@@ -124,7 +124,7 @@ class Manage
                 __('Versions')             => 'versions',
                 __('Locales')              => 'locales',
                 __('Thumbnails')           => 'thumbnails',
-                __('Exception')            => 'exceptions',
+                __('Exceptions')           => 'exceptions',
                 __('DB Drivers')           => 'dbdrivers',
             ],
 
@@ -143,7 +143,8 @@ class Manage
             ];
         }
 
-        self::$checklist = empty($_POST['checklist']) ? '' : $_POST['checklist'];
+        $checklist       = is_string($checklist = $_POST['checklist'] ?? '') ? $checklist : '';
+        self::$checklist = $checklist;
 
         // Cope with form submit return
         self::$checklist = Versions::check(self::$checklist);
@@ -173,7 +174,7 @@ class Manage
 
         # Get interface setting
         $user_ui_colorsyntax       = App::auth()->prefs()->interface->colorsyntax;
-        $user_ui_colorsyntax_theme = App::auth()->prefs()->interface->colorsyntax_theme;
+        $user_ui_colorsyntax_theme = is_string($user_ui_colorsyntax_theme = App::auth()->prefs()->interface->colorsyntax_theme) ? $user_ui_colorsyntax_theme : '';
 
         $head = My::cssLoad('sysinfo.css') .
         App::backend()->page()->jsJson('sysinfo', [

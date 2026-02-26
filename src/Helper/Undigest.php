@@ -377,7 +377,11 @@ class Undigest
                     throw new Exception(__('No unexpected file selected'));
                 }
 
-                foreach ($_POST['ud'] as $file) {
+                /**
+                 * @var array<string>
+                 */
+                $undefined = is_array($undefined = $_POST['ud']) ? $undefined : [];
+                foreach ($undefined as $file) {
                     if (file_exists($file)) {
                         unlink($file);
                     }

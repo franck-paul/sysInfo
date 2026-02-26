@@ -46,20 +46,23 @@ class PhpInfo
             }
         }
 
-        $values = function ($section) {
+        $values = function (array $section) {
             foreach ($section as $key => $val) {
                 if (is_array($val)) {
+                    $first  = isset($val[0]) && is_string($first = $val[0]) ? $first : '';
+                    $second = isset($val[1]) && is_string($second = $val[1]) ? $second : '';
                     yield (new Tr())
                         ->cols([
                             (new Td())
                                 ->class('nowrap')
                                 ->text((string) $key),
                             (new Td())
-                                ->text((string) $val[0]),
+                                ->text($first),
                             (new Td())
-                                ->text((string) $val[1]),
+                                ->text($second),
                         ]);
                 } elseif (is_string($key)) {
+                    $file = is_string($file = $val) ? $file : '';
                     yield (new Tr())
                         ->cols([
                             (new Td())
@@ -67,14 +70,15 @@ class PhpInfo
                                 ->text($key),
                             (new Td())
                                 ->colspan(2)
-                                ->text(CoreHelper::simplifyFilename($val)),
+                                ->text(CoreHelper::simplifyFilename($file)),
                         ]);
                 } else {
+                    $file = is_string($file = $val) ? $file : '';
                     yield (new Tr())
                         ->cols([
                             (new Td())
                                 ->colspan(3)
-                                ->text(CoreHelper::simplifyFilename($val)),
+                                ->text(CoreHelper::simplifyFilename($file)),
                         ]);
                 }
             }

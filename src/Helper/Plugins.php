@@ -36,6 +36,10 @@ class Plugins
     public static function render(): string
     {
         // Affichage de la liste des plugins (et de leurs propriétés)
+
+        /**
+         * @var array<string, array<array-key, mixed>>
+         */
         $plugins = App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true);
 
         $count = count($plugins) > 0 ? ' (' . sprintf('%d', count($plugins)) . ')' : '';
@@ -43,23 +47,27 @@ class Plugins
         $lines = [];
 
         foreach ($plugins as $id => $m) {
-            $info  = sprintf(' (%s, %s)', number_format($m['priority'] ?? 1000, 0, '.', '&nbsp;'), $m['name'] ?? $id);
+            $name     = is_string($name = $m['name'] ?? $id) ? $name : $id;
+            $priority = is_numeric($priority = $m['priority']) ? (float) $priority : 1000;
+            $info     = sprintf(' (%s, %s)', number_format($priority, 0, '.', '&nbsp;'), $name);
+
             $infos = [];
             foreach ($m as $key => $val) {
                 $value = print_r($val, true);
                 if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'])) {
-                    if ((is_countable($val) ? count($val) : 0) > 0) {
+                    if (is_iterable($val)) {
                         $value = [];
                         foreach ($val as $module) {
                             $version = '';
                             if (is_array($module)) {
-                                if (isset($module[1])) {
+                                if (isset($module[1]) && is_string($module[1])) {
                                     $version = ' (' . $module[1] . ')';
                                 }
 
                                 $module = $module[0];
                             }
 
+                            $module  = is_string($module) ? $module : '';
                             $value[] = $module !== 'core' ?
                                 (new Link())
                                     ->href('#p-' . $module)
@@ -78,7 +86,11 @@ class Plugins
                 } elseif ($key === 'root') {
                     $value = CoreHelper::simplifyFilename($value, true);
                 } elseif ($key === 'date') {
-                    $value = Date::dt2str(App::blog()->settings()->get('system')->get('date_format'), $value, App::auth()->getInfo('user_tz')) . ' ' . Date::dt2str(App::blog()->settings()->get('system')->get('time_format'), $value, App::auth()->getInfo('user_tz'));
+                    $date_format = is_string($date_format = App::blog()->settings()->system->date_format) ? $date_format : '%F';
+                    $time_format = is_string($time_format = App::blog()->settings()->system->time_format) ? $time_format : '%T';
+                    $user_tz     = is_string($user_tz = App::auth()->getInfo('user_tz')) ? $user_tz : null;
+
+                    $value = Date::dt2str($date_format, $value, $user_tz) . ' ' . Date::dt2str($time_format, $value, $user_tz);
                 }
 
                 $infos[] = (new Li())

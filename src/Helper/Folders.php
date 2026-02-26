@@ -72,7 +72,8 @@ class Folders
                 foreach ($subfolder as $folder) {
                     $err      = '';
                     $statuses = [];
-                    if ($path = Path::real($folder)) {
+                    $folder   = is_string($folder) ? $folder : '';
+                    if ($folder !== '' && $path = Path::real($folder)) {
                         $writable = is_writable($path);
                         $touch    = true;
                         if ($writable && is_dir($path)) {
@@ -117,7 +118,7 @@ class Folders
                             ]);
                     }
 
-                    if (str_starts_with((string) $folder, (string) App::config()->dotclearRoot())) {
+                    if (str_starts_with($folder, (string) App::config()->dotclearRoot())) {
                         $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen((string) App::config()->dotclearRoot()));
                     }
 

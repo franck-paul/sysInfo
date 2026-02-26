@@ -68,19 +68,24 @@ class Globals
             foreach ($variables as $variable) {
                 if ($non_deprecated && !in_array($variable, array_keys($deprecated))) {
                     if (is_array($GLOBALS[$variable])) {
+                        /**
+                         * @var array<string, mixed>
+                         */
                         $values = $GLOBALS[$variable];
                         App::lexical()->lexicalKeySort($values, App::lexical()::ADMIN_LOCALE);
 
-                        $lines = function ($values) {
+                        $lines = function (array $values) {
                             foreach ($values as $key => $value) {
-                                yield (new Li())
-                                    ->separator(' ')
-                                    ->items([
-                                        (new Strong($key)),
-                                        (new Text(null, '=')),
-                                        (new Text('code', CoreHelper::simplifyFilename(print_r($value, true)))),
-                                        (new Text(null, '(' . gettype($value) . ')')),
-                                    ]);
+                                if (is_string($key)) {
+                                    yield (new Li())
+                                        ->separator(' ')
+                                        ->items([
+                                            (new Strong($key)),
+                                            (new Text(null, '=')),
+                                            (new Text('code', CoreHelper::simplifyFilename(print_r($value, true)))),
+                                            (new Text(null, '(' . gettype($value) . ')')),
+                                        ]);
+                                }
                             }
                         };
 

@@ -134,8 +134,9 @@ class CoreHelper
                     }
 
                     if ($fp = fopen($file, 'wt')) {
+                        $html = is_string($html = $_POST['htmlreport']) ? $html : '';
                         // Begin HTML Document
-                        $report = Html::decodeEntities($_POST['htmlreport']);
+                        $report = Html::decodeEntities($html);
                         $report = str_replace('<img class="mark mark-published" src="images/published.svg">', '✅', $report, $count);
                         $report = str_replace('<img class="mark mark-unpublished" src="images/unpublished.svg">', '⛔️', $report);
                         $report = str_replace(App::config()->dotclearRoot(), '<code>DC_ROOT</code> ', $report);
@@ -187,9 +188,10 @@ class CoreHelper
         App::task()->addContext('FRONTEND');
 
         $blogId = App::blog()->id();
-        if (!$blogId) {
+        if ($blogId === '') {
             // Get user default blog
-            $blogId = App::auth()->findUserBlog(App::auth()->getInfo('user_default_blog'), false);
+            $defaultBlog = is_string($defaultBlog = App::auth()->getInfo('user_default_blog')) ? $defaultBlog : 'default';
+            $blogId      = is_string($blogId = App::auth()->findUserBlog($defaultBlog, false)) ? $blogId : 'default';
         }
 
         App::themes()->loadModules(App::blog()->themesPath());
@@ -197,34 +199,43 @@ class CoreHelper
             App::frontend()->theme = App::blog()->settings()->system->theme;
         }
 
-        if (!App::themes()->moduleExists(App::frontend()->theme)) {
+        $theme = is_string($theme = App::frontend()->theme) ? $theme : '';
+        if ($theme === '' || !App::themes()->moduleExists($theme)) {
             App::frontend()->theme                 = App::config()->defaultTheme();
             App::blog()->settings()->system->theme = App::frontend()->theme;
+
+            $theme = App::frontend()->theme;
         }
 
-        $tplset                       = App::themes()->moduleInfo(App::frontend()->theme, 'tplset');
-        App::frontend()->parent_theme = App::themes()->moduleInfo(App::frontend()->theme, 'parent');
-        if (App::frontend()->parent_theme && !App::themes()->moduleExists(App::frontend()->parent_theme)) {
+        $tplset = App::themes()->moduleInfo($theme, 'tplset');
+
+        $parent_theme = is_string($parent_theme = App::themes()->moduleInfo($theme, 'parent')) ? $parent_theme : '';
+
+        App::frontend()->parent_theme = $parent_theme;
+        if ($parent_theme !== '' && !App::themes()->moduleExists($parent_theme)) {
             App::frontend()->theme                 = App::config()->defaultTheme();
             App::blog()->settings()->system->theme = App::frontend()->theme;
             App::frontend()->parent_theme          = null;
+
+            $parent_theme = '';
         }
 
         $tpl_path = [
-            App::config()->varRoot() . '/themes/' . $blogId . '/' . App::frontend()->theme . '/tpl',
-            App::blog()->themesPath() . '/' . App::frontend()->theme . '/tpl',
+            App::config()->varRoot() . '/themes/' . $blogId . '/' . $theme . '/tpl',
+            App::blog()->themesPath() . '/' . $theme . '/tpl',
         ];
 
-        if (App::frontend()->parent_theme) {
-            $tpl_path[] = App::blog()->themesPath() . '/' . App::frontend()->parent_theme . '/tpl';
+        if ($parent_theme !== '') {
+            $tpl_path[] = App::blog()->themesPath() . '/' . $parent_theme . '/tpl';
             if (empty($tplset)) {
-                $tplset = App::themes()->moduleInfo(App::frontend()->parent_theme, 'tplset');
+                $tplset = App::themes()->moduleInfo($parent_theme, 'tplset');
             }
         }
 
         if (empty($tplset)) {
             $tplset = App::config()->defaultTplset();
         }
+        $tplset = is_string($tplset) ? $tplset : '';
 
         $main_plugins_root = explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot());
         App::frontend()->template()->setPath(
@@ -257,7 +268,7 @@ class CoreHelper
     {
         if (!isset(static::$redact)) {
             $settings       = My::settings();
-            static::$redact = $settings->redact ?? '';
+            static::$redact = is_string($settings->redact) ? $settings->redact : '';
         }
 
         $bases = array_map(static fn ($path) => Path::real($path), [
@@ -298,7 +309,9 @@ class CoreHelper
             $name = $callable;
         } elseif (is_array($callable)) {
             // Class, method
-            $name = is_object($callable[0]) ? $callable[0]::class . '-&gt;' . $callable[1] : $callable[0] . '::' . $callable[1];
+            $class = is_object($callable[0]) ? $callable[0]::class : (is_string($callable[0]) ? $callable[0] : '???');
+            $fn    = is_string($fn = $callable[1]) ? $fn : '???';
+            $name  = is_object($callable[0]) ? $class . '-&gt;' . $fn : $class . '::' . $fn;
         } elseif ($callable instanceof \Closure) {
             // Closure
             $r  = new ReflectionFunction($callable);

@@ -43,6 +43,8 @@ class Constants
             foreach ($constants as $key => $value) {
                 if ($value != $undefined && is_string($value)) {
                     $value = CoreHelper::simplifyFilename($value);
+                } elseif (!is_string($value)) {
+                    $value = var_export($value, true);
                 }
 
                 yield (new Tr())
@@ -94,79 +96,103 @@ class Constants
     private static function getConstants(): array
     {
         $undefined = '<!-- undefined -->';
+
+        $populate_string = function (string $name, string $display = '') use ($undefined): string {
+            if (defined($name) && is_string(constant($name))) {
+                return $display !== '' ? $display : trim(var_export(constant($name), true), '\'');
+            }
+
+            return $undefined;
+        };
+
+        $populate_numeric = function (string $name, string $unit = '') use ($undefined): string {
+            if (defined($name) && is_numeric(constant($name))) {
+                return var_export(constant($name), true) . ($unit !== '' ? ' ' . $unit : '');
+            }
+
+            return $undefined;
+        };
+
+        $populate_bool = function (string $name) use ($undefined): string {
+            if (defined($name) && is_bool(constant($name))) {
+                return var_export(constant($name), true);
+            }
+
+            return $undefined;
+        };
+
         $constants = [
-            'DC_ADMIN_CONTEXT'         => defined('DC_ADMIN_CONTEXT') ? (constant('DC_ADMIN_CONTEXT') ? 'true' : 'false') : $undefined,
-            'DC_ADMIN_MAILFROM'        => defined('DC_ADMIN_MAILFROM') ? DC_ADMIN_MAILFROM : $undefined,
-            'DC_ADMIN_SSL'             => defined('DC_ADMIN_SSL') ? (DC_ADMIN_SSL ? 'true' : 'false') : $undefined,
-            'DC_ADMIN_URL'             => defined('DC_ADMIN_URL') ? DC_ADMIN_URL : $undefined,
-            'DC_AKISMET_SUPER'         => defined('DC_AKISMET_SUPER') ? (constant('DC_AKISMET_SUPER') ? 'true' : 'false') : $undefined,
-            'DC_ALLOW_MULTI_MODULES'   => defined('DC_ALLOW_MULTI_MODULES') ? (DC_ALLOW_MULTI_MODULES ? 'true' : 'false') : $undefined,
-            'DC_ALLOW_REPOSITORIES'    => defined('DC_ALLOW_REPOSITORIES') ? (DC_ALLOW_REPOSITORIES ? 'true' : 'false') : $undefined,
-            'DC_ANTISPAM_CONF_SUPER'   => defined('DC_ANTISPAM_CONF_SUPER') ? (DC_ANTISPAM_CONF_SUPER ? 'true' : 'false') : $undefined,
-            'DC_AUTH_PAGE'             => defined('DC_AUTH_PAGE') ? constant('DC_AUTH_PAGE') : $undefined,
-            'DC_AUTH_PASSWORD_ONLY'    => defined('DC_AUTH_PASSWORD_ONLY') ? (DC_AUTH_PASSWORD_ONLY ? 'true' : 'false') : $undefined,
-            'DC_AUTH_SESS_ID'          => defined('DC_AUTH_SESS_ID') ? constant('DC_AUTH_SESS_ID') : $undefined,
-            'DC_AUTH_SESS_UID'         => defined('DC_AUTH_SESS_UID') ? constant('DC_AUTH_SESS_UID') : $undefined,
-            'DC_BACKUP_PATH'           => defined('DC_BACKUP_PATH') ? DC_BACKUP_PATH : $undefined,
-            'DC_BLOG_ID'               => defined('DC_BLOG_ID') ? DC_BLOG_ID : $undefined,
-            'DC_CONTEXT_ADMIN'         => defined('DC_CONTEXT_ADMIN') ? (constant('DC_CONTEXT_ADMIN') ? 'true' : 'false') : $undefined,
-            'DC_CONTEXT_MODULE'        => defined('DC_CONTEXT_MODULE') ? (constant('DC_CONTEXT_MODULE') ? 'true' : 'false') : $undefined,
-            'DC_CRYPT_ALGO'            => defined('DC_CRYPT_ALGO') ? DC_CRYPT_ALGO : $undefined,
-            'DC_CSP_LOGFILE'           => defined('DC_CSP_LOGFILE') ? DC_CSP_LOGFILE : $undefined,
-            'DC_STORE_NOT_UPDATE'      => defined('DC_STORE_NOT_UPDATE') ? (DC_STORE_NOT_UPDATE ? 'true' : 'false') : $undefined,
-            'DC_DBDRIVER'              => defined('DC_DBDRIVER') ? DC_DBDRIVER : $undefined,
-            'DC_DBHOST'                => defined('DC_DBHOST') ? DC_DBHOST : $undefined,
-            'DC_DBNAME'                => defined('DC_DBNAME') ? DC_DBNAME : $undefined,
-            'DC_DBPASSWORD'            => defined('DC_DBPASSWORD') ? '********* ' . __('(see inc/config.php)') : $undefined,
-            'DC_DBPREFIX'              => defined('DC_DBPREFIX') ? DC_DBPREFIX : $undefined,
-            'DC_DBUSER'                => defined('DC_DBUSER') ? DC_DBUSER : $undefined,
-            'DC_DEBUG'                 => defined('DC_DEBUG') ? (DC_DEBUG ? 'true' : 'false') : $undefined,
-            'DC_DEFAULT_JQUERY'        => defined('DC_DEFAULT_JQUERY') ? DC_DEFAULT_JQUERY : $undefined,
-            'DC_DEFAULT_THEME'         => defined('DC_DEFAULT_THEME') ? DC_DEFAULT_THEME : $undefined,
-            'DC_DEFAULT_TPLSET'        => defined('DC_DEFAULT_TPLSET') ? DC_DEFAULT_TPLSET : $undefined,
-            'DC_DEV'                   => defined('DC_DEV') ? (DC_DEV ? 'true' : 'false') : $undefined,
-            'DC_DIGESTS'               => defined('DC_DIGESTS') ? DC_DIGESTS : $undefined,
-            'DC_DISTRIB_PLUGINS'       => defined('DC_DISTRIB_PLUGINS') ? DC_DISTRIB_PLUGINS : $undefined,
-            'DC_DISTRIB_THEMES'        => defined('DC_DISTRIB_THEMES') ? DC_DISTRIB_THEMES : $undefined,
-            'DC_DNSBL_SUPER'           => defined('DC_DNSBL_SUPER') ? (constant('DC_DNSBL_SUPER') ? 'true' : 'false') : $undefined,
-            'DC_FAIRTRACKBACKS_FORCE'  => defined('DC_FAIRTRACKBACKS_FORCE') ? (DC_FAIRTRACKBACKS_FORCE ? 'true' : 'false') : $undefined,
-            'DC_FORCE_SCHEME_443'      => defined('DC_FORCE_SCHEME_443') ? (DC_FORCE_SCHEME_443 ? 'true' : 'false') : $undefined,
-            'DC_L10N_ROOT'             => defined('DC_L10N_ROOT') ? DC_L10N_ROOT : $undefined,
-            'DC_L10N_UPDATE_URL'       => defined('DC_L10N_UPDATE_URL') ? DC_L10N_UPDATE_URL : $undefined,
-            'DC_MASTER_KEY'            => defined('DC_MASTER_KEY') ? '********* ' . __('(see inc/config.php)') : $undefined,
-            'DC_MAX_UPLOAD_SIZE'       => defined('DC_MAX_UPLOAD_SIZE') ? DC_MAX_UPLOAD_SIZE : $undefined,
-            'DC_MEDIA_UPDATE_DB_LIMIT' => defined('DC_MEDIA_UPDATE_DB_LIMIT') ? DC_MEDIA_UPDATE_DB_LIMIT : $undefined,
-            'DC_MIGRATE'               => defined('DC_MIGRATE') ? (DC_MIGRATE ? 'true' : 'false') : $undefined,
-            'DC_NEXT_REQUIRED_PHP'     => defined('DC_NEXT_REQUIRED_PHP') ? DC_NEXT_REQUIRED_PHP : $undefined,
-            'DC_NOT_UPDATE'            => defined('DC_NOT_UPDATE') ? (DC_NOT_UPDATE ? 'true' : 'false') : $undefined,
-            'DC_PLUGINS_ROOT'          => defined('DC_PLUGINS_ROOT') ? DC_PLUGINS_ROOT : $undefined,
-            'DC_QUERY_TIMEOUT'         => defined('DC_QUERY_TIMEOUT') ? DC_QUERY_TIMEOUT . ' ' . __('seconds') : $undefined,
-            'DC_RC_PATH'               => defined('DC_RC_PATH') ? DC_RC_PATH : $undefined,
-            'DC_REST_SERVICES'         => defined('DC_REST_SERVICES') ? (DC_REST_SERVICES ? 'true' : 'false') : $undefined,
-            'DC_ROOT'                  => defined('DC_ROOT') ? DC_ROOT : $undefined,
-            'DC_SESSION_NAME'          => defined('DC_SESSION_NAME') ? DC_SESSION_NAME : $undefined,
-            'DC_SESSION_TTL'           => defined('DC_SESSION_TTL') ? DC_SESSION_TTL : $undefined,
-            'DC_SHOW_HIDDEN_DIRS'      => defined('DC_SHOW_HIDDEN_DIRS') ? (DC_SHOW_HIDDEN_DIRS ? 'true' : 'false') : $undefined,
-            'DC_START_TIME'            => defined('DC_START_TIME') ? DC_START_TIME : $undefined,
-            'DC_TPL_CACHE'             => defined('DC_TPL_CACHE') ? DC_TPL_CACHE : $undefined,
-            'DC_UPDATE_URL'            => defined('DC_UPDATE_URL') ? DC_UPDATE_URL : $undefined,
-            'DC_UPDATE_VERSION'        => defined('DC_UPDATE_VERSION') ? DC_UPDATE_VERSION : $undefined,
-            'DC_UPGRADE'               => defined('DC_UPGRADE') ? DC_UPGRADE : $undefined,
-            'DC_VAR'                   => defined('DC_VAR') ? DC_VAR : $undefined,
-            'DC_VENDOR_NAME'           => defined('DC_VENDOR_NAME') ? DC_VENDOR_NAME : $undefined,
-            'DC_VERSION'               => defined('DC_VERSION') ? DC_VERSION : $undefined,
-            'CLEARBRICKS_VERSION'      => defined('CLEARBRICKS_VERSION') ? CLEARBRICKS_VERSION : $undefined,
-            'HTTP_PROXY_HOST'          => defined('HTTP_PROXY_HOST') ? HTTP_PROXY_HOST : $undefined,
-            'HTTP_PROXY_PORT'          => defined('HTTP_PROXY_PORT') ? HTTP_PROXY_PORT : $undefined,
-            'SOCKET_VERIFY_PEER'       => defined('SOCKET_VERIFY_PEER') ? (SOCKET_VERIFY_PEER ? 'true' : 'false') : $undefined,
+            'DC_ADMIN_CONTEXT'         => $populate_bool('DC_ADMIN_CONTEXT'),
+            'DC_ADMIN_MAILFROM'        => $populate_string('DC_ADMIN_MAILFROM'),
+            'DC_ADMIN_SSL'             => $populate_bool('DC_ADMIN_SSL'),
+            'DC_ADMIN_URL'             => $populate_string('DC_ADMIN_URL'),
+            'DC_AKISMET_SUPER'         => $populate_bool('DC_AKISMET_SUPER'),
+            'DC_ALLOW_MULTI_MODULES'   => $populate_bool('DC_ALLOW_MULTI_MODULES'),
+            'DC_ALLOW_REPOSITORIES'    => $populate_bool('DC_ALLOW_REPOSITORIES'),
+            'DC_ANTISPAM_CONF_SUPER'   => $populate_bool('DC_ANTISPAM_CONF_SUPER'),
+            'DC_AUTH_PASSWORD_ONLY'    => $populate_bool('DC_AUTH_PASSWORD_ONLY'),
+            'DC_AUTH_SESS_ID'          => $populate_string('DC_AUTH_SESS_ID'),
+            'DC_AUTH_SESS_UID'         => $populate_string('DC_AUTH_SESS_UID'),
+            'DC_BACKUP_PATH'           => $populate_string('DC_BACKUP_PATH'),
+            'DC_BLOG_ID'               => $populate_string('DC_BLOG_ID'),
+            'DC_CONTEXT_ADMIN'         => $populate_bool('DC_CONTEXT_ADMIN'),
+            'DC_CONTEXT_MODULE'        => $populate_bool('DC_CONTEXT_MODULE'),
+            'DC_CRYPT_ALGO'            => $populate_string('DC_CRYPT_ALGO'),
+            'DC_CSP_LOGFILE'           => $populate_string('DC_CSP_LOGFILE'),
+            'DC_STORE_NOT_UPDATE'      => $populate_bool('DC_STORE_NOT_UPDATE'),
+            'DC_DBDRIVER'              => $populate_string('DC_DBDRIVER'),
+            'DC_DBHOST'                => $populate_string('DC_DBHOST'),
+            'DC_DBNAME'                => $populate_string('DC_DBNAME'),
+            'DC_DBPASSWORD'            => $populate_string('DC_DBPASSWORD', '********* ' . __('(see inc/config.php)')),
+            'DC_DBPREFIX'              => $populate_string('DC_DBPREFIX'),
+            'DC_DBUSER'                => $populate_string('DC_DBUSER'),
+            'DC_DEBUG'                 => $populate_bool('DC_DEBUG'),
+            'DC_DEFAULT_JQUERY'        => $populate_string('DC_DEFAULT_JQUERY'),
+            'DC_DEFAULT_THEME'         => $populate_string('DC_DEFAULT_THEME'),
+            'DC_DEFAULT_TPLSET'        => $populate_string('DC_DEFAULT_TPLSET'),
+            'DC_DEV'                   => $populate_bool('DC_DEV'),
+            'DC_DIGESTS'               => $populate_string('DC_DIGESTS'),
+            'DC_DISTRIB_PLUGINS'       => $populate_string('DC_DISTRIB_PLUGINS'),
+            'DC_DISTRIB_THEMES'        => $populate_string('DC_DISTRIB_THEMES'),
+            'DC_DNSBL_SUPER'           => $populate_bool('DC_DNSBL_SUPER'),
+            'DC_FAIRTRACKBACKS_FORCE'  => $populate_bool('DC_FAIRTRACKBACKS_FORCE'),
+            'DC_FORCE_SCHEME_443'      => $populate_bool('DC_FORCE_SCHEME_443'),
+            'DC_L10N_ROOT'             => $populate_string('DC_L10N_ROOT'),
+            'DC_L10N_UPDATE_URL'       => $populate_string('DC_L10N_UPDATE_URL'),
+            'DC_MASTER_KEY'            => $populate_string('DC_MASTER_KEY', '********* ' . __('(see inc/config.php)')),
+            'DC_MAX_UPLOAD_SIZE'       => $populate_numeric('DC_MAX_UPLOAD_SIZE'),
+            'DC_MEDIA_UPDATE_DB_LIMIT' => $populate_numeric('DC_MEDIA_UPDATE_DB_LIMIT'),
+            'DC_MIGRATE'               => $populate_bool('DC_MIGRATE'),
+            'DC_NEXT_REQUIRED_PHP'     => $populate_string('DC_NEXT_REQUIRED_PHP'),
+            'DC_NOT_UPDATE'            => $populate_bool('DC_NOT_UPDATE'),
+            'DC_PLUGINS_ROOT'          => $populate_string('DC_PLUGINS_ROOT'),
+            'DC_QUERY_TIMEOUT'         => $populate_numeric('DC_QUERY_TIMEOUT', __('seconds')),
+            'DC_RC_PATH'               => $populate_string('DC_RC_PATH'),
+            'DC_REST_SERVICES'         => $populate_bool('DC_REST_SERVICES'),
+            'DC_ROOT'                  => $populate_string('DC_ROOT'),
+            'DC_SESSION_NAME'          => $populate_string('DC_SESSION_NAME'),
+            'DC_SESSION_TTL'           => $populate_string('DC_SESSION_TTL'),
+            'DC_SHOW_HIDDEN_DIRS'      => $populate_bool('DC_SHOW_HIDDEN_DIRS'),
+            'DC_START_TIME'            => $populate_numeric('DC_START_TIME'),
+            'DC_TPL_CACHE'             => $populate_string('DC_TPL_CACHE'),
+            'DC_UPDATE_URL'            => $populate_string('DC_UPDATE_URL'),
+            'DC_UPDATE_VERSION'        => $populate_string('DC_UPDATE_VERSION'),
+            'DC_UPGRADE'               => $populate_string('DC_UPGRADE'),
+            'DC_VAR'                   => $populate_string('DC_VAR'),
+            'DC_VENDOR_NAME'           => $populate_string('DC_VENDOR_NAME'),
+            'DC_VERSION'               => $populate_string('DC_VERSION'),
+            'CLEARBRICKS_VERSION'      => $populate_string('CLEARBRICKS_VERSION'),
+            'HTTP_PROXY_HOST'          => $populate_string('HTTP_PROXY_HOST'),
+            'HTTP_PROXY_PORT'          => $populate_string('HTTP_PROXY_PORT'),
+            'SOCKET_VERIFY_PEER'       => $populate_bool('SOCKET_VERIFY_PEER'),
         ];
 
         if (App::plugins()->moduleExists('staticCache')) {
-            $constants['DC_SC_CACHE_ENABLE']    = defined('DC_SC_CACHE_ENABLE') ? (DC_SC_CACHE_ENABLE ? 'true' : 'false') : $undefined;
-            $constants['DC_SC_CACHE_DIR']       = defined('DC_SC_CACHE_DIR') ? DC_SC_CACHE_DIR : $undefined;
-            $constants['DC_SC_CACHE_BLOGS_ON']  = defined('DC_SC_CACHE_BLOGS_ON') ? constant('DC_SC_CACHE_BLOGS_ON') : $undefined;
-            $constants['DC_SC_CACHE_BLOGS_OFF'] = defined('DC_SC_CACHE_BLOGS_OFF') ? constant('DC_SC_CACHE_BLOGS_OFF') : $undefined;
-            $constants['DC_SC_EXCLUDED_URL']    = defined('DC_SC_EXCLUDED_URL') ? DC_SC_EXCLUDED_URL : $undefined;
+            $constants['DC_SC_CACHE_ENABLE']    = $populate_bool('DC_SC_CACHE_ENABLE');
+            $constants['DC_SC_CACHE_DIR']       = $populate_string('DC_SC_CACHE_DIR');
+            $constants['DC_SC_CACHE_BLOGS_ON']  = $populate_string('DC_SC_CACHE_BLOGS_ON');
+            $constants['DC_SC_CACHE_BLOGS_OFF'] = $populate_string('DC_SC_CACHE_BLOGS_OFF');
+            $constants['DC_SC_EXCLUDED_URL']    = $populate_string('DC_SC_EXCLUDED_URL');
         }
 
         return [$undefined, $constants];

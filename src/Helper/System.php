@@ -30,6 +30,7 @@ use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
 use Exception;
+use mysqli;
 use PDO;
 
 class System
@@ -92,13 +93,14 @@ class System
         }
 
         // Helpers
-        $toStrong = fn ($text): string => (new Strong($text))->render();
-        $toCode   = fn ($text): string => (new Text('code', $text))->render();
+        $toStrong = fn (string $text): string => (new Strong($text))->render();
+        $toCode   = fn (string $text): string => (new Text('code', $text))->render();
 
         // Server info
-        $software = (new None());
-        if (isset($_SERVER['SERVER_SOFTWARE'])) {
-            $info     = explode(' ', (string) $_SERVER['SERVER_SOFTWARE']);
+        $software        = (new None());
+        $server_software = is_string($server_software = $_SERVER['SERVER_SOFTWARE'] ?? '') ? $server_software : '';
+        if ($server_software !== '') {
+            $info     = explode(' ', $server_software);
             $software = (new Li())
                 ->text(__('Server software: ') . $toStrong($info[0]));
         }
@@ -106,14 +108,18 @@ class System
         $getDbInfo = function () use ($toStrong): string {
             try {
                 if (App::db()->con()->syntax() === 'mysql') {
+                    $server = '';
                     // Look if the server is MySQL or MariaDB
                     if (str_starts_with((string) App::db()->con()->driver(), 'pdo')) {
                         // Use PDO extension
-                        $server = App::db()->con()->link()->getAttribute(PDO::ATTR_SERVER_VERSION);
-                    } else {
+                        if (App::db()->con()->link() instanceof PDO) {
+                            $server = App::db()->con()->link()->getAttribute(PDO::ATTR_SERVER_VERSION);
+                        }
+                    } elseif (App::db()->con()->link() instanceof mysqli) {
                         // Use mysqli extension
                         $server = mysqli_get_server_info(App::db()->con()->link());
                     }
+                    $server = is_string($server) ? $server : '';
                     if ($server !== '') {
                         return ' - ' . sprintf(__('%s server'), $toStrong(stristr($server, 'mariadb') ? 'MariaDB' : 'MySQL'));
                     }
@@ -130,6 +136,8 @@ class System
             'domXML' . (function_exists('dom_import_simplexml') ? '' : ' ' . __('(missing)')),
             'SPL' . (function_exists('spl_classes') ? '' : ' ' . __('(missing)')),
         ];
+
+        $tempdir = is_string($tempdir = realpath(sys_get_temp_dir())) ? $tempdir : '';
 
         $server = (new Set())
             ->items([
@@ -168,7 +176,7 @@ class System
                                 (new Li())
                                     ->text(__('PHP Cache: ') . implode(', ', array_map(fn ($cache): string => $toStrong($cache), $caches))),
                                 (new Li())
-                                    ->text(__('Temporary folder: ') . $toStrong(realpath(sys_get_temp_dir()))),
+                                    ->text(__('Temporary folder: ') . $toStrong($tempdir)),
                                 (new Li())
                                     ->text('DIRECTORY_SEPARATOR: ' . $toStrong($toCode(DIRECTORY_SEPARATOR))),
                                 (new Li())
@@ -207,34 +215,41 @@ class System
             foreach ($channels as $channel) {
                 $file = $path . '/dotclear-' . $channel;
                 if (file_exists($file) && ($content = @unserialize((string) @file_get_contents($file))) && (is_array($content))) {
+                    $version  = is_string($version = $content['version'] ?? '') ? $version : '';
+                    $href     = is_string($href = $content['version'] ?? '') ? $href : '';
+                    $checksum = is_string($checksum = $content['checksum'] ?? '') ? $checksum : '';
+                    $info     = is_string($info = $content['info'] ?? '') ? $info : '';
+                    $php      = is_string($php = $content['php'] ?? '') ? $php : '';
+                    $warning  = is_bool($warning = $content['warning'] ?? false) && $warning;
+
                     $versions[] = (new Li())
                         ->items([
                             (new Text(null, __('Channel: ') . $toStrong($channel) . ' (' . date(DATE_ATOM, (int) filemtime($file)) . ')')),
                             (new Ul())
                                 ->items([
                                     (new Li())
-                                        ->text(__('version: ') . $toStrong($content['version'])),
+                                        ->text(__('version: ') . $toStrong($version)),
                                     (new Li())
                                         ->items([
                                             (new Text(null, __('href: '))),
                                             (new Link())
-                                                ->href($content['href'])
-                                                ->text(Html::escapeHTML($content['href'])),
+                                                ->href($href)
+                                                ->text(Html::escapeHTML($href)),
                                         ]),
                                     (new Li())
-                                        ->text(__('checksum: ') . $toCode($content['checksum'])),
+                                        ->text(__('checksum: ') . $toCode($checksum)),
                                     (new Li())
                                         ->items([
                                             (new Text(null, __('info: '))),
                                             (new Link())
-                                                ->href($content['info'])
-                                                ->text(Html::escapeHTML($content['info'])),
+                                                ->href($info)
+                                                ->text(Html::escapeHTML($info)),
                                         ]),
                                     (new Li())
-                                        ->text(__('PHP min: ') . $toStrong($content['php'])),
+                                        ->text(__('PHP min: ') . $toStrong($php)),
                                     isset($content['warning']) ?
                                         (new Li())
-                                            ->text(__('Warning: ') . $toStrong($content['warning'] ? __('Yes') : __('No'))) :
+                                            ->text(__('Warning: ') . $toStrong($warning ? __('Yes') : __('No'))) :
                                         (new None()),
                                 ]),
                         ]);
@@ -257,6 +272,10 @@ class System
         $release_file = App::config()->dotclearRoot() . DIRECTORY_SEPARATOR . 'release.json';
         if (file_exists($release_file)) {
             // Add a section with the content of release.json file
+
+            /**
+             * @var array<string, string|array<string>>
+             */
             $content = json_decode((string) file_get_contents($release_file), true);
             foreach ($content as $key => $value) {
                 if (is_array($value)) {

@@ -122,7 +122,7 @@ class BackendRest
             'ret' => false,
         ];
 
-        if (defined('DC_SC_CACHE_DIR') && $root != '') {
+        if (defined('DC_SC_CACHE_DIR') && is_string(DC_SC_CACHE_DIR) && $root != '') {
             $blog_host = App::blog()->host();
             if (!str_ends_with((string) $blog_host, '/')) {
                 $blog_host .= '/';
@@ -188,7 +188,7 @@ class BackendRest
         $lines   = [];
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
-        if (defined('DC_SC_CACHE_DIR') && $root != '') {
+        if (defined('DC_SC_CACHE_DIR') && is_string(DC_SC_CACHE_DIR) && $root != '') {
             $blog_host = App::blog()->host();
             if (!str_ends_with((string) $blog_host, '/')) {
                 $blog_host .= '/';

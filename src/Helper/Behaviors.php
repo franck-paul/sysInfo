@@ -59,6 +59,7 @@ class Behaviors
                         $first = false;
                     }
                 } else {
+                    $behaviorCallback = is_string($behaviorCallback) ? $behaviorCallback : '<unknown>';
                     yield (new Tr())
                         ->cols([
                             (new Td())

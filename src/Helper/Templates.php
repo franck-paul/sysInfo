@@ -48,10 +48,11 @@ class Templates
     {
         CoreHelper::publicPrepend();
 
-        $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
-        $cache_path    = (string) Path::real(App::config()->cacheRoot());
-        if (str_starts_with($cache_path, (string) $document_root)) {
-            $cache_path = substr($cache_path, strlen((string) $document_root));
+        $document_root = is_string($document_root = $_SERVER['DOCUMENT_ROOT'] ?? '') ? $document_root : '';
+
+        $cache_path = (string) Path::real(App::config()->cacheRoot());
+        if (str_starts_with($cache_path, $document_root)) {
+            $cache_path = substr($cache_path, strlen($document_root));
         } elseif (str_starts_with($cache_path, (string) App::config()->dotclearRoot())) {
             $cache_path = substr($cache_path, strlen((string) App::config()->dotclearRoot()));
         }
@@ -75,8 +76,8 @@ class Templates
         // Loop on template paths
         foreach ($paths as $path) {
             $sub_path = (string) Path::real($path, false);
-            if (str_starts_with($sub_path, (string) $document_root)) {
-                $sub_path = substr($sub_path, strlen((string) $document_root));
+            if (str_starts_with($sub_path, $document_root)) {
+                $sub_path = substr($sub_path, strlen($document_root));
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
@@ -240,7 +241,12 @@ class Templates
                 }
 
                 $root_cache = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR;
-                foreach ($_POST['tpl'] as $v) {
+
+                /**
+                 * @var array<string>
+                 */
+                $templates = is_array($templates = $_POST['tpl']) ? $templates : [];
+                foreach ($templates as $v) {
                     $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr((string) $v, 0, 2), substr((string) $v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
                     if (file_exists($cache_file)) {
                         unlink($cache_file);

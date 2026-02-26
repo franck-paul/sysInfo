@@ -29,7 +29,8 @@ class FrontendTemplate
      */
     public static function sysInfoPageTitle(array|ArrayObject $attr): string
     {
-        $tplset = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
+        $theme  = is_string($theme = App::blog()->settings()->system->theme) ? $theme : '';
+        $tplset = App::themes()->moduleInfo($theme, 'tplset');
         if (empty($tplset)) {
             $tplset = App::config()->defaultTplset() . '-default';
         }
@@ -65,20 +66,22 @@ class FrontendTemplate
     {
         $behaviorsList = function (array $behaviors) {
             foreach ($behaviors as $name => $callbacks) {
-                yield (new Li())
-                    ->items([
-                        (new Text(null, (string) $name)),
-                        (new Ul())
-                            ->items([
-                                ... array_map(
-                                    fn ($callback) => (new Li())
-                                        ->items([
-                                            (new Text('code', CoreHelper::callableName($callback))),
-                                        ]),
-                                    $callbacks
-                                ),
-                            ]),
-                    ]);
+                if (is_array($callbacks)) {
+                    yield (new Li())
+                        ->items([
+                            (new Text(null, (string) $name)),
+                            (new Ul())
+                                ->items([
+                                    ... array_map(
+                                        fn ($callback) => (new Li())
+                                            ->items([
+                                                (new Text('code', CoreHelper::callableName($callback))),
+                                            ]),
+                                        $callbacks
+                                    ),
+                                ]),
+                        ]);
+                }
             }
         };
 
@@ -115,15 +118,18 @@ class FrontendTemplate
 
         $tagsList = function (array $list, bool $block) {
             foreach ($list as $tag) {
-                $callback = $block ?
-                    App::frontend()->template()->getBlockCallback($tag) :
-                    App::frontend()->template()->getValueCallback($tag);
-                yield (new Li())
-                    ->separator(' - ')
-                    ->items([
-                        (new Text(null, $tag)),
-                        (new Text('code', CoreHelper::callableName($callback))),
-                    ]);
+                $tag = is_string($tag) ? $tag : '';
+                if ($tag !== '') {
+                    $callback = $block ?
+                        App::frontend()->template()->getBlockCallback($tag) :
+                        App::frontend()->template()->getValueCallback($tag);
+                    yield (new Li())
+                        ->separator(' - ')
+                        ->items([
+                            (new Text(null, $tag)),
+                            (new Text('code', CoreHelper::callableName($callback))),
+                        ]);
+                }
             }
         };
 

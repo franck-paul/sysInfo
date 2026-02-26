@@ -84,26 +84,32 @@ class Authentications
         if (App::backend()->auth()->oauth2() !== false && App::backend()->auth()->oauth2()->services()->getProviders() !== []) {
             // oAuth2 enabled, list providers
             foreach (App::backend()->auth()->oauth2()->services()->getProviders() as $oauth2_service) {
-                $disabled = App::backend()->auth()->oauth2()->services()->hasDisabledProvider($oauth2_service::getId()) || !App::backend()->auth()->oauth2()->store()->hasConsumer($oauth2_service::getId());
-                $rows[]   = (new Tr())
-                    ->cols([
-                        (new Td())
-                            ->class('nowrap')
-                            ->text(__('3rd party applications connections')),
-                        (new Td())
-                            ->class(['nowrap', 'txt-center'])
-                            ->items([
-                                $image($disabled),
-                            ]),
-                        (new Td())
-                            ->class('maximal')
-                            ->separator(' ')
-                            ->items([
-                                (new Img($oauth2_service::getIcon()))
-                                    ->class('icon-mini'),
-                                (new Text(null, $oauth2_service::getName())),
-                            ]),
-                    ]);
+                $oauth2_service_id = is_string($oauth2_service_id = $oauth2_service::getId()) ? $oauth2_service_id : '';
+                if ($oauth2_service_id !== '') {
+                    $disabled = App::backend()->auth()->oauth2()->services()->hasDisabledProvider($oauth2_service_id) || !App::backend()->auth()->oauth2()->store()->hasConsumer($oauth2_service_id);
+                    $icon     = is_string($icon = $oauth2_service::getIcon()) ? $icon : '';
+                    $name     = is_string($name = $oauth2_service::getName()) ? $name : '';
+
+                    $rows[] = (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text(__('3rd party applications connections')),
+                            (new Td())
+                                ->class(['nowrap', 'txt-center'])
+                                ->items([
+                                    $image($disabled),
+                                ]),
+                            (new Td())
+                                ->class('maximal')
+                                ->separator(' ')
+                                ->items([
+                                    (new Img($icon))
+                                        ->class('icon-mini'),
+                                    (new Text(null, $name)),
+                                ]),
+                        ]);
+                }
             }
         } else {
             // oAuth2 Disabled

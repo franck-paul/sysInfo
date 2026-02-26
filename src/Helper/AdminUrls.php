@@ -39,21 +39,25 @@ class AdminUrls
 
         $lines = function () use ($urls) {
             foreach ($urls as $name => $url) {
-                yield (new Tr())
-                    ->cols([
-                        (new Td())
-                            ->class('nowrap')
-                            ->text($name),
-                        (new Td())
-                            ->items([
-                                new Text('code', $url['url']),
-                            ]),
-                        (new Td())
-                            ->class('maximal')
-                            ->items([
-                                new Text('code', http_build_query($url['qs'])),
-                            ]),
-                    ]);
+                if (is_array($url)) {
+                    $uri = isset($url['url']) && is_string($uri = $url['url']) ? $uri : '';
+                    $qs  = isset($url['qs'])  && is_array($qs = $url['qs']) ? $qs : [];
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->class('nowrap')
+                                ->text($name),
+                            (new Td())
+                                ->items([
+                                    new Text('code', $uri),
+                                ]),
+                            (new Td())
+                                ->class('maximal')
+                                ->items([
+                                    new Text('code', http_build_query($qs)),
+                                ]),
+                        ]);
+                }
             }
         };
 

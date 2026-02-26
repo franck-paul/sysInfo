@@ -37,29 +37,32 @@ class TplPaths
     public static function render(): string
     {
         CoreHelper::publicPrepend();
-        $paths         = App::frontend()->template()->getPath();
-        $document_root = (empty($_SERVER['DOCUMENT_ROOT']) ? '' : $_SERVER['DOCUMENT_ROOT']);
+        $paths = App::frontend()->template()->getPath();
+
+        $document_root = is_string($document_root = $_SERVER['DOCUMENT_ROOT'] ?? '') ? $document_root : '';
 
         $rows = function () use ($paths, $document_root) {
             foreach ($paths as $path) {
-                $sub_path = (string) Path::real($path, false);
-                if (str_starts_with($sub_path, (string) $document_root)) {
-                    $sub_path = substr($sub_path, strlen((string) $document_root));
-                    if (str_starts_with($sub_path, '/')) {
-                        $sub_path = substr($sub_path, 1);
+                $sub_path = Path::real($path, false);
+                if ($sub_path !== false) {
+                    if (str_starts_with($sub_path, $document_root)) {
+                        $sub_path = substr($sub_path, strlen($document_root));
+                        if (str_starts_with($sub_path, '/')) {
+                            $sub_path = substr($sub_path, 1);
+                        }
+                    } elseif (str_starts_with($sub_path, (string) App::config()->dotclearRoot())) {
+                        $sub_path = substr($sub_path, strlen((string) App::config()->dotclearRoot()));
+                        if (str_starts_with($sub_path, '/')) {
+                            $sub_path = substr($sub_path, 1);
+                        }
                     }
-                } elseif (str_starts_with($sub_path, (string) App::config()->dotclearRoot())) {
-                    $sub_path = substr($sub_path, strlen((string) App::config()->dotclearRoot()));
-                    if (str_starts_with($sub_path, '/')) {
-                        $sub_path = substr($sub_path, 1);
-                    }
-                }
 
-                yield (new Tr())
-                    ->cols([
-                        (new Td())
-                            ->text(CoreHelper::simplifyFilename($sub_path)),
-                    ]);
+                    yield (new Tr())
+                        ->cols([
+                            (new Td())
+                                ->text(CoreHelper::simplifyFilename($sub_path)),
+                        ]);
+                }
             }
         };
 

@@ -39,7 +39,9 @@ class BackendBehaviors
 
     public static function adminBlogPreferencesForm(BlogSettingsInterface $settings): string
     {
-        $settings = My::settings();
+        $settings               = My::settings();
+        $public_debug           = is_bool($public_debug = $settings->public_debug)                     && $public_debug;
+        $public_debug_adminonly = is_bool($public_debug_adminonly = $settings->public_debug_adminonly) && $public_debug_adminonly;
 
         // Add fieldset for plugin options
         echo
@@ -48,13 +50,13 @@ class BackendBehaviors
             ->fields([
                 (new Para())
                     ->items([
-                        (new Checkbox('sysinfo_public_debug', $settings->public_debug))
+                        (new Checkbox('sysinfo_public_debug', $public_debug))
                             ->value(1)
                             ->label((new Label(__('Display debug information on each public page'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                 (new Para())
                     ->items([
-                        (new Checkbox('sysinfo_public_debug_adminonly', $settings->public_debug_adminonly))
+                        (new Checkbox('sysinfo_public_debug_adminonly', $public_debug_adminonly))
                             ->value(1)
                             ->label((new Label(__('Only if an administrator is connected'), Label::INSIDE_TEXT_AFTER))),
                     ]),

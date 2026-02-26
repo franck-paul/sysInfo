@@ -38,6 +38,7 @@ use Dotclear\Module\ModuleDefine;
 use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
 use Dotclear\Module\Themes;
+use Dotclear\Plugin\improve\Module;
 
 class Repo
 {
@@ -62,9 +63,11 @@ class Repo
         App::lexical()->lexicalKeySort($data, App::lexical()::ADMIN_LOCALE);
         $count = $parser ? ' (' . sprintf('%d', count($data)) . ')' : '';
 
-        $lines = function ($data) {
+        $lines = function (array $data) {
             foreach ($data as $id => $define) {
-                yield self::renderModule($id, $define);
+                if (is_string($id) && $define instanceof ModuleDefine) {
+                    yield self::renderModule($id, $define);
+                }
             }
         };
 
@@ -94,8 +97,9 @@ class Repo
     {
         $rows = [];
         foreach ($modules as $module) {
-            if ($module->get('repository') != '' && App::config()->allowRepositories()) {
-                $url = str_ends_with((string) $module->get('repository'), '/dcstore.xml') ? $module->get('repository') : Http::concatURL($module->get('repository'), 'dcstore.xml');
+            $repository = $module instanceof ModuleDefine && ($repository = $module->get('repository')) ? $repository : '';
+            if (is_string($repository) && $repository !== '' && App::config()->allowRepositories()) {
+                $url = str_ends_with($repository, '/dcstore.xml') ? $repository : Http::concatURL($repository, 'dcstore.xml');
 
                 [$parser, $in_cache] = self::parseRepo($use_cache, $url);
 
@@ -116,7 +120,9 @@ class Repo
                 } else {
                     $list = [];
                     foreach ($raw_datas as $id => $define) {
-                        $list[] = self::renderModule($id, $define);
+                        if ($define instanceof ModuleDefine) {
+                            $list[] = self::renderModule($id, $define);
+                        }
                     }
 
                     if (count($raw_datas) > 1) {
@@ -167,12 +173,12 @@ class Repo
     {
         $infos = $define->dump();
 
-        $lines = function ($infos) {
+        $lines = function (array $infos) {
             foreach ($infos as $key => $value) {
-                if (in_array($key, ['file', 'details', 'support', 'sshot'])) {
-                    $val = $value ? sprintf('<a href="%1$s">%1$s</a>', $value) : $value;
+                if (in_array($key, ['file', 'details', 'support', 'sshot']) && is_string($value)) {
+                    $val = $value !== '' ? sprintf('<a href="%1$s">%1$s</a>', $value) : $value;
                 } else {
-                    $val = is_array($value) ? var_export($value, true) : $value;
+                    $val = var_export($value, true);
                 }
 
                 yield (new Li())
@@ -231,9 +237,11 @@ class Repo
      */
     public static function renderPlugins(bool $use_cache = false): string
     {
+        $store = is_string($store = App::blog()->settings()->system->store_plugin_url) ? $store : '';
+
         return self::renderModules(
             $use_cache,
-            App::blog()->settings()->system->store_plugin_url,
+            $store,
             __('Repository plugins list'),
             __('Plugin ID')
         )
@@ -247,9 +255,11 @@ class Repo
      */
     public static function renderThemes(bool $use_cache = false): string
     {
+        $store = is_string($store = App::blog()->settings()->system->store_theme_url) ? $store : '';
+
         return self::renderModules(
             $use_cache,
-            App::blog()->settings()->system->store_theme_url,
+            $store,
             __('Repository themes list'),
             __('Theme ID')
         )
@@ -262,7 +272,13 @@ class Repo
     public static function renderAltPlugins(): string
     {
         $plugins = App::plugins()->getDefines();
-        uasort($plugins, static fn ($a, $b): int => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
+        uasort($plugins, static function ($a, $b): int {
+            if ($a instanceof ModuleDefine && $b instanceof ModuleDefine) {
+                return strtolower($a->getId()) <=> strtolower($b->getId());
+            }
+
+            return 0;
+        });
 
         return self::renderAltModules(
             $plugins,
@@ -278,11 +294,22 @@ class Repo
     public static function renderAltThemes(): string
     {
         if (!(App::themes() instanceof Themes)) {
-            App::themes()->loadModules((string) App::blog()->themes_path, null);
+            $themes_path = is_string($themes_path = App::blog()->themes_path) ? $themes_path : '';
+            if ($themes_path === '') {
+                return '';
+            }
+
+            App::themes()->loadModules($themes_path, null);
         }
 
         $themes = App::themes()->getDefines();
-        uasort($themes, static fn ($a, $b): int => strtolower((string) $a->getId()) <=> strtolower((string) $b->getId()));
+        uasort($themes, static function ($a, $b): int {
+            if ($a instanceof ModuleDefine && $b instanceof ModuleDefine) {
+                return strtolower($a->getId()) <=> strtolower($b->getId());
+            }
+
+            return 0;
+        });
 
         return self::renderAltModules(
             $themes,
