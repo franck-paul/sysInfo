@@ -247,8 +247,8 @@ class CoreHelper
         // Looking for Utility::TPL_ROOT in each plugin's dir
         $plugins = array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true));
         foreach ($plugins as $k) {
-            $plugin_root = App::plugins()->moduleInfo((string) $k, 'root');
-            if ($plugin_root) {
+            $plugin_root = is_string($plugin_root = App::plugins()->moduleInfo((string) $k, 'root')) ? $plugin_root : '';
+            if ($plugin_root !== '') {
                 App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [$plugin_root, Utility::TPL_ROOT, $tplset]));
                 // To be exhaustive add also direct directory (without templateset)
                 App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [$plugin_root, Utility::TPL_ROOT]));
