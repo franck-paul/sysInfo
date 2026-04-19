@@ -8,7 +8,7 @@
  *
  * @author Franck Paul
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -38,7 +38,7 @@ class Plugins
         // Affichage de la liste des plugins (et de leurs propriétés)
 
         /**
-         * @var array<string, array<array-key, mixed>>
+         * @var array<string, array<string, mixed>>
          */
         $plugins = App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true);
 

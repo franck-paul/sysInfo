@@ -8,7 +8,7 @@
  *
  * @author Franck Paul
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -272,13 +272,7 @@ class Repo
     public static function renderAltPlugins(): string
     {
         $plugins = App::plugins()->getDefines();
-        uasort($plugins, static function ($a, $b): int {
-            if ($a instanceof ModuleDefine && $b instanceof ModuleDefine) {
-                return strtolower($a->getId()) <=> strtolower($b->getId());
-            }
-
-            return 0;
-        });
+        uasort($plugins, static fn (ModuleDefine $a, ModuleDefine $b): int => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $plugins,
@@ -303,13 +297,7 @@ class Repo
         }
 
         $themes = App::themes()->getDefines();
-        uasort($themes, static function ($a, $b): int {
-            if ($a instanceof ModuleDefine && $b instanceof ModuleDefine) {
-                return strtolower($a->getId()) <=> strtolower($b->getId());
-            }
-
-            return 0;
-        });
+        uasort($themes, static fn (ModuleDefine $a, ModuleDefine $b): int => strtolower($a->getId()) <=> strtolower($b->getId()));
 
         return self::renderAltModules(
             $themes,
