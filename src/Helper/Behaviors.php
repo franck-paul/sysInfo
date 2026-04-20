@@ -42,35 +42,20 @@ class Behaviors
 
         $behaviourLines = function () use ($behaviorsList) {
             foreach ($behaviorsList as $behaviorName => $behaviorCallback) {
-                if (is_array($behaviorCallback)) {
-                    $first = true;
-                    foreach ($behaviorCallback as $callback) {
-                        yield (new Tr())
-                            ->cols([
-                                (new Td())
-                                    ->class('nowrap')
-                                    ->text($first ? $behaviorName : ''),
-                                (new Td())
-                                    ->class('maximal')
-                                    ->items([
-                                        (new Text('code', CoreHelper::callableName($callback))),
-                                    ]),
-                            ]);
-                        $first = false;
-                    }
-                } else {
-                    $behaviorCallback = is_string($behaviorCallback) ? $behaviorCallback : '<unknown>';
+                $first = true;
+                foreach ($behaviorCallback as $callback) {
                     yield (new Tr())
                         ->cols([
                             (new Td())
                                 ->class('nowrap')
-                                ->text($behaviorName),
+                                ->text($first ? $behaviorName : ''),
                             (new Td())
                                 ->class('maximal')
                                 ->items([
-                                    (new Text('code', $behaviorCallback . '()')),
+                                    (new Text('code', CoreHelper::callableName($callback))),
                                 ]),
                         ]);
+                    $first = false;
                 }
             }
         };

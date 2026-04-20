@@ -75,28 +75,24 @@ class Exceptions
             foreach ($list as $name => $info) {
                 // @phpstan-ignore argument.type
                 $short = (new ReflectionClass($name))->getShortName();
-                if (is_array($info)) {
-                    $code  = isset($info[0]) && is_numeric($code = $info[0]) ? (int) $code : 0;
-                    $label = isset($info[1]) && is_string($label = $info[1]) ? $label : '';
-                    yield (new Tr())
-                        ->cols([
-                            (new Td())
-                                ->class('nowrap')
-                                ->text($short),
-                            (new Td())
-                                ->items([
-                                    (new Text('code', (string) $name)),
-                                ]),
-                            (new Td())
-                                ->items([
-                                    (new Text('code', (string) $code)),
-                                ]),
-                            (new Td())
-                                ->items([
-                                    (new Text('code', $label)),
-                                ]),
-                        ]);
-                }
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($short),
+                        (new Td())
+                            ->items([
+                                (new Text('code', (string) $name)),
+                            ]),
+                        (new Td())
+                            ->items([
+                                (new Text('code', (string) $info[0])),
+                            ]),
+                        (new Td())
+                            ->items([
+                                (new Text('code', $info[1])),
+                            ]),
+                    ]);
             }
         };
 

@@ -120,9 +120,7 @@ class Repo
                 } else {
                     $list = [];
                     foreach ($raw_datas as $id => $define) {
-                        if ($define instanceof ModuleDefine) {
-                            $list[] = self::renderModule($id, $define);
-                        }
+                        $list[] = self::renderModule($id, $define);
                     }
 
                     if (count($raw_datas) > 1) {

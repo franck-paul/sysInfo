@@ -41,10 +41,8 @@ class Constants
 
         $lines = function () use ($constants, $undefined) {
             foreach ($constants as $key => $value) {
-                if ($value != $undefined && is_string($value)) {
+                if ($value != $undefined) {
                     $value = CoreHelper::simplifyFilename($value);
-                } elseif (!is_string($value)) {
-                    $value = var_export($value, true);
                 }
 
                 yield (new Tr())
@@ -91,7 +89,7 @@ class Constants
     /**
      * Get current list of Dotclear constants and their values
      *
-     * @return     list{0: string, array<string, string>}  array[0] = undefined value, array[1] = list of constants
+     * @return     array{0: string, array<string, string>}  array[0] = undefined value, array[1] = list of constants
      */
     private static function getConstants(): array
     {

@@ -75,7 +75,7 @@ class Versions
                 ->value($module);
 
             $input = (new Input(['m[' . $module . ']']))
-                ->value(is_string($version) ? $version : '');
+                ->value($version);
 
             if ($module === 'core') {
                 $class[]  = 'version-core';
