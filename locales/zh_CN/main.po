@@ -3,16 +3,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Franck Paul <contact@open-time.net>, 2026
+# Franck Paul <contact+transifex@open-time.net>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 13:01+0100\n"
+"POT-Creation-Date: 2026-04-21 16:06+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
-"Last-Translator: Franck Paul <contact@open-time.net>, 2026\n"
+"Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,9 @@ msgid ""
 "You may use FrontendSession plugin to permit administrator connection on "
 "public page."
 msgstr "您可以使用 FrontendSession 插件允许管理员在公共页面上进行连接。"
+
+msgid "Use cache for template engine"
+msgstr "为模板引擎使用缓存"
 
 msgid "Releases in attic"
 msgstr "阁楼释放"
@@ -87,9 +90,6 @@ msgstr "身份证"
 
 msgid "GUI"
 msgstr "图形用户界面"
-
-msgid "Disabled"
-msgstr "失能"
 
 msgid "Enabled"
 msgstr "已启用"
@@ -659,7 +659,7 @@ msgstr "编辑器和句法"
 msgid "Thumbnails"
 msgstr "缩略图"
 
-msgid "Exception"
+msgid "Exceptions"
 msgstr "例外情况"
 
 msgid "DB Drivers"
