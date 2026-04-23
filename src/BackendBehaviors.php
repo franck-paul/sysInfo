@@ -44,6 +44,7 @@ class BackendBehaviors
 
         // sysInfo settings
         $settings               = My::settings();
+        $public_http_cache      = is_bool($public_http_cache = $settings->http_cache)                  && $public_http_cache;
         $public_debug           = is_bool($public_debug = $settings->public_debug)                     && $public_debug;
         $public_debug_adminonly = is_bool($public_debug_adminonly = $settings->public_debug_adminonly) && $public_debug_adminonly;
 
@@ -69,6 +70,12 @@ class BackendBehaviors
                     ->text(__('You may use FrontendSession plugin to permit administrator connection on public page.')),
                 (new Para())
                     ->items([
+                        (new Checkbox('sysinfo_http_cache', $public_http_cache))
+                            ->value(1)
+                            ->label((new Label(__('Use HTTP cache'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                (new Para())
+                    ->items([
                         (new Checkbox('sysinfo_tpl_use_cache', $public_tpl_use_cache))
                             ->value(1)
                             ->label((new Label(__('Use cache for template engine'), Label::INSIDE_TEXT_AFTER))),
@@ -86,6 +93,7 @@ class BackendBehaviors
 
         // sysInfo settings
         $settings = My::settings();
+        $settings->put('http_cache', !empty($_POST['sysinfo_http_cache']), 'boolean');
         $settings->put('public_debug', !empty($_POST['sysinfo_public_debug']), 'boolean');
         $settings->put('public_debug_adminonly', !empty($_POST['sysinfo_public_debug_adminonly']), 'boolean');
 
