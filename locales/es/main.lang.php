@@ -15,6 +15,7 @@ L10n::$locales['System Information'] = 'Información del sistema';
 L10n::$locales['Display debug information on each public page'] = 'Mostrar información de depuración en cada página pública';
 L10n::$locales['Only if an administrator is connected'] = 'Sólo si hay un administrador conectado';
 L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = 'Puede utilizar el plugin FrontendSession para permitir la conexión del administrador en la página pública.';
+L10n::$locales['Use HTTP cache'] = 'Utilizar la caché HTTP';
 L10n::$locales['Use cache for template engine'] = 'Utilizar caché para el motor de plantillas';
 L10n::$locales['Releases in attic'] = 'Liberaciones en el ático';
 L10n::$locales['…'] = '...';

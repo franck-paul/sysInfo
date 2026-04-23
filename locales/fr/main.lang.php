@@ -15,6 +15,7 @@ L10n::$locales['System Information'] = 'Informations système';
 L10n::$locales['Display debug information on each public page'] = 'Afficher les informations de débogage sur chaque page publique';
 L10n::$locales['Only if an administrator is connected'] = 'Seulement si une administratrice ou un administrateur est connecté(e)';
 L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = 'Vous pouvez utiliser le plugin FrontendSession pour autoriser la connexion de l\'administrateur sur une page publique.';
+L10n::$locales['Use HTTP cache'] = 'Utiliser le cache HTTP';
 L10n::$locales['Use cache for template engine'] = 'Utiliser le cache pour le moteur de gabarits';
 L10n::$locales['Releases in attic'] = 'Versions disponibles dans le grenier';
 L10n::$locales['…'] = '…';

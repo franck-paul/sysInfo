@@ -15,6 +15,7 @@ L10n::$locales['System Information'] = '시스템 정보';
 L10n::$locales['Display debug information on each public page'] = '각 공개 페이지에 디버그 정보 표시';
 L10n::$locales['Only if an administrator is connected'] = '관리자가 연결된 경우에만';
 L10n::$locales['You may use FrontendSession plugin to permit administrator connection on public page.'] = '프론트엔드 세션 플러그인을 사용하여 공개 페이지에서 관리자 연결을 허용할 수 있습니다.';
+L10n::$locales['Use HTTP cache'] = 'HTTP 캐시 사용';
 L10n::$locales['Use cache for template engine'] = '템플릿 엔진에 캐시 사용';
 L10n::$locales['Releases in attic'] = '다락방에서 릴리스';
 L10n::$locales['…'] = '...';
