@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
+use Dotclear\App;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Label;
@@ -89,13 +90,13 @@ class BackendBehaviors
     public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $settings): string
     {
         // Blog settings
-        $settings->system->put('tpl_use_cache', !empty($_POST['sysinfo_tpl_use_cache']), 'boolean');
+        $settings->system->put('tpl_use_cache', !empty($_POST['sysinfo_tpl_use_cache']), App::blogWorkspace()::NS_BOOL);
 
         // sysInfo settings
         $settings = My::settings();
-        $settings->put('http_cache', !empty($_POST['sysinfo_http_cache']), 'boolean');
-        $settings->put('public_debug', !empty($_POST['sysinfo_public_debug']), 'boolean');
-        $settings->put('public_debug_adminonly', !empty($_POST['sysinfo_public_debug_adminonly']), 'boolean');
+        $settings->put('http_cache', !empty($_POST['sysinfo_http_cache']), App::blogWorkspace()::NS_BOOL);
+        $settings->put('public_debug', !empty($_POST['sysinfo_public_debug']), App::blogWorkspace()::NS_BOOL);
+        $settings->put('public_debug_adminonly', !empty($_POST['sysinfo_public_debug_adminonly']), App::blogWorkspace()::NS_BOOL);
 
         return '';
     }

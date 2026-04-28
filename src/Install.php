@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\sysInfo;
 
+use Dotclear\App;
 use Dotclear\Helper\Process\TraitProcess;
 
 class Install
@@ -33,10 +34,10 @@ class Install
         }
 
         $settings = My::settings();
-        $settings->put('http_cache', true, 'boolean', 'HTTP cache', false, true);
-        $settings->put('redact', '', 'string', '', false, true);
-        $settings->put('public_debug', false, 'boolean', 'Display debug information on each public page', false, true);
-        $settings->put('public_debug_adminonly', true, 'boolean', 'Display debug information but only if an administrator is connected', false, true);
+        $settings->put('http_cache', true, App::blogWorkspace()::NS_BOOL, 'HTTP cache', false, true);
+        $settings->put('redact', '', App::blogWorkspace()::NS_STRING, '', false, true);
+        $settings->put('public_debug', false, App::blogWorkspace()::NS_BOOL, 'Display debug information on each public page', false, true);
+        $settings->put('public_debug_adminonly', true, App::blogWorkspace()::NS_BOOL, 'Display debug information but only if an administrator is connected', false, true);
 
         return true;
     }
