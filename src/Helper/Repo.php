@@ -205,7 +205,7 @@ class Repo
         $cache_path = Path::real(App::config()->cacheRoot());
         $in_cache   = false;
 
-        if ($use_cache) {
+        if ($use_cache && $cache_path !== false) {
             // Get XML cache file for modules
             $ser_file = sprintf(
                 '%s/%s/%s/%s/%s.ser',
