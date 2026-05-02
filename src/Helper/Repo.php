@@ -173,7 +173,7 @@ class Repo
 
         $lines = function (array $infos) {
             foreach ($infos as $key => $value) {
-                if (in_array($key, ['file', 'details', 'support', 'sshot']) && is_string($value)) {
+                if (in_array($key, ['file', 'details', 'support', 'sshot'], true) && is_string($value)) {
                     $val = $value !== '' ? sprintf('<a href="%1$s">%1$s</a>', $value) : $value;
                 } else {
                     $val = var_export($value, true);

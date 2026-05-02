@@ -50,6 +50,7 @@ class Locales
                     $translation = is_string($translation) ? $translation : '';
                     $item        = (new Text(null, Html::escapeHTML($translation)));
                 }
+
                 yield (new Tr())
                     ->cols([
                         (new Td())

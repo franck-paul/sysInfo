@@ -119,6 +119,7 @@ class System
                         // Use mysqli extension
                         $server = mysqli_get_server_info(App::db()->con()->link());
                     }
+
                     $server = is_string($server) ? $server : '';
                     if ($server !== '') {
                         return ' - ' . sprintf(__('%s server'), $toStrong(stristr($server, 'mariadb') ? 'MariaDB' : 'MySQL'));
