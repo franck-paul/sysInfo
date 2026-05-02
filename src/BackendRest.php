@@ -51,6 +51,7 @@ class BackendRest
         // Get all attic versions
         $upgrade = new UpdateAttic(App::config()->coreAtticUrl(), App::config()->cacheRoot() . DIRECTORY_SEPARATOR . UpdateAttic::CACHE_FOLDER);
         $upgrade->check('0.0');
+
         $list = array_keys($upgrade->getReleases('0.0'));
         if ($list !== []) {
             $list  = array_reverse($list);

@@ -58,6 +58,7 @@ class Undigest
         foreach (explode(',', (string) App::config()->distributedPlugins()) as $theme) {
             $folders[] = implode(DIRECTORY_SEPARATOR, ['plugins', $theme]);
         }
+
         // Add distributed themes
         foreach (explode(',', (string) App::config()->distributedThemes()) as $theme) {
             $folders[] = implode(DIRECTORY_SEPARATOR, ['themes', $theme]);
@@ -140,6 +141,7 @@ class Undigest
             if (in_array($filename, $ignore_files)) {
                 return false;
             }
+
             foreach ($ignore_folders as $folder) {
                 if ($folder && str_starts_with($filename, $folder)) {
                     return false;
@@ -160,8 +162,10 @@ class Undigest
                     if (!preg_match('#^([\da-f]{32})\s+(.+)$#', $digest, $m)) {
                         continue;
                     }
+
                     $released[] = Path::real(implode(DIRECTORY_SEPARATOR, [$root,$m[2]]));
                 }
+
                 if ($released !== []) {
                     foreach ($folders as $folder) {
                         $list_primary = self::scanDir(
@@ -179,12 +183,14 @@ class Undigest
                             $ignore
                         );
                     }
+
                     if ($list_primary !== []) {
                         foreach ($list_primary as $filename) {
                             if (!in_array($filename, $released) && $keep_file($filename)) {
                                 $unattended[] = $filename;
                             }
                         }
+
                         if ($unattended !== []) {
                             foreach ($unattended as $filename) {
                                 $rows[] = (new Tr())
@@ -221,6 +227,7 @@ class Undigest
                                 $unattended[] = $filename;
                             }
                         }
+
                         if ($unattended !== []) {
                             foreach ($unattended as $filename) {
                                 $rows[] = (new Tr())
@@ -311,6 +318,7 @@ class Undigest
         if ($path === false || !is_dir($path) || !is_readable($path)) {
             return [];
         }
+
         $files = Files::scandir($path);
 
         foreach ($files as $file) {
@@ -318,9 +326,11 @@ class Undigest
             if (str_starts_with($file, '.')) {
                 continue;
             }
+
             if (in_array($file, $ignore)) {
                 continue;
             }
+
             if (is_dir($path . DIRECTORY_SEPARATOR . $file)) {
                 $stack = self::scanDir($path . DIRECTORY_SEPARATOR . $file, $stack, $ext, $ignore, $ignore_ext, $suffixes);
             } else {
@@ -337,6 +347,7 @@ class Undigest
                             break;
                         }
                     }
+
                     if ($keep) {
                         $stack[] = $pathname;
                     }
@@ -350,6 +361,7 @@ class Undigest
                             break;
                         }
                     }
+
                     if ($keep) {
                         $stack[] = $pathname;
                     }

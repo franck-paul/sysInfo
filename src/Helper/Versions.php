@@ -121,6 +121,7 @@ class Versions
                     }
                 }
             }
+
             $rows[] = (new Tr())
                 ->class($class)
                 ->cols([

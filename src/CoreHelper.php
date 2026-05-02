@@ -235,6 +235,7 @@ class CoreHelper
         if (empty($tplset)) {
             $tplset = App::config()->defaultTplset();
         }
+
         $tplset = is_string($tplset) ? $tplset : '';
 
         $main_plugins_root = explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot());
