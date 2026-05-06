@@ -160,9 +160,7 @@ dotclear.ready(() => {
         });
       };
 
-      const makeAnchorLink = (code, prefix = '') => {
-        return `<a href="#sc_dir_${prefix}${code}">${code}</a>`;
-      };
+      const makeAnchorLink = (code, prefix = '') => `<a href="#sc_dir_${prefix}${code}">${code}</a>`;
 
       event.preventDefault();
       const result = document.getElementById('sccalc_res');
