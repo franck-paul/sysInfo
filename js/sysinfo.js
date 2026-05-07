@@ -266,7 +266,7 @@ dotclear.ready(() => {
     const tableBody = table.querySelector('tbody');
     const rows = tableBody.querySelectorAll('tr');
     // Track sort directions
-    const directions = Array.from(headers).map(() => {});
+    const directions = Array.from({ length: headers.length });
     // Sort system
     const sortColumn = (indexData, indexHead) => {
       // Get the current direction
