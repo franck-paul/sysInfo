@@ -210,6 +210,7 @@ class Configuration
             'hasOauth2'          => App::config()->hasOauth2(),
             'oauth2Path'         => App::config()->oauth2Path(),
             'authPasswordOnly'   => App::config()->authPasswordOnly(),
+            'modern'             => App::config()->modern(),
         ];
 
         return [$release, $config];

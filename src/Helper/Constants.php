@@ -161,6 +161,7 @@ class Constants
             'DC_MAX_UPLOAD_SIZE'       => $populate_numeric('DC_MAX_UPLOAD_SIZE'),
             'DC_MEDIA_UPDATE_DB_LIMIT' => $populate_numeric('DC_MEDIA_UPDATE_DB_LIMIT'),
             'DC_MIGRATE'               => $populate_bool('DC_MIGRATE'),
+            'DC_MODERN'                => $populate_bool('DC_MODERN'),
             'DC_NEXT_REQUIRED_PHP'     => $populate_string('DC_NEXT_REQUIRED_PHP'),
             'DC_NOT_UPDATE'            => $populate_bool('DC_NOT_UPDATE'),
             'DC_PLUGINS_ROOT'          => $populate_string('DC_PLUGINS_ROOT'),
