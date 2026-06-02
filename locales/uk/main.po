@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 16:45+0200\n"
+"POT-Creation-Date: 2026-06-02 17:13+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
 "Language-Team: Ukrainian (https://app.transifex.com/open-time/teams/109573/uk/)\n"
@@ -635,14 +635,14 @@ msgstr "Скомпільовані шаблони"
 msgid "Template paths"
 msgstr "Шляхи до шаблонів"
 
-msgid "Plugins repository (cache only)"
-msgstr "Репозиторій плагінів (тільки кеш)"
+msgid "Plugins repository"
+msgstr "Репозиторій плагінів"
 
 msgid "Plugins repository (cache)"
 msgstr "Репозиторій плагінів (кеш)"
 
-msgid "Plugins repository"
-msgstr "Репозиторій плагінів"
+msgid "Plugins repository (cache only)"
+msgstr "Репозиторій плагінів (тільки кеш)"
 
 msgid "Plugins repository (alternate repositories)"
 msgstr "Сховище плагінів (альтернативні сховища)"
@@ -650,14 +650,14 @@ msgstr "Сховище плагінів (альтернативні сховищ
 msgid "Plugins repository (alternate repositories, cache only)"
 msgstr "Сховище плагінів (альтернативні сховища, тільки кеш)"
 
-msgid "Themes repository (cache only)"
-msgstr "Репозиторій тем (тільки кеш)"
+msgid "Themes repository"
+msgstr "Репозиторій тем"
 
 msgid "Themes repository (cache)"
 msgstr "Репозиторій тем (кеш)"
 
-msgid "Themes repository"
-msgstr "Репозиторій тем"
+msgid "Themes repository (cache only)"
+msgstr "Репозиторій тем (тільки кеш)"
 
 msgid "Themes repository (alternate repositories)"
 msgstr "Репозиторій тем (альтернативні репозиторії)"
@@ -673,6 +673,9 @@ msgstr "Плагіни"
 
 msgid "Editors and Syntaxes"
 msgstr "Редактори та синтаксис"
+
+msgid "Modules version"
+msgstr "Версія модулів"
 
 msgid "Thumbnails"
 msgstr "Ескізи"
