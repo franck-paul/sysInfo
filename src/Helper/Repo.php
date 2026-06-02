@@ -39,6 +39,7 @@ use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
 use Dotclear\Module\Themes;
 use Dotclear\Plugin\improve\Module;
+use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Repo
 {
@@ -50,9 +51,9 @@ class Repo
      * @param      string  $title      The title
      * @param      string  $label      The label
      */
-    private static function renderModules(bool $use_cache, string $url, string $title, string $label): Set
+    private static function renderModules(bool $use_cache, bool $use_cache_only, string $url, string $title, string $label): Set
     {
-        [$parser, $in_cache] = self::parseRepo($use_cache, $url);
+        [$parser, $in_cache, $cache_file] = self::parseRepo($use_cache, $use_cache_only, $url);
 
         $defines = $parser ? $parser->getDefines() : [];
         $data    = [];
@@ -73,7 +74,7 @@ class Repo
 
         return (new Set())
             ->items([
-                (new Text('h3', $title . __(' from: ') . ($in_cache ? __('cache') : $url) . $count)),
+                (new Text('h3', $title . __(' from: ') . ($in_cache ? __('cache') . ' - ' . CoreHelper::simplifyFilename($cache_file) : $url) . $count)),
                 $parser ?
                 (new Set())
                     ->items([
@@ -93,7 +94,7 @@ class Repo
      * @param      bool                         $use_cache  The use cache
      * @param      string                       $title      The title
      */
-    private static function renderAltModules(array $modules, bool $use_cache, string $title): Table
+    private static function renderAltModules(array $modules, bool $use_cache, bool $use_cache_only, string $title): Table
     {
         $rows = [];
         foreach ($modules as $module) {
@@ -101,7 +102,7 @@ class Repo
             if (is_string($repository) && $repository !== '' && App::config()->allowRepositories()) {
                 $url = str_ends_with($repository, '/dcstore.xml') ? $repository : Http::concatURL($repository, 'dcstore.xml');
 
-                [$parser, $in_cache] = self::parseRepo($use_cache, $url);
+                [$parser, $in_cache, $cache_file] = self::parseRepo($use_cache, $use_cache_only, $url);
 
                 $defines   = $parser ? $parser->getDefines() : [];
                 $raw_datas = [];
@@ -112,7 +113,7 @@ class Repo
                 App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
                 $count = $parser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
-                $label = $url . ' ' . ($in_cache ? __('in cache') : '') . $count;
+                $label = $url . ' ' . ($in_cache ? __('in cache') . ' - ' . CoreHelper::simplifyFilename($cache_file) : '') . $count;
 
                 if (!$parser) {
                     $details = (new Note())
@@ -198,12 +199,13 @@ class Repo
      * @param      bool    $use_cache  The use cache
      * @param      string  $url        The url
      *
-     * @return     list{0:false|StoreParser, 1:bool}
+     * @return     list{0:false|StoreParser, 1:bool, 2: string}
      */
-    private static function parseRepo(bool $use_cache, string $url): array
+    private static function parseRepo(bool $use_cache, bool $use_cache_only, string $url): array
     {
         $cache_path = Path::real(App::config()->cacheRoot());
         $in_cache   = false;
+        $ser_file   = '';
 
         if ($use_cache && $cache_path !== false) {
             // Get XML cache file for modules
@@ -215,16 +217,18 @@ class Repo
                 substr(md5($url), 2, 2),
                 md5($url)
             );
+
             if (file_exists($ser_file)) {
                 $in_cache = true;
             }
         }
 
-        $ret = StoreReader::quickParse($url, App::config()->cacheRoot(), !$in_cache);
+        $ret = StoreReader::quickParse($url, App::config()->cacheRoot(), !$in_cache, use_cache_only: $use_cache_only);
 
         return [
             $ret,
             $in_cache,
+            $ser_file,
         ];
     }
 
@@ -233,12 +237,13 @@ class Repo
      *
      * @param      bool    $use_cache  Use cache if available
      */
-    public static function renderPlugins(bool $use_cache = false): string
+    public static function renderPlugins(bool $use_cache = false, bool $use_cache_only = false): string
     {
         $store = is_string($store = App::blog()->settings()->system->store_plugin_url) ? $store : '';
 
         return self::renderModules(
             $use_cache,
+            $use_cache_only,
             $store,
             __('Repository plugins list'),
             __('Plugin ID')
@@ -251,12 +256,13 @@ class Repo
      *
      * @param      bool    $use_cache  Use cache if available
      */
-    public static function renderThemes(bool $use_cache = false): string
+    public static function renderThemes(bool $use_cache = false, bool $use_cache_only = false): string
     {
         $store = is_string($store = App::blog()->settings()->system->store_theme_url) ? $store : '';
 
         return self::renderModules(
             $use_cache,
+            $use_cache_only,
             $store,
             __('Repository themes list'),
             __('Theme ID')
@@ -267,7 +273,7 @@ class Repo
     /**
      * Return list of available plugins from alternate repositories
      */
-    public static function renderAltPlugins(): string
+    public static function renderAltPlugins(bool $use_cache_only = false): string
     {
         $plugins = App::plugins()->getDefines();
         uasort($plugins, static fn (ModuleDefine $a, ModuleDefine $b): int => strtolower($a->getId()) <=> strtolower($b->getId()));
@@ -275,6 +281,7 @@ class Repo
         return self::renderAltModules(
             $plugins,
             true,
+            $use_cache_only,
             __('Repository plugins list (alternate repositories)')
         )
         ->render();
@@ -283,7 +290,7 @@ class Repo
     /**
      * Return list of available themes from alternate repositories
      */
-    public static function renderAltThemes(): string
+    public static function renderAltThemes(bool $use_cache_only = false): string
     {
         if (!(App::themes() instanceof Themes)) {
             $themes_path = is_string($themes_path = App::blog()->themes_path) ? $themes_path : '';
@@ -300,6 +307,7 @@ class Repo
         return self::renderAltModules(
             $themes,
             true,
+            $use_cache_only,
             __('Repository themes list (alternate repositories)')
         )
         ->render();

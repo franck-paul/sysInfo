@@ -109,19 +109,23 @@ class Manage
             ],
 
             __('Repositories') => [
-                __('Plugins repository (cache)')                  => 'dcrepo-plugins-cache',
-                __('Plugins repository')                          => 'dcrepo-plugins',
-                __('Plugins repository (alternate repositories)') => 'dcrepo-plugins-alt',
-                __('Themes repository (cache)')                   => 'dcrepo-themes-cache',
-                __('Themes repository')                           => 'dcrepo-themes',
-                __('Themes repository (alternate repositories)')  => 'dcrepo-themes-alt',
+                __('Plugins repository')                                      => 'dcrepo-plugins',
+                __('Plugins repository (cache)')                              => 'dcrepo-plugins-cache',
+                __('Plugins repository (cache only)')                         => 'dcrepo-plugins-cache-only',
+                __('Plugins repository (alternate repositories)')             => 'dcrepo-plugins-alt',
+                __('Plugins repository (alternate repositories, cache only)') => 'dcrepo-plugins-alt-cache-only',
+                __('Themes repository')                                       => 'dcrepo-themes',
+                __('Themes repository (cache)')                               => 'dcrepo-themes-cache',
+                __('Themes repository (cache only)')                          => 'dcrepo-themes-cache-only',
+                __('Themes repository (alternate repositories)')              => 'dcrepo-themes-alt',
+                __('Themes repository (alternate repositories, cache only)')  => 'dcrepo-themes-alt-cache-only',
             ],
 
             __('Miscellaneous') => [
                 __('Plugins')              => 'plugins',
                 __('Editors and Syntaxes') => 'formaters',
                 __('REST methods')         => 'rest',
-                __('Versions')             => 'versions',
+                __('Modules version')      => 'versions',
                 __('Locales')              => 'locales',
                 __('Thumbnails')           => 'thumbnails',
                 __('Exceptions')           => 'exceptions',
@@ -284,16 +288,22 @@ class Manage
             'sc' => StaticCache::render(),
 
             // Get list of available plugins
-            'dcrepo-plugins', 'dcrepo-plugins-cache' => Repo::renderPlugins(self::$checklist === 'dcrepo-plugins-cache'),
+            'dcrepo-plugins'            => Repo::renderPlugins(false, false),
+            'dcrepo-plugins-cache'      => Repo::renderPlugins(true, false),
+            'dcrepo-plugins-cache-only' => Repo::renderPlugins(true, true),
 
             // Get list of available plugins (alternate repositories)
-            'dcrepo-plugins-alt' => Repo::renderAltPlugins(),
+            'dcrepo-plugins-alt'            => Repo::renderAltPlugins(false),
+            'dcrepo-plugins-alt-cache-only' => Repo::renderAltPlugins(true),
 
             // Get list of available themes
-            'dcrepo-themes', 'dcrepo-themes-cache' => Repo::renderThemes(self::$checklist === 'dcrepo-themes-cache'),
+            'dcrepo-themes'            => Repo::renderThemes(false, false),
+            'dcrepo-themes-cache'      => Repo::renderThemes(true, false),
+            'dcrepo-themes-cache-only' => Repo::renderThemes(true, true),
 
             // Get list of available themes (alternate repositories)
-            'dcrepo-themes-alt' => Repo::renderAltThemes(),
+            'dcrepo-themes-alt'            => Repo::renderAltThemes(false),
+            'dcrepo-themes-alt-cache-only' => Repo::renderAltThemes(true),
 
             // Get list of module's versions
             'versions' => Versions::render(),

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-23 19:12+0200\n"
+"POT-Creation-Date: 2026-05-31 16:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -625,6 +625,9 @@ msgstr ""
 msgid "Template paths"
 msgstr ""
 
+msgid "Plugins repository (cache only)"
+msgstr ""
+
 msgid "Plugins repository (cache)"
 msgstr ""
 
@@ -634,6 +637,12 @@ msgstr ""
 msgid "Plugins repository (alternate repositories)"
 msgstr ""
 
+msgid "Plugins repository (alternate repositories, cache only)"
+msgstr ""
+
+msgid "Themes repository (cache only)"
+msgstr ""
+
 msgid "Themes repository (cache)"
 msgstr ""
 
@@ -641,6 +650,9 @@ msgid "Themes repository"
 msgstr ""
 
 msgid "Themes repository (alternate repositories)"
+msgstr ""
+
+msgid "Themes repository (alternate repositories, cache only)"
 msgstr ""
 
 msgid "Miscellaneous"
