@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-23 19:12+0200\n"
+"POT-Creation-Date: 2026-05-31 16:45+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
 "Language-Team: Portuguese (https://app.transifex.com/open-time/teams/109573/pt/)\n"
@@ -636,6 +636,9 @@ msgstr "Modelos compilados"
 msgid "Template paths"
 msgstr "Caminhos do modelo"
 
+msgid "Plugins repository (cache only)"
+msgstr "Repositório de plug-ins (apenas cache)"
+
 msgid "Plugins repository (cache)"
 msgstr "Repositório de plug-ins (cache)"
 
@@ -645,6 +648,12 @@ msgstr "Repositório de plugins"
 msgid "Plugins repository (alternate repositories)"
 msgstr "Repositório de plug-ins (repositórios alternativos)"
 
+msgid "Plugins repository (alternate repositories, cache only)"
+msgstr "Repositório de plug-ins (repositórios alternativos, apenas cache)"
+
+msgid "Themes repository (cache only)"
+msgstr "Repositório de temas (apenas cache)"
+
 msgid "Themes repository (cache)"
 msgstr "Repositório de temas (cache)"
 
@@ -653,6 +662,9 @@ msgstr "Repositório de temas"
 
 msgid "Themes repository (alternate repositories)"
 msgstr "Repositório de temas (repositórios alternativos)"
+
+msgid "Themes repository (alternate repositories, cache only)"
+msgstr "Repositório de temas (repositórios alternativos, apenas cache)"
 
 msgid "Miscellaneous"
 msgstr "Diversos"
