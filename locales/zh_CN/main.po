@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 16:45+0200\n"
+"POT-Creation-Date: 2026-06-02 17:13+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/open-time/teams/109573/zh_CN/)\n"
@@ -632,14 +632,14 @@ msgstr "编译的模板"
 msgid "Template paths"
 msgstr "模板路径"
 
-msgid "Plugins repository (cache only)"
-msgstr "插件库（仅缓存）"
+msgid "Plugins repository"
+msgstr "插件库"
 
 msgid "Plugins repository (cache)"
 msgstr "插件库(缓存)"
 
-msgid "Plugins repository"
-msgstr "插件库"
+msgid "Plugins repository (cache only)"
+msgstr "插件库（仅缓存）"
 
 msgid "Plugins repository (alternate repositories)"
 msgstr "插件库（备用库）。"
@@ -647,14 +647,14 @@ msgstr "插件库（备用库）。"
 msgid "Plugins repository (alternate repositories, cache only)"
 msgstr "插件存储库（备用存储库，仅缓存）"
 
-msgid "Themes repository (cache only)"
-msgstr "主题库（仅缓存）"
+msgid "Themes repository"
+msgstr "主题库"
 
 msgid "Themes repository (cache)"
 msgstr "主题库（缓存）"
 
-msgid "Themes repository"
-msgstr "主题库"
+msgid "Themes repository (cache only)"
+msgstr "主题库（仅缓存）"
 
 msgid "Themes repository (alternate repositories)"
 msgstr "主题库(备用库)。"
@@ -670,6 +670,9 @@ msgstr "插件"
 
 msgid "Editors and Syntaxes"
 msgstr "编辑器和句法"
+
+msgid "Modules version"
+msgstr "模块版本"
 
 msgid "Thumbnails"
 msgstr "缩略图"
