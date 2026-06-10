@@ -67,7 +67,7 @@ msgid "Public behaviours list"
 msgstr "Liste des behaviours publiques"
 
 msgid "Template tags list"
-msgstr "Liste des balises template"
+msgstr "Liste des balises de gabarit"
 
 msgid "Blocks"
 msgstr "Blocs"
