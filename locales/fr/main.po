@@ -67,7 +67,7 @@ msgid "Public behaviours list"
 msgstr "Liste des behaviours publiques"
 
 msgid "Template tags list"
-msgstr "Liste des balises template"
+msgstr "Liste des balises de gabarit"
 
 msgid "Blocks"
 msgstr "Blocs"
@@ -480,13 +480,13 @@ msgid "Release info"
 msgstr "Infos de version"
 
 msgid "List of compiled templates in cache"
-msgstr "Liste des fichiers template compilés dans le cache"
+msgstr "Liste des fichiers gabarit compilés dans le cache"
 
 msgid "Template path"
-msgstr "Répertoire des templates"
+msgstr "Répertoire des gabarits"
 
 msgid "Template file"
-msgstr "Fichier template"
+msgstr "Fichier gabarit"
 
 msgid "Media thumbnails sizes"
 msgstr "Taille des vignettes des médias"
@@ -515,10 +515,10 @@ msgstr ""
 "code de la vignette)"
 
 msgid "Display template tags"
-msgstr "Liste des balises template"
+msgstr "Liste des balises de gabarit"
 
 msgid "List of template paths"
-msgstr "Répertoires de template"
+msgstr "Répertoires des gabarits"
 
 msgid "Nothing unexpected or additional found."
 msgstr "Rien d'inattendu ou de supplémentaire n'a été trouvé."
@@ -629,13 +629,13 @@ msgid "Statuses"
 msgstr "États"
 
 msgid "Templates"
-msgstr "Moteur de template"
+msgstr "Moteur de gabarit"
 
 msgid "Compiled templates"
-msgstr "Fichiers template compilés"
+msgstr "Fichiers gabarit compilés"
 
 msgid "Template paths"
-msgstr "Répertoires de template"
+msgstr "Répertoires de gabarit"
 
 msgid "Plugins repository"
 msgstr "Dépôt des plugins"
@@ -700,7 +700,7 @@ msgstr "Cache statique"
 msgid "Are you sure you want to remove selected template cache files?"
 msgstr ""
 "Êtes-vous sûr·e de vouloir supprimer les fichiers sélectionnés du cache des "
-"template ?"
+"gabarits ?"
 
 msgid "Are you sure you want to remove selected versions from database?"
 msgstr ""
@@ -717,7 +717,7 @@ msgstr ""
 "Êtes-vous sûr de vouloir supprimer les fichiers inattendus sélectionnés ?"
 
 msgid "Compiled template file not found or unreadable"
-msgstr "Fichier template compilé non trouvé ou non lisible"
+msgstr "Fichier gabarit compilé non trouvé ou non lisible"
 
 msgid "Static cache file not found or unreadable"
 msgstr "Fichier cache statique non trouvé ou non lisible"
