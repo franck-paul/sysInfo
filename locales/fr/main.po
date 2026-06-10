@@ -629,10 +629,10 @@ msgid "Statuses"
 msgstr "États"
 
 msgid "Templates"
-msgstr "Moteur de template"
+msgstr "Moteur de gabarit"
 
 msgid "Compiled templates"
-msgstr "Fichiers template compilés"
+msgstr "Fichiers gabarit compilés"
 
 msgid "Template paths"
 msgstr "Répertoires de template"
