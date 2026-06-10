@@ -700,7 +700,7 @@ msgstr "Cache statique"
 msgid "Are you sure you want to remove selected template cache files?"
 msgstr ""
 "Êtes-vous sûr·e de vouloir supprimer les fichiers sélectionnés du cache des "
-"template ?"
+"gabarits ?"
 
 msgid "Are you sure you want to remove selected versions from database?"
 msgstr ""
