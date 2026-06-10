@@ -717,7 +717,7 @@ msgstr ""
 "Êtes-vous sûr de vouloir supprimer les fichiers inattendus sélectionnés ?"
 
 msgid "Compiled template file not found or unreadable"
-msgstr "Fichier template compilé non trouvé ou non lisible"
+msgstr "Fichier gabarit compilé non trouvé ou non lisible"
 
 msgid "Static cache file not found or unreadable"
 msgstr "Fichier cache statique non trouvé ou non lisible"
