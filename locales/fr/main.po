@@ -518,7 +518,7 @@ msgid "Display template tags"
 msgstr "Liste des balises de gabarit"
 
 msgid "List of template paths"
-msgstr "Répertoires de template"
+msgstr "Répertoires des gabarits"
 
 msgid "Nothing unexpected or additional found."
 msgstr "Rien d'inattendu ou de supplémentaire n'a été trouvé."
