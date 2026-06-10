@@ -515,7 +515,7 @@ msgstr ""
 "code de la vignette)"
 
 msgid "Display template tags"
-msgstr "Liste des balises template"
+msgstr "Liste des balises de gabarit"
 
 msgid "List of template paths"
 msgstr "Répertoires de template"
