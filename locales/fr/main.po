@@ -635,7 +635,7 @@ msgid "Compiled templates"
 msgstr "Fichiers gabarit compilés"
 
 msgid "Template paths"
-msgstr "Répertoires de template"
+msgstr "Répertoires de gabarit"
 
 msgid "Plugins repository"
 msgstr "Dépôt des plugins"
