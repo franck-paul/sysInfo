@@ -483,10 +483,10 @@ msgid "List of compiled templates in cache"
 msgstr "Liste des fichiers gabarit compilés dans le cache"
 
 msgid "Template path"
-msgstr "Répertoire des templates"
+msgstr "Répertoire des gabarits"
 
 msgid "Template file"
-msgstr "Fichier template"
+msgstr "Fichier gabarit"
 
 msgid "Media thumbnails sizes"
 msgstr "Taille des vignettes des médias"
