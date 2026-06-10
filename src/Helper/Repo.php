@@ -239,7 +239,7 @@ class Repo
      */
     public static function renderPlugins(bool $use_cache = false, bool $use_cache_only = false): string
     {
-        $store = is_string($store = App::blog()->settings()->system->store_plugin_url) ? $store : '';
+        $store = is_string($store = App::config()->storePluginUrl()) ? $store : '';
 
         return self::renderModules(
             $use_cache,
@@ -258,7 +258,7 @@ class Repo
      */
     public static function renderThemes(bool $use_cache = false, bool $use_cache_only = false): string
     {
-        $store = is_string($store = App::blog()->settings()->system->store_theme_url) ? $store : '';
+        $store = is_string($store = App::config()->storeThemeUrl()) ? $store : '';
 
         return self::renderModules(
             $use_cache,
