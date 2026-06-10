@@ -480,7 +480,7 @@ msgid "Release info"
 msgstr "Infos de version"
 
 msgid "List of compiled templates in cache"
-msgstr "Liste des fichiers template compilés dans le cache"
+msgstr "Liste des fichiers gabarit compilés dans le cache"
 
 msgid "Template path"
 msgstr "Répertoire des templates"
