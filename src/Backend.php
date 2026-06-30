@@ -45,10 +45,10 @@ class Backend
         /* Register favorite */
         App::behavior()->addBehavior('adminDashboardFavoritesV2', static function (Favorites $favs): string {
             $favs->register('sysInfo', [
-                'title'      => My::name(),
-                'url'        => My::manageUrl(),
-                'small-icon' => My::icons(),
-                'large-icon' => My::icons(),
+                'title'          => My::name(),
+                'url'            => My::manageUrl(),
+                'menu-icon'      => My::icon(),
+                'dashboard-icon' => My::icon(),
             ]);
 
             return '';
