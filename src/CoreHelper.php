@@ -76,7 +76,8 @@ class CoreHelper
         echo Plugins::render();
 
         // Get capture content
-        $buffer = (string) ob_get_clean();
+        $buffer = ob_get_clean();
+        $report = (string) $buffer;
 
         // Transform HTML to text
 
@@ -92,11 +93,11 @@ class CoreHelper
                                 (new Submit(['getreport']))
                                     ->value(__('Download report')),
                                 (new Hidden(['htmlreport']))
-                                    ->value(Html::escapeHTML($buffer)),
+                                    ->value(Html::escapeHTML($report)),
                                 ...My::hiddenFields(),
                             ]),
                     ]),
-                (new Text('pre', $buffer)),
+                (new Text('pre', $report)),
             ])
         ->render();
     }

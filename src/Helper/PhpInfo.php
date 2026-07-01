@@ -33,7 +33,8 @@ class PhpInfo
         ob_start();
         phpinfo(INFO_GENERAL + INFO_CONFIGURATION + INFO_MODULES + INFO_ENVIRONMENT + INFO_VARIABLES);
         $phpinfo = ['phpinfo' => []];
-        if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', (string) ob_get_clean(), $matches, PREG_SET_ORDER)) {
+        $buffer  = ob_get_clean();
+        if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', (string) $buffer, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 $keys = array_keys($phpinfo);
                 if (strlen($match[1] ?? '') !== 0) {
