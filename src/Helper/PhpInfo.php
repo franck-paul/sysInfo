@@ -39,9 +39,15 @@ class PhpInfo
                 if (strlen($match[1] ?? '') !== 0) {
                     $phpinfo[$match[1]] = [];
                 } elseif (isset($match[3])) {
-                    @$phpinfo[end($keys)][$match[2] ?? ''] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
+                    $index = end($keys);
+                    if ($index !== false) {
+                        @$phpinfo[$index][$match[2] ?? ''] = isset($match[4]) ? [$match[3], $match[4]] : $match[3];
+                    }
                 } else {
-                    @$phpinfo[end($keys)][] = $match[2] ?? '';
+                    $index = end($keys);
+                    if ($index !== false) {
+                        @$phpinfo[$index][] = $match[2] ?? '';
+                    }
                 }
             }
         }
