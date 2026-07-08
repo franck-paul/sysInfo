@@ -42,7 +42,9 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if ((bool) $settings->public_debug && ((bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : true)) {
+        if ($settings->getBool('public_debug')
+            && ($settings->getBool('public_debug_adminonly') ? static::checkAdminConnected() : true)
+        ) {
             echo My::cssLoad('frontend.css');
         }
 
@@ -53,7 +55,10 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if ((bool) $settings->public_debug && ((bool) $settings->public_debug_adminonly ? static::checkAdminConnected() : true) && App::frontend()->context()->content_type === 'text/html') {
+        if ($settings->getBool('public_debug')
+            && ($settings->getBool('public_debug_adminonly') ? static::checkAdminConnected() : true)
+            && App::frontend()->context()->content_type === 'text/html'
+        ) {
             echo static::debugInfo();
         }
 

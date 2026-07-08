@@ -29,7 +29,7 @@ class FrontendTemplate
      */
     public static function sysInfoPageTitle(array|ArrayObject $attr): string
     {
-        $theme  = is_string($theme = App::blog()->settings()->system->theme) ? $theme : '';
+        $theme  = App::blog()->settings()->get('system')->getStr('theme', false);
         $tplset = App::themes()->moduleInfo($theme, 'tplset');
         if (empty($tplset)) {
             $tplset = App::config()->defaultTplset() . '-default';

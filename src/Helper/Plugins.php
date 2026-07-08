@@ -86,8 +86,8 @@ class Plugins
                 } elseif ($key === 'root') {
                     $value = CoreHelper::simplifyFilename($value, true);
                 } elseif ($key === 'date') {
-                    $date_format = is_string($date_format = App::blog()->settings()->system->date_format) ? $date_format : '%F';
-                    $time_format = is_string($time_format = App::blog()->settings()->system->time_format) ? $time_format : '%T';
+                    $date_format = App::blog()->settings()->get('system')->getStr('date_format', false) ?: '%F';
+                    $time_format = App::blog()->settings()->get('system')->getStr('time_format', false) ?: '%T';
                     $user_tz     = is_string($user_tz = App::auth()->getInfo('user_tz')) ? $user_tz : null;
 
                     $value = Date::dt2str($date_format, $value, $user_tz) . ' ' . Date::dt2str($time_format, $value, $user_tz);

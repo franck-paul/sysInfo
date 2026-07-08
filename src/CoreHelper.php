@@ -197,13 +197,13 @@ class CoreHelper
 
         App::themes()->loadModules(App::blog()->themesPath());
         if (!isset(App::frontend()->theme)) {
-            App::frontend()->theme = App::blog()->settings()->system->theme;
+            App::frontend()->theme = App::blog()->settings()->get('system')->getStr('theme');
         }
 
         $theme = is_string($theme = App::frontend()->theme) ? $theme : '';
         if ($theme === '' || !App::themes()->moduleExists($theme)) {
-            App::frontend()->theme                 = App::config()->defaultTheme();
-            App::blog()->settings()->system->theme = App::frontend()->theme;
+            App::frontend()->theme = App::config()->defaultTheme();
+            App::blog()->settings()->get('system')->set('theme', App::frontend()->theme);
 
             $theme = App::frontend()->theme;
         }
@@ -214,9 +214,9 @@ class CoreHelper
 
         App::frontend()->parent_theme = $parent_theme;
         if ($parent_theme !== '' && !App::themes()->moduleExists($parent_theme)) {
-            App::frontend()->theme                 = App::config()->defaultTheme();
-            App::blog()->settings()->system->theme = App::frontend()->theme;
-            App::frontend()->parent_theme          = null;
+            App::frontend()->theme = App::config()->defaultTheme();
+            App::blog()->settings()->get('system')->set('theme', App::frontend()->theme);
+            App::frontend()->parent_theme = null;
 
             $parent_theme = '';
         }
@@ -270,7 +270,7 @@ class CoreHelper
     {
         if (!isset(static::$redact)) {
             $settings       = My::settings();
-            static::$redact = is_string($settings->redact) ? $settings->redact : '';
+            static::$redact = $settings->getStr('redact', false);
         }
 
         $bases = array_map(static fn ($path) => Path::real($path), [

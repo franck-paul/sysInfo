@@ -43,7 +43,7 @@ class Frontend
                 return '';
             },
             'urlHandlerBeforeGetData' => static function (Ctx $ctx): string {
-                $ctx->http_cache = (bool) My::settings()->http_cache;
+                $ctx->http_cache = My::settings()->getBool('http_cache', false);
 
                 return '';
             },

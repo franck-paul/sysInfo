@@ -177,8 +177,8 @@ class Manage
         }
 
         # Get interface setting
-        $user_ui_colorsyntax       = App::auth()->prefs()->interface->colorsyntax;
-        $user_ui_colorsyntax_theme = is_string($user_ui_colorsyntax_theme = App::auth()->prefs()->interface->colorsyntax_theme) ? $user_ui_colorsyntax_theme : '';
+        $user_ui_colorsyntax       = App::auth()->prefs()->get('interface')->getBool('colorsyntax');
+        $user_ui_colorsyntax_theme = App::auth()->prefs()->get('interface')->getStr('colorsyntax_theme', false);
 
         $head = My::cssLoad('sysinfo.css') .
         App::backend()->page()->jsJson('sysinfo', [

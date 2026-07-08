@@ -41,13 +41,13 @@ class BackendBehaviors
     public static function adminBlogPreferencesForm(BlogSettingsInterface $settings): string
     {
         // Blog settings
-        $public_tpl_use_cache = is_bool($public_tpl_use_cache = $settings->system->tpl_use_cache) && $public_tpl_use_cache;
+        $public_tpl_use_cache = $settings->get('system')->getBool('tpl_use_cache', false);
 
         // sysInfo settings
-        $settings               = My::settings();
-        $public_http_cache      = is_bool($public_http_cache = $settings->http_cache)                  && $public_http_cache;
-        $public_debug           = is_bool($public_debug = $settings->public_debug)                     && $public_debug;
-        $public_debug_adminonly = is_bool($public_debug_adminonly = $settings->public_debug_adminonly) && $public_debug_adminonly;
+        $mysettings             = My::settings();
+        $public_http_cache      = $mysettings->getBool('http_cache', false);
+        $public_debug           = $mysettings->getBool('public_debug', false);
+        $public_debug_adminonly = $mysettings->getBool('public_debug_adminonly', false);
 
         // Add fieldset for plugin options
         echo
@@ -90,13 +90,13 @@ class BackendBehaviors
     public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $settings): string
     {
         // Blog settings
-        $settings->system->put('tpl_use_cache', !empty($_POST['sysinfo_tpl_use_cache']), App::blogWorkspace()::NS_BOOL);
+        $settings->get('system')->put('tpl_use_cache', !empty($_POST['sysinfo_tpl_use_cache']), App::blogWorkspace()::NS_BOOL);
 
         // sysInfo settings
-        $settings = My::settings();
-        $settings->put('http_cache', !empty($_POST['sysinfo_http_cache']), App::blogWorkspace()::NS_BOOL);
-        $settings->put('public_debug', !empty($_POST['sysinfo_public_debug']), App::blogWorkspace()::NS_BOOL);
-        $settings->put('public_debug_adminonly', !empty($_POST['sysinfo_public_debug_adminonly']), App::blogWorkspace()::NS_BOOL);
+        $mysettings = My::settings();
+        $mysettings->put('http_cache', !empty($_POST['sysinfo_http_cache']), App::blogWorkspace()::NS_BOOL);
+        $mysettings->put('public_debug', !empty($_POST['sysinfo_public_debug']), App::blogWorkspace()::NS_BOOL);
+        $mysettings->put('public_debug_adminonly', !empty($_POST['sysinfo_public_debug_adminonly']), App::blogWorkspace()::NS_BOOL);
 
         return '';
     }
