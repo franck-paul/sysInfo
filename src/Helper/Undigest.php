@@ -315,7 +315,10 @@ class Undigest
     private static function scanDir(string $path, array $stack = [], array $ext = [], array $ignore = [], array $ignore_ext = [], array $suffixes = []): array
     {
         $path = Path::real($path);
-        if ($path === false || !is_dir($path) || !is_readable($path)) {
+        if ($path === false
+            || !is_dir($path)
+            || !is_readable($path)
+        ) {
             return [];
         }
 

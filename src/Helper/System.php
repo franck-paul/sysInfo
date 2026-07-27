@@ -215,7 +215,10 @@ class System
             $channels = ['stable', 'testing', 'unstable'];
             foreach ($channels as $channel) {
                 $file = $path . '/dotclear-' . $channel;
-                if (file_exists($file) && ($content = @unserialize((string) @file_get_contents($file))) && (is_array($content))) {
+                if (file_exists($file)
+                    && ($content = @unserialize((string) @file_get_contents($file)))
+                    && (is_array($content))
+                ) {
                     $version  = is_string($version = $content['version'] ?? '') ? $version : '';
                     $href     = is_string($href = $content['version'] ?? '') ? $href : '';
                     $checksum = is_string($checksum = $content['checksum'] ?? '') ? $checksum : '';

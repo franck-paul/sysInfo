@@ -99,7 +99,10 @@ class Repo
         $rows = [];
         foreach ($modules as $module) {
             $repository = $module instanceof ModuleDefine && ($repository = $module->get('repository')) ? $repository : '';
-            if (is_string($repository) && $repository !== '' && App::config()->allowRepositories()) {
+            if (is_string($repository)
+                && $repository !== ''
+                && App::config()->allowRepositories()
+            ) {
                 $url = str_ends_with($repository, '/dcstore.xml') ? $repository : Http::concatURL($repository, 'dcstore.xml');
 
                 [$parser, $in_cache, $cache_file] = self::parseRepo($use_cache, $use_cache_only, $url);

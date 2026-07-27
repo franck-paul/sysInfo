@@ -123,7 +123,10 @@ class BackendRest
             'ret' => false,
         ];
 
-        if (defined('DC_SC_CACHE_DIR') && is_string(DC_SC_CACHE_DIR) && $root != '') {
+        if (defined('DC_SC_CACHE_DIR')
+            && is_string(DC_SC_CACHE_DIR)
+            && $root != ''
+        ) {
             $blog_host = App::blog()->host();
             if (!str_ends_with((string) $blog_host, '/')) {
                 $blog_host .= '/';
@@ -189,7 +192,10 @@ class BackendRest
         $lines   = [];
         $pattern = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
-        if (defined('DC_SC_CACHE_DIR') && is_string(DC_SC_CACHE_DIR) && $root != '') {
+        if (defined('DC_SC_CACHE_DIR')
+            && is_string(DC_SC_CACHE_DIR)
+            && $root != ''
+        ) {
             $blog_host = App::blog()->host();
             if (!str_ends_with((string) $blog_host, '/')) {
                 $blog_host .= '/';
@@ -197,7 +203,10 @@ class BackendRest
 
             $cache_dir = Path::real(DC_SC_CACHE_DIR, false);
             $cache_key = md5(Http::getHostFromURL($blog_host));
-            if ($cache_dir !== false && is_dir($cache_dir) && is_readable($cache_dir)) {
+            if ($cache_dir !== false
+                && is_dir($cache_dir)
+                && is_readable($cache_dir)
+            ) {
                 $key_parts = str_split($cache_key, 2);
                 $cache_dir = sprintf($pattern, $cache_dir, $key_parts[0], $key_parts[1], $key_parts[2], $cache_key);
 
@@ -321,7 +330,10 @@ class BackendRest
         $ret     = false;
         $content = '';
 
-        if ($file != '' && file_exists($file) && is_readable($file)) {
+        if ($file != ''
+            && file_exists($file)
+            && is_readable($file)
+        ) {
             $content = (string) file_get_contents($file);
             $ret     = true;
         }
