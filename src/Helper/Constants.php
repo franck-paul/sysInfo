@@ -41,7 +41,7 @@ class Constants
 
         $lines = function () use ($constants, $undefined) {
             foreach ($constants as $key => $value) {
-                if ($value != $undefined) {
+                if ($value !== $undefined) {
                     $value = CoreHelper::simplifyFilename($value);
                 }
 
@@ -51,8 +51,8 @@ class Constants
                             ->class('nowrap')
                             ->separator(' ')
                             ->items([
-                                (new Img('images/' . ($value != $undefined ? 'check-on.svg' : 'check-off.svg')))
-                                    ->class(['mark', 'mark-' . ($value != $undefined ? 'check-on' : 'check-off')]),
+                                (new Img('images/' . ($value !== $undefined ? 'check-on.svg' : 'check-off.svg')))
+                                    ->class(['mark', 'mark-' . ($value !== $undefined ? 'check-on' : 'check-off')]),
                                 (new Text('code', $key)),
                             ]),
                         (new Td())
