@@ -220,7 +220,7 @@ class System
                     && (is_array($content))
                 ) {
                     $version  = is_string($version = $content['version'] ?? '') ? $version : '';
-                    $href     = is_string($href = $content['version'] ?? '') ? $href : '';
+                    $href     = is_string($href = $content['href'] ?? '') ? $href : '';
                     $checksum = is_string($checksum = $content['checksum'] ?? '') ? $checksum : '';
                     $info     = is_string($info = $content['info'] ?? '') ? $info : '';
                     $php      = is_string($php = $content['php'] ?? '') ? $php : '';
