@@ -54,7 +54,6 @@ class BackendRest
         $upgrade->check('0.0');
 
         $releases = $upgrade->getReleases('0.0');
-        ptrace(__METHOD__, __LINE__, $releases);
 
         $list = array_keys($releases);
         if ($list !== []) {
