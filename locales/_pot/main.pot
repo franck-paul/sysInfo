@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-02 17:13+0200\n"
+"POT-Creation-Date: 2026-08-19 09:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,29 +48,37 @@ msgstr ""
 msgid "Use cache for template engine"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:59
+#: ../git-plugins/sysInfo/src/BackendRest.php:63
 msgid "Releases in attic"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:158
+#: ../git-plugins/sysInfo/src/BackendRest.php:72
+msgid "download"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/BackendRest.php:75
+msgid "information"
+msgstr ""
+
+#: ../git-plugins/sysInfo/src/BackendRest.php:175
 #: ../git-plugins/sysInfo/src/Helper/StaticCache.php:119
 msgid "…"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:262
+#: ../git-plugins/sysInfo/src/BackendRest.php:285
 msgid "(empty)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/CoreHelper.php:85
+#: ../git-plugins/sysInfo/src/CoreHelper.php:86
 #: ../git-plugins/sysInfo/src/Manage.php:135
 msgid "Report"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/CoreHelper.php:93
+#: ../git-plugins/sysInfo/src/CoreHelper.php:94
 msgid "Download report"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/CoreHelper.php:118
+#: ../git-plugins/sysInfo/src/CoreHelper.php:119
 msgid "Report empty"
 msgstr ""
 
@@ -398,44 +406,44 @@ msgid "cache"
 msgstr ""
 
 #: ../git-plugins/sysInfo/src/Helper/Repo.php:86
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:120
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:123
 msgid "Repository is unreachable"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:116
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:119
 msgid "in cache"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:129
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:132
 msgid "Repository content"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:158
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:161
 #: ../git-plugins/sysInfo/src/Manage.php:111
 msgid "Repositories"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:248
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:251
 msgid "Repository plugins list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:249
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:252
 msgid "Plugin ID"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:267
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:270
 msgid "Repository themes list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:268
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:271
 msgid "Theme ID"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:285
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:288
 msgid "Repository plugins list (alternate repositories)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Repo.php:311
+#: ../git-plugins/sysInfo/src/Helper/Repo.php:314
 msgid "Repository themes list (alternate repositories)"
 msgstr ""
 
@@ -625,51 +633,51 @@ msgstr ""
 msgid "Update channel: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:228
+#: ../git-plugins/sysInfo/src/Helper/System.php:231
 msgid "Channel: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:232
+#: ../git-plugins/sysInfo/src/Helper/System.php:235
 msgid "version: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:235
+#: ../git-plugins/sysInfo/src/Helper/System.php:238
 msgid "href: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:241
+#: ../git-plugins/sysInfo/src/Helper/System.php:244
 msgid "checksum: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:244
+#: ../git-plugins/sysInfo/src/Helper/System.php:247
 msgid "info: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:250
+#: ../git-plugins/sysInfo/src/Helper/System.php:253
 msgid "PHP min: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:253
+#: ../git-plugins/sysInfo/src/Helper/System.php:256
 msgid "No"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:253
+#: ../git-plugins/sysInfo/src/Helper/System.php:256
 msgid "Warning: "
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:253
+#: ../git-plugins/sysInfo/src/Helper/System.php:256
 msgid "Yes"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:264
+#: ../git-plugins/sysInfo/src/Helper/System.php:267
 msgid "(from versions cache)"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:264
+#: ../git-plugins/sysInfo/src/Helper/System.php:267
 msgid "Update info"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/System.php:305
+#: ../git-plugins/sysInfo/src/Helper/System.php:308
 msgid "Release info"
 msgstr ""
 
@@ -738,11 +746,11 @@ msgstr ""
 msgid "Delete selected unexpected files"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:389
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:392
 msgid "No unexpected file selected"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Undigest.php:407
+#: ../git-plugins/sysInfo/src/Helper/Undigest.php:410
 msgid "Selected unexpected files have been deleted."
 msgstr ""
 

@@ -26,6 +26,7 @@ use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Link;
 use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
@@ -52,14 +53,27 @@ class BackendRest
         $upgrade = new UpdateAttic(App::config()->coreAtticUrl(), App::config()->cacheRoot() . DIRECTORY_SEPARATOR . UpdateAttic::CACHE_FOLDER);
         $upgrade->check('0.0');
 
-        $list = array_keys($upgrade->getReleases('0.0'));
+        $releases = $upgrade->getReleases('0.0');
+        ptrace(__METHOD__, __LINE__, $releases);
+
+        $list = array_keys($releases);
         if ($list !== []) {
             $list  = array_reverse($list);
             $attic = (new Details())
                 ->summary(new Summary(__('Releases in attic')))
                 ->items([
                     (new Ul())
-                        ->items(array_map(fn (int|string $item) => (new Li())->text($item), $list)),
+                        ->items(array_map(fn (int|string $item) => (new Li())
+                            ->separator(' - ')
+                            ->items([
+                                (new Text(null, $item)),
+                                (new Link())
+                                    ->href($releases[$item]['href'])
+                                    ->text(__('download')),
+                                (new Link())
+                                    ->href($releases[$item]['info'])
+                                    ->text(__('information')),
+                            ]), $list)),
                 ]);
 
             $payload = [
