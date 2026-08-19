@@ -20,6 +20,8 @@ L10n::$locales['You may use FrontendSession plugin to permit administrator conne
 L10n::$locales['Use HTTP cache'] = 'Χρήση κρυφής μνήμης HTTP';
 L10n::$locales['Use cache for template engine'] = 'Χρήση cache για τη μηχανή προτύπων';
 L10n::$locales['Releases in attic'] = 'Απελευθερώσεις στη σοφίτα';
+L10n::$locales['download'] = 'λήψη';
+L10n::$locales['information'] = 'πληροφορίες';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(άδειο)';
 L10n::$locales['Report'] = 'Αναφορά';

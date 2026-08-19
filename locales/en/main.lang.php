@@ -20,6 +20,8 @@ L10n::$locales['You may use FrontendSession plugin to permit administrator conne
 L10n::$locales['Use HTTP cache'] = '';
 L10n::$locales['Use cache for template engine'] = '';
 L10n::$locales['Releases in attic'] = '';
+L10n::$locales['download'] = '';
+L10n::$locales['information'] = '';
 L10n::$locales['…'] = '';
 L10n::$locales['(empty)'] = '';
 L10n::$locales['Report'] = '';

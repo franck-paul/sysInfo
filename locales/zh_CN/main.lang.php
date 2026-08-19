@@ -20,6 +20,8 @@ L10n::$locales['You may use FrontendSession plugin to permit administrator conne
 L10n::$locales['Use HTTP cache'] = '使用 HTTP 缓存';
 L10n::$locales['Use cache for template engine'] = '为模板引擎使用缓存';
 L10n::$locales['Releases in attic'] = '阁楼释放';
+L10n::$locales['download'] = '下载';
+L10n::$locales['information'] = '信息';
 L10n::$locales['…'] = '...';
 L10n::$locales['(empty)'] = '(空)';
 L10n::$locales['Report'] = '报告';
