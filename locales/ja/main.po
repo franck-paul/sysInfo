@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-02 17:13+0200\n"
+"POT-Creation-Date: 2026-08-19 09:21+0200\n"
 "PO-Revision-Date: 2023-04-11 08:13+0000\n"
 "Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
 "Language-Team: Japanese (https://app.transifex.com/open-time/teams/109573/ja/)\n"
@@ -45,6 +45,12 @@ msgstr "テンプレートエンジンにキャッシュを使用"
 
 msgid "Releases in attic"
 msgstr "屋根裏の放出"
+
+msgid "download"
+msgstr "ダウンロード"
+
+msgid "information"
+msgstr "情報"
 
 msgid "…"
 msgstr "..."
