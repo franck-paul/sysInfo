@@ -107,7 +107,7 @@ class Globals
                             (new Td())
                                 ->class('nowrap')
                                 ->text($variable),
-                            (new td())
+                            (new Td())
                                 ->items([
                                     $content,
                                 ]),
@@ -118,7 +118,7 @@ class Globals
                             (new Td())
                                 ->class('nowrap')
                                 ->text($variable),
-                            (new td())
+                            (new Td())
                                 ->class(['maximal', 'deprecated'])
                                 ->text(sprintf(__('*** deprecated since %s ***'), $deprecated[$variable])),
                         ]);

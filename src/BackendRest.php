@@ -161,7 +161,7 @@ class BackendRest
                                     (new Td('sc_dir_' . $root))      // 1st level
                                         ->class('nowrap')
                                         ->text($root),
-                                    (new td())      // 2nd level
+                                    (new Td())      // 2nd level
                                         ->class('nowrap')
                                         ->items([
                                             (new Link('sc_dir_' . $root . $file))
