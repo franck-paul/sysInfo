@@ -38,6 +38,7 @@ use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
+use Exception;
 use ReflectionClass;
 
 class Exceptions
@@ -50,7 +51,7 @@ class Exceptions
         // Liste des exceptions connues
 
         /**
-         * @var array<class-string, array{0: int, 1: string}>
+         * @var array<class-string<Exception>, array{0: int, 1: string}>
          */
         $list = [
             AppException::class            => [503, 'Site temporarily unavailable'],
