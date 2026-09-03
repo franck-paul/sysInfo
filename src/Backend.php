@@ -43,8 +43,8 @@ class Backend
         My::addBackendMenuItem(Menus::MENU_SYSTEM);
 
         /* Register favorite */
-        App::behavior()->addBehavior('adminDashboardFavoritesV2', static function (Favorites $favs): string {
-            $favs->register('sysInfo', [
+        App::behavior()->addBehavior('adminDashboardFavoritesV2', static function (Favorites $favorites): string {
+            $favorites->register('sysInfo', [
                 'title'          => My::name(),
                 'url'            => My::manageUrl(),
                 'menu-icon'      => My::icon(),

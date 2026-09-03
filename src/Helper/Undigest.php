@@ -130,9 +130,9 @@ class Undigest
                 Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'en'])), // Keep in Makefile
                 Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'fr'])), // Keep in Makefile
             ];
-            foreach ($locales_folders as $locales_folder) {
-                if (!in_array($locales_folder, $keep_locales_folders)) {
-                    $ignore_folders[] = $locales_folder;
+            foreach ($locales_folders as $locale_folder) {
+                if (!in_array($locale_folder, $keep_locales_folders)) {
+                    $ignore_folders[] = $locale_folder;
                 }
             }
         }
@@ -142,8 +142,8 @@ class Undigest
                 return false;
             }
 
-            foreach ($ignore_folders as $folder) {
-                if ($folder && str_starts_with($filename, $folder)) {
+            foreach ($ignore_folders as $ignore_folder) {
+                if ($ignore_folder && str_starts_with($filename, $ignore_folder)) {
                     return false;
                 }
             }
@@ -158,8 +158,8 @@ class Undigest
         if (is_readable($digests_file)) {
             $contents = file($digests_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             if ($contents !== false) {
-                foreach ($contents as $digest) {
-                    if (!preg_match('#^([\da-f]{32})\s+(.+)$#', $digest, $m)) {
+                foreach ($contents as $content) {
+                    if (!preg_match('#^([\da-f]{32})\s+(.+)$#', $content, $m)) {
                         continue;
                     }
 

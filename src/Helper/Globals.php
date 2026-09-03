@@ -36,7 +36,7 @@ class Globals
      */
     public static function render(): string
     {
-        $max_length = 1024 * 4;     // 4Kb max
+        $maxLength = 1024 * 4;     // 4Kb max
 
         $variables = array_map(fn (int|string $v): string => (string) $v, array_keys($GLOBALS));
         App::lexical()->lexicalSort($variables, App::lexical()::ADMIN_LOCALE);
@@ -64,9 +64,9 @@ class Globals
             'p_url'     => '2.23',
         ];
 
-        $globals = function ($non_deprecated = true) use ($variables, $deprecated, $max_length) {
+        $globals = function ($nonDeprecated = true) use ($variables, $deprecated, $maxLength) {
             foreach ($variables as $variable) {
-                if ($non_deprecated && !in_array($variable, array_keys($deprecated))) {
+                if ($nonDeprecated && !in_array($variable, array_keys($deprecated))) {
                     if (is_array($GLOBALS[$variable])) {
                         /**
                          * @var array<string, mixed>
@@ -95,8 +95,8 @@ class Globals
                             ]);
                     } else {
                         $value = CoreHelper::simplifyFilename(print_r($GLOBALS[$variable], true));
-                        if (mb_strlen($value) > $max_length) {
-                            $value = mb_substr($value, 0, $max_length) . ' …';
+                        if (mb_strlen($value) > $maxLength) {
+                            $value = mb_substr($value, 0, $maxLength) . ' …';
                         }
 
                         $content = (new Text(null, $value . '(' . gettype($value) . ')'));
@@ -112,7 +112,7 @@ class Globals
                                     $content,
                                 ]),
                         ]);
-                } elseif (!$non_deprecated && in_array($variable, array_keys($deprecated))) {
+                } elseif (!$nonDeprecated && in_array($variable, array_keys($deprecated))) {
                     yield (new Tr())
                         ->cols([
                             (new Td())

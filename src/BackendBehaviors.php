@@ -38,10 +38,10 @@ class BackendBehaviors
         return '';
     }
 
-    public static function adminBlogPreferencesForm(BlogSettingsInterface $settings): string
+    public static function adminBlogPreferencesForm(BlogSettingsInterface $blogSettings): string
     {
         // Blog settings
-        $public_tpl_use_cache = $settings->get('system')->getBool('tpl_use_cache', false);
+        $public_tpl_use_cache = $blogSettings->get('system')->getBool('tpl_use_cache', false);
 
         // sysInfo settings
         $mysettings             = My::settings();
@@ -87,10 +87,10 @@ class BackendBehaviors
         return '';
     }
 
-    public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $settings): string
+    public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $blogSettings): string
     {
         // Blog settings
-        $settings->get('system')->put('tpl_use_cache', !empty($_POST['sysinfo_tpl_use_cache']), App::blogWorkspace()::NS_BOOL);
+        $blogSettings->get('system')->put('tpl_use_cache', !empty($_POST['sysinfo_tpl_use_cache']), App::blogWorkspace()::NS_BOOL);
 
         // sysInfo settings
         $mysettings = My::settings();

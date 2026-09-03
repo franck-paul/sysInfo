@@ -246,8 +246,8 @@ class Templates
                  * @var array<string>
                  */
                 $templates = is_array($templates = $_POST['tpl']) ? $templates : [];
-                foreach ($templates as $v) {
-                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr((string) $v, 0, 2), substr((string) $v, 2, 2)) . DIRECTORY_SEPARATOR . $v;
+                foreach ($templates as $template) {
+                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr((string) $template, 0, 2), substr((string) $template, 2, 2)) . DIRECTORY_SEPARATOR . $template;
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
                     }

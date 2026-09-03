@@ -82,17 +82,17 @@ class StaticCache
             ->render();
         }
 
-        $cache_key = md5(Http::getHostFromURL($blog_host));
-        $cache     = new \Dotclear\Plugin\staticCache\StaticCache($sc_cache_dir, $cache_key);
-        $pattern   = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
+        $cache_key   = md5(Http::getHostFromURL($blog_host));
+        $staticCache = new \Dotclear\Plugin\staticCache\StaticCache($sc_cache_dir, $cache_key);
+        $pattern     = implode(DIRECTORY_SEPARATOR, array_fill(0, 5, '%s'));
 
         $k          = str_split($cache_key, 2);
         $cache_root = $cache_dir;
         $cache_dir  = sprintf($pattern, $cache_dir, $k[0], $k[1], $k[2], $cache_key);
         $caption    = __('List of static cache files in') . ' ' . substr($cache_dir, strlen($cache_root));
-        $mtime      = $cache->getMtime();
+        $mtime      = $staticCache->getMtime();
         if ($mtime !== false) {
-            $caption .= ', ' . __('last update:') . ' ' . (new DateTimeImmutable())->setTimestamp((int) $cache->getMtime())->format('c');
+            $caption .= ', ' . __('last update:') . ' ' . (new DateTimeImmutable())->setTimestamp((int) $staticCache->getMtime())->format('c');
         }
 
         // List of existing cache files

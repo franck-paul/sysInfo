@@ -206,8 +206,8 @@ class Versions
                  */
                 $versions = is_array($versions = $_POST['ver']) ? $versions : [];
                 $list     = [];
-                foreach ($versions as $v) {
-                    $list[] = $v;
+                foreach ($versions as $version) {
+                    $list[] = $version;
                 }
 
                 $sql = new DeleteStatement();

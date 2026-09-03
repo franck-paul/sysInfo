@@ -83,12 +83,12 @@ class Authentications
 
         if (App::backend()->auth()->oauth2() !== false && App::backend()->auth()->oauth2()->services()->getProviders() !== []) {
             // oAuth2 enabled, list providers
-            foreach (App::backend()->auth()->oauth2()->services()->getProviders() as $oauth2_service) {
-                $oauth2_service_id = is_string($oauth2_service_id = $oauth2_service::getId()) ? $oauth2_service_id : '';
-                if ($oauth2_service_id !== '') {
-                    $disabled = App::backend()->auth()->oauth2()->services()->hasDisabledProvider($oauth2_service_id) || !App::backend()->auth()->oauth2()->store()->hasConsumer($oauth2_service_id);
-                    $icon     = is_string($icon = $oauth2_service::getIcon()) ? $icon : '';
-                    $name     = is_string($name = $oauth2_service::getName()) ? $name : '';
+            foreach (App::backend()->auth()->oauth2()->services()->getProviders() as $provider) {
+                $providerId = is_string($providerId = $provider::getId()) ? $providerId : '';
+                if ($providerId !== '') {
+                    $disabled = App::backend()->auth()->oauth2()->services()->hasDisabledProvider($providerId) || !App::backend()->auth()->oauth2()->store()->hasConsumer($providerId);
+                    $icon     = is_string($icon = $provider::getIcon()) ? $icon : '';
+                    $name     = is_string($name = $provider::getName()) ? $name : '';
 
                     $rows[] = (new Tr())
                         ->cols([

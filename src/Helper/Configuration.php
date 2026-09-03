@@ -34,13 +34,13 @@ class Configuration
      */
     public static function render(): string
     {
-        [$release, $config] = self::getConfig();
-        App::lexical()->lexicalKeySort($release, App::lexical()::ADMIN_LOCALE);
-        App::lexical()->lexicalKeySort($config, App::lexical()::ADMIN_LOCALE);
+        [$releases, $configs] = self::getConfig();
+        App::lexical()->lexicalKeySort($releases, App::lexical()::ADMIN_LOCALE);
+        App::lexical()->lexicalKeySort($configs, App::lexical()::ADMIN_LOCALE);
 
         // Affichage des valeurs de release de Dotclear
-        $releaseLines = function () use ($release) {
-            foreach ($release as $key => $value) {
+        $releaseLines = function () use ($releases) {
+            foreach ($releases as $key => $value) {
                 $value = is_string($value) ? CoreHelper::simplifyFilename($value) : var_export($value, true);
                 yield (new Tr())
                     ->cols([
@@ -57,8 +57,8 @@ class Configuration
         };
 
         // Affichage des valeurs de configuration de Dotclear
-        $configLines = function () use ($config) {
-            foreach ($config as $key => $value) {
+        $configLines = function () use ($configs) {
+            foreach ($configs as $key => $value) {
                 yield (new Tr())
                     ->cols([
                         (new Td())
@@ -80,7 +80,7 @@ class Configuration
             ->items([
                 (new Table('dotclear-release'))
                     ->class('sysinfo')
-                    ->caption(new Caption(__('Dotclear release') . ' (' . sprintf('%d', count($release)) . ')'))
+                    ->caption(new Caption(__('Dotclear release') . ' (' . sprintf('%d', count($releases)) . ')'))
                     ->thead((new Thead())
                         ->rows([
                             (new Th())
@@ -98,7 +98,7 @@ class Configuration
                         ])),
                 (new Table('dotclear-config'))
                     ->class('sysinfo')
-                    ->caption(new Caption(__('Dotclear configuration') . ' (' . sprintf('%d', count($config)) . ')'))
+                    ->caption(new Caption(__('Dotclear configuration') . ' (' . sprintf('%d', count($configs)) . ')'))
                     ->thead((new Thead())
                         ->rows([
                             (new Th())

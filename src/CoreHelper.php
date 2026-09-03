@@ -158,9 +158,9 @@ class CoreHelper
                         unlink($tar);
                     }
 
-                    $a = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
-                    $a->addFile($file, $filename . $extension);
-                    $a->compress(\Phar::GZ);
+                    $pharData = new \PharData($tar, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS, null, \Phar::TAR);
+                    $pharData->addFile($file, $filename . $extension);
+                    $pharData->compress(\Phar::GZ);
                     unlink($tar);
                     unlink($file);
 
@@ -246,8 +246,8 @@ class CoreHelper
 
         // Looking for Utility::TPL_ROOT in each plugin's dir
         $plugins = array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true));
-        foreach ($plugins as $k) {
-            $plugin_root = is_string($plugin_root = App::plugins()->moduleInfo((string) $k, 'root')) ? $plugin_root : '';
+        foreach ($plugins as $plugin) {
+            $plugin_root = is_string($plugin_root = App::plugins()->moduleInfo((string) $plugin, 'root')) ? $plugin_root : '';
             if ($plugin_root !== '') {
                 App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [$plugin_root, Utility::TPL_ROOT, $tplset]));
                 // To be exhaustive add also direct directory (without templateset)
@@ -314,12 +314,12 @@ class CoreHelper
             $name  = is_object($callable[0]) ? $class . '-&gt;' . $fn : $class . '::' . $fn;
         } elseif ($callable instanceof \Closure) {
             // Closure
-            $r  = new ReflectionFunction($callable);
-            $ns = (bool) $r->getNamespaceName() ? $r->getNamespaceName() . '::' : '';
-            $fn = $r->getShortName() ?: '__closure__';
+            $reflectionFunction = new ReflectionFunction($callable);
+            $ns                 = (bool) $reflectionFunction->getNamespaceName() ? $reflectionFunction->getNamespaceName() . '::' : '';
+            $fn                 = $reflectionFunction->getShortName() ?: '__closure__';
             if ($ns === '') {
                 // Cope with class::method(...) forms
-                $c = $r->getClosureScopeClass();
+                $c = $reflectionFunction->getClosureScopeClass();
                 if (!is_null($c)) {
                     $ns = $c->getName() . '::';
                 }

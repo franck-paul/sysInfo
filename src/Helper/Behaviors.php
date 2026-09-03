@@ -41,9 +41,9 @@ class Behaviors
         App::lexical()->lexicalKeySort($behaviorsList, App::lexical()::ADMIN_LOCALE);
 
         $behaviourLines = function () use ($behaviorsList) {
-            foreach ($behaviorsList as $behaviorName => $behaviorCallback) {
+            foreach ($behaviorsList as $behaviorName => $behaviorCallbacks) {
                 $first = true;
-                foreach ($behaviorCallback as $callback) {
+                foreach ($behaviorCallbacks as $behaviorCallback) {
                     yield (new Tr())
                         ->cols([
                             (new Td())
@@ -52,7 +52,7 @@ class Behaviors
                             (new Td())
                                 ->class('maximal')
                                 ->items([
-                                    (new Text('code', CoreHelper::callableName($callback))),
+                                    (new Text('code', CoreHelper::callableName($behaviorCallback))),
                                 ]),
                         ]);
                     $first = false;

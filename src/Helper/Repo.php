@@ -168,12 +168,12 @@ class Repo
     /**
      * Render content for a single module
      *
-     * @param      string          $id      The identifier
-     * @param      ModuleDefine    $define  The define
+     * @param      string          $id              The identifier
+     * @param      ModuleDefine    $moduleDefine    The define
      */
-    private static function renderModule(string $id, ModuleDefine $define): Details
+    private static function renderModule(string $id, ModuleDefine $moduleDefine): Details
     {
-        $infos = $define->dump();
+        $infos = $moduleDefine->dump();
 
         $lines = function (array $infos) {
             foreach ($infos as $key => $value) {

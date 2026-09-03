@@ -34,24 +34,24 @@ class AntispamFilters
     {
         // Get antispam filters
         Antispam::initFilters();
-        $fs = Antispam::$filters->getFilters();
+        $filters = Antispam::$filters->getFilters();
 
-        $lines = function () use ($fs) {
-            foreach ($fs as $f) {
+        $lines = function () use ($filters) {
+            foreach ($filters as $filter) {
                 yield (new Tr())
                     ->cols([
                         (new Td())
                             ->class('nowrap')
-                            ->text($f->id),
+                            ->text($filter->id),
                         (new Td())
                             ->class('nowrap')
-                            ->text($f->name),
+                            ->text($filter->name),
                         (new Td())
-                            ->text($f->hasGUI() ? __('yes') : __('no')),
+                            ->text($filter->hasGUI() ? __('yes') : __('no')),
                         (new Td())
                             ->class('maximal')
                             ->items([
-                                (new Text('code', (string) $f->guiURL())),
+                                (new Text('code', (string) $filter->guiURL())),
                             ]),
                     ]);
             }
@@ -59,7 +59,7 @@ class AntispamFilters
 
         return (new Table('antispams'))
             ->class('sysinfo')
-            ->caption(new Caption(__('Antispam filters') . ' (' . sprintf('%d', count($fs)) . ')'))
+            ->caption(new Caption(__('Antispam filters') . ' (' . sprintf('%d', count($filters)) . ')'))
             ->thead((new Thead())
                 ->rows([
                     (new Tr())
