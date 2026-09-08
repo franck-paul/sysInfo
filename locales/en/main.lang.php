@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = '';
 L10n::$locales['Namespaces'] = '';
 L10n::$locales['Display public behaviours'] = '';
 L10n::$locales['Behaviours list'] = '';
-L10n::$locales['Behavior'] = '';
 L10n::$locales['Callback'] = '';
 L10n::$locales['Dotclear release'] = '';
 L10n::$locales['Key'] = '';

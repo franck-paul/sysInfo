@@ -78,7 +78,7 @@ class Behaviors
                                     (new Th())
                                         ->scope('col')
                                         ->class('nowrap')
-                                        ->text(__('Behavior')),
+                                        ->text(__('Name')),
                                     (new Th())
                                         ->scope('col')
                                         ->class('maximal')

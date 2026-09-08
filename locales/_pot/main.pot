@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 sysInfo module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-19 09:21+0200\n"
+"POT-Creation-Date: 2026-09-08 14:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,24 +48,24 @@ msgstr ""
 msgid "Use cache for template engine"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:63
+#: ../git-plugins/sysInfo/src/BackendRest.php:62
 msgid "Releases in attic"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:72
+#: ../git-plugins/sysInfo/src/BackendRest.php:71
 msgid "download"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:75
+#: ../git-plugins/sysInfo/src/BackendRest.php:74
 msgid "information"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:175
+#: ../git-plugins/sysInfo/src/BackendRest.php:174
 #: ../git-plugins/sysInfo/src/Helper/StaticCache.php:119
 msgid "…"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/BackendRest.php:285
+#: ../git-plugins/sysInfo/src/BackendRest.php:284
 msgid "(empty)"
 msgstr ""
 
@@ -105,7 +105,8 @@ msgstr ""
 #: ../git-plugins/sysInfo/src/Helper/AdminUrls.php:70
 #: ../git-plugins/sysInfo/src/Helper/AntispamFilters.php:74
 #: ../git-plugins/sysInfo/src/Helper/Autoload.php:74
-#: ../git-plugins/sysInfo/src/Helper/Exceptions.php:109
+#: ../git-plugins/sysInfo/src/Helper/Behaviors.php:81
+#: ../git-plugins/sysInfo/src/Helper/Exceptions.php:110
 #: ../git-plugins/sysInfo/src/Helper/Folders.php:154
 #: ../git-plugins/sysInfo/src/Helper/Globals.php:139
 #: ../git-plugins/sysInfo/src/Helper/PostTypes.php:77
@@ -203,10 +204,6 @@ msgstr ""
 msgid "Behaviours list"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Behaviors.php:81
-msgid "Behavior"
-msgstr ""
-
 #: ../git-plugins/sysInfo/src/Helper/Behaviors.php:85
 #: ../git-plugins/sysInfo/src/Helper/Rest.php:76
 #: ../git-plugins/sysInfo/src/Helper/UrlHandlers.php:101
@@ -257,7 +254,7 @@ msgstr ""
 msgid "Driver name"
 msgstr ""
 
-#: ../git-plugins/sysInfo/src/Helper/Exceptions.php:101
+#: ../git-plugins/sysInfo/src/Helper/Exceptions.php:102
 msgid "Registered Exceptions"
 msgstr ""
 
