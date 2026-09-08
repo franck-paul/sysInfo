@@ -20,6 +20,8 @@ L10n::$locales['You may use FrontendSession plugin to permit administrator conne
 L10n::$locales['Use HTTP cache'] = 'Utiliser le cache HTTP';
 L10n::$locales['Use cache for template engine'] = 'Utiliser le cache pour le moteur de gabarits';
 L10n::$locales['Releases in attic'] = 'Versions disponibles dans le grenier';
+L10n::$locales['download'] = 'Télécharger le rapport';
+L10n::$locales['information'] = 'Informations système';
 L10n::$locales['…'] = '…';
 L10n::$locales['(empty)'] = '(vide)';
 L10n::$locales['Report'] = 'Rapport';
@@ -51,7 +53,6 @@ L10n::$locales['Root basedir:'] = 'Répertoire racine :';
 L10n::$locales['Namespaces'] = 'Espaces de nom';
 L10n::$locales['Display public behaviours'] = 'Liste des behaviours publics';
 L10n::$locales['Behaviours list'] = 'Liste des behaviours';
-L10n::$locales['Behavior'] = 'Behavior';
 L10n::$locales['Callback'] = 'Fonction de rappel';
 L10n::$locales['Dotclear release'] = 'Release Dotclear';
 L10n::$locales['Key'] = 'Clé';
