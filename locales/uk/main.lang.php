@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = 'Root basedir:';
 L10n::$locales['Namespaces'] = 'Простори імен';
 L10n::$locales['Display public behaviours'] = 'Відображати публічну поведінку';
 L10n::$locales['Behaviours list'] = 'Перелік моделей поведінки';
-L10n::$locales['Behavior'] = 'Поведінка';
 L10n::$locales['Callback'] = 'Зворотній дзвінок';
 L10n::$locales['Dotclear release'] = 'Точний реліз';
 L10n::$locales['Key'] = 'Ключ';

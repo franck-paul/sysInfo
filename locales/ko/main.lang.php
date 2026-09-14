@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = '루트 기반:';
 L10n::$locales['Namespaces'] = '네임스페이스';
 L10n::$locales['Display public behaviours'] = '공개 행동 표시';
 L10n::$locales['Behaviours list'] = '동작 목록';
-L10n::$locales['Behavior'] = '행동';
 L10n::$locales['Callback'] = '콜백';
 L10n::$locales['Dotclear release'] = '도트 클리어 릴리스';
 L10n::$locales['Key'] = '키';

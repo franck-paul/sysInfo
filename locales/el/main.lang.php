@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = 'Root basedir:';
 L10n::$locales['Namespaces'] = 'Χώροι ονομάτων';
 L10n::$locales['Display public behaviours'] = 'Εμφάνιση δημόσιων συμπεριφορών';
 L10n::$locales['Behaviours list'] = 'Κατάλογος συμπεριφορών';
-L10n::$locales['Behavior'] = 'Συμπεριφορά';
 L10n::$locales['Callback'] = 'Callback';
 L10n::$locales['Dotclear release'] = 'Αποδέσμευση Dotclear';
 L10n::$locales['Key'] = 'Βασικό';

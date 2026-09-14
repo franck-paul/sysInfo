@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = '以根为基础：';
 L10n::$locales['Namespaces'] = '命名空间';
 L10n::$locales['Display public behaviours'] = '显示公共行为';
 L10n::$locales['Behaviours list'] = '行为列表';
-L10n::$locales['Behavior'] = '行为习惯';
 L10n::$locales['Callback'] = '回调';
 L10n::$locales['Dotclear release'] = 'Dotclear 释放';
 L10n::$locales['Key'] = '钥匙';

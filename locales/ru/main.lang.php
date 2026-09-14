@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = 'Корневой базис:';
 L10n::$locales['Namespaces'] = 'Пространства имен';
 L10n::$locales['Display public behaviours'] = 'Проявлять публичное поведение';
 L10n::$locales['Behaviours list'] = 'Список поведенческих моделей';
-L10n::$locales['Behavior'] = 'Поведение';
 L10n::$locales['Callback'] = 'Обратный звонок';
 L10n::$locales['Dotclear release'] = 'Выпуск Dotclear';
 L10n::$locales['Key'] = 'Ключ';

@@ -53,7 +53,6 @@ L10n::$locales['Root basedir:'] = 'ルートベーストアです：';
 L10n::$locales['Namespaces'] = '名前空間';
 L10n::$locales['Display public behaviours'] = '公開行動を表示する';
 L10n::$locales['Behaviours list'] = 'ビヘイビアリスト';
-L10n::$locales['Behavior'] = 'ビヘイビア';
 L10n::$locales['Callback'] = 'コールバック';
 L10n::$locales['Dotclear release'] = 'ドットクリアリリース';
 L10n::$locales['Key'] = 'キー';
