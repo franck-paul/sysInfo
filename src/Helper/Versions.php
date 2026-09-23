@@ -216,7 +216,7 @@ class Versions
                     ->where('module' . $sql->in($list));
                 $sql->delete();
             } catch (Exception $e) {
-                $checklist = 'versions';
+                $nextlist = 'versions';
                 App::error()->add($e->getMessage());
             }
 

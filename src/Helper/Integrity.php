@@ -49,7 +49,6 @@ class Integrity
                         $md5_in_digest = $m[1];
                         $filename      = App::config()->dotclearRoot() . '/' . $m[2];
 
-                        $md5_standard        = '';
                         $md5_experimental    = '';
                         $status_standard     = '';
                         $status_experimental = '';

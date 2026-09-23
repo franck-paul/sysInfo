@@ -95,7 +95,6 @@ class BackendRest
     {
         // Return compiled template file content
         $file    = empty($get['file']) ? '' : $get['file'];
-        $content = '';
         $payload = [
             'ret' => false,
         ];

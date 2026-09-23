@@ -171,7 +171,7 @@ class CoreHelper
                     exit;
                 }
             } catch (Exception $e) {
-                $checklist = 'report';
+                $nextlist = 'report';
                 App::error()->add($e->getMessage());
             }
         }
@@ -303,7 +303,6 @@ class CoreHelper
      */
     public static function callableName(mixed $callable): string
     {
-        $name = '';
         if (is_string($callable)) {
             // Simple function name (no namespace)
             $name = $callable;

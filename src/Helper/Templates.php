@@ -57,16 +57,6 @@ class Templates
             $cache_path = substr($cache_path, strlen((string) App::config()->dotclearRoot()));
         }
 
-        $blog_host = App::blog()->host();
-        if (!str_ends_with((string) $blog_host, '/')) {
-            $blog_host .= '/';
-        }
-
-        $blog_url = App::blog()->url();
-        if (str_starts_with((string) $blog_url, (string) $blog_host)) {
-            $blog_url = substr((string) $blog_url, strlen((string) $blog_host));
-        }
-
         $paths = App::frontend()->template()->getPath();
 
         $rows = [];
