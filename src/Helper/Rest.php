@@ -43,19 +43,17 @@ class Rest
 
         $rows = function (array $methods) {
             foreach ($methods as $method => $callback) {
-                if (is_string($method)) {
-                    yield (new Tr())
-                        ->cols([
-                            (new Td())
-                                ->class('nowrap')
-                                ->text($method),
-                            (new Td())
-                                ->class('maximal')
-                                ->items([
-                                    (new Text('code', CoreHelper::callableName($callback))),
-                                ]),
-                        ]);
-                }
+                yield (new Tr())
+                    ->cols([
+                        (new Td())
+                            ->class('nowrap')
+                            ->text($method),
+                        (new Td())
+                            ->class('maximal')
+                            ->items([
+                                (new Text('code', CoreHelper::callableName($callback))),
+                            ]),
+                    ]);
             }
         };
 
