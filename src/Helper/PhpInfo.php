@@ -56,8 +56,8 @@ class PhpInfo
         $values = function (array $section) {
             foreach ($section as $key => $val) {
                 if (is_array($val)) {
-                    $first  = isset($val[0]) && is_string($first = $val[0]) ? $first : '';
-                    $second = isset($val[1]) && is_string($second = $val[1]) ? $second : '';
+                    $first  = $val[0];
+                    $second = $val[1];
                     yield (new Tr())
                         ->cols([
                             (new Td())
@@ -69,7 +69,7 @@ class PhpInfo
                                 ->text($second),
                         ]);
                 } elseif (is_string($key)) {
-                    $file = is_string($file = $val) ? $file : '';
+                    $file = $val;
                     yield (new Tr())
                         ->cols([
                             (new Td())
@@ -80,7 +80,7 @@ class PhpInfo
                                 ->text(CoreHelper::simplifyFilename($file)),
                         ]);
                 } else {
-                    $file = is_string($file = $val) ? $file : '';
+                    $file = $val;
                     yield (new Tr())
                         ->cols([
                             (new Td())

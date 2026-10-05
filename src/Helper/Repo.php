@@ -66,9 +66,7 @@ class Repo
 
         $lines = function (array $data) {
             foreach ($data as $id => $define) {
-                if (is_string($id) && $define instanceof ModuleDefine) {
-                    yield self::renderModule($id, $define);
-                }
+                yield self::renderModule($id, $define);
             }
         };
 

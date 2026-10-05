@@ -44,11 +44,10 @@ class Locales
                 if (is_array($translation)) {
                     $item = (new Ul())
                         ->items([
-                            ... array_map(fn ($value) => (new Li())->text(Html::escapeHTML(is_string($value) ? $value : '')), $translation),
+                            ... array_map(fn (string $value) => (new Li())->text(Html::escapeHTML($value)), $translation),
                         ]);
                 } else {
-                    $translation = is_string($translation) ? $translation : '';
-                    $item        = (new Text(null, Html::escapeHTML($translation)));
+                    $item = (new Text(null, Html::escapeHTML($translation)));
                 }
 
                 yield (new Tr())

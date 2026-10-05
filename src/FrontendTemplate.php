@@ -66,22 +66,20 @@ class FrontendTemplate
     {
         $behaviorsList = function (array $behaviors) {
             foreach ($behaviors as $name => $callbacks) {
-                if (is_array($callbacks)) {
-                    yield (new Li())
-                        ->items([
-                            (new Text(null, (string) $name)),
-                            (new Ul())
-                                ->items([
-                                    ... array_map(
-                                        fn ($callback) => (new Li())
-                                            ->items([
-                                                (new Text('code', CoreHelper::callableName($callback))),
-                                            ]),
-                                        $callbacks
-                                    ),
-                                ]),
-                        ]);
-                }
+                yield (new Li())
+                    ->items([
+                        (new Text(null, (string) $name)),
+                        (new Ul())
+                            ->items([
+                                ... array_map(
+                                    fn ($callback) => (new Li())
+                                        ->items([
+                                            (new Text('code', CoreHelper::callableName($callback))),
+                                        ]),
+                                    $callbacks
+                                ),
+                            ]),
+                    ]);
             }
         };
 
@@ -118,7 +116,6 @@ class FrontendTemplate
 
         $tagsList = function (array $list, bool $block) {
             foreach ($list as $tag) {
-                $tag = is_string($tag) ? $tag : '';
                 if ($tag !== '') {
                     $callback = $block ?
                         App::frontend()->template()->getBlockCallback($tag) :
