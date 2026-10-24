@@ -44,18 +44,18 @@ class PostTypes
                                 App::postTypes()->image($type),
                             ]),
                         (new Td())
-                            ->text(__(App::postTypes()->get($type)->get('label'))),
+                            ->text(__(App::postTypes()->get($type)->getLabel())),
                         (new Td())
                             ->items([
-                                (new Text('code', App::postTypes()->get($type)->get('admin_url'))),
+                                (new Text('code', App::postTypes()->get($type)->getAdminUrl())),
                             ]),
                         (new Td())
                             ->items([
-                                (new Text('code', App::postTypes()->get($type)->get('list_admin_url'))),
+                                (new Text('code', App::postTypes()->get($type)->getListAdminUrl())),
                             ]),
                         (new Td())
                             ->items([
-                                (new Text('code', App::postTypes()->get($type)->get('public_url'))),
+                                (new Text('code', App::postTypes()->get($type)->getPublicUrl())),
                             ]),
                     ]);
             }
