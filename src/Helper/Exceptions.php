@@ -83,7 +83,7 @@ class Exceptions
                             ->text($short),
                         (new Td())
                             ->items([
-                                (new Text('code', (string) $name)),
+                                (new Text('code', $name)),
                             ]),
                         (new Td())
                             ->items([

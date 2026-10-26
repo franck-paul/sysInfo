@@ -53,8 +53,8 @@ class Templates
         $cache_path = (string) Path::real(App::config()->cacheRoot());
         if (str_starts_with($cache_path, $document_root)) {
             $cache_path = substr($cache_path, strlen($document_root));
-        } elseif (str_starts_with($cache_path, (string) App::config()->dotclearRoot())) {
-            $cache_path = substr($cache_path, strlen((string) App::config()->dotclearRoot()));
+        } elseif (str_starts_with($cache_path, App::config()->dotclearRoot())) {
+            $cache_path = substr($cache_path, strlen(App::config()->dotclearRoot()));
         }
 
         $paths = App::frontend()->template()->getPath();
@@ -71,8 +71,8 @@ class Templates
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
-            } elseif (str_starts_with($sub_path, (string) App::config()->dotclearRoot())) {
-                $sub_path = substr($sub_path, strlen((string) App::config()->dotclearRoot()));
+            } elseif (str_starts_with($sub_path, App::config()->dotclearRoot())) {
+                $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
                 if (str_starts_with($sub_path, '/')) {
                     $sub_path = substr($sub_path, 1);
                 }
@@ -80,7 +80,7 @@ class Templates
 
             $path_displayed = false;
             $md5_path       = $path;
-            if (str_starts_with((string) Path::real($path), (string) App::config()->dotclearRoot())) {
+            if (str_starts_with((string) Path::real($path), App::config()->dotclearRoot())) {
                 $md5_path = (string) Path::real($path);
             }
 
@@ -237,7 +237,7 @@ class Templates
                  */
                 $templates = is_array($templates = $_POST['tpl']) ? $templates : [];
                 foreach ($templates as $template) {
-                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr((string) $template, 0, 2), substr((string) $template, 2, 2)) . DIRECTORY_SEPARATOR . $template;
+                    $cache_file = $root_cache . sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($template, 0, 2), substr($template, 2, 2)) . DIRECTORY_SEPARATOR . $template;
                     if (file_exists($cache_file)) {
                         unlink($cache_file);
                     }

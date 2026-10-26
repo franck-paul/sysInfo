@@ -53,7 +53,7 @@ class Locales
                 yield (new Tr())
                     ->cols([
                         (new Td())
-                            ->text(Html::escapeHTML((string) $source)),
+                            ->text(Html::escapeHTML($source)),
                         (new Td())
                             ->class('maximal')
                             ->items([

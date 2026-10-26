@@ -39,10 +39,10 @@ class Permissions
                     ->cols([
                         (new Td())
                             ->class('nowrap')
-                            ->text((string) $key),
+                            ->text($key),
                         (new Td())
                             ->class('maximal')
-                            ->text(__((string) $value)),
+                            ->text(__($value)),
                     ]);
             }
         };

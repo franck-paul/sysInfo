@@ -35,7 +35,7 @@ class FrontendBehaviors
             return true;
         }
 
-        return (bool) App::auth()->check(App::auth()->makePermissions([App::auth()::PERMISSION_ADMIN]), App::blog()->id());
+        return App::auth()->check(App::auth()->makePermissions([App::auth()::PERMISSION_ADMIN]), App::blog()->id());
     }
 
     public static function publicHeadContent(): string

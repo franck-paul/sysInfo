@@ -50,8 +50,8 @@ class TplPaths
                         if (str_starts_with($sub_path, '/')) {
                             $sub_path = substr($sub_path, 1);
                         }
-                    } elseif (str_starts_with($sub_path, (string) App::config()->dotclearRoot())) {
-                        $sub_path = substr($sub_path, strlen((string) App::config()->dotclearRoot()));
+                    } elseif (str_starts_with($sub_path, App::config()->dotclearRoot())) {
+                        $sub_path = substr($sub_path, strlen(App::config()->dotclearRoot()));
                         if (str_starts_with($sub_path, '/')) {
                             $sub_path = substr($sub_path, 1);
                         }

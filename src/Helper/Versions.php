@@ -45,8 +45,8 @@ class Versions
     public static function render(): string
     {
         $versions    = App::version()->getVersions();
-        $distributed = explode(',', (string) App::config()->distributedPlugins());
-        $paths       = explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot());
+        $distributed = explode(',', App::config()->distributedPlugins());
+        $paths       = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
         $obsoletes   = [
             'blowupConfig',
             'daInstaller',
@@ -60,8 +60,8 @@ class Versions
         // which is not a very good idea, but we need to cope with legacy code ;-)
         // Ex: dcRevisions store it as 'dcrevisions'
         // So we will check by ignoring case
-        $plugins  = array_map(static fn (int|string $name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true)));
-        $disabled = array_map(static fn (int|string $name): string => mb_strtolower((string) $name), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
+        $plugins  = array_map(mb_strtolower(...), array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true)));
+        $disabled = array_map(mb_strtolower(...), array_keys(App::plugins()->getDefines(['state' => '!' . ModuleDefine::STATE_ENABLED], true)));
 
         $rows = [];
         App::lexical()->lexicalKeySort($versions, App::lexical()::ADMIN_LOCALE);
@@ -92,9 +92,9 @@ class Versions
                     $input->disabled(true);     // Do not modify distributed module version
                 }
 
-                if (!in_array(mb_strtolower((string) $module), $plugins)) {
+                if (!in_array(mb_strtolower($module), $plugins)) {
                     // Not in activated plugins list
-                    if (in_array(mb_strtolower((string) $module), $disabled)) {
+                    if (in_array(mb_strtolower($module), $disabled)) {
                         // In disabled plugins list
                         $exists = true;
                     } else {

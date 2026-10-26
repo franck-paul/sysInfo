@@ -68,7 +68,7 @@ class FrontendTemplate
             foreach ($behaviors as $name => $callbacks) {
                 yield (new Li())
                     ->items([
-                        (new Text(null, (string) $name)),
+                        (new Text(null, $name)),
                         (new Ul())
                             ->items([
                                 ... array_map(

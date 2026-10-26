@@ -237,7 +237,7 @@ class CoreHelper
 
         $tplset = is_string($tplset) ? $tplset : '';
 
-        $main_plugins_root = explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot());
+        $main_plugins_root = explode(PATH_SEPARATOR, App::config()->pluginsRoot());
         App::frontend()->template()->setPath(
             $tpl_path,
             $main_plugins_root[0] . '/../inc/public' . '/' . Utility::TPL_ROOT . '/' . $tplset,
@@ -247,7 +247,7 @@ class CoreHelper
         // Looking for Utility::TPL_ROOT in each plugin's dir
         $plugins = array_keys(App::plugins()->getDefines(['state' => ModuleDefine::STATE_ENABLED], true));
         foreach ($plugins as $plugin) {
-            $plugin_root = is_string($plugin_root = App::plugins()->moduleInfo((string) $plugin, 'root')) ? $plugin_root : '';
+            $plugin_root = is_string($plugin_root = App::plugins()->moduleInfo($plugin, 'root')) ? $plugin_root : '';
             if ($plugin_root !== '') {
                 App::frontend()->template()->appendPath(implode(DIRECTORY_SEPARATOR, [$plugin_root, Utility::TPL_ROOT, $tplset]));
                 // To be exhaustive add also direct directory (without templateset)
@@ -274,7 +274,7 @@ class CoreHelper
         $bases = array_map(static fn ($path) => Path::real($path), [
             App::config()->dotclearRoot(),                  // Core
             App::blog()->themesPath(),                      // Theme
-            ...explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot()),    // Plugins
+            ...explode(PATH_SEPARATOR, App::config()->pluginsRoot()),    // Plugins
         ]);
         $prefixes = ['[core]', '[theme]', '[plugin]'];
 

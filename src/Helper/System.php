@@ -110,7 +110,7 @@ class System
                 if (App::db()->con()->syntax() === 'mysql') {
                     $server = '';
                     // Look if the server is MySQL or MariaDB
-                    if (str_starts_with((string) App::db()->con()->driver(), 'pdo')) {
+                    if (str_starts_with(App::db()->con()->driver(), 'pdo')) {
                         // Use PDO extension
                         if (App::db()->con()->link() instanceof PDO) {
                             $server = App::db()->con()->link()->getAttribute(PDO::ATTR_SERVER_VERSION);

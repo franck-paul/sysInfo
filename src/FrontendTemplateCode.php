@@ -23,7 +23,7 @@ class FrontendTemplateCode
     public static function sysInfoPageTitle(
         string $_tplset_,
     ): void {
-        echo trim((string) (new \Dotclear\Helper\Html\Form\Span(__('System Information')))
+        echo trim((new \Dotclear\Helper\Html\Form\Span(__('System Information')))
             ->class('dc-tpl-' . $_tplset_)
         ->render());
     }

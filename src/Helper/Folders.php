@@ -53,7 +53,7 @@ class Folders
             ],
             'digest'  => App::config()->digestsRoot(),
             'l10n'    => App::config()->l10nRoot(),
-            'plugins' => explode(PATH_SEPARATOR, (string) App::config()->pluginsRoot()),
+            'plugins' => explode(PATH_SEPARATOR, App::config()->pluginsRoot()),
             'public'  => App::blog()->publicPath(),
             'themes'  => App::blog()->themesPath(),
             'var'     => App::config()->varRoot(),
@@ -118,8 +118,8 @@ class Folders
                             ]);
                     }
 
-                    if (str_starts_with($folder, (string) App::config()->dotclearRoot())) {
-                        $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen((string) App::config()->dotclearRoot()));
+                    if (str_starts_with($folder, App::config()->dotclearRoot())) {
+                        $folder = substr_replace($folder, '<code>DC_ROOT</code> ', 0, strlen(App::config()->dotclearRoot()));
                     }
 
                     yield (new Tr())

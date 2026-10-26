@@ -57,15 +57,15 @@ class Thumbnails
                             ]),
                         (new Td())
                             ->items([
-                                (new Text(null, (string) $info[1])),
+                                (new Text(null, $info[1])),
                             ]),
                         (new Td())
                             ->items([
-                                (new Text(null, (string) $info[2])),
+                                (new Text(null, $info[2])),
                             ]),
                         (new Td())
                             ->items([
-                                (new Text(null, (string) ($info[3] ?? '???'))),
+                                (new Text(null, $info[3] ?? '???')),
                             ]),
                         (new Td())
                             ->items([

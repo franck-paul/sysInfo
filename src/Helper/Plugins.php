@@ -100,7 +100,7 @@ class Plugins
             $lines[] = (new Set())
                 ->items([
                     (new Details('p-' . $id))
-                        ->summary(new Summary((new Strong((string) $id))->render() . $info))
+                        ->summary(new Summary((new Strong($id))->render() . $info))
                         ->items([
                             (new Ul())
                                 ->items($infos),
