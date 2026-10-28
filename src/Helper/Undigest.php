@@ -131,14 +131,14 @@ class Undigest
                 Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'fr'])), // Keep in Makefile
             ];
             foreach ($locales_folders as $locale_folder) {
-                if (!in_array($locale_folder, $keep_locales_folders)) {
+                if (!in_array($locale_folder, $keep_locales_folders, true)) {
                     $ignore_folders[] = $locale_folder;
                 }
             }
         }
 
         $keep_file = function (string $filename) use ($ignore_files, $ignore_folders): bool {
-            if (in_array($filename, $ignore_files)) {
+            if (in_array($filename, $ignore_files, true)) {
                 return false;
             }
 
@@ -186,7 +186,7 @@ class Undigest
 
                     if ($list_primary !== []) {
                         foreach ($list_primary as $filename) {
-                            if (!in_array($filename, $released) && $keep_file($filename)) {
+                            if (!in_array($filename, $released, true) && $keep_file($filename)) {
                                 $unattended[] = $filename;
                             }
                         }
@@ -223,7 +223,7 @@ class Undigest
                         ]);
                     if ($list_secondary !== []) {
                         foreach ($list_secondary as $filename) {
-                            if (!in_array($filename, $released) && $keep_file($filename)) {
+                            if (!in_array($filename, $released, true) && $keep_file($filename)) {
                                 $unattended[] = $filename;
                             }
                         }
@@ -330,7 +330,7 @@ class Undigest
                 continue;
             }
 
-            if (in_array($file, $ignore)) {
+            if (in_array($file, $ignore, true)) {
                 continue;
             }
 
@@ -340,7 +340,7 @@ class Undigest
                 $pathname = implode(DIRECTORY_SEPARATOR, [$path, $file]);
                 $info     = pathinfo($pathname, PATHINFO_EXTENSION);
 
-                if (in_array($info, $ext)) {
+                if (in_array($info, $ext, true)) {
                     // Check if not in extensions to ignore list
                     $keep = true;
                     foreach ($ignore_ext as $needle) {

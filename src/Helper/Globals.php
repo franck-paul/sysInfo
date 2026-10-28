@@ -66,7 +66,7 @@ class Globals
 
         $globals = function ($nonDeprecated = true) use ($variables, $deprecated, $maxLength) {
             foreach ($variables as $variable) {
-                if ($nonDeprecated && !in_array($variable, array_keys($deprecated))) {
+                if ($nonDeprecated && !in_array($variable, array_keys($deprecated), true)) {
                     if (is_array($GLOBALS[$variable])) {
                         /**
                          * @var array<string, mixed>
@@ -112,7 +112,7 @@ class Globals
                                     $content,
                                 ]),
                         ]);
-                } elseif (!$nonDeprecated && in_array($variable, array_keys($deprecated))) {
+                } elseif (!$nonDeprecated && in_array($variable, array_keys($deprecated), true)) {
                     yield (new Tr())
                         ->cols([
                             (new Td())

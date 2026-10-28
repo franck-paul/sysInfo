@@ -62,7 +62,7 @@ class UrlHandlers
                 ]);
             // Other URLs handler
             foreach ($url_handlers as $url_handler_name => $url_handler_parameters) {
-                if (!in_array($url_handler_name, $url_excluded)) {
+                if (!in_array($url_handler_name, $url_excluded, true)) {
                     yield (new Tr())
                         ->cols([
                             (new Td())

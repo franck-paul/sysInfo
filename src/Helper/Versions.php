@@ -85,16 +85,16 @@ class Versions
                 $checkbox->disabled(true);  // Do not delete core version
                 $input->disabled(true);     // Do not modify core version
             } else {
-                if (in_array($module, $distributed)) {
+                if (in_array($module, $distributed, true)) {
                     $class[]  = 'version-distrib';
                     $status[] = __('Distributed');
                     $checkbox->disabled(true);  // Do not delete distributed module version
                     $input->disabled(true);     // Do not modify distributed module version
                 }
 
-                if (!in_array(mb_strtolower($module), $plugins)) {
+                if (!in_array(mb_strtolower($module), $plugins, true)) {
                     // Not in activated plugins list
-                    if (in_array(mb_strtolower($module), $disabled)) {
+                    if (in_array(mb_strtolower($module), $disabled, true)) {
                         // In disabled plugins list
                         $exists = true;
                     } else {

@@ -43,7 +43,7 @@ class Thumbnails
 
         $thumbnails = function () use ($list, $excluded_codes) {
             foreach ($list as $name => $info) {
-                $status = in_array($name, $excluded_codes) ?
+                $status = in_array($name, $excluded_codes, true) ?
                     (new Img('images/check-on.svg'))->class(['mark', 'mark-check-on']) :
                     (new None());
                 yield (new Tr())

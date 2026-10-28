@@ -86,7 +86,7 @@ class Templates
 
             $files = Files::scandir($path);
             foreach ($files as $file) {
-                if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && !in_array($file, $stack)) {
+                if (preg_match('/^(.*)\.(html|xml|xsl)$/', $file, $matches) && !in_array($file, $stack, true)) {
                     $stack[] = $file;
 
                     /**

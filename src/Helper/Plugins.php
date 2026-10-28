@@ -54,7 +54,7 @@ class Plugins
             $infos = [];
             foreach ($m as $key => $val) {
                 $value = print_r($val, true);
-                if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'])) {
+                if (in_array($key, ['requires', 'implies', 'cannot_enable', 'cannot_disable'], true)) {
                     if (is_iterable($val)) {
                         $value = [];
                         foreach ($val as $module) {
@@ -78,7 +78,7 @@ class Plugins
 
                         $value = implode(', ', $value);
                     }
-                } elseif (in_array($key, ['support', 'details', 'repository'])) {
+                } elseif (in_array($key, ['support', 'details', 'repository'], true)) {
                     $value = (new Link())
                         ->href($value)
                         ->text($value)
