@@ -265,7 +265,7 @@ class BackendRest
                             }
                         }
                     }
-                } while (count($dirs));
+                } while (count($dirs) > 0);
 
                 if ($lines === []) {
                     // No more dirs and files → send an empty raw
