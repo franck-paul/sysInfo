@@ -36,7 +36,7 @@ class Frontend
 
         App::behavior()->addBehaviors([
             'publicBreadcrumb' => static function (?string $context): string {
-                if ($context == 'sysinfo') {
+                if ($context === 'sysinfo') {
                     return __('System Information');
                 }
 

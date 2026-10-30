@@ -99,7 +99,7 @@ class BackendRest
             'ret' => false,
         ];
 
-        if ($file != '') {
+        if ($file !== '') {
             // Load content of compiled template file (if exist and if is readable)
             $subpath  = sprintf('%s' . DIRECTORY_SEPARATOR . '%s', substr($file, 0, 2), substr($file, 2, 2));
             $fullpath = Path::real(App::config()->cacheRoot()) . DIRECTORY_SEPARATOR . Template::CACHE_FOLDER . DIRECTORY_SEPARATOR . $subpath . DIRECTORY_SEPARATOR . $file;
@@ -137,7 +137,7 @@ class BackendRest
 
         if (defined('DC_SC_CACHE_DIR')
             && is_string(DC_SC_CACHE_DIR)
-            && $root != ''
+            && $root !== ''
         ) {
             $blog_host = App::blog()->host();
             if (!str_ends_with($blog_host, '/')) {
@@ -206,7 +206,7 @@ class BackendRest
 
         if (defined('DC_SC_CACHE_DIR')
             && is_string(DC_SC_CACHE_DIR)
-            && $root != ''
+            && $root !== ''
         ) {
             $blog_host = App::blog()->host();
             if (!str_ends_with($blog_host, '/')) {
@@ -317,7 +317,7 @@ class BackendRest
             $url = substr($url, strlen($blog_host));
         }
 
-        if ($url != '') {
+        if ($url !== '') {
             $content = md5($url);
             $ret     = true;
         }
@@ -342,7 +342,7 @@ class BackendRest
         $ret     = false;
         $content = '';
 
-        if ($file != ''
+        if ($file !== ''
             && file_exists($file)
             && is_readable($file)
         ) {
