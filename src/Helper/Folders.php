@@ -73,7 +73,8 @@ class Folders
                     $err      = '';
                     $statuses = [];
                     $folder   = is_string($folder) ? $folder : '';
-                    if ($folder !== '' && $path = Path::real($folder)) {
+                    $path     = $folder !== '' ? Path::real($folder) : false;
+                    if ($folder !== '' && $path !== false) {
                         $writable = is_writable($path);
                         $touch    = true;
                         if ($writable && is_dir($path)) {

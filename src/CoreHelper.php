@@ -134,7 +134,8 @@ class CoreHelper
                         unlink($file);
                     }
 
-                    if ($fp = fopen($file, 'wt')) {
+                    $fp = fopen($file, 'wt');
+                    if ($fp !== false) {
                         $html = is_string($html = $_POST['htmlreport']) ? $html : '';
                         // Begin HTML Document
                         $report = Html::decodeEntities($html);
@@ -278,13 +279,14 @@ class CoreHelper
         ]);
         $prefixes = ['[core]', '[theme]', '[plugin]'];
 
-        if ($real && ($new = Path::real($file))) {
+        $new = Path::real($file);
+        if ($real && $new !== false) {
             $file = $new;
         }
 
         foreach ($bases as $index => $base) {
             // Filter bases (beginning of path) of file
-            if (strstr($file, (string) $base)) {
+            if (str_contains($file, (string) $base)) {
                 $file = str_replace((string) $base, $prefixes[min($index, 2)], $file);
             }
         }

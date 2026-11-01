@@ -122,7 +122,7 @@ class System
 
                     $server = is_string($server) ? $server : '';
                     if ($server !== '') {
-                        return ' - ' . sprintf(__('%s server'), $toStrong(stristr($server, 'mariadb') ? 'MariaDB' : 'MySQL'));
+                        return ' - ' . sprintf(__('%s server'), $toStrong(stristr($server, 'mariadb') !== false ? 'MariaDB' : 'MySQL'));
                     }
                 }
             } catch (Exception) {
@@ -182,7 +182,7 @@ class System
                                     ->text('DIRECTORY_SEPARATOR: ' . $toStrong($toCode(DIRECTORY_SEPARATOR))),
                                 (new Li())
                                     ->text('PATH_SEPARATOR: ' . $toStrong($toCode(PATH_SEPARATOR))),
-                                session_id() ?
+                                session_id() !== false ?
                                     (new Li())
                                         ->text('session_id(): ' . $toStrong($toCode(session_id()))) :
                                     (new None()),
@@ -211,52 +211,52 @@ class System
         // Update info
         $versions = [];
         $path     = Path::real(App::config()->cacheRoot() . '/versions');
-        if ($path && is_dir($path)) {
+        if ($path !== false && is_dir($path)) {
             $channels = ['stable', 'testing', 'unstable'];
             foreach ($channels as $channel) {
                 $file = $path . '/dotclear-' . $channel;
-                if (file_exists($file)
-                    && ($content = @unserialize((string) @file_get_contents($file)))
-                    && (is_array($content))
-                ) {
-                    $version  = is_string($version = $content['version'] ?? '') ? $version : '';
-                    $href     = is_string($href = $content['href'] ?? '') ? $href : '';
-                    $checksum = is_string($checksum = $content['checksum'] ?? '') ? $checksum : '';
-                    $info     = is_string($info = $content['info'] ?? '') ? $info : '';
-                    $php      = is_string($php = $content['php'] ?? '') ? $php : '';
-                    $warning  = is_bool($warning = $content['warning'] ?? false) && $warning;
+                if (file_exists($file)) {
+                    $content = @unserialize((string) @file_get_contents($file));
+                    if (is_array($content)) {
+                        $version  = is_string($version = $content['version'] ?? '') ? $version : '';
+                        $href     = is_string($href = $content['href'] ?? '') ? $href : '';
+                        $checksum = is_string($checksum = $content['checksum'] ?? '') ? $checksum : '';
+                        $info     = is_string($info = $content['info'] ?? '') ? $info : '';
+                        $php      = is_string($php = $content['php'] ?? '') ? $php : '';
+                        $warning  = is_bool($warning = $content['warning'] ?? false) && $warning;
 
-                    $versions[] = (new Li())
-                        ->items([
-                            (new Text(null, __('Channel: ') . $toStrong($channel) . ' (' . date(DATE_ATOM, (int) filemtime($file)) . ')')),
-                            (new Ul())
-                                ->items([
-                                    (new Li())
-                                        ->text(__('version: ') . $toStrong($version)),
-                                    (new Li())
-                                        ->items([
-                                            (new Text(null, __('href: '))),
-                                            (new Link())
-                                                ->href($href)
-                                                ->text(Html::escapeHTML($href)),
-                                        ]),
-                                    (new Li())
-                                        ->text(__('checksum: ') . $toCode($checksum)),
-                                    (new Li())
-                                        ->items([
-                                            (new Text(null, __('info: '))),
-                                            (new Link())
-                                                ->href($info)
-                                                ->text(Html::escapeHTML($info)),
-                                        ]),
-                                    (new Li())
-                                        ->text(__('PHP min: ') . $toStrong($php)),
-                                    isset($content['warning']) ?
+                        $versions[] = (new Li())
+                            ->items([
+                                (new Text(null, __('Channel: ') . $toStrong($channel) . ' (' . date(DATE_ATOM, (int) filemtime($file)) . ')')),
+                                (new Ul())
+                                    ->items([
                                         (new Li())
-                                            ->text(__('Warning: ') . $toStrong($warning ? __('Yes') : __('No'))) :
-                                        (new None()),
-                                ]),
-                        ]);
+                                            ->text(__('version: ') . $toStrong($version)),
+                                        (new Li())
+                                            ->items([
+                                                (new Text(null, __('href: '))),
+                                                (new Link())
+                                                    ->href($href)
+                                                    ->text(Html::escapeHTML($href)),
+                                            ]),
+                                        (new Li())
+                                            ->text(__('checksum: ') . $toCode($checksum)),
+                                        (new Li())
+                                            ->items([
+                                                (new Text(null, __('info: '))),
+                                                (new Link())
+                                                    ->href($info)
+                                                    ->text(Html::escapeHTML($info)),
+                                            ]),
+                                        (new Li())
+                                            ->text(__('PHP min: ') . $toStrong($php)),
+                                        isset($content['warning']) ?
+                                            (new Li())
+                                                ->text(__('Warning: ') . $toStrong($warning ? __('Yes') : __('No'))) :
+                                            (new None()),
+                                    ]),
+                            ]);
+                    }
                 }
             }
         }

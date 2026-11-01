@@ -42,7 +42,7 @@ class Integrity
 
                 if ($contents !== false) {
                     foreach ($contents as $content) {
-                        if (!preg_match('#^([\da-f]{32})\s+(.+?)$#', $content, $m)) {
+                        if (!(bool) preg_match('#^([\da-f]{32})\s+(.+?)$#', $content, $m)) {
                             continue;
                         }
 
@@ -74,7 +74,7 @@ class Integrity
                             $filecontent = (string) file_get_contents($filename);
                             $filecontent = preg_replace('/(*BSR_ANYCRLF)\R/', '\n', $filecontent);
 
-                            if ($filecontent) {
+                            if (is_string($filecontent) && $filecontent !== '') {
                                 $md5_experimental    = md5($filecontent);
                                 $status_experimental = $md5_experimental === $md5_in_digest ? '' : 'version-disabled';
                             }

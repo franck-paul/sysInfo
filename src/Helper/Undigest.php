@@ -125,7 +125,7 @@ class Undigest
 
         // Add optional locales to ignored folders
         $locales_folders = glob((string) Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', '*']), false), GLOB_ONLYDIR);
-        if ($locales_folders) {
+        if ($locales_folders !== false) {
             $keep_locales_folders = [
                 Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'en'])), // Keep in Makefile
                 Path::real(implode(DIRECTORY_SEPARATOR, [$root, 'locales', 'fr'])), // Keep in Makefile
@@ -143,7 +143,7 @@ class Undigest
             }
 
             foreach ($ignore_folders as $ignore_folder) {
-                if ($ignore_folder && str_starts_with($filename, $ignore_folder)) {
+                if ($ignore_folder !== false && str_starts_with($filename, $ignore_folder)) {
                     return false;
                 }
             }
@@ -159,7 +159,7 @@ class Undigest
             $contents = file($digests_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             if ($contents !== false) {
                 foreach ($contents as $content) {
-                    if (!preg_match('#^([\da-f]{32})\s+(.+)$#', $content, $m)) {
+                    if (!(bool) preg_match('#^([\da-f]{32})\s+(.+)$#', $content, $m)) {
                         continue;
                     }
 

@@ -38,7 +38,6 @@ use Dotclear\Module\ModuleDefine;
 use Dotclear\Module\StoreParser;
 use Dotclear\Module\StoreReader;
 use Dotclear\Module\Themes;
-use Dotclear\Plugin\improve\Module;
 use Dotclear\Plugin\sysInfo\CoreHelper;
 
 class Repo
@@ -55,14 +54,14 @@ class Repo
     {
         [$parser, $in_cache, $cache_file] = self::parseRepo($use_cache, $use_cache_only, $url);
 
-        $defines = $parser ? $parser->getDefines() : [];
+        $defines = $parser instanceof StoreParser ? $parser->getDefines() : [];
         $data    = [];
         foreach ($defines as $define) {
             $data[$define->getId()] = $define;
         }
 
         App::lexical()->lexicalKeySort($data, App::lexical()::ADMIN_LOCALE);
-        $count = $parser ? ' (' . sprintf('%d', count($data)) . ')' : '';
+        $count = $parser instanceof StoreParser ? ' (' . sprintf('%d', count($data)) . ')' : '';
 
         $lines = function (array $data) {
             foreach ($data as $id => $define) {
@@ -73,7 +72,7 @@ class Repo
         return (new Set())
             ->items([
                 (new Text('h3', $title . __(' from: ') . ($in_cache ? __('cache') . ' - ' . CoreHelper::simplifyFilename($cache_file) : $url) . $count)),
-                $parser ?
+                $parser instanceof StoreParser ?
                 (new Set())
                     ->items([
                         (new Details('expand-all'))
@@ -96,27 +95,26 @@ class Repo
     {
         $rows = [];
         foreach ($modules as $module) {
-            $repository = $module instanceof ModuleDefine && ($repository = $module->get('repository')) ? $repository : '';
-            if (is_string($repository)
-                && $repository !== ''
+            $repository = $module instanceof ModuleDefine && is_string($repository = $module->get('repository')) ? $repository : '';
+            if ($repository !== ''
                 && App::config()->allowRepositories()
             ) {
                 $url = str_ends_with($repository, '/dcstore.xml') ? $repository : Http::concatURL($repository, 'dcstore.xml');
 
                 [$parser, $in_cache, $cache_file] = self::parseRepo($use_cache, $use_cache_only, $url);
 
-                $defines   = $parser ? $parser->getDefines() : [];
+                $defines   = $parser instanceof StoreParser ? $parser->getDefines() : [];
                 $raw_datas = [];
                 foreach ($defines as $define) {
                     $raw_datas[$define->getId()] = $define;
                 }
 
                 App::lexical()->lexicalKeySort($raw_datas, App::lexical()::ADMIN_LOCALE);
-                $count = $parser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
+                $count = $parser instanceof StoreParser && count($raw_datas) > 1 ? ' (' . sprintf('%d', count($raw_datas)) . ')' : '';
 
                 $label = $url . ' ' . ($in_cache ? __('in cache') . ' - ' . CoreHelper::simplifyFilename($cache_file) : '') . $count;
 
-                if (!$parser) {
+                if (!$parser instanceof StoreParser) {
                     $details = (new Note())
                         ->text(__('Repository is unreachable'));
                 } else {
