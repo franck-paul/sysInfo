@@ -64,7 +64,7 @@ class Globals
             'p_url'     => '2.23',
         ];
 
-        $globals = function ($nonDeprecated = true) use ($variables, $deprecated, $maxLength) {
+        $globals = function (bool $nonDeprecated = true) use ($variables, $deprecated, $maxLength) {
             foreach ($variables as $variable) {
                 if ($nonDeprecated && !in_array($variable, array_keys($deprecated), true)) {
                     if (is_array($GLOBALS[$variable])) {
